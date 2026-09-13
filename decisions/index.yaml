@@ -80,3 +80,7 @@ records:
     file: ADR-0020.md
     title: Keep the industrial-gas product stack independent from the native C++ core unless domain needs justify coupling
     status: accepted
+  - id: ADR-0021
+    file: ADR-0021.md
+    title: Permit jason-brother to merge validated batch branches after user-confirmed local validation
+    status: accepted
