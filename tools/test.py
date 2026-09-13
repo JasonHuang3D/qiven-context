@@ -8,6 +8,8 @@ class ValidatorTests(unittest.TestCase):
     def copy(self):
         d=Path(tempfile.mkdtemp())/"repo"; shutil.copytree(ROOT,d,ignore=shutil.ignore_patterns(".venv","__pycache__",".git")); self.addCleanup(shutil.rmtree,d.parent,ignore_errors=True); return d
     def errors(self,d): return "\n".join(validate_repository(d))
+    def rewrite_front_matter(self,p,mutate):
+        txt=p.read_text(encoding="utf-8"); raw,body=txt[4:].split("\n---\n",1); data=yaml.safe_load(raw); mutate(data); rendered=yaml.safe_dump(data,sort_keys=False,allow_unicode=True).rstrip(); p.write_text(f"---\n{rendered}\n---\n{body}",encoding="utf-8")
     def sample_memory(self,d,name="MEM-20260913T010203Z-A1B2C3"):
         p=d/"memory/records"/f"{name}.md"; p.write_text(f"""---
 id: {name}
@@ -32,9 +34,12 @@ superseded_by: []
     def test_invalid_kind(self): d=self.copy(); p=self.sample_memory(d); p.write_text(p.read_text().replace("kind: observation","kind: decision")); self.assertIn("not one of",self.errors(d))
     def test_filename_id_mismatch(self): d=self.copy(); p=self.sample_memory(d); p.rename(p.with_name("MEM-20260913T010203Z-FFFFFF.md")); self.assertIn("filename/id mismatch",self.errors(d))
     def test_duplicate_canonical_id(self): d=self.copy(); p=self.sample_memory(d); q=d/"memory/records/duplicate.md"; q.write_text(p.read_text()); self.assertIn("duplicate canonical ID",self.errors(d))
-    def test_obligation_without_trigger(self): d=self.copy(); p=next((d/"obligations").glob("OBL-*.md")); txt=p.read_text(); txt=re.sub(r"trigger:\n(?:  .+\n)+(?=completion:)","",txt); p.write_text(txt); self.assertIn("trigger",self.errors(d))
-    def test_nonmanual_trigger_without_value(self): d=self.copy(); p=next((d/"obligations").glob("OBL-*.md")); txt=p.read_text(); txt=re.sub(r"  value: .+\n","",txt, count=1); p.write_text(txt); self.assertIn("'value' is a required property",self.errors(d))
-    def test_manual_trigger_without_reason(self): d=self.copy(); p=next(p for p in (d/"obligations").glob("OBL-*.md") if "type: after" in p.read_text()); txt=p.read_text().replace("type: after","type: manual"); txt=re.sub(r"  value: .+\n","",txt, count=1); p.write_text(txt); self.assertIn("reason",self.errors(d))
+    def test_obligation_without_trigger(self):
+        d=self.copy(); p=d/"obligations/OBL-20260913T152950Z-D4E5F6.md"; self.rewrite_front_matter(p,lambda data:data.pop("trigger")); self.assertIn("trigger",self.errors(d))
+    def test_nonmanual_trigger_without_value(self):
+        d=self.copy(); p=d/"obligations/OBL-20260913T152950Z-D4E5F6.md"; self.rewrite_front_matter(p,lambda data:data["trigger"].pop("value")); self.assertIn("'value' is a required property",self.errors(d))
+    def test_manual_trigger_without_reason(self):
+        d=self.copy(); p=d/"obligations/OBL-20260913T152950Z-D4E5F6.md"; self.rewrite_front_matter(p,lambda data:data.__setitem__("trigger",{"type":"manual"})); self.assertIn("reason",self.errors(d))
     def test_invalid_adr_status(self): d=self.copy(); p=d/"decisions/ADR-0001.md"; p.write_text(p.read_text().replace("status: accepted","status: obsolete")); self.assertIn("not one of",self.errors(d))
     def test_missing_adr_heading(self): d=self.copy(); p=d/"decisions/ADR-0001.md"; p.write_text(p.read_text().replace("## Provenance","## Sources")); self.assertIn("missing ADR heading Provenance",self.errors(d))
     def test_bad_jsonl_event(self): d=self.copy(); p=next((d/"ledger/events").glob("*.jsonl")); p.write_text(p.read_text()+"{bad}\n"); self.assertIn("bad JSONL event",self.errors(d))
