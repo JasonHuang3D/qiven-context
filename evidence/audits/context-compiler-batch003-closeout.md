@@ -50,6 +50,12 @@ The first validation of the closeout-state checkpoint exposed a brittle validato
 
 The obligation schema tests now mutate one named fixture structurally through parsed YAML front matter. The missing-trigger, missing-nonmanual-value, and missing-manual-reason cases therefore test the validator contract directly instead of depending on directory enumeration order or YAML formatting. No validator rule or test coverage was weakened.
 
+## Windows invalid-executable dialog correction
+
+The Windows Python-resolution suite intentionally tests rejection of an invalid existing virtual environment. Its historical fixture created a zero-byte file named `.venv\Scripts\python.exe`; `bootstrap.cmd` then probed that path as an executable. Windows handled the corrupt PE launch outside redirected stdout/stderr and could display the modal `This app can't run on your PC` dialog, making an otherwise automated test appear to launch an unexpected application.
+
+The fixture now places a real Windows executable that is deliberately not Python at the same path. The bootstrap probe still fails and the same rejection behavior remains covered, but the Windows loader no longer needs to raise a GUI error dialog. Tests that exercise failure paths should prefer deterministic process-level failures over malformed executables that escape automation through operating-system UI.
+
 ## Final merge gate
 
 This closeout checkpoint changes canonical state after the already validated implementation head, so the resulting exact closeout head must receive one final local validation before merge. Under ADR-0021, after the project owner reports that exact closeout head as passing, jason-brother may perform the exact remote no-ff merge into `main` after remote verification. Any later branch commit invalidates that PASS.
