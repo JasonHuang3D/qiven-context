@@ -12,6 +12,11 @@ import time
 ROOT = Path(__file__).resolve().parents[1]
 HEARTBEAT_SECONDS = 5.0
 POLL_SECONDS = 0.05
+ANSI_GREEN = "\x1b[32m"
+ANSI_RED = "\x1b[31m"
+ANSI_YELLOW = "\x1b[33m"
+ANSI_CYAN = "\x1b[36m"
+ANSI_RESET = "\x1b[0m"
 
 
 @dataclass
@@ -33,6 +38,47 @@ SUITES = (
     SuiteRun("context-acceptance", "tools/test_context_acceptance.py"),
     SuiteRun("windows-python-resolution", "tools/test_windows_python.py", windows_only=True),
 )
+
+
+def _env_flag(name: str) -> bool:
+    return os.environ.get(name, "").strip().casefold() in {"1", "true", "yes", "on"}
+
+
+def _enable_color() -> bool:
+    if _env_flag("QIVEN_TEST_NO_COLOR") or not sys.stdout.isatty():
+        return False
+    if os.name != "nt":
+        return True
+    try:
+        import ctypes
+
+        kernel32 = ctypes.windll.kernel32
+        handle = kernel32.GetStdHandle(-11)
+        mode = ctypes.c_uint()
+        if not kernel32.GetConsoleMode(handle, ctypes.byref(mode)):
+            return False
+        return bool(kernel32.SetConsoleMode(handle, mode.value | 0x0004))
+    except Exception:
+        return False
+
+
+COLOR = _enable_color()
+
+
+def _paint(text: str, color: str) -> str:
+    return f"{color}{text}{ANSI_RESET}" if COLOR else text
+
+
+def _tag(kind: str) -> str:
+    if kind == "ok":
+        return _paint("[ OK ]", ANSI_GREEN)
+    if kind == "fail":
+        return _paint("[FAIL]", ANSI_RED)
+    if kind == "wait":
+        return _paint("[WAIT]", ANSI_YELLOW)
+    if kind == "run":
+        return _paint("[ RUN]", ANSI_CYAN)
+    return f"[{kind.upper():>4}]"
 
 
 def _child_environment() -> dict[str, str]:
@@ -84,7 +130,7 @@ def _heartbeat(active: list[SuiteRun], pending: set[str], now: float) -> None:
     completed = len(active) - len(pending)
     suffix = ", ".join(running) if running else "finishing"
     print(
-        f"[test] be patient... {completed}/{len(active)} suites complete; running: {suffix}",
+        f"{_tag('wait')} be patient... {completed}/{len(active)} suites complete; running: {suffix}",
         flush=True,
     )
 
@@ -111,16 +157,13 @@ def _run_parallel(suites: list[SuiteRun], log_dir: Path) -> None:
             active.append(suite)
 
         names = ", ".join(suite.name for suite in active)
+        print(f"{_tag('run')} started {len(active)} suites in parallel: {names}", flush=True)
         print(
-            f"[test] started {len(active)} suites in parallel: {names}",
-            flush=True,
-        )
-        print(
-            f"[test] detailed suite output is buffered; heartbeat every {HEARTBEAT_SECONDS:.0f}s.",
+            f"{_tag('run')} detailed logs are buffered; heartbeat every {HEARTBEAT_SECONDS:.0f}s.",
             flush=True,
         )
 
-        pending = set(suite.name for suite in active)
+        pending = {suite.name for suite in active}
         next_heartbeat = time.monotonic() + HEARTBEAT_SECONDS
         while pending:
             for suite in active:
@@ -132,8 +175,9 @@ def _run_parallel(suites: list[SuiteRun], log_dir: Path) -> None:
                     suite.finished_at = time.monotonic()
                     pending.remove(suite.name)
                     duration = max(0.0, suite.finished_at - suite.started_at)
+                    tag = _tag("ok" if returncode == 0 else "fail")
                     print(
-                        f"[test] {suite.name}: {_status_text(returncode)} after {duration:.2f}s; detailed log buffered.",
+                        f"{tag} {suite.name}: {_status_text(returncode)} after {duration:.2f}s",
                         flush=True,
                     )
 
@@ -156,13 +200,13 @@ def _run_parallel(suites: list[SuiteRun], log_dir: Path) -> None:
 def _run_serial(suites: list[SuiteRun], log_dir: Path) -> None:
     env = _child_environment()
     enabled = [suite for suite in suites if not suite.skipped]
-    print(f"[test] running {len(enabled)} suites serially.", flush=True)
+    print(f"{_tag('run')} running {len(enabled)} suites serially.", flush=True)
     for suite in suites:
         if suite.skipped:
             continue
         suite.log_path = log_dir / f"{suite.name}.log"
         suite.started_at = time.monotonic()
-        print(f"[test] starting {suite.name}...", flush=True)
+        print(f"{_tag('run')} starting {suite.name}...", flush=True)
         with suite.log_path.open("w", encoding="utf-8", errors="replace") as handle:
             completed = subprocess.run(
                 [sys.executable, suite.script],
@@ -174,36 +218,60 @@ def _run_serial(suites: list[SuiteRun], log_dir: Path) -> None:
         suite.finished_at = time.monotonic()
         suite.returncode = completed.returncode
         duration = max(0.0, suite.finished_at - suite.started_at)
-        print(
-            f"[test] {suite.name}: {_status_text(completed.returncode)} after {duration:.2f}s; detailed log buffered.",
-            flush=True,
-        )
+        tag = _tag("ok" if completed.returncode == 0 else "fail")
+        print(f"{tag} {suite.name}: {_status_text(completed.returncode)} after {duration:.2f}s", flush=True)
+
+
+def _print_log(suite: SuiteRun) -> None:
+    if suite.log_path is None or not suite.log_path.exists():
+        return
+    text = suite.log_path.read_text(encoding="utf-8", errors="replace")
+    if text:
+        print(text, end="" if text.endswith("\n") else "\n")
 
 
 def _print_results(suites: list[SuiteRun], wall_seconds: float, serial: bool) -> int:
-    failures = 0
+    failures = [suite for suite in suites if not suite.skipped and suite.returncode != 0]
+    verbose = _env_flag("QIVEN_TEST_VERBOSE")
+
+    print("\n=== TEST SUMMARY ===")
     for suite in suites:
         if suite.skipped:
-            print(f"\n=== {suite.name}: SKIP (non-Windows host) ===")
+            print(f"[SKIP] {suite.name}: non-Windows host")
             continue
         duration = max(0.0, suite.finished_at - suite.started_at)
-        passed = suite.returncode == 0
-        status = "PASS" if passed else f"FAIL({suite.returncode})"
-        print(f"\n=== {suite.name}: {status} [{duration:.2f}s] ===")
-        if suite.log_path is not None and suite.log_path.exists():
-            text = suite.log_path.read_text(encoding="utf-8", errors="replace")
-            if text:
-                print(text, end="" if text.endswith("\n") else "\n")
-        if not passed:
-            failures += 1
+        tag = _tag("ok" if suite.returncode == 0 else "fail")
+        print(f"{tag} {suite.name:<28} {duration:6.2f}s")
+
+    if failures:
+        print("\n=== FAILED SUITE LOGS ===")
+        for suite in failures:
+            print(f"\n{_tag('fail')} {suite.name} detailed output")
+            print("-" * 72)
+            _print_log(suite)
+            print("-" * 72)
+    elif verbose:
+        print("\n=== VERBOSE SUITE LOGS ===")
+        for suite in suites:
+            if not suite.skipped:
+                print(f"\n{_tag('ok')} {suite.name} detailed output")
+                print("-" * 72)
+                _print_log(suite)
+                print("-" * 72)
+
     mode = "serial" if serial else "parallel"
-    print(f"\nTest suites complete: mode={mode}, wall={wall_seconds:.2f}s, failures={failures}")
+    final_tag = _tag("fail" if failures else "ok")
+    print(
+        f"\n{final_tag} Test suites complete: mode={mode}, wall={wall_seconds:.2f}s, failures={len(failures)}"
+    )
+    if not failures and not verbose:
+        print("      Set QIVEN_TEST_VERBOSE=1 to print passing-suite logs.")
     return 1 if failures else 0
 
 
 def main() -> int:
     suites = _enabled_suites()
-    serial = os.environ.get("QIVEN_TEST_SERIAL", "").strip().casefold() in {"1", "true", "yes", "on"}
+    serial = _env_flag("QIVEN_TEST_SERIAL")
     started = time.monotonic()
     with tempfile.TemporaryDirectory(prefix="qiven-context-tests-") as temp:
         log_dir = Path(temp)
@@ -213,7 +281,7 @@ def main() -> int:
             else:
                 _run_parallel(suites, log_dir)
         except KeyboardInterrupt:
-            print("\nTest run interrupted; child suites were terminated.", file=sys.stderr, flush=True)
+            print(f"\n{_tag('fail')} Test run interrupted; child suites were terminated.", file=sys.stderr, flush=True)
             return 130
         wall_seconds = time.monotonic() - started
         return _print_results(suites, wall_seconds, serial)
