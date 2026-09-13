@@ -1,6 +1,8 @@
 schema_version: 1
 purpose: 'Genesis Import source inventory and evidence limitations'
-status: 'active'
+status: 'complete'
+completed_at: '2026-09-13T18:58:55Z'
+completion_note: 'All six planned review domains received normal extraction and reasoning-residue passes to the extent available; remaining evidence gaps are explicitly recorded in the slice audits and obligations.'
 
 sources:
   - id: 'SRC-LIVE-GIT'
@@ -135,21 +137,27 @@ sources:
 review_plan:
   - order: 1
     domain: 'collaboration-git-ci-worker-protocol'
+    status: 'complete'
     required_sources: ['SRC-CURRENT-SESSION', 'SRC-PRIOR-SESSION-SUMMARIES', 'SRC-LIVE-GIT', 'SRC-REPO-DOCS', 'SRC-WORKER-HANDOFF', 'SRC-CI']
   - order: 2
     domain: 'foundation'
+    status: 'complete'
     required_sources: ['SRC-PRIOR-SESSION-SUMMARIES', 'SRC-LIVE-GIT', 'SRC-REPO-DOCS', 'SRC-WORKER-HANDOFF', 'SRC-CI']
   - order: 3
     domain: 'devkit'
+    status: 'complete'
     required_sources: ['SRC-CURRENT-SESSION', 'SRC-PRIOR-SESSION-SUMMARIES', 'SRC-LIVE-GIT', 'SRC-REPO-DOCS', 'SRC-WORKER-HANDOFF', 'SRC-CI']
   - order: 4
     domain: 'math'
+    status: 'complete'
     required_sources: ['SRC-CURRENT-SESSION', 'SRC-PRIOR-SESSION-SUMMARIES', 'SRC-LIVE-GIT', 'SRC-REPO-DOCS', 'SRC-WORKER-HANDOFF', 'SRC-CI']
   - order: 5
     domain: 'ecosystem-roadmap-cad-robotics-gas'
+    status: 'complete'
     required_sources: ['SRC-CURRENT-SESSION', 'SRC-PRIOR-SESSION-SUMMARIES', 'SRC-USER-STATEMENTS']
   - order: 6
     domain: 'cross-domain-residue'
+    status: 'complete'
     required_sources: ['SRC-CURRENT-SESSION', 'SRC-PRIOR-SESSION-SUMMARIES', 'SRC-QIVEN-CONTEXT-LEDGER']
 
 completion_rule: 'Genesis Import is not complete until every review_plan domain has received both a normal extraction pass and a reasoning-residue pass, or a documented evidence-access limitation explains why it could not.'
