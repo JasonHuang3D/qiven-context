@@ -436,7 +436,11 @@ def _record_relevance(record: CanonicalRecord, query: Mapping[str, Any]) -> tupl
     content_hits = sorted(_expanded_terms(_record_search_text(record)) & qterms)
     content_only = [term for term in content_hits if term not in title_hits]
     if content_only:
-        score += min(24, 8 * len(content_only))
+        # Body/prose overlap is intentionally a weak booster. It must not select
+        # a record by itself because cross-domain ADRs routinely mention other
+        # repositories in context/alternatives. Stronger metadata/title signals
+        # must carry a record across SELECTION_THRESHOLD.
+        score += min(16, 4 * len(content_only))
         _add_reason(reasons, "content_match", ", ".join(content_only[:5]))
 
     return score, reasons
