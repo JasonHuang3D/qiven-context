@@ -20,3 +20,7 @@ records:
     file: MEM-20260913T172118Z-71F0AC.md
     title: qiven-context must not self-pin its live main SHA inside canonical state
     status: active
+  - id: MEM-20260913T180134Z-E3C993
+    file: MEM-20260913T180134Z-E3C993.md
+    title: Recurring workflow ambiguity should be codified or automated rather than left to session memory
+    status: active

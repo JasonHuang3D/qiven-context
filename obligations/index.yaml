@@ -12,3 +12,11 @@ records:
     file: OBL-20260913T152950Z-0A1B2C.md
     title: Context compiler + obligation retrieval implementation
     status: deferred
+  - id: OBL-20260913T180134Z-C1A771
+    file: OBL-20260913T180134Z-C1A771.md
+    title: Verify real GitHub Actions concurrency cancellation
+    status: deferred
+  - id: OBL-20260913T180134Z-D2B882
+    file: OBL-20260913T180134Z-D2B882.md
+    title: Improve skipped matrix job naming when CI presentation is next touched
+    status: deferred
