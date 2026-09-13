@@ -60,3 +60,15 @@ records:
     file: OBL-20260913T183819Z-9A4F21.md
     title: Reconfirm robotics versus native-physics ownership before creating qiven-physics
     status: deferred
+  - id: OBL-20260913T185050Z-2CAF31
+    file: OBL-20260913T185050Z-2CAF31.md
+    title: Standardize collision-resistant canonical ID issuance before automating record creation
+    status: deferred
+  - id: OBL-20260913T185050Z-A020B1
+    file: OBL-20260913T185050Z-A020B1.md
+    title: Make the old-Python resolver test fail specifically on version rather than interpreter validity
+    status: deferred
+  - id: OBL-20260913T185050Z-21DCBC
+    file: OBL-20260913T185050Z-21DCBC.md
+    title: Import source-grounded industrial-gas discovery evidence before detailed gas domain modeling
+    status: deferred

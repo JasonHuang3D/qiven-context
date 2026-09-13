@@ -56,3 +56,11 @@ records:
     file: MEM-20260913T183819Z-C2D841.md
     title: Current Qiven product roadmap stages CAD, industrial-gas management, robotics simulation, then deeper native physics
     status: active
+  - id: MEM-20260913T185050Z-18E61C
+    file: MEM-20260913T185050Z-18E61C.md
+    title: qiven-toolchain-win currently pins CMake and clang-format as executable build tools
+    status: active
+  - id: MEM-20260913T185050Z-2D4721
+    file: MEM-20260913T185050Z-2D4721.md
+    title: Natural-language YAML fields require safe serialization or explicit quoting
+    status: active
