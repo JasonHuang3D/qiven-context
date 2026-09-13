@@ -37,6 +37,7 @@ Optional explicit selectors:
 - `signals`: explicit lifecycle/event phrases used for deterministic trigger evaluation;
 - `conditions`: explicit condition phrases known true for this compilation;
 - `changed`: paths/components known to have changed, for `on_change` obligations;
+- `include_ids`: canonical ADR/MEM/OBL IDs that the caller explicitly requires in the pack;
 - `now`: an ISO-8601 timestamp used for reproducible `on_date` evaluation. When absent, the compiler may use the current UTC time and must record it in the generated pack.
 
 The query is a selector, not canonical knowledge. A query must not be persisted as a fact merely because it was supplied to the compiler.
@@ -82,12 +83,13 @@ ADRs and memory records are ranked using only deterministic metadata/content sig
 
 V1 relevance signals, in descending priority:
 
-1. exact scope match;
-2. exact tag match;
-3. exact repository/project-name match;
-4. title token overlap;
-5. heading/body token overlap;
-6. one-hop explicit `related` links from an already selected canonical record.
+1. explicit ID selection;
+2. exact scope match;
+3. exact tag match;
+4. exact repository/project-name match;
+5. title token overlap;
+6. heading/body token overlap;
+7. one-hop explicit `related` links from an already selected canonical record.
 
 The implementation must expose why each record was selected. Numeric weights are implementation details but must be fixed, documented in code, and covered by tests; they must not be learned or model-generated.
 
@@ -111,7 +113,7 @@ An obligation is included in the task pack when at least one of the following is
 - its trigger evaluates `due` or `applicable`;
 - its scope/tags/title lexically match the task;
 - it is explicitly related to a selected ADR/memory record;
-- the caller explicitly names its ID.
+- the caller explicitly names its ID through `include_ids`.
 
 The compiler must not silently drop a relevant `deferred` or `blocked` obligation merely because it is not currently `open`.
 
