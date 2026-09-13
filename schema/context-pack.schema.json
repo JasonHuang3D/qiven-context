@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qiven-context/context-pack.schema.json",
+  "title": "Qiven Generated Context Pack",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "generated_at",
+    "query",
+    "mandatory_sources",
+    "projects",
+    "decisions",
+    "memory",
+    "obligations",
+    "diagnostics"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "query": {"$ref": "context-query.schema.json"},
+    "mandatory_sources": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/selection"}
+    },
+    "projects": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/selection"}
+    },
+    "decisions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/selection"}
+    },
+    "memory": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/selection"}
+    },
+    "obligations": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/obligation_selection"}
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["level", "code", "message"],
+        "properties": {
+          "level": {"enum": ["info", "warning", "error"]},
+          "code": {"type": "string", "minLength": 1},
+          "message": {"type": "string", "minLength": 1},
+          "source": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "$defs": {
+    "selection_reason": {
+      "type": "object",
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "mandatory",
+            "explicit_id",
+            "scope_match",
+            "tag_match",
+            "project_match",
+            "title_match",
+            "content_match",
+            "related_record",
+            "trigger_due",
+            "trigger_applicable"
+          ]
+        },
+        "value": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "selection": {
+      "type": "object",
+      "required": ["path", "reasons"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "path": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "status": {"type": "string", "minLength": 1},
+        "reasons": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/selection_reason"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "trigger_evaluation": {
+      "type": "object",
+      "required": ["type", "result", "explanation"],
+      "properties": {
+        "type": {
+          "enum": ["on_touch", "before", "after", "on_change", "on_date", "condition", "manual"]
+        },
+        "value": {"type": "string", "minLength": 1},
+        "result": {
+          "enum": ["due", "applicable", "not_triggered", "manual", "unresolved"]
+        },
+        "explanation": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "obligation_selection": {
+      "allOf": [
+        {"$ref": "#/$defs/selection"},
+        {
+          "type": "object",
+          "required": ["trigger", "completion"],
+          "properties": {
+            "trigger": {"$ref": "#/$defs/trigger_evaluation"},
+            "completion": {"type": "string", "minLength": 1}
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}
