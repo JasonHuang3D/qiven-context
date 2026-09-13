@@ -13,13 +13,13 @@ Batch 003 is ready to close only when all of the following hold on one exact bra
 1. Query input is schema validated and compilation is deterministic for fixed repository state plus fixed `now`.
 2. Mandatory operating context is always present with source paths.
 3. Project documents, ADRs, and memory are selected by deterministic explainable rules rather than opaque model similarity.
-4. Non-terminal obligations (`open`, `deferred`, `blocked`) are considered and selected when relevant, related, explicitly requested, due, or applicable.
+4. Non-terminal obligations (`open`, `deferred`, `blocked`) are considered and selected when directly relevant, explicitly requested, due, or applicable; relation may reinforce a selected obligation but must not independently pull unrelated cross-domain future work into the pack.
 5. Trigger evaluation preserves `due`, `applicable`, `not_triggered`, `manual`, and `unresolved` as distinct states and does not infer a more specific trigger from a merely broad project match.
 6. Generated JSON validates against the context-pack schema using local deterministic schema resolution.
 7. Generated Markdown preserves canonical source paths, selection reasons, obligation trigger state, completion condition, and the underlying selected source content.
 8. Generated artifacts remain derived/rebuildable and do not become canonical records.
 9. High-value real task regressions recover the intended context for Foundation, Devkit adoption, Math representation/Batch 008, Gas discovery boundaries, and workspace staging.
-10. Negative-recall regressions prove that unrelated Gas, Robotics, Foundation, Devkit, or Math obligations are not dumped into every pack merely because they are non-terminal.
+10. Negative-recall regressions prove that unrelated Gas, Robotics, Foundation, Devkit, or Math obligations are not dumped into every pack merely because they are non-terminal or related to a broad ecosystem decision.
 11. Windows/Unix CLI wrappers can emit the same JSON + Markdown pack model from a query file.
 12. Repository validation, the full test suite, live-state verification, and `git diff --check origin/main...HEAD` all pass on the exact candidate head.
 
@@ -49,6 +49,16 @@ It also adds a separate `context-acceptance` test suite that verifies:
 The final acceptance review found one subtle trigger-matching hazard in the pre-final implementation: lexical matching accepted the reverse subset direction and shared hyphenated compounds. That could let a broad candidate such as `qiven-foundation` satisfy a more specific trigger such as `qiven-foundation/recoverable-structured-error-contract`.
 
 The trigger matcher is now directional: the complete trigger target must be present in the candidate evidence. This preserves the intended conservative rule that broad topical relevance may surface an obligation without falsely claiming that its specific trigger has fired.
+
+## Negative-recall corrections from the local final gate
+
+The first local acceptance run exposed two independent leakage paths that ordinary positive-recall tests had not caught.
+
+First, body/prose overlap was strong enough to select a cross-domain ADR merely because its rationale or alternatives mentioned the queried repository. That allowed a Foundation query to select Gas architecture context whose text discussed Foundation only as a dependency that Gas should *not* be forced to use. Body overlap is now capped as a weak booster and cannot by itself cross the selection threshold.
+
+Second, obligation relation expansion could independently add an unrelated future obligation when a broad ecosystem ADR was already selected. A Foundation task therefore surfaced the Robotics/native-physics obligation because that obligation was related to a shared ecosystem architecture ADR. Obligation relations now reinforce ordering/explanation only after the obligation has independently qualified through direct relevance, explicit inclusion, or a due/applicable trigger.
+
+These failures are retained as acceptance regressions because they demonstrate why positive recall alone is insufficient: a useful context compiler must prove both that it remembers the right cognition and that it does not flood a task with unrelated future work.
 
 ## Out of scope
 
