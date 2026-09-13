@@ -8,3 +8,15 @@ records:
     file: MEM-20260913T170803Z-A61F2C.md
     title: Command presence is not interpreter availability on Windows
     status: active
+  - id: MEM-20260913T172118Z-4A9C11
+    file: MEM-20260913T172118Z-4A9C11.md
+    title: Windows write failures require layered permission diagnosis
+    status: active
+  - id: MEM-20260913T172118Z-B8D2E4
+    file: MEM-20260913T172118Z-B8D2E4.md
+    title: GitHub plugin authorization does not imply private-repository installation access
+    status: active
+  - id: MEM-20260913T172118Z-71F0AC
+    file: MEM-20260913T172118Z-71F0AC.md
+    title: qiven-context must not self-pin its live main SHA inside canonical state
+    status: active
