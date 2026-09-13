@@ -27,4 +27,6 @@ tools\verify-live-state.cmd
 
 POSIX equivalents are in `tools/*.sh`. Bootstrap creates the ignored repository-local `.venv`; validation never installs dependencies implicitly. Live-state verification reads local refs only and never fetches or switches branches.
 
+On Windows, `tools\bootstrap.cmd` resolves Python in this order: an explicit `QIVEN_PYTHON`, executable candidates returned by `where python`, then a working `py` launcher as an optional fallback. Finding `python` or `py` on PATH is not sufficient: each candidate is executed and version checked for Python 3.11 or newer. For example, `set QIVEN_PYTHON=C:\path with spaces\python.exe` explicitly selects an interpreter; an invalid explicit selection fails without fallback.
+
 This repository is currently **Phase 0**. Genesis historical import has **not** happened yet; it is Batch 002.
