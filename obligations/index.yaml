@@ -7,11 +7,11 @@ records:
   - id: OBL-20260913T152950Z-D4E5F6
     file: OBL-20260913T152950Z-D4E5F6.md
     title: Cold-boot acceptance before resuming paused long-running product work
-    status: deferred
+    status: open
   - id: OBL-20260913T152950Z-0A1B2C
     file: OBL-20260913T152950Z-0A1B2C.md
     title: Context compiler + obligation retrieval implementation
-    status: open
+    status: done
   - id: OBL-20260913T180134Z-C1A771
     file: OBL-20260913T180134Z-C1A771.md
     title: Verify real GitHub Actions concurrency cancellation

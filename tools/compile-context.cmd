@@ -5,5 +5,5 @@ if not exist .venv\Scripts\python.exe (
   echo ERROR: run tools\bootstrap.cmd first.
   exit /b 2
 )
-.venv\Scripts\python.exe tools\test_all.py
+.venv\Scripts\python.exe tools\compile_context.py %*
 exit /b %errorlevel%

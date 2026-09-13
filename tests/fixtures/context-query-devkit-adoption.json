@@ -1,0 +1,11 @@
+{
+  "task": "Run Foundation Devkit adoption",
+  "scopes": [
+    "qiven-foundation",
+    "qiven-devkit"
+  ],
+  "signals": [
+    "Foundation Devkit adoption"
+  ],
+  "now": "2026-09-14T00:00:00Z"
+}

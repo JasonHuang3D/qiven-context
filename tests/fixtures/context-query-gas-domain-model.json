@@ -1,0 +1,10 @@
+{
+  "task": "Start detailed qiven-gas implementation",
+  "scopes": [
+    "qiven-gas"
+  ],
+  "signals": [
+    "first detailed industrial-gas domain-model or qiven-gas implementation batch"
+  ],
+  "now": "2026-09-14T00:00:00Z"
+}

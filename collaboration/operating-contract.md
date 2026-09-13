@@ -17,4 +17,16 @@ Worker defaults: no push, merge, PR creation, Git identity changes, or unrelated
 
 Remote-native work may be implemented directly by jason-brother on GitHub.
 
+## Execution-mode control
+
+Chat is the default interaction mode. Do not interrupt an active Chat workflow with an automatic Work handoff, even when Work could be useful. A switch or handoff to Work requires explicit user intent.
+
+When Work may materially help but the user has not explicitly requested it, stay in Chat and provide a copyable task brief/instruction that the user may choose to launch in Work themselves. Tool or execution-environment selection is part of the user's workflow control, not an optimization that should silently override the current interaction mode.
+
+## Human-facing long-running work
+
+Human-visible tasks that may remain silent long enough to be mistaken for a hang must expose truthful liveness and progress feedback. Start acknowledgement should be prompt; quiet periods should receive periodic heartbeat/progress output; real milestones should be reported as they complete; terminal success or failure must be explicit. Detailed logs may remain buffered when concurrency would make live output unreadable, but log cleanliness must not make healthy work appear dead.
+
+Progress output must report only observable state. Do not invent percentages, ETAs, completed stages, or progress merely to reassure the operator. Heartbeat cadence should scale with expected duration; for interactive local tasks that normally run for tens of seconds, roughly five seconds of otherwise silent execution is a useful default interval. See `MEM-20260913T194500Z-8F2C41`.
+
 For batch completion, the user performs the required machine-local validation and reports the result. Under the standing authorization recorded in ADR-0021, jason-brother may merge the exact validated batch head to `main` after exact remote review and any additional required batch gates pass. If the branch changes after the validated head, the changed head must be validated again before merge. The user may revoke or narrow this authorization at any time.
