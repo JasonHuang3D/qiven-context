@@ -108,17 +108,22 @@
       "additionalProperties": false
     },
     "obligation_selection": {
-      "allOf": [
-        {"$ref": "#/$defs/selection"},
-        {
-          "type": "object",
-          "required": ["trigger", "completion"],
-          "properties": {
-            "trigger": {"$ref": "#/$defs/trigger_evaluation"},
-            "completion": {"type": "string", "minLength": 1}
-          }
-        }
-      ]
+      "type": "object",
+      "required": ["id", "path", "status", "reasons", "trigger", "completion"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^OBL-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}$"},
+        "path": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "status": {"enum": ["open", "deferred", "blocked"]},
+        "reasons": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/selection_reason"}
+        },
+        "trigger": {"$ref": "#/$defs/trigger_evaluation"},
+        "completion": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false
