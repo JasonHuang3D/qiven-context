@@ -7,7 +7,7 @@ records:
   - id: OBL-20260913T152950Z-D4E5F6
     file: OBL-20260913T152950Z-D4E5F6.md
     title: Cold-boot acceptance before resuming paused long-running product work
-    status: open
+    status: done
   - id: OBL-20260913T152950Z-0A1B2C
     file: OBL-20260913T152950Z-0A1B2C.md
     title: Context compiler + obligation retrieval implementation
@@ -31,7 +31,7 @@ records:
   - id: OBL-20260913T182338Z-4F7C19
     file: OBL-20260913T182338Z-4F7C19.md
     title: Reconcile Foundation managed-file drift semantically before Devkit adoption
-    status: deferred
+    status: open
   - id: OBL-20260913T182338Z-8A21D6
     file: OBL-20260913T182338Z-8A21D6.md
     title: Add a dedicated immediate post-adoption sync no-op check for the MISSING adoption path
