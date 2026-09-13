@@ -40,3 +40,11 @@ records:
     file: OBL-20260913T182338Z-B37E54.md
     title: Revisit crash-consistent Devkit updates if managed scope or operational criticality grows
     status: deferred
+  - id: OBL-20260913T182954Z-7B4E20
+    file: OBL-20260913T182954Z-7B4E20.md
+    title: Resume Math Batch 008 vector algorithms after qiven-context cold-boot acceptance
+    status: deferred
+  - id: OBL-20260913T182954Z-C91A5D
+    file: OBL-20260913T182954Z-C91A5D.md
+    title: Revisit Math scalar vocabulary only when concrete units or numeric integration requires it
+    status: deferred

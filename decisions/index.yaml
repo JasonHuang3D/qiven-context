@@ -48,3 +48,19 @@ records:
     file: ADR-0012.md
     title: Preserve consumer edits with hash-tracked all-conflicts-first Devkit lifecycle operations
     status: accepted
+  - id: ADR-0013
+    file: ADR-0013.md
+    title: Keep qiven-math a small deterministic external-semantics-free spatial vocabulary
+    status: accepted
+  - id: ADR-0014
+    file: ADR-0014.md
+    title: Keep canonical vector values compact and scalar-aligned instead of encoding SIMD ABI
+    status: accepted
+  - id: ADR-0015
+    file: ADR-0015.md
+    title: Keep coordinate conventions and approximate tolerance explicit at higher semantic boundaries
+    status: accepted
+  - id: ADR-0016
+    file: ADR-0016.md
+    title: Resolve qiven-foundation as an existing local source dependency without network CMake fetching
+    status: accepted

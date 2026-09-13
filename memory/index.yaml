@@ -44,3 +44,11 @@ records:
     file: MEM-20260913T182338Z-D5E8A2.md
     title: Devkit lifecycle operations are conflict-atomic by preflight but not crash-consistent filesystem transactions
     status: active
+  - id: MEM-20260913T182954Z-A6D249
+    file: MEM-20260913T182954Z-A6D249.md
+    title: Math scalar vocabulary is intentionally float and double only until concrete integration requires more
+    status: active
+  - id: MEM-20260913T182954Z-3F8C71
+    file: MEM-20260913T182954Z-3F8C71.md
+    title: Math Batch 007 established compact Vec2 Vec3 Vec4 core with exact equality and same-scalar arithmetic
+    status: active
