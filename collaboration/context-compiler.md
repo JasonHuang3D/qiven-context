@@ -111,9 +111,12 @@ For each considered non-terminal obligation, the compiler records:
 An obligation is included in the task pack when at least one of the following is true:
 
 - its trigger evaluates `due` or `applicable`;
-- its scope/tags/title lexically match the task;
-- it is explicitly related to a selected ADR/memory record;
+- its own scope/tags/title/content makes it directly relevant enough to the task under the fixed deterministic threshold;
 - the caller explicitly names its ID through `include_ids`.
+
+A `related` link to a selected ADR/memory record is corroborating context for an obligation that is already directly selected; relation alone is not an inclusion path for obligations. This is intentionally stricter than ADR/memory one-hop relation expansion because broad ecosystem decisions can legitimately relate to many future obligations in other domains. Relation-only obligation expansion would therefore turn a Foundation task into a Robotics/Gas/Math future-work dump.
+
+Body/prose overlap is also a weak booster rather than an independent selection authority. A cross-domain record mentioning another repository in context, alternatives, or rationale must not enter a task pack solely because of that mention.
 
 The compiler must not silently drop a relevant `deferred` or `blocked` obligation merely because it is not currently `open`.
 
