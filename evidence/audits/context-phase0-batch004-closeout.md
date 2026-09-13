@@ -36,6 +36,16 @@ The historical evidence-gap probe was answered with explicit uncertainty rather 
 - `state/active-work.yaml` marks Qiven Context Phase 0 / Batch 004 complete.
 - `state/current.md` records Qiven Context Phase 0 complete and the next progression as Foundation drift reconciliation -> Foundation Devkit adoption -> Math Batch 008 unless new evidence changes the plan.
 
+## Closeout-gate harness corrections
+
+The first local validation of the post-acceptance closeout state exposed two stale test assumptions, not failures of the canonical closeout itself.
+
+First, the repository-validator fixture had hard-coded `OBL-20260913T152950Z-D4E5F6` as the record used to prove that non-terminal obligations require triggers. Closing Batch 004 correctly changed that obligation to terminal status `done`; the schema intentionally requires `trigger` only for `open`, `deferred`, or `blocked` obligations. Removing the trigger from a terminal obligation is therefore valid, so the old fixture was testing the lifecycle identity of one record rather than the schema rule. The validator tests now select a current non-terminal obligation structurally and continue to verify the same trigger/value/manual-reason constraints without weakening validation.
+
+Second, the cold-boot contract suite permanently asserted that Batch 004 canonical state must be `in_progress`. That was correct for the frozen candidate ref used during the fresh-session run but necessarily became false after the accepted run was preserved and the batch transitioned to `complete`. The contract test is now lifecycle-aware: it validates the original paused/in-progress state when Batch 004 is active, and after closeout it requires the gate obligation to be `done`, Foundation drift reconciliation to be `open`, paused work to be cleared, and both run and closeout evidence to exist.
+
+These failures reinforce a general harness rule: tests for transition-bearing records must verify semantic invariants across legitimate lifecycle states rather than pinning mutable record identities or pre-transition state forever.
+
 ## Final merge gate
 
 The accepted cold-boot run tested the frozen pre-closeout ref, while this closeout adds evidence and canonical state transitions afterward. Therefore the final closeout branch head must receive the normal local validation gate before merge:
