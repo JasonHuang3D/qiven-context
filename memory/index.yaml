@@ -24,3 +24,11 @@ records:
     file: MEM-20260913T180134Z-E3C993.md
     title: Recurring workflow ambiguity should be codified or automated rather than left to session memory
     status: active
+  - id: MEM-20260913T181224Z-F041D2
+    file: MEM-20260913T181224Z-F041D2.md
+    title: Foundation Phase I surface is a compact C++20 static library with explicit low-level primitives
+    status: active
+  - id: MEM-20260913T181224Z-5BA4E1
+    file: MEM-20260913T181224Z-5BA4E1.md
+    title: Foundation portability is defined by explicit platform boundaries and continuously verified CI targets
+    status: active
