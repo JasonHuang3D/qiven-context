@@ -88,6 +88,8 @@ Fixtures must cover every trigger type:
 
 The test suite must distinguish `unresolved` from `not_triggered`.
 
+A broad project scope must not satisfy a more specific trigger merely because its tokens are a subset of the trigger target. Trigger matching is directional: the complete trigger target must be supported by the candidate evidence.
+
 ## Determinism test
 
 Compile the same fixture twice with identical repository content, query, and `now`. The machine-readable manifests must be byte-for-byte identical after any explicitly documented output-path normalization.
@@ -103,3 +105,11 @@ At least one fixture per project must assert that high-value but unrelated oblig
 ## Generated-artifact test
 
 Generated pack files may exist under `generated/` without becoming canonical records or index entries. Repository validation must continue to ignore generated packs for canonical-ID scans while still allowing compiler-specific schema validation.
+
+## Batch 003 final acceptance suite
+
+`tools/test_context_acceptance.py` is the cold-boot-oriented preflight for Batch 003. It does not perform Batch 004 itself; it proves that the compiler can prepare the task-specific packs Batch 004 will consume.
+
+The acceptance suite must cover Foundation, Devkit adoption, Math, Gas, workspace gating, negative recall, schema-valid emission, source-grounded Markdown rendering, CLI output, and fixed-query reproducibility. It runs as its own parallel suite under `tools/test_all.py` so failures remain easy to localize without reducing existing coverage.
+
+The authoritative closeout checklist is `evidence/audits/context-compiler-batch003-acceptance.md`. Batch 003 remains open until the exact candidate head passes the full local gate.
