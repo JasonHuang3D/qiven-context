@@ -20,3 +20,11 @@ records:
     file: OBL-20260913T180134Z-D2B882.md
     title: Improve skipped matrix job naming when CI presentation is next touched
     status: deferred
+  - id: OBL-20260913T181224Z-9E27A4
+    file: OBL-20260913T181224Z-9E27A4.md
+    title: Design one common result/status abstraction before Foundation APIs need structured recoverable status
+    status: deferred
+  - id: OBL-20260913T181224Z-A3F690
+    file: OBL-20260913T181224Z-A3F690.md
+    title: Reconsider a Foundation scope-exit/defer primitive only when concrete downstream cleanup patterns justify it
+    status: deferred
