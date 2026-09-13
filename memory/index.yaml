@@ -1,0 +1,10 @@
+schema_version: 1
+records:
+  - id: MEM-20260913T162546Z-E73124
+    file: MEM-20260913T162546Z-E73124.md
+    title: Exact remote review is required even after a passing worker handoff
+    status: active
+  - id: MEM-20260913T170803Z-A61F2C
+    file: MEM-20260913T170803Z-A61F2C.md
+    title: Command presence is not interpreter availability on Windows
+    status: active

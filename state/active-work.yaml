@@ -1,0 +1,19 @@
+schema_version: 1
+program: qiven-context
+phase: 0
+batch: 1
+status: in_progress
+objective: Repository Bootstrap + Memory Constitution + Genesis Skeleton
+paused_work:
+  - Foundation managed-drift reconciliation
+  - Foundation Devkit adoption
+  - Math Batch 008 vector algorithms
+pause_reason: Qiven project cognition continuity must be made durable before additional long-running engineering expands project state.
+next_batches:
+  - batch: 2
+    title: Genesis Import
+  - batch: 3
+    title: Context Compiler + Obligation Retrieval
+  - batch: 4
+    title: Cold-Boot Acceptance
+updated_at: '2026-09-13T15:29:50Z'
