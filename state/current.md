@@ -3,6 +3,7 @@
 - **Foundation:** Phase I complete. Not yet formally Devkit-managed.
 - **Devkit:** Greenfield generation + safe sync + brownfield adoption lifecycle complete. Brownfield adoption merged to main.
 - **Math:** Bootstrap + Vector Core complete. Batch 008 intentionally paused.
-- **Context:** Phase 0 / Batch 001 complete at merge commit `2f6c84e5ce709baca726f046db2880d2d29c9c9b`. Batch 002 — Genesis Import is active.
-- **External repository state:** Foundation, Devkit, Math, and Toolchain main refs were reverified during the Batch 001 checkpoint.
-- **Next:** Perform Genesis Import, then build context compilation/obligation retrieval and run cold-boot acceptance before resuming Foundation/Math.
+- **Context:** Phase 0 / Batch 001 and Batch 002 — Genesis Import are complete. Batch 003 — Context Compiler + Obligation Retrieval is active.
+- **Genesis:** Six planned review domains received normal extraction + reasoning-residue passes. Remaining uncertainty is represented as explicit obligations or evidence gaps rather than silently inferred history.
+- **External repository state:** Foundation, Devkit, Math, and Toolchain live refs remain subject to `tools\verify-live-state.cmd`; qiven-context does not self-pin its continuously current own main SHA.
+- **Next:** Build task-specific context compilation and obligation retrieval, then run cold-boot acceptance before resuming Foundation/Math progression.
