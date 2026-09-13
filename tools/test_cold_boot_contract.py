@@ -15,6 +15,11 @@ class ColdBootContractTests(unittest.TestCase):
     def read(self, relative: str) -> str:
         return (ROOT / relative).read_text(encoding="utf-8")
 
+    def front(self, relative: str) -> dict:
+        text = self.read(relative)
+        raw, _ = text[4:].split("\n---\n", 1)
+        return yaml.safe_load(raw)
+
     def test_challenge_is_not_embedded_in_candidate_prompt(self):
         challenge = self.read("tests/cold-boot/challenge.txt").strip()
         prompt = self.read("tests/cold-boot/candidate-prompt.md")
@@ -52,20 +57,32 @@ class ColdBootContractTests(unittest.TestCase):
         positions = [bootstrap.index(item) for item in expected]
         self.assertEqual(positions, sorted(positions))
 
-    def test_batch004_is_active_in_canonical_state(self):
+    def test_batch004_canonical_state_matches_lifecycle(self):
         active = yaml.safe_load(self.read("state/active-work.yaml"))
         self.assertEqual(active["phase"], 0)
         self.assertEqual(active["batch"], 4)
-        self.assertEqual(active["status"], "in_progress")
-        self.assertEqual(active["objective"], "Cold-Boot Acceptance")
-        self.assertEqual(
-            active["paused_work"],
-            [
-                "Foundation managed-drift reconciliation",
-                "Foundation Devkit adoption",
-                "Math Batch 008 vector algorithms",
-            ],
-        )
+        self.assertIn(active["status"], {"in_progress", "complete"})
+
+        if active["status"] == "in_progress":
+            self.assertEqual(active["objective"], "Cold-Boot Acceptance")
+            self.assertEqual(
+                active["paused_work"],
+                [
+                    "Foundation managed-drift reconciliation",
+                    "Foundation Devkit adoption",
+                    "Math Batch 008 vector algorithms",
+                ],
+            )
+            return
+
+        self.assertIn("Cold-Boot Acceptance complete", active["objective"])
+        self.assertEqual(active["paused_work"], [])
+        gate = self.front("obligations/OBL-20260913T152950Z-D4E5F6.md")
+        drift = self.front("obligations/OBL-20260913T182338Z-4F7C19.md")
+        self.assertEqual(gate["status"], "done")
+        self.assertEqual(drift["status"], "open")
+        self.assertTrue((ROOT / "evidence/audits/cold-boot-batch004-run001.md").is_file())
+        self.assertTrue((ROOT / "evidence/audits/context-phase0-batch004-closeout.md").is_file())
 
     def test_rubric_covers_all_critical_assertions(self):
         rubric = self.read("tests/cold-boot/evaluator-rubric.md")
