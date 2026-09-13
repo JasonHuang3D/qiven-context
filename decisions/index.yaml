@@ -24,3 +24,15 @@ records:
     file: ADR-0006.md
     title: Default local validation to FULL and allow FOCUSED only by explicit CTO scope
     status: accepted
+  - id: ADR-0007
+    file: ADR-0007.md
+    title: Keep Qiven Foundation small, foundational, and downstream-demand-driven
+    status: accepted
+  - id: ADR-0008
+    file: ADR-0008.md
+    title: Make ownership, failure behavior, and allocation semantics explicit in Foundation
+    status: accepted
+  - id: ADR-0009
+    file: ADR-0009.md
+    title: Treat C++ object layout, ABI, IPC, wire, and persistent representation as separate boundaries
+    status: accepted
