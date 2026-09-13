@@ -1,0 +1,14 @@
+schema_version: 1
+batch: 2
+title: 'Context Phase 0 / Batch 002 — Genesis Import'
+status: complete
+completed_at: '2026-09-13T18:58:55Z'
+validated_parent_head: 'a2cea660b6cbb10eba4a742795e2fee58285d77c'
+validation_evidence: 'Project owner reported the Slice 6 local gate all pass before the closeout checkpoint was prepared.'
+closeout_head_requires_validation: true
+next_batch:
+  batch: 3
+  title: 'Context Compiler + Obligation Retrieval'
+notes:
+  - 'The final closeout head must itself pass local validation before merge because the checkpoint changes canonical state.'
+  - 'After exact-head validation, ADR-0021 permits jason-brother to merge the batch remotely.'
