@@ -1,6 +1,8 @@
 from datetime import datetime, timezone
 from pathlib import Path
+import json
 import sys
+import tempfile
 import unittest
 
 
@@ -17,6 +19,11 @@ from context_compiler import (  # noqa: E402
     normalize_tokens,
     prepare_query,
     query_terms,
+)
+from context_pack import (  # noqa: E402
+    render_context_markdown,
+    validate_context_pack,
+    write_context_pack,
 )
 
 
@@ -240,6 +247,53 @@ class ContextCompilerCoreTests(unittest.TestCase):
             "now": "2026-09-14T00:00:00Z",
         }
         self.assertEqual(compile_context_pack(query), compile_context_pack(query))
+
+    def test_generated_pack_validates_against_output_schema(self):
+        pack = compile_context_pack(
+            {
+                "task": "Change Vec3f to alignas(16)",
+                "scopes": ["qiven-math"],
+                "now": "2026-09-14T00:00:00Z",
+            }
+        )
+        validate_context_pack(pack)
+        broken = dict(pack)
+        broken["schema_version"] = 99
+        with self.assertRaisesRegex(ValueError, "invalid generated context pack"):
+            validate_context_pack(broken)
+
+    def test_markdown_render_contains_canonical_sources_and_trigger_state(self):
+        pack = compile_context_pack(
+            {
+                "task": "Add ScopeExit to Foundation",
+                "scopes": ["qiven-foundation"],
+                "now": "2026-09-14T00:00:00Z",
+            }
+        )
+        markdown = render_context_markdown(pack)
+        self.assertIn("# Qiven Generated Task Context", markdown)
+        self.assertIn("ADR-0007", markdown)
+        self.assertIn("OBL-20260913T181224Z-A3F690", markdown)
+        self.assertIn("-> **not_triggered**", markdown)
+        self.assertIn("downstream-demand-driven", markdown)
+        self.assertIn("Derived working context only", markdown)
+
+    def test_write_context_pack_is_deterministic_for_fixed_pack(self):
+        pack = compile_context_pack(
+            {
+                "task": "Inspect Foundation allocator ownership",
+                "scopes": ["qiven-foundation"],
+                "now": "2026-09-14T00:00:00Z",
+            }
+        )
+        with tempfile.TemporaryDirectory() as temp:
+            temp_path = Path(temp)
+            first_json, first_md = write_context_pack(pack, temp_path / "first")
+            second_json, second_md = write_context_pack(pack, temp_path / "second")
+            self.assertEqual(first_json.read_text(encoding="utf-8"), second_json.read_text(encoding="utf-8"))
+            self.assertEqual(first_md.read_text(encoding="utf-8"), second_md.read_text(encoding="utf-8"))
+            decoded = json.loads(first_json.read_text(encoding="utf-8"))
+            self.assertEqual(decoded, pack)
 
 
 if __name__ == "__main__":
