@@ -52,3 +52,7 @@ records:
     file: MEM-20260913T182954Z-3F8C71.md
     title: Math Batch 007 established compact Vec2 Vec3 Vec4 core with exact equality and same-scalar arithmetic
     status: active
+  - id: MEM-20260913T183819Z-C2D841
+    file: MEM-20260913T183819Z-C2D841.md
+    title: Current Qiven product roadmap stages CAD, industrial-gas management, robotics simulation, then deeper native physics
+    status: active

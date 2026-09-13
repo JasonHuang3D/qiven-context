@@ -64,3 +64,19 @@ records:
     file: ADR-0016.md
     title: Resolve qiven-foundation as an existing local source dependency without network CMake fetching
     status: accepted
+  - id: ADR-0017
+    file: ADR-0017.md
+    title: Layer the shared native core by semantic responsibility instead of forcing product verticals into one stack
+    status: accepted
+  - id: ADR-0018
+    file: ADR-0018.md
+    title: Delay repository splits and workspace orchestration until coordination or reuse is real
+    status: accepted
+  - id: ADR-0019
+    file: ADR-0019.md
+    title: Make CAD a building-semantic pipeline behind provider boundaries rather than an arbitrary DWG interpreter
+    status: accepted
+  - id: ADR-0020
+    file: ADR-0020.md
+    title: Keep the industrial-gas product stack independent from the native C++ core unless domain needs justify coupling
+    status: accepted

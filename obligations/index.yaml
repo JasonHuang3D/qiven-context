@@ -48,3 +48,15 @@ records:
     file: OBL-20260913T182954Z-C91A5D.md
     title: Revisit Math scalar vocabulary only when concrete units or numeric integration requires it
     status: deferred
+  - id: OBL-20260913T183819Z-2C7A11
+    file: OBL-20260913T183819Z-2C7A11.md
+    title: Introduce qiven-workspace only when multi-repository composition becomes a recurring operational problem
+    status: deferred
+  - id: OBL-20260913T183819Z-5D8E32
+    file: OBL-20260913T183819Z-5D8E32.md
+    title: Establish the CAD provider and headless semantic pipeline before editor-first implementation
+    status: deferred
+  - id: OBL-20260913T183819Z-9A4F21
+    file: OBL-20260913T183819Z-9A4F21.md
+    title: Reconfirm robotics versus native-physics ownership before creating qiven-physics
+    status: deferred
