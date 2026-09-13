@@ -1,15 +1,13 @@
 schema_version: 1
 program: qiven-context
 phase: 0
-batch: 3
+batch: 4
 status: in_progress
-objective: Context Compiler + Obligation Retrieval
+objective: Cold-Boot Acceptance
 paused_work:
   - Foundation managed-drift reconciliation
   - Foundation Devkit adoption
   - Math Batch 008 vector algorithms
-pause_reason: Qiven project cognition continuity must pass context compilation, obligation retrieval, and cold-boot acceptance before additional long-running engineering expands project state.
-next_batches:
-  - batch: 4
-    title: Cold-Boot Acceptance
-updated_at: '2026-09-13T18:58:55Z'
+pause_reason: Qiven project cognition continuity must pass cold-boot acceptance before additional long-running engineering expands project state.
+next_batches: []
+updated_at: '2026-09-13T20:40:37Z'
