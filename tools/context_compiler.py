@@ -564,6 +564,17 @@ def _select_obligations(
             score += 180
             _add_reason(reasons, "trigger_applicable", trigger.get("value", trigger["type"]))
 
+        # Relations are useful corroborating context, but they are deliberately
+        # not an independent inclusion path for obligations. Broad ecosystem
+        # ADRs can legitimately relate to many future obligations; allowing a
+        # relation-only +40 to cross the selection threshold caused unrelated
+        # Robotics/Physics work to leak into a Foundation task pack. An
+        # obligation must first be relevant by its own task metadata/content,
+        # be explicitly requested, or have a due/applicable trigger. Once it is
+        # selected, related canonical records may improve ordering/explanation.
+        if score < SELECTION_THRESHOLD:
+            continue
+
         related_hits = sorted(
             str(item)
             for item in record.metadata.get("related", []) or []
@@ -572,9 +583,6 @@ def _select_obligations(
         if related_hits:
             score += 40
             _add_reason(reasons, "related_record", related_hits[0])
-
-        if score < SELECTION_THRESHOLD:
-            continue
 
         selected.append(
             (
