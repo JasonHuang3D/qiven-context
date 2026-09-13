@@ -30,6 +30,7 @@ class SuiteRun:
 SUITES = (
     SuiteRun("repository-validator", "tools/test.py"),
     SuiteRun("context-compiler", "tools/test_context_compiler.py"),
+    SuiteRun("context-acceptance", "tools/test_context_acceptance.py"),
     SuiteRun("windows-python-resolution", "tools/test_windows_python.py", windows_only=True),
 )
 
