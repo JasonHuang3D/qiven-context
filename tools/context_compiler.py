@@ -222,13 +222,11 @@ def _lexical_match(pattern: str, candidate: str) -> bool:
     candidate_tokens = set(normalize_tokens(candidate))
     if not pattern_tokens or not candidate_tokens:
         return False
-    if pattern_tokens.issubset(candidate_tokens):
-        return True
-    if len(candidate_tokens) >= 2 and candidate_tokens.issubset(pattern_tokens):
-        return True
-    pattern_compounds = {token for token in pattern_tokens if "-" in token}
-    candidate_compounds = {token for token in candidate_tokens if "-" in token}
-    return bool(pattern_compounds & candidate_compounds)
+    # Trigger matching is directional: the trigger target must be fully present
+    # in the candidate evidence. A broad candidate such as "qiven-foundation"
+    # must not satisfy a more specific trigger merely because its tokens are a
+    # subset of the trigger phrase.
+    return pattern_tokens.issubset(candidate_tokens)
 
 
 def trigger_value_matches(value: str, candidates: Iterable[str]) -> bool:
