@@ -121,6 +121,8 @@ The compiler must not silently drop a relevant `deferred` or `blocked` obligatio
 
 Trigger evaluation is intentionally conservative. V1 prefers `unresolved` over guessing.
 
+Lexical trigger matching is directional. The complete normalized trigger target must be present in the candidate evidence being evaluated. A broad candidate such as `qiven-foundation` must not satisfy a more specific target such as `qiven-foundation/recoverable-structured-error-contract` merely because the broad candidate's tokens are a subset of the trigger phrase. Relevance may still surface that obligation in the pack; relevance alone does not mean the trigger fired.
+
 ### `on_touch`
 
 `applicable` when the normalized trigger value matches an explicit `touches` item, scope, topic, or task term. Otherwise `not_triggered`.
