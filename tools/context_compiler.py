@@ -27,6 +27,36 @@ CATEGORY_LAYOUT = {
 NON_TERMINAL_OBLIGATION_STATUSES = frozenset({"open", "deferred", "blocked"})
 TOKEN_RE = re.compile(r"[^\W_]+(?:-[^\W_]+)*", re.UNICODE)
 ALTERNATIVE_RE = re.compile(r"\s+(?:or|或)\s+|\s*\|\s*", re.IGNORECASE)
+SELECTION_THRESHOLD = 20
+GENERIC_TERMS = frozenset(
+    {
+        "a",
+        "an",
+        "and",
+        "are",
+        "be",
+        "by",
+        "change",
+        "context",
+        "design",
+        "for",
+        "from",
+        "implement",
+        "implementation",
+        "in",
+        "is",
+        "of",
+        "on",
+        "or",
+        "project",
+        "qiven",
+        "review",
+        "the",
+        "to",
+        "update",
+        "with",
+    }
+)
 
 
 @dataclass(frozen=True)
@@ -327,3 +357,296 @@ def evaluate_trigger(
 
     result.update(result="unresolved", explanation=f"Unsupported trigger type: {trigger_type}.")
     return result
+
+
+def _expanded_terms(values: str | Iterable[str]) -> set[str]:
+    tokens = set(normalize_tokens(values))
+    tokens.update(token.replace("-", "") for token in tuple(tokens) if "-" in token)
+    return {token for token in tokens if token and token not in GENERIC_TERMS}
+
+
+def _project_aliases(name: str) -> set[str]:
+    aliases = _expanded_terms((name, f"qiven-{name}"))
+    aliases.discard("qiven")
+    return aliases
+
+
+def _add_reason(reasons: list[dict[str, str]], kind: str, value: str) -> None:
+    candidate = {"kind": kind, "value": value}
+    if candidate not in reasons:
+        reasons.append(candidate)
+
+
+def _record_search_text(record: CanonicalRecord) -> str:
+    fields = [record.title, record.body]
+    for key in ("statement", "why_it_exists", "why_not_now", "completion"):
+        value = record.metadata.get(key)
+        if value:
+            fields.append(str(value))
+    return "\n".join(fields)
+
+
+def _record_relevance(record: CanonicalRecord, query: Mapping[str, Any]) -> tuple[int, list[dict[str, str]]]:
+    score = 0
+    reasons: list[dict[str, str]] = []
+    include_ids = {str(item) for item in query.get("include_ids", []) or []}
+    if record.id in include_ids:
+        score += 1000
+        _add_reason(reasons, "explicit_id", record.id)
+
+    explicit_scopes = {_canonical_text(str(item)) for item in query.get("scopes", []) or []}
+    record_scopes = [str(item) for item in record.metadata.get("scope", []) or []]
+    for scope in record_scopes:
+        if _canonical_text(scope) in explicit_scopes:
+            score += 120
+            _add_reason(reasons, "scope_match", scope)
+            break
+
+    qterms = _expanded_terms(
+        [
+            str(query.get("task", "")),
+            *(str(item) for item in query.get("topics", []) or []),
+            *(str(item) for item in query.get("scopes", []) or []),
+            *(str(item) for item in query.get("touches", []) or []),
+        ]
+    )
+
+    project_hits: list[str] = []
+    for scope in record_scopes:
+        normalized = _canonical_text(scope)
+        if normalized.startswith("qiven-"):
+            project = normalized.removeprefix("qiven-")
+            if _project_aliases(project) & qterms:
+                project_hits.append(scope)
+    if project_hits:
+        score += 60
+        _add_reason(reasons, "project_match", sorted(project_hits)[0])
+
+    tag_hits: list[str] = []
+    for tag in (str(item) for item in record.metadata.get("tags", []) or []):
+        if _expanded_terms(tag) & qterms:
+            tag_hits.append(tag)
+    if tag_hits:
+        score += 80
+        _add_reason(reasons, "tag_match", ", ".join(sorted(tag_hits)[:3]))
+
+    title_hits = sorted(_expanded_terms(record.title) & qterms)
+    if title_hits:
+        score += min(90, 30 * len(title_hits))
+        _add_reason(reasons, "title_match", ", ".join(title_hits[:5]))
+
+    content_hits = sorted(_expanded_terms(_record_search_text(record)) & qterms)
+    content_only = [term for term in content_hits if term not in title_hits]
+    if content_only:
+        score += min(24, 8 * len(content_only))
+        _add_reason(reasons, "content_match", ", ".join(content_only[:5]))
+
+    return score, reasons
+
+
+def select_project_documents(query: Mapping[str, Any], root: Path = ROOT) -> list[dict[str, Any]]:
+    qterms = _expanded_terms(
+        [
+            str(query.get("task", "")),
+            *(str(item) for item in query.get("topics", []) or []),
+            *(str(item) for item in query.get("scopes", []) or []),
+            *(str(item) for item in query.get("touches", []) or []),
+        ]
+    )
+    explicit_scopes = {_canonical_text(str(item)) for item in query.get("scopes", []) or []}
+    selected: list[tuple[int, dict[str, Any]]] = []
+    for document in load_project_documents(root):
+        project = Path(document.path).parent.name
+        reasons: list[dict[str, str]] = []
+        score = 0
+        if project in explicit_scopes or f"qiven-{project}" in explicit_scopes:
+            score += 120
+            _add_reason(reasons, "scope_match", f"qiven-{project}")
+        if _project_aliases(project) & qterms:
+            score += 60
+            _add_reason(reasons, "project_match", f"qiven-{project}")
+        if score:
+            selected.append(
+                (
+                    score,
+                    {
+                        "path": document.path,
+                        "title": f"qiven-{project} project context",
+                        "reasons": reasons,
+                    },
+                )
+            )
+    return [item for _, item in sorted(selected, key=lambda pair: (-pair[0], pair[1]["path"]))]
+
+
+def _select_decisions_and_memory(
+    store: Mapping[str, tuple[CanonicalRecord, ...]], query: Mapping[str, Any]
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], set[str]]:
+    records = [*store["decisions"], *store["memory"]]
+    by_id = {record.id: record for record in records}
+    selected: dict[str, tuple[CanonicalRecord, int, list[dict[str, str]]]] = {}
+    direct_ids: list[str] = []
+
+    for record in records:
+        score, reasons = _record_relevance(record, query)
+        if score >= SELECTION_THRESHOLD:
+            selected[record.id] = (record, score, reasons)
+            direct_ids.append(record.id)
+
+    for source_id in direct_ids:
+        source = selected[source_id][0]
+        for related_id in source.metadata.get("related", []) or []:
+            related_id = str(related_id)
+            target = by_id.get(related_id)
+            if target is None or related_id in selected:
+                continue
+            selected[related_id] = (
+                target,
+                25,
+                [{"kind": "related_record", "value": source_id}],
+            )
+
+    def materialize(category: str) -> list[dict[str, Any]]:
+        rows: list[tuple[int, str, dict[str, Any]]] = []
+        for record, score, reasons in selected.values():
+            if record.category != category:
+                continue
+            rows.append(
+                (
+                    score,
+                    record.id,
+                    {
+                        "id": record.id,
+                        "path": record.path,
+                        "title": record.title,
+                        "status": record.status,
+                        "reasons": reasons,
+                    },
+                )
+            )
+        return [row for _, _, row in sorted(rows, key=lambda item: (-item[0], item[1]))]
+
+    return materialize("decisions"), materialize("memory"), set(selected)
+
+
+def _select_obligations(
+    store: Mapping[str, tuple[CanonicalRecord, ...]],
+    query: Mapping[str, Any],
+    selected_context_ids: set[str],
+    root: Path,
+    now: datetime,
+) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
+    selected: list[tuple[int, str, dict[str, Any]]] = []
+    diagnostics: list[dict[str, str]] = []
+    include_ids = {str(item) for item in query.get("include_ids", []) or []}
+
+    for record in store["obligations"]:
+        if record.status not in NON_TERMINAL_OBLIGATION_STATUSES:
+            if record.id in include_ids:
+                diagnostics.append(
+                    {
+                        "level": "info",
+                        "code": "terminal-obligation-not-in-normal-pack",
+                        "message": f"Explicitly requested terminal obligation {record.id} is not emitted by the v1 normal task-pack contract.",
+                        "source": record.path,
+                    }
+                )
+            continue
+
+        score, reasons = _record_relevance(record, query)
+        trigger = evaluate_trigger(record.metadata.get("trigger", {}), query, root, now=now)
+        if trigger["result"] == "due":
+            score += 240
+            _add_reason(reasons, "trigger_due", trigger.get("value", trigger["type"]))
+        elif trigger["result"] == "applicable":
+            score += 180
+            _add_reason(reasons, "trigger_applicable", trigger.get("value", trigger["type"]))
+
+        related_hits = sorted(
+            str(item)
+            for item in record.metadata.get("related", []) or []
+            if str(item) in selected_context_ids
+        )
+        if related_hits:
+            score += 40
+            _add_reason(reasons, "related_record", related_hits[0])
+
+        if score < SELECTION_THRESHOLD:
+            continue
+
+        selected.append(
+            (
+                score,
+                record.id,
+                {
+                    "id": record.id,
+                    "path": record.path,
+                    "title": record.title,
+                    "status": record.status,
+                    "reasons": reasons,
+                    "trigger": trigger,
+                    "completion": str(record.metadata["completion"]),
+                },
+            )
+        )
+
+    rows = [row for _, _, row in sorted(selected, key=lambda item: (-item[0], item[1]))]
+    return rows, diagnostics
+
+
+def _format_utc(value: datetime) -> str:
+    if value.tzinfo is None:
+        raise ValueError("compilation time must be timezone-aware")
+    return value.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
+def compile_context_pack(
+    query: Mapping[str, Any], root: Path = ROOT, *, now: datetime | None = None
+) -> dict[str, Any]:
+    root = Path(root)
+    prepared = prepare_query(query, root)
+    if now is None:
+        now = _parse_instant(str(prepared["now"])) if "now" in prepared else datetime.now(timezone.utc)
+    elif now.tzinfo is None:
+        raise ValueError("now must be timezone-aware")
+    now = now.astimezone(timezone.utc)
+    generated_at = _format_utc(now)
+    prepared.setdefault("now", generated_at)
+
+    store = load_canonical_store(root)
+    decisions, memory, selected_context_ids = _select_decisions_and_memory(store, prepared)
+    obligations, diagnostics = _select_obligations(store, prepared, selected_context_ids, root, now)
+
+    all_ids = {record.id for records in store.values() for record in records}
+    for requested_id in prepared.get("include_ids", []):
+        if requested_id not in all_ids:
+            diagnostics.append(
+                {
+                    "level": "warning",
+                    "code": "unknown-explicit-id",
+                    "message": f"Explicitly requested canonical ID does not exist: {requested_id}",
+                }
+            )
+
+    mandatory_sources = [
+        {
+            "path": document.path,
+            "reasons": [{"kind": "mandatory", "value": "always-loaded operating context"}],
+        }
+        for document in load_mandatory_sources(root)
+    ]
+
+    return {
+        "schema_version": 1,
+        "generated_at": generated_at,
+        "query": prepared,
+        "mandatory_sources": mandatory_sources,
+        "projects": select_project_documents(prepared, root),
+        "decisions": decisions,
+        "memory": memory,
+        "obligations": obligations,
+        "diagnostics": sorted(
+            diagnostics,
+            key=lambda item: (item["level"], item["code"], item["message"]),
+        ),
+    }
