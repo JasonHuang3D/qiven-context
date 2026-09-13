@@ -44,6 +44,12 @@ Foundation managed-drift reconciliation, Foundation Devkit adoption, and Math Ba
 
 The project owner reaffirmed that Chat is the default interaction mode. Execution-environment changes such as a Work handoff require explicit user intent; jason-brother should not interrupt an active Chat workflow with an automatic Work handoff. If Work may help, provide a copyable task brief and let the user decide whether to launch it.
 
+## Closeout-gate test-harness correction
+
+The first validation of the closeout-state checkpoint exposed a brittle validator unit-test fixture rather than a repository-schema defect. `test_obligation_without_trigger` selected an arbitrary obligation file with `glob()` and removed its trigger block through layout-sensitive regular-expression surgery. After the closeout rewrote obligation records, that mutation no longer reliably removed the canonical `trigger` field, so the validator correctly saw a valid record and the test falsely failed.
+
+The obligation schema tests now mutate one named fixture structurally through parsed YAML front matter. The missing-trigger, missing-nonmanual-value, and missing-manual-reason cases therefore test the validator contract directly instead of depending on directory enumeration order or YAML formatting. No validator rule or test coverage was weakened.
+
 ## Final merge gate
 
 This closeout checkpoint changes canonical state after the already validated implementation head, so the resulting exact closeout head must receive one final local validation before merge. Under ADR-0021, after the project owner reports that exact closeout head as passing, jason-brother may perform the exact remote no-ff merge into `main` after remote verification. Any later branch commit invalidates that PASS.
