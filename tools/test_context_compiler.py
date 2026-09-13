@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
 from context_compiler import (  # noqa: E402
+    compile_context_pack,
     evaluate_trigger,
     load_canonical_store,
     load_mandatory_sources,
@@ -168,6 +169,77 @@ class ContextCompilerCoreTests(unittest.TestCase):
             {"task": "anything", "conditions": ["owner decision"]},
         )
         self.assertEqual(result["result"], "manual")
+
+    def test_foundation_scope_exit_pack_surfaces_boundary_and_deferred_obligation(self):
+        pack = compile_context_pack(
+            {
+                "task": "Add ScopeExit to Foundation",
+                "scopes": ["qiven-foundation"],
+                "now": "2026-09-14T00:00:00Z",
+            }
+        )
+        project_paths = [item["path"] for item in pack["projects"]]
+        decision_ids = [item["id"] for item in pack["decisions"]]
+        obligation_ids = [item["id"] for item in pack["obligations"]]
+        self.assertIn("projects/foundation/README.md", project_paths)
+        self.assertIn("ADR-0007", decision_ids)
+        self.assertIn("OBL-20260913T181224Z-A3F690", obligation_ids)
+        obligation = next(item for item in pack["obligations"] if item["id"] == "OBL-20260913T181224Z-A3F690")
+        self.assertEqual(obligation["trigger"]["result"], "not_triggered")
+        self.assertTrue(any(reason["kind"] in {"scope_match", "project_match", "title_match"} for reason in obligation["reasons"]))
+
+    def test_math_vec3f_pack_surfaces_representation_adr(self):
+        pack = compile_context_pack(
+            {
+                "task": "Change Vec3f to alignas(16)",
+                "scopes": ["qiven-math"],
+                "now": "2026-09-14T00:00:00Z",
+            }
+        )
+        self.assertIn("ADR-0014", [item["id"] for item in pack["decisions"]])
+
+    def test_gas_implementation_boundary_makes_discovery_obligation_due(self):
+        boundary = "first detailed industrial-gas domain-model or qiven-gas implementation batch"
+        pack = compile_context_pack(
+            {
+                "task": "Start detailed qiven-gas implementation",
+                "scopes": ["qiven-gas"],
+                "signals": [boundary],
+                "now": "2026-09-14T00:00:00Z",
+            }
+        )
+        obligation = next(item for item in pack["obligations"] if item["id"] == "OBL-20260913T185050Z-21DCBC")
+        self.assertEqual(obligation["trigger"]["result"], "due")
+        self.assertTrue(any(reason["kind"] == "trigger_due" for reason in obligation["reasons"]))
+
+    def test_explicit_id_selects_unrelated_adr(self):
+        pack = compile_context_pack(
+            {
+                "task": "Unrelated task",
+                "include_ids": ["ADR-0014"],
+                "now": "2026-09-14T00:00:00Z",
+            }
+        )
+        selected = next(item for item in pack["decisions"] if item["id"] == "ADR-0014")
+        self.assertTrue(any(reason["kind"] == "explicit_id" for reason in selected["reasons"]))
+
+    def test_unknown_explicit_id_is_reported(self):
+        pack = compile_context_pack(
+            {
+                "task": "Unknown ID",
+                "include_ids": ["ADR-9999"],
+                "now": "2026-09-14T00:00:00Z",
+            }
+        )
+        self.assertTrue(any(item["code"] == "unknown-explicit-id" for item in pack["diagnostics"]))
+
+    def test_fixed_now_produces_identical_pack(self):
+        query = {
+            "task": "Inspect Foundation allocator ownership",
+            "scopes": ["qiven-foundation"],
+            "now": "2026-09-14T00:00:00Z",
+        }
+        self.assertEqual(compile_context_pack(query), compile_context_pack(query))
 
 
 if __name__ == "__main__":
