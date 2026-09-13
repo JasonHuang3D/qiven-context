@@ -20,3 +20,47 @@ records:
     file: MEM-20260913T172118Z-71F0AC.md
     title: qiven-context must not self-pin its live main SHA inside canonical state
     status: active
+  - id: MEM-20260913T180134Z-E3C993
+    file: MEM-20260913T180134Z-E3C993.md
+    title: Recurring workflow ambiguity should be codified or automated rather than left to session memory
+    status: active
+  - id: MEM-20260913T181224Z-F041D2
+    file: MEM-20260913T181224Z-F041D2.md
+    title: Foundation Phase I surface is a compact C++20 static library with explicit low-level primitives
+    status: active
+  - id: MEM-20260913T181224Z-5BA4E1
+    file: MEM-20260913T181224Z-5BA4E1.md
+    title: Foundation portability is defined by explicit platform boundaries and continuously verified CI targets
+    status: active
+  - id: MEM-20260913T182338Z-6BC4F1
+    file: MEM-20260913T182338Z-6BC4F1.md
+    title: Devkit template 0.1.1 manages sixteen shared paths and leaves four bootstrap-only
+    status: active
+  - id: MEM-20260913T182338Z-92AD37
+    file: MEM-20260913T182338Z-92AD37.md
+    title: Cross-platform path identity must use physical canonicalization when repository-root equivalence matters
+    status: active
+  - id: MEM-20260913T182338Z-D5E8A2
+    file: MEM-20260913T182338Z-D5E8A2.md
+    title: Devkit lifecycle operations are conflict-atomic by preflight but not crash-consistent filesystem transactions
+    status: active
+  - id: MEM-20260913T182954Z-A6D249
+    file: MEM-20260913T182954Z-A6D249.md
+    title: Math scalar vocabulary is intentionally float and double only until concrete integration requires more
+    status: active
+  - id: MEM-20260913T182954Z-3F8C71
+    file: MEM-20260913T182954Z-3F8C71.md
+    title: Math Batch 007 established compact Vec2 Vec3 Vec4 core with exact equality and same-scalar arithmetic
+    status: active
+  - id: MEM-20260913T183819Z-C2D841
+    file: MEM-20260913T183819Z-C2D841.md
+    title: Current Qiven product roadmap stages CAD, industrial-gas management, robotics simulation, then deeper native physics
+    status: active
+  - id: MEM-20260913T185050Z-18E61C
+    file: MEM-20260913T185050Z-18E61C.md
+    title: qiven-toolchain-win currently pins CMake and clang-format as executable build tools
+    status: active
+  - id: MEM-20260913T185050Z-2D4721
+    file: MEM-20260913T185050Z-2D4721.md
+    title: Natural-language YAML fields require safe serialization or explicit quoting
+    status: active

@@ -1,10 +1,10 @@
 # Operating Contract
 
 ## User
-Project owner, PM, and final operator.
+Project owner, PM, and machine-local validation operator.
 
 ## jason-brother
-CTO, architect, reviewer, decision partner, and remote repository maintainer. Responsible for architecture, review, CI selection, memory-delta design, independent technical judgment, and direct GitHub implementation for remote-native work when connector access is available.
+CTO, architect, reviewer, decision partner, remote repository maintainer, and conditionally authorized batch merge operator. Responsible for architecture, review, CI selection, memory-delta design, independent technical judgment, direct GitHub implementation for remote-native work when connector access is available, and final remote batch merge when the validation conditions in ADR-0021 are satisfied.
 
 Direct GitHub capability does **not** imply access to the user's local Windows machine, local compiler/toolchain state, GPU, Docker/VMs, or other machine-local resources.
 
@@ -15,4 +15,6 @@ Use jason-worker by default for work that requires real local execution such as 
 
 Worker defaults: no push, merge, PR creation, Git identity changes, or unrelated repository mutation. Stop at authorized queue completion.
 
-Remote-native work may be implemented directly by jason-brother on GitHub. Final merge remains a user operation by default unless the user explicitly authorizes jason-brother to merge.
+Remote-native work may be implemented directly by jason-brother on GitHub.
+
+For batch completion, the user performs the required machine-local validation and reports the result. Under the standing authorization recorded in ADR-0021, jason-brother may merge the exact validated batch head to `main` after exact remote review and any additional required batch gates pass. If the branch changes after the validated head, the changed head must be validated again before merge. The user may revoke or narrow this authorization at any time.

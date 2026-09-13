@@ -3,7 +3,7 @@ records:
   - id: OBL-20260913T152950Z-A1B2C3
     file: OBL-20260913T152950Z-A1B2C3.md
     title: Genesis historical import
-    status: open
+    status: done
   - id: OBL-20260913T152950Z-D4E5F6
     file: OBL-20260913T152950Z-D4E5F6.md
     title: Cold-boot acceptance before resuming paused long-running product work
@@ -11,4 +11,64 @@ records:
   - id: OBL-20260913T152950Z-0A1B2C
     file: OBL-20260913T152950Z-0A1B2C.md
     title: Context compiler + obligation retrieval implementation
+    status: open
+  - id: OBL-20260913T180134Z-C1A771
+    file: OBL-20260913T180134Z-C1A771.md
+    title: Verify real GitHub Actions concurrency cancellation
+    status: deferred
+  - id: OBL-20260913T180134Z-D2B882
+    file: OBL-20260913T180134Z-D2B882.md
+    title: Improve skipped matrix job naming when CI presentation is next touched
+    status: deferred
+  - id: OBL-20260913T181224Z-9E27A4
+    file: OBL-20260913T181224Z-9E27A4.md
+    title: Design one common result/status abstraction before Foundation APIs need structured recoverable status
+    status: deferred
+  - id: OBL-20260913T181224Z-A3F690
+    file: OBL-20260913T181224Z-A3F690.md
+    title: Reconsider a Foundation scope-exit/defer primitive only when concrete downstream cleanup patterns justify it
+    status: deferred
+  - id: OBL-20260913T182338Z-4F7C19
+    file: OBL-20260913T182338Z-4F7C19.md
+    title: Reconcile Foundation managed-file drift semantically before Devkit adoption
+    status: deferred
+  - id: OBL-20260913T182338Z-8A21D6
+    file: OBL-20260913T182338Z-8A21D6.md
+    title: Add a dedicated immediate post-adoption sync no-op check for the MISSING adoption path
+    status: deferred
+  - id: OBL-20260913T182338Z-B37E54
+    file: OBL-20260913T182338Z-B37E54.md
+    title: Revisit crash-consistent Devkit updates if managed scope or operational criticality grows
+    status: deferred
+  - id: OBL-20260913T182954Z-7B4E20
+    file: OBL-20260913T182954Z-7B4E20.md
+    title: Resume Math Batch 008 vector algorithms after qiven-context cold-boot acceptance
+    status: deferred
+  - id: OBL-20260913T182954Z-C91A5D
+    file: OBL-20260913T182954Z-C91A5D.md
+    title: Revisit Math scalar vocabulary only when concrete units or numeric integration requires it
+    status: deferred
+  - id: OBL-20260913T183819Z-2C7A11
+    file: OBL-20260913T183819Z-2C7A11.md
+    title: Introduce qiven-workspace only when multi-repository composition becomes a recurring operational problem
+    status: deferred
+  - id: OBL-20260913T183819Z-5D8E32
+    file: OBL-20260913T183819Z-5D8E32.md
+    title: Establish the CAD provider and headless semantic pipeline before editor-first implementation
+    status: deferred
+  - id: OBL-20260913T183819Z-9A4F21
+    file: OBL-20260913T183819Z-9A4F21.md
+    title: Reconfirm robotics versus native-physics ownership before creating qiven-physics
+    status: deferred
+  - id: OBL-20260913T185050Z-2CAF31
+    file: OBL-20260913T185050Z-2CAF31.md
+    title: Standardize collision-resistant canonical ID issuance before automating record creation
+    status: deferred
+  - id: OBL-20260913T185050Z-A020B1
+    file: OBL-20260913T185050Z-A020B1.md
+    title: Make the old-Python resolver test fail specifically on version rather than interpreter validity
+    status: deferred
+  - id: OBL-20260913T185050Z-21DCBC
+    file: OBL-20260913T185050Z-21DCBC.md
+    title: Import source-grounded industrial-gas discovery evidence before detailed gas domain modeling
     status: deferred
