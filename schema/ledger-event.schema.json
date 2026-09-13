@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "id",
+    "timestamp",
+    "action",
+    "subject",
+    "payload",
+    "sources"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^EVT-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "action": {
+      "enum": [
+        "noticed",
+        "learned",
+        "questioned",
+        "decided",
+        "deferred",
+        "rejected",
+        "superseded",
+        "reopened",
+        "closed",
+        "corrected"
+      ]
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "payload": {
+      "type": "object"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "reference"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "chat_session",
+              "git_commit",
+              "ci_run",
+              "worker_handoff",
+              "repository_file",
+              "audit",
+              "research",
+              "user_statement"
+            ]
+          },
+          "reference": {
+            "type": "string",
+            "minLength": 1
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

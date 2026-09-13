@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "id",
+    "kind",
+    "status",
+    "title",
+    "scope",
+    "tags",
+    "created_at",
+    "updated_at",
+    "epistemic",
+    "temporal",
+    "sources",
+    "related",
+    "supersedes",
+    "superseded_by"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^MEM-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}$"
+    },
+    "kind": {
+      "enum": [
+        "fact",
+        "observation",
+        "assumption",
+        "hypothesis",
+        "idea",
+        "candidate",
+        "constraint",
+        "invariant",
+        "protocol",
+        "preference",
+        "risk",
+        "issue",
+        "debt",
+        "limitation",
+        "lesson",
+        "incident",
+        "alternative",
+        "rejected_option",
+        "open_question"
+      ]
+    },
+    "status": {
+      "enum": [
+        "active",
+        "superseded",
+        "retracted",
+        "archived"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "epistemic": {
+      "type": "object",
+      "required": [
+        "basis",
+        "confidence"
+      ],
+      "properties": {
+        "basis": {
+          "enum": [
+            "verified",
+            "observed",
+            "reasoned",
+            "assumed",
+            "hypothesized",
+            "proposed"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "temporal": {
+      "type": "object",
+      "required": [
+        "valid_from",
+        "valid_until"
+      ],
+      "properties": {
+        "valid_from": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "reference"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "chat_session",
+              "git_commit",
+              "ci_run",
+              "worker_handoff",
+              "repository_file",
+              "audit",
+              "research",
+              "user_statement"
+            ]
+          },
+          "reference": {
+            "type": "string",
+            "minLength": 1
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "related": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(MEM-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}|OBL-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}|ADR-[0-9]{4})$"
+      }
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(MEM-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}|OBL-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}|ADR-[0-9]{4})$"
+      }
+    },
+    "superseded_by": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(MEM-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}|OBL-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}|ADR-[0-9]{4})$"
+      }
+    }
+  },
+  "additionalProperties": false
+}

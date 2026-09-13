@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "program",
+    "phase",
+    "batch",
+    "status",
+    "objective",
+    "paused_work",
+    "pause_reason",
+    "next_batches",
+    "updated_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "program": {
+      "type": "string"
+    },
+    "phase": {
+      "type": "integer"
+    },
+    "batch": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string"
+    },
+    "objective": {
+      "type": "string"
+    },
+    "paused_work": {
+      "type": "array"
+    },
+    "pause_reason": {
+      "type": "string"
+    },
+    "next_batches": {
+      "type": "array"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

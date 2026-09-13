@@ -1,0 +1,19 @@
+schema_version: 1
+classification: plan
+immutable_architecture: false
+updated_at: '2026-09-13T15:29:50Z'
+items:
+  - order: 1
+    title: Context Phase 0 / Batch 001
+  - order: 2
+    title: Context Phase 0 / Batch 002 — Genesis Import
+  - order: 3
+    title: Context Phase 0 / Batch 003 — Context Compiler + Obligation Retrieval
+  - order: 4
+    title: Context Phase 0 / Batch 004 — Cold-Boot Acceptance
+  - order: 5
+    title: Foundation managed-drift reconciliation
+  - order: 6
+    title: Foundation Devkit adoption
+  - order: 7
+    title: Math Batch 008

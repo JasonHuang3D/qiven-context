@@ -1,0 +1,14 @@
+schema_version: 1
+records:
+  - id: ADR-0001
+    file: ADR-0001.md
+    title: Externalize Qiven project cognition from LLM sessions
+    status: accepted
+  - id: ADR-0002
+    file: ADR-0002.md
+    title: Use question-scoped authority instead of a global source-precedence chain
+    status: accepted
+  - id: ADR-0003
+    file: ADR-0003.md
+    title: Keep semantic source data simple and derived retrieval replaceable
+    status: accepted
