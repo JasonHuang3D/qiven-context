@@ -142,7 +142,10 @@ exit /b 0
         repo = self.fixture_repo()
         executable = repo / ".venv" / "Scripts" / "python.exe"
         executable.parent.mkdir(parents=True)
-        executable.write_bytes(b"")
+        # Use a real Windows PE that is deliberately not Python. A zero-byte
+        # .exe makes Windows raise a GUI "This app can't run on your PC" dialog
+        # outside captured stdio, which is hostile to unattended test runs.
+        shutil.copy2(SYSTEM32 / "where.exe", executable)
         result = subprocess.run([str(CMD), "/d", "/c", str(repo / "tools" / "bootstrap.cmd")], cwd=repo, text=True, capture_output=True)
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("Existing .venv is invalid", result.stderr)
