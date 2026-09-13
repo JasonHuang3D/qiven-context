@@ -1,14 +1,7 @@
 # Generated Context
 
-`generated/` contains derived, rebuildable task-context artifacts produced by the Batch 003 context compiler.
+Generated context packs are derived artifacts. No generated context pack is canonical.
 
-No file in this directory is canonical project cognition. Generated packs may be deleted or overwritten at any time and must point back to canonical source paths/IDs.
+Batch 003 compiles task-specific working context from canonical state, project documents, ADRs, memory, and non-terminal obligations. Generated packs may be deleted or rebuilt at any time and must retain source paths/IDs back to canonical records.
 
-The v1 compiler contract is defined in `collaboration/context-compiler.md` with machine-readable schemas in:
-
-- `schema/context-query.schema.json`
-- `schema/context-pack.schema.json`
-
-The compiler will produce a deterministic machine-readable pack first; Markdown rendering for LLM consumption is a derived view of the same selection. With identical repository content, query, and resolved `now`, selection and trigger evaluation must be reproducible.
-
-Generated packs must never be used as stronger evidence than the canonical records or evidence artifacts they summarize.
+The first compiler implementation is intentionally deterministic and local. Embeddings, vector databases, remote retrieval services, and model-native memory are not retrieval authorities in v1.
