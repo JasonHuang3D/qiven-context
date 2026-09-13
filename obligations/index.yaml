@@ -28,3 +28,15 @@ records:
     file: OBL-20260913T181224Z-A3F690.md
     title: Reconsider a Foundation scope-exit/defer primitive only when concrete downstream cleanup patterns justify it
     status: deferred
+  - id: OBL-20260913T182338Z-4F7C19
+    file: OBL-20260913T182338Z-4F7C19.md
+    title: Reconcile Foundation managed-file drift semantically before Devkit adoption
+    status: deferred
+  - id: OBL-20260913T182338Z-8A21D6
+    file: OBL-20260913T182338Z-8A21D6.md
+    title: Add a dedicated immediate post-adoption sync no-op check for the MISSING adoption path
+    status: deferred
+  - id: OBL-20260913T182338Z-B37E54
+    file: OBL-20260913T182338Z-B37E54.md
+    title: Revisit crash-consistent Devkit updates if managed scope or operational criticality grows
+    status: deferred

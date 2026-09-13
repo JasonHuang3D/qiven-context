@@ -32,3 +32,15 @@ records:
     file: MEM-20260913T181224Z-5BA4E1.md
     title: Foundation portability is defined by explicit platform boundaries and continuously verified CI targets
     status: active
+  - id: MEM-20260913T182338Z-6BC4F1
+    file: MEM-20260913T182338Z-6BC4F1.md
+    title: Devkit template 0.1.1 manages sixteen shared paths and leaves four bootstrap-only
+    status: active
+  - id: MEM-20260913T182338Z-92AD37
+    file: MEM-20260913T182338Z-92AD37.md
+    title: Cross-platform path identity must use physical canonicalization when repository-root equivalence matters
+    status: active
+  - id: MEM-20260913T182338Z-D5E8A2
+    file: MEM-20260913T182338Z-D5E8A2.md
+    title: Devkit lifecycle operations are conflict-atomic by preflight but not crash-consistent filesystem transactions
+    status: active

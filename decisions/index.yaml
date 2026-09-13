@@ -36,3 +36,15 @@ records:
     file: ADR-0009.md
     title: Treat C++ object layout, ABI, IPC, wire, and persistent representation as separate boundaries
     status: accepted
+  - id: ADR-0010
+    file: ADR-0010.md
+    title: Materialize Devkit conventions as independent repository snapshots
+    status: accepted
+  - id: ADR-0011
+    file: ADR-0011.md
+    title: Separate Devkit-managed shared conventions from bootstrap-only repository-owned files
+    status: accepted
+  - id: ADR-0012
+    file: ADR-0012.md
+    title: Preserve consumer edits with hash-tracked all-conflicts-first Devkit lifecycle operations
+    status: accepted
