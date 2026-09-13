@@ -37,6 +37,7 @@ class ContextCompilerAcceptanceTests(unittest.TestCase):
 
         self.assertNotIn("projects/gas/README.md", {item["path"] for item in pack["projects"]})
         self.assertNotIn("projects/robotics/README.md", {item["path"] for item in pack["projects"]})
+        self.assertNotIn("ADR-0020", ids(pack, "decisions"))
         self.assertNotIn("OBL-20260913T185050Z-21DCBC", ids(pack, "obligations"))
         self.assertNotIn("OBL-20260913T183819Z-9A4F21", ids(pack, "obligations"))
 
@@ -51,6 +52,7 @@ class ContextCompilerAcceptanceTests(unittest.TestCase):
         self.assertIn("projects/math/README.md", {item["path"] for item in pack["projects"]})
         self.assertIn("ADR-0014", ids(pack, "decisions"))
         self.assertIn("MEM-20260913T182954Z-3F8C71", ids(pack, "memory"))
+        self.assertNotIn("ADR-0020", ids(pack, "decisions"))
         self.assertNotIn("OBL-20260913T185050Z-21DCBC", ids(pack, "obligations"))
         self.assertNotIn("OBL-20260913T182338Z-4F7C19", ids(pack, "obligations"))
 
