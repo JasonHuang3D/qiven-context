@@ -6,7 +6,7 @@ from validate_context import validate_repository
 
 class ValidatorTests(unittest.TestCase):
     def copy(self):
-        d=Path(tempfile.mkdtemp())/"repo"; shutil.copytree(ROOT,d,ignore=shutil.ignore_patterns(".venv","__pycache__")); self.addCleanup(shutil.rmtree,d.parent,ignore_errors=True); return d
+        d=Path(tempfile.mkdtemp())/"repo"; shutil.copytree(ROOT,d,ignore=shutil.ignore_patterns(".venv","__pycache__",".git")); self.addCleanup(shutil.rmtree,d.parent,ignore_errors=True); return d
     def errors(self,d): return "\n".join(validate_repository(d))
     def sample_memory(self,d,name="MEM-20260913T010203Z-A1B2C3"):
         p=d/"memory/records"/f"{name}.md"; p.write_text(f"""---
