@@ -10,6 +10,8 @@ import time
 
 
 ROOT = Path(__file__).resolve().parents[1]
+HEARTBEAT_SECONDS = 5.0
+POLL_SECONDS = 0.05
 
 
 @dataclass
@@ -68,6 +70,24 @@ def _terminate_children(suites: list[SuiteRun]) -> None:
             pass
 
 
+def _status_text(returncode: int) -> str:
+    return "PASS" if returncode == 0 else f"FAIL({returncode})"
+
+
+def _heartbeat(active: list[SuiteRun], pending: set[str], now: float) -> None:
+    running = [
+        f"{suite.name} {max(0.0, now - suite.started_at):.0f}s"
+        for suite in active
+        if suite.name in pending
+    ]
+    completed = len(active) - len(pending)
+    suffix = ", ".join(running) if running else "finishing"
+    print(
+        f"[test] be patient... {completed}/{len(active)} suites complete; running: {suffix}",
+        flush=True,
+    )
+
+
 def _run_parallel(suites: list[SuiteRun], log_dir: Path) -> None:
     env = _child_environment()
     active: list[SuiteRun] = []
@@ -89,7 +109,18 @@ def _run_parallel(suites: list[SuiteRun], log_dir: Path) -> None:
             )
             active.append(suite)
 
+        names = ", ".join(suite.name for suite in active)
+        print(
+            f"[test] started {len(active)} suites in parallel: {names}",
+            flush=True,
+        )
+        print(
+            f"[test] detailed suite output is buffered; heartbeat every {HEARTBEAT_SECONDS:.0f}s.",
+            flush=True,
+        )
+
         pending = set(suite.name for suite in active)
+        next_heartbeat = time.monotonic() + HEARTBEAT_SECONDS
         while pending:
             for suite in active:
                 if suite.name not in pending:
@@ -99,8 +130,20 @@ def _run_parallel(suites: list[SuiteRun], log_dir: Path) -> None:
                     suite.returncode = returncode
                     suite.finished_at = time.monotonic()
                     pending.remove(suite.name)
+                    duration = max(0.0, suite.finished_at - suite.started_at)
+                    print(
+                        f"[test] {suite.name}: {_status_text(returncode)} after {duration:.2f}s; detailed log buffered.",
+                        flush=True,
+                    )
+
+            now = time.monotonic()
+            if pending and now >= next_heartbeat:
+                _heartbeat(active, pending, now)
+                while next_heartbeat <= now:
+                    next_heartbeat += HEARTBEAT_SECONDS
+
             if pending:
-                time.sleep(0.02)
+                time.sleep(POLL_SECONDS)
     except KeyboardInterrupt:
         _terminate_children(active)
         raise
@@ -111,11 +154,14 @@ def _run_parallel(suites: list[SuiteRun], log_dir: Path) -> None:
 
 def _run_serial(suites: list[SuiteRun], log_dir: Path) -> None:
     env = _child_environment()
+    enabled = [suite for suite in suites if not suite.skipped]
+    print(f"[test] running {len(enabled)} suites serially.", flush=True)
     for suite in suites:
         if suite.skipped:
             continue
         suite.log_path = log_dir / f"{suite.name}.log"
         suite.started_at = time.monotonic()
+        print(f"[test] starting {suite.name}...", flush=True)
         with suite.log_path.open("w", encoding="utf-8", errors="replace") as handle:
             completed = subprocess.run(
                 [sys.executable, suite.script],
@@ -126,6 +172,11 @@ def _run_serial(suites: list[SuiteRun], log_dir: Path) -> None:
             )
         suite.finished_at = time.monotonic()
         suite.returncode = completed.returncode
+        duration = max(0.0, suite.finished_at - suite.started_at)
+        print(
+            f"[test] {suite.name}: {_status_text(completed.returncode)} after {duration:.2f}s; detailed log buffered.",
+            flush=True,
+        )
 
 
 def _print_results(suites: list[SuiteRun], wall_seconds: float, serial: bool) -> int:
@@ -161,7 +212,7 @@ def main() -> int:
             else:
                 _run_parallel(suites, log_dir)
         except KeyboardInterrupt:
-            print("\nTest run interrupted; child suites were terminated.", file=sys.stderr)
+            print("\nTest run interrupted; child suites were terminated.", file=sys.stderr, flush=True)
             return 130
         wall_seconds = time.monotonic() - started
         return _print_results(suites, wall_seconds, serial)
