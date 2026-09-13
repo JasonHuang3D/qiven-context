@@ -64,3 +64,7 @@ records:
     file: MEM-20260913T185050Z-2D4721.md
     title: Natural-language YAML fields require safe serialization or explicit quoting
     status: active
+  - id: MEM-20260913T194500Z-8F2C41
+    file: MEM-20260913T194500Z-8F2C41.md
+    title: Long-running human-facing tasks must provide truthful liveness and progress feedback
+    status: active
