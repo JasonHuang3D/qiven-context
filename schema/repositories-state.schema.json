@@ -27,14 +27,8 @@
             "type": "string"
           },
           "remote": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "type": "string",
+            "minLength": 1
           },
           "local_path": {
             "type": "string"

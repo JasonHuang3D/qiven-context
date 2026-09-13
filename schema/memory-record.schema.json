@@ -112,15 +112,8 @@
       ],
       "properties": {
         "valid_from": {
-          "anyOf": [
-            {
-              "type": "string",
-              "format": "date-time"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "type": "string",
+          "format": "date-time"
         },
         "valid_until": {
           "anyOf": [
@@ -138,6 +131,7 @@
     },
     "sources": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
         "required": [

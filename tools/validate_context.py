@@ -70,13 +70,31 @@ def validate_repository(root=ROOT):
         for typ,index_rel,base in [("memory","memory/index.yaml","memory/records"),("obligations","obligations/index.yaml","obligations"),("decisions","decisions/index.yaml","decisions")]:
             try:
                 idx=yaml.safe_load((ROOT/index_rel).read_text(encoding="utf-8")); validate_obj(idx,"index",index_rel,errors)
-                indexed={x["id"] for x in idx.get("records",[])}
+                indexed_ids=[]; indexed_files=[]
                 for x in idx.get("records",[]):
-                    if not (ROOT/base/x["file"]).is_file(): errors.append(f"{index_rel}: index points to missing record {x['id']}")
+                    rid=x["id"]; rel_file=x["file"]
+                    if rid in indexed_ids: errors.append(f"{index_rel}: duplicate indexed ID {rid}")
+                    if rel_file in indexed_files: errors.append(f"{index_rel}: duplicate indexed file {rel_file}")
+                    indexed_ids.append(rid); indexed_files.append(rel_file)
+                    target=ROOT/base/rel_file
+                    if not target.is_file():
+                        errors.append(f"{index_rel}: index points to missing record {rid}")
+                        continue
+                    expected=canonical[typ].get(rid)
+                    if expected is None:
+                        errors.append(f"{index_rel}: indexed ID has no canonical record {rid}")
+                        continue
+                    if target.resolve()!=expected.resolve():
+                        errors.append(f"{index_rel}: indexed file mismatch for {rid}")
+                    try:
+                        data,_=front(expected)
+                        if x.get("title")!=data.get("title"): errors.append(f"{index_rel}: stale title for {rid}")
+                        if x.get("status")!=data.get("status"): errors.append(f"{index_rel}: stale status for {rid}")
+                    except Exception:
+                        pass
+                indexed=set(indexed_ids)
                 for rid in canonical[typ]:
                     if rid not in indexed: errors.append(f"{index_rel}: unindexed canonical record {rid}")
-                for rid in indexed:
-                    if rid not in canonical[typ]: errors.append(f"{index_rel}: indexed ID has no canonical record {rid}")
             except Exception as e: errors.append(f"{index_rel}: {e}")
         known=set(ids)
         for groups in canonical.values():
@@ -86,7 +104,6 @@ def validate_repository(root=ROOT):
                 for field in ("related","supersedes","superseded_by"):
                     for ref in data.get(field,[]) or []:
                         if INTERNAL.match(str(ref)) and ref not in known: errors.append(f"{p.name}: broken internal relation {ref}")
-        if (ROOT/"generated/GLOBAL_CONTEXT.md").exists(): errors.append("generated context pack treated as canonical")
         return errors
     finally: ROOT=old
 

@@ -8,7 +8,7 @@ Do not rely on model-native memory as authoritative project state.
 4. Read `state/active-work.yaml`.
 5. Determine the current task.
 6. Load relevant project material.
-7. Load relevant open obligations.
+7. Load relevant non-terminal obligations (`open`, `deferred`, and `blocked`) and evaluate their triggers against the task.
 8. Load applicable decisions and rejected alternatives.
 9. Verify relevant live repositories.
 10. Report inconsistencies before acting.

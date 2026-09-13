@@ -1,28 +1,28 @@
 schema_version: 1
 repositories:
   - name: qiven-foundation
-    remote: null
+    remote: https://github.com/JasonHuang3D/qiven-foundation.git
     local_path: D:/JasonWork/qiven-foundation
     default_branch: main
     main_sha: f1880847e046425c7f3f3cad22a07d0008aad359
     observed_at: '2026-09-13T15:29:50Z'
     authority: live_git
   - name: qiven-devkit
-    remote: null
+    remote: https://github.com/JasonHuang3D/qiven-devkit.git
     local_path: D:/JasonWork/qiven-devkit
     default_branch: main
     main_sha: 214dc5c933ef4f7db3fce9795a39d49ca382dfbf
     observed_at: '2026-09-13T15:29:50Z'
     authority: live_git
   - name: qiven-math
-    remote: null
+    remote: https://github.com/JasonHuang3D/qiven-math.git
     local_path: D:/JasonWork/qiven-math
     default_branch: main
     main_sha: 912ae067784fb5cd336925ff6f6d071b85297bff
     observed_at: '2026-09-13T15:29:50Z'
     authority: live_git
   - name: qiven-toolchain-win
-    remote: null
+    remote: https://github.com/JasonHuang3D/qiven-toolchain-win.git
     local_path: D:/JasonWork/qiven-toolchain-win
     default_branch: main
     main_sha: a79825031e838d80354d31489c87327dd6adbfb7
