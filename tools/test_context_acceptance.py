@@ -81,19 +81,21 @@ class ContextCompilerAcceptanceTests(unittest.TestCase):
         self.assertIn("thirteen", markdown)
         self.assertIn("semantic disposition", markdown)
 
-    def test_math_resume_pack_preserves_cold_boot_gate(self):
+    def test_math_resume_pack_preserves_closed_batch_history_without_reopening_work(self):
         pack = compile_context_pack(
             {
-                "task": "Resume Math Batch 008 vector algorithms",
+                "task": "Review completed Math Batch 008 vector algorithms",
                 "scopes": ["qiven-math"],
-                "now": "2026-09-14T00:00:00Z",
+                "now": "2026-09-14T09:20:00Z",
             }
         )
-        obligation = next(
-            item for item in pack["obligations"] if item["id"] == "OBL-20260913T182954Z-7B4E20"
-        )
-        self.assertEqual(obligation["trigger"]["result"], "unresolved")
-        self.assertIn("Batch 004", obligation["trigger"]["value"])
+        validate_context_pack(pack)
+
+        self.assertIn("projects/math/README.md", {item["path"] for item in pack["projects"]})
+        self.assertNotIn("OBL-20260913T182954Z-7B4E20", ids(pack, "obligations"))
+        markdown = render_context_markdown(pack).casefold()
+        self.assertIn("batch 008", markdown)
+        self.assertIn("full cross-platform", markdown)
 
     def test_specific_on_touch_trigger_does_not_fire_from_broad_project_scope(self):
         broad = compile_context_pack(
