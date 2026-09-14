@@ -70,16 +70,16 @@ class ContextCompilerAcceptanceTests(unittest.TestCase):
         self.assertNotIn("OBL-20260913T181224Z-A3F690", ids(pack, "obligations"))
         self.assertNotIn("OBL-20260913T182954Z-7B4E20", ids(pack, "obligations"))
 
-    def test_devkit_adoption_pack_resurfaces_semantic_drift_guardrail(self):
+    def test_devkit_adoption_pack_preserves_closed_drift_guardrail_without_reopening_work(self):
         pack = compile_context_pack(load_fixture("context-query-devkit-adoption.json"))
         validate_context_pack(pack)
 
         self.assertIn("ADR-0012", ids(pack, "decisions"))
-        obligation = next(
-            item for item in pack["obligations"] if item["id"] == "OBL-20260913T182338Z-4F7C19"
-        )
-        self.assertEqual(obligation["trigger"]["result"], "due")
-        self.assertIn("thirteen", render_context_markdown(pack).casefold())
+        self.assertIn("projects/devkit/README.md", {item["path"] for item in pack["projects"]})
+        self.assertNotIn("OBL-20260913T182338Z-4F7C19", ids(pack, "obligations"))
+        markdown = render_context_markdown(pack).casefold()
+        self.assertIn("thirteen", markdown)
+        self.assertIn("semantic disposition", markdown)
 
     def test_math_resume_pack_preserves_cold_boot_gate(self):
         pack = compile_context_pack(

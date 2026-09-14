@@ -4,9 +4,10 @@ Genesis core import status: **COMPLETE** for the Foundation architecture/ownersh
 
 ## Current verified state
 
-- Live main pin tracked by qiven-context: `f1880847e046425c7f3f3cad22a07d0008aad359`.
-- Qiven program state: Foundation Phase I complete; formal Devkit adoption is still pending.
-- Build form at the verified pin: C++20 static library `qiven-foundation`, CMake alias `qiven::foundation`.
+- Live main pin tracked by qiven-context: `6c09151e1a52830c66e6c7a97b5b68740154f475` (`merge: complete Foundation Devkit adoption`).
+- Qiven program state: Foundation Phase I complete and formally adopted into qiven-devkit managed lifecycle at template version `0.1.2`.
+- Devkit ownership metadata is present in `.qiven/repo.json` and `.qiven/generated-state.cmake`; the managed set contains sixteen shared paths under schema 2.
+- Build form: C++20 static library `qiven-foundation`, CMake alias `qiven::foundation`.
 - Public C++ namespace root: `qiven::`; there is intentionally no `qiven::foundation` namespace.
 
 ## Durable architecture recovered by Genesis
@@ -18,7 +19,13 @@ Genesis core import status: **COMPLETE** for the Foundation architecture/ownersh
 
 ## Phase I public vocabulary
 
-At the verified pin the public surface includes platform/compiler/config/contracts/types primitives; checked arithmetic/integer/span helpers; bounded byte cursor/writer and endian conversion; and memory primitives including `AllocatorRef`, `Layout`, `LinearArena`, `SystemAllocator`, `OwnedAllocation`, `OwnedObject<T>`, and `OwnedArray<T>`.
+The public surface includes platform/compiler/config/contracts/types primitives; checked arithmetic/integer/span helpers; bounded byte cursor/writer and endian conversion; and memory primitives including `AllocatorRef`, `Layout`, `LinearArena`, `SystemAllocator`, `OwnedAllocation`, `OwnedObject<T>`, and `OwnedArray<T>`.
+
+## Devkit adoption outcome
+
+Foundation's historical managed drift was reconciled semantically before ownership was asserted. The thirteen conflicting managed paths were reviewed individually; stronger shared engineering protocol moved upstream into Devkit 0.1.2, Devkit CMD control-flow defects were fixed upstream, and representation-only drift converged Foundation to the accepted managed snapshot.
+
+A real adoption check then reached `16 EXACT / 0 MISSING / 0 CONFLICT`. Formal adoption created only `.qiven/repo.json` and `.qiven/generated-state.cmake`. Immediate post-adoption sync was byte-for-byte no-op for both ownership-state files, and the accepted merge preserved the exact locally validated candidate tree. See `../../evidence/audits/foundation-managed-drift-reconstruction.md` and `../../evidence/audits/foundation-devkit-adoption.md`.
 
 ## Deferred Foundation cognition recovered
 
@@ -27,4 +34,4 @@ At the verified pin the public surface includes platform/compiler/config/contrac
 
 ## Evidence
 
-Primary source: `JasonHuang3D/qiven-foundation` architecture, CMake, agent/worker protocol, CI, and Phase I main commit at the verified pin. See `../../evidence/audits/genesis-foundation-slice.md` for the import audit.
+Primary source: `JasonHuang3D/qiven-foundation` architecture, CMake, agent/worker protocol, CI, and current accepted main. See `../../evidence/audits/genesis-foundation-slice.md` for the original import audit and the adoption audits above for the later lifecycle transition.

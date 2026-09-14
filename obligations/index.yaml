@@ -31,11 +31,11 @@ records:
   - id: OBL-20260913T182338Z-4F7C19
     file: OBL-20260913T182338Z-4F7C19.md
     title: Reconcile Foundation managed-file drift semantically before Devkit adoption
-    status: open
+    status: done
   - id: OBL-20260913T182338Z-8A21D6
     file: OBL-20260913T182338Z-8A21D6.md
     title: Add a dedicated immediate post-adoption sync no-op check for the MISSING adoption path
-    status: deferred
+    status: done
   - id: OBL-20260913T182338Z-B37E54
     file: OBL-20260913T182338Z-B37E54.md
     title: Revisit crash-consistent Devkit updates if managed scope or operational criticality grows
@@ -43,7 +43,7 @@ records:
   - id: OBL-20260913T182954Z-7B4E20
     file: OBL-20260913T182954Z-7B4E20.md
     title: Resume Math Batch 008 vector algorithms after qiven-context cold-boot acceptance
-    status: deferred
+    status: open
   - id: OBL-20260913T182954Z-C91A5D
     file: OBL-20260913T182954Z-C91A5D.md
     title: Revisit Math scalar vocabulary only when concrete units or numeric integration requires it
@@ -71,4 +71,8 @@ records:
   - id: OBL-20260913T185050Z-21DCBC
     file: OBL-20260913T185050Z-21DCBC.md
     title: Import source-grounded industrial-gas discovery evidence before detailed gas domain modeling
+    status: deferred
+  - id: OBL-20260914T081146Z-6D2F31
+    file: OBL-20260914T081146Z-6D2F31.md
+    title: Improve human-facing Devkit adoption plan output
     status: deferred
