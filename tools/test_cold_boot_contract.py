@@ -40,7 +40,7 @@ class ColdBootContractTests(unittest.TestCase):
         ):
             self.assertIn(required, prompt)
 
-    def test_bootstrap_retains_required_boot_order(self):
+    def test_bootstrap_retains_required_boot_and_retrieval_order(self):
         bootstrap = self.read("BOOTSTRAP.md")
         expected = (
             "MEMORY-CONSTITUTION.md",
@@ -48,39 +48,36 @@ class ColdBootContractTests(unittest.TestCase):
             "state/current.md",
             "state/active-work.yaml",
             "Determine the current task",
+            "Run task-specific retrieval",
             "Load relevant project material",
+            "Load relevant canonical memory and accepted decisions",
             "Load relevant non-terminal obligations",
-            "Load applicable decisions and rejected alternatives",
-            "Verify relevant live repositories",
+            "Verify relevant live repositories and runtime evidence",
             "Report inconsistencies before acting",
         )
         positions = [bootstrap.index(item) for item in expected]
         self.assertEqual(positions, sorted(positions))
+        self.assertIn("Repeat task-specific retrieval whenever the conversation materially changes", bootstrap)
+        self.assertIn(
+            "must not fill project-history gaps or substitute for canonical qiven-context evidence",
+            bootstrap,
+        )
 
-    def test_batch004_canonical_state_matches_lifecycle(self):
+    def test_batch004_completion_survives_later_lifecycle_changes(self):
         active = yaml.safe_load(self.read("state/active-work.yaml"))
-        self.assertEqual(active["phase"], 0)
-        self.assertEqual(active["batch"], 4)
-        self.assertIn(active["status"], {"in_progress", "complete"})
+        self.assertEqual(active["schema_version"], 1)
 
-        if active["status"] == "in_progress":
-            self.assertEqual(active["objective"], "Cold-Boot Acceptance")
-            self.assertEqual(
-                active["paused_work"],
-                [
-                    "Foundation managed-drift reconciliation",
-                    "Foundation Devkit adoption",
-                    "Math Batch 008 vector algorithms",
-                ],
-            )
-            return
-
-        self.assertIn("Cold-Boot Acceptance complete", active["objective"])
-        self.assertEqual(active["paused_work"], [])
         gate = self.front("obligations/OBL-20260913T152950Z-D4E5F6.md")
         self.assertEqual(gate["status"], "done")
         self.assertTrue((ROOT / "evidence/audits/cold-boot-batch004-run001.md").is_file())
         self.assertTrue((ROOT / "evidence/audits/context-phase0-batch004-closeout.md").is_file())
+
+        current = self.read("state/current.md")
+        self.assertIn("Cold Boot", current)
+        self.assertIn("passed", current)
+
+        if active["program"] == "qiven-context" and active["phase"] == 0 and active["batch"] == 4:
+            self.assertIn(active["status"], {"in_progress", "complete"})
 
     def test_rubric_covers_all_critical_assertions(self):
         rubric = self.read("tests/cold-boot/evaluator-rubric.md")
