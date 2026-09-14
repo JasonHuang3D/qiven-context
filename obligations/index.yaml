@@ -79,4 +79,4 @@ records:
   - id: OBL-20260914T091555Z-C4D8A2
     file: OBL-20260914T091555Z-C4D8A2.md
     title: Refresh qiven-math CI Foundation checkout pin
-    status: deferred
+    status: done
