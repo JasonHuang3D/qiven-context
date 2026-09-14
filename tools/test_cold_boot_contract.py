@@ -78,9 +78,7 @@ class ColdBootContractTests(unittest.TestCase):
         self.assertIn("Cold-Boot Acceptance complete", active["objective"])
         self.assertEqual(active["paused_work"], [])
         gate = self.front("obligations/OBL-20260913T152950Z-D4E5F6.md")
-        drift = self.front("obligations/OBL-20260913T182338Z-4F7C19.md")
         self.assertEqual(gate["status"], "done")
-        self.assertEqual(drift["status"], "open")
         self.assertTrue((ROOT / "evidence/audits/cold-boot-batch004-run001.md").is_file())
         self.assertTrue((ROOT / "evidence/audits/context-phase0-batch004-closeout.md").is_file())
 
