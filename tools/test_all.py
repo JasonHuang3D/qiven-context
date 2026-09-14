@@ -36,6 +36,7 @@ SUITES = (
     SuiteRun("repository-validator", "tools/test.py"),
     SuiteRun("context-compiler", "tools/test_context_compiler.py"),
     SuiteRun("context-acceptance", "tools/test_context_acceptance.py"),
+    SuiteRun("retrieval-reliability", "tools/test_retrieval_reliability.py"),
     SuiteRun("cold-boot-contract", "tools/test_cold_boot_contract.py"),
     SuiteRun("windows-python-resolution", "tools/test_windows_python.py", windows_only=True),
 )

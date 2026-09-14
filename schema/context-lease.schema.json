@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qiven-context/context-lease.schema.json",
+  "title": "Qiven Context Lease",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "lease_id",
+    "canonical_ref",
+    "prepared_at",
+    "policy",
+    "retrieval_invoked",
+    "task_fingerprint",
+    "task",
+    "transition",
+    "pack_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "lease_id": {"type": "string", "pattern": "^CTX-[A-F0-9]{16}$"},
+    "canonical_ref": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "prepared_at": {"type": "string", "format": "date-time"},
+    "policy": {"const": "mandatory_turn_preflight"},
+    "retrieval_invoked": {"const": true},
+    "task_fingerprint": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "task": {"type": "string", "minLength": 1},
+    "transition": {
+      "enum": ["initial", "task_transition", "same_task_refresh"]
+    },
+    "previous_lease_id": {
+      "type": "string",
+      "pattern": "^CTX-[A-F0-9]{16}$"
+    },
+    "pack_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}
