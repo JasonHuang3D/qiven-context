@@ -19,8 +19,8 @@ repositories:
     remote: https://github.com/JasonHuang3D/qiven-math.git
     local_path: D:/JasonWork/qiven-math
     default_branch: main
-    main_sha: 95c29339dd891843870d2b8e4962c86494dfd505
-    observed_at: '2026-09-14T09:15:55Z'
+    main_sha: e38afb6b47f2052926fdc2a2de8cab0238cdfb23
+    observed_at: '2026-09-14T10:01:45Z'
     authority: live_git
   - name: qiven-toolchain-win
     remote: https://github.com/JasonHuang3D/qiven-toolchain-win.git
