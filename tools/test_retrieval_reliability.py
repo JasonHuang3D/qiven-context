@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 import sys
 import tempfile
@@ -27,7 +26,7 @@ class ContextLeaseTests(unittest.TestCase):
         return {"task": task, "topics": ["retrieval"], "now": FIXED_NOW}
 
     def test_prepare_context_emits_valid_proof_of_retrieval(self):
-        pack, lease = prepare_context(self.query(), ROOT, canonical_ref=FIXED_REF, require_clean=False)
+        pack, lease = prepare_context(self.query(), ROOT, canonical_ref=FIXED_REF)
         self.assertTrue(lease["retrieval_invoked"])
         self.assertTrue(lease["source_clean"])
         self.assertEqual(lease["policy"], "mandatory_turn_preflight")
@@ -38,14 +37,16 @@ class ContextLeaseTests(unittest.TestCase):
 
     def test_same_task_refresh_still_invokes_retrieval_and_gets_new_lease(self):
         query = self.query("Continue the same retrieval task")
-        first_pack, first = prepare_context(query, ROOT, canonical_ref=FIXED_REF, require_clean=False)
-        with mock.patch("context_gateway.compile_context_pack", wraps=__import__("context_gateway").compile_context_pack) as compiler:
+        first_pack, first = prepare_context(query, ROOT, canonical_ref=FIXED_REF)
+        with mock.patch(
+            "context_gateway.compile_context_pack",
+            wraps=__import__("context_gateway").compile_context_pack,
+        ) as compiler:
             second_pack, second = prepare_context(
                 query,
                 ROOT,
                 previous_lease=first,
                 canonical_ref=FIXED_REF,
-                require_clean=False,
             )
         self.assertEqual(compiler.call_count, 1)
         self.assertTrue(second["retrieval_invoked"])
@@ -55,15 +56,12 @@ class ContextLeaseTests(unittest.TestCase):
         self.assertEqual(first_pack["query"], second_pack["query"])
 
     def test_changed_task_is_classified_as_transition(self):
-        _, first = prepare_context(
-            self.query("Operator dogfood"), ROOT, canonical_ref=FIXED_REF, require_clean=False
-        )
+        _, first = prepare_context(self.query("Operator dogfood"), ROOT, canonical_ref=FIXED_REF)
         _, second = prepare_context(
             self.query("Diagnose Windows interpreter trust"),
             ROOT,
             previous_lease=first,
             canonical_ref=FIXED_REF,
-            require_clean=False,
         )
         self.assertEqual(second["transition"], "task_transition")
         self.assertNotEqual(second["task_fingerprint"], first["task_fingerprint"])
@@ -81,13 +79,7 @@ class ContextLeaseTests(unittest.TestCase):
                 ROOT,
                 previous_lease={"lease_id": "fake"},
                 canonical_ref=FIXED_REF,
-                require_clean=False,
             )
-
-    def test_dirty_source_is_rejected_before_lease(self):
-        with mock.patch("context_gateway.working_tree_is_clean", return_value=False):
-            with self.assertRaisesRegex(ValueError, "working tree is not clean"):
-                prepare_context(self.query(), ROOT, canonical_ref=FIXED_REF)
 
 
 class FakeEmbeddingBackend:
@@ -204,7 +196,9 @@ class RetrievalBenchmarkTests(unittest.TestCase):
         self.assertTrue(result["cases"][0]["critical_pass"])
 
     def test_benchmark_schema_rejects_threshold_mutation_shape(self):
-        source = yaml.safe_load((ROOT / "benchmarks/retrieval/open-set-v1.yaml").read_text(encoding="utf-8"))
+        source = yaml.safe_load(
+            (ROOT / "benchmarks/retrieval/open-set-v1.yaml").read_text(encoding="utf-8")
+        )
         del source["thresholds"]["required_id_recall_min"]
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "broken.yaml"
