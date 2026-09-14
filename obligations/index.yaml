@@ -79,4 +79,8 @@ records:
   - id: OBL-20260914T091555Z-C4D8A2
     file: OBL-20260914T091555Z-C4D8A2.md
     title: Refresh qiven-math CI Foundation checkout pin
-    status: deferred
+    status: done
+  - id: OBL-20260914T105500Z-7F31B2
+    file: OBL-20260914T105500Z-7F31B2.md
+    title: Resume Qiven Operator Phase 1 after Qiven-v1 session rollover
+    status: open

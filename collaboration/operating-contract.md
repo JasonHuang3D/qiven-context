@@ -37,13 +37,29 @@ For Windows CMD command sequences that are known to be strictly sequential and w
 
 A raw `.cmd` or `.bat` invocation is **not** a reliable success/failure operand for `&&`/`||` in all interactive CMD parsing cases, even when the script ends with `exit /b <nonzero>`. Therefore any batch gate used inside an `&&`/`||` chain must be invoked with `call`, for example `call tools\validate.cmd && call tools\test.cmd && call tools\verify-live-state.cmd`. Each gate script must also return an explicit non-zero code on failure. Do not build a fail-fast chain around a command whose exit-code contract is unknown or known to be lossy.
 
-For long or safety-critical chains, prefer one explicit fail-fast command block or a repository-local orchestration `.cmd` over relying on many loosely related commands. The orchestration layer must stop immediately at the first failed required gate, must not run later mutating or validation stages after that failure, and must preserve the failing exit code for automation. Independent diagnostics or cleanup that intentionally run after failure must be outside the success chain and clearly marked as such.
+For long or safety-critical chains, prefer one explicit fail-fast command block or a repository-local orchestration layer over relying on many loosely related commands. The orchestration layer must stop immediately at the first failed required gate, must not run later mutating or validation stages after that failure, and must preserve the failing exit code for automation. Independent diagnostics or cleanup that intentionally run after failure must be outside the success chain and clearly marked as such.
 
-When a long command chain would become unreadable or requires conditional logic, environment capture, loops, diagnostics, or reusable behavior, prefer a small repository-local `.cmd`/script rather than forcing the operator through many manual copy/paste steps.
+Compound human-run validation must also be observable. Every material stage should print a stable start marker and an explicit success marker when the command itself may otherwise succeed silently. In particular, do not leave `git diff --check`, clean-tree verification, SHA assertions, or similar gates as invisible tail commands whose execution can only be inferred. Prefer output such as `[ RUN] diff-check` followed by `[ OK ] diff-check` so the operator can tell exactly which stages actually ran.
+
+A command that merely prints state is not automatically a validation gate. For example, `git status --short` normally exits successfully whether the tree is clean or dirty. When a clean working tree is a required condition, use an explicit wrapper or check that inspects porcelain output and returns non-zero when tracked, staged, or untracked changes are present; printing `git status --short` may remain a diagnostic, but its exit code must not be treated as proof of cleanliness.
+
+Remote CI and comparable server-side work are asynchronous jobs, not local sequential gates. Prefer dispatching them and returning control immediately rather than inserting arbitrary `timeout` sleeps or custom polling loops solely to mirror progress in CMD. If a first-party CLI offers a trustworthy blocking/streaming wait primitive with clear run identity and exit semantics, it may be used deliberately; otherwise capture or preserve enough identity (branch, exact head SHA, workflow, run reference when available) so completion can be verified later through GitHub/API tooling before any dependent merge or release action. Avoid brittle "sleep then query latest run" logic, because queue latency and run discovery are asynchronous and race-prone.
+
+## Reusable orchestration boundary
+
+Do not keep solving recurring engineering-workflow problems by emitting larger ad-hoc CMD chains. Once logic becomes reusable across repositories or repeatedly needs layout, color, dependency ordering, parallel execution, heartbeat/liveness, buffered logs, exact Git gates, machine-readable results, or asynchronous service semantics, move that behavior into the shared Qiven Operator Python layer owned by Devkit. CMD/shell entrypoints should remain thin transport wrappers.
+
+The preferred ownership rule is: **Devkit owns orchestration mechanism; repositories own small declarative task/policy metadata.** Generated/adopted repositories must carry the accepted Operator runtime/policy snapshot and remain independently usable without calling back into a live Devkit checkout.
+
+Human output and machine output are separate views of the same execution result. The Operator should support deliberate terminal rendering for humans and stable structured output (for example JSON) for agents/automation instead of forcing either audience to scrape the other representation.
+
+Do not expand the Operator into a daemon, plugin framework, RPC service, webhook server, or broad task DSL until concrete recurring requirements justify those layers. Prefer the smallest shared abstraction that removes proven friction.
+
+When a one-off command chain is genuinely simpler and readable, it remains acceptable. The goal is not to eliminate CLI; it is to stop using shell syntax as the primary place where reusable orchestration semantics live.
 
 ## Operator-facing Git validation commands
 
-For commands handed to the user during Chat-mode validation, prefer non-interactive checks such as `git diff --check`, `git diff --cached --check`, `git status --short`, and exact `git rev-parse HEAD` verification. Do not ask the user to run raw `git diff` or `git diff --cached` merely for review: Git may invoke a pager and appear to hang in Windows CMD, and exact remote diff review is jason-brother's responsibility.
+For commands handed to the user during Chat-mode validation, prefer non-interactive checks such as `git diff --check`, `git diff --cached --check`, explicit clean-tree verification, and exact `git rev-parse HEAD` verification. Do not ask the user to run raw `git diff` or `git diff --cached` merely for review: Git may invoke a pager and appear to hang in Windows CMD, and exact remote diff review is jason-brother's responsibility.
 
 If a full local diff is genuinely required for diagnosis, make the non-paged behavior explicit (for example `git --no-pager diff ...`) or capture the output deliberately. Do not silently rely on pager interaction as part of the user's validation workflow.
 
