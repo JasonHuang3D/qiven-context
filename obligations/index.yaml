@@ -35,7 +35,7 @@ records:
   - id: OBL-20260913T182338Z-8A21D6
     file: OBL-20260913T182338Z-8A21D6.md
     title: Add a dedicated immediate post-adoption sync no-op check for the MISSING adoption path
-    status: open
+    status: done
   - id: OBL-20260913T182338Z-B37E54
     file: OBL-20260913T182338Z-B37E54.md
     title: Revisit crash-consistent Devkit updates if managed scope or operational criticality grows
