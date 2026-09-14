@@ -29,6 +29,14 @@ Human-visible tasks that may remain silent long enough to be mistaken for a hang
 
 Progress output must report only observable state. Do not invent percentages, ETAs, completed stages, or progress merely to reassure the operator. Heartbeat cadence should scale with expected duration; for interactive local tasks that normally run for tens of seconds, roughly five seconds of otherwise silent execution is a useful default interval. See `MEM-20260913T194500Z-8F2C41`.
 
+## Operator-facing engineering CLI
+
+Prefer deterministic CLI, API, repository script, or automation paths over asking the user to click through software-engineering UI when a reliable non-interactive path exists. GitHub operations such as workflow dispatch, run inspection, logs, branch/ref checks, and similar engineering tasks should use `gh`, Git, connector APIs, or repository tooling before browser UI instructions.
+
+For Windows CMD command sequences that are known to be strictly sequential and where later commands should run only if earlier commands succeed, prefer a single copy-pasteable command chain joined with `&&`. In CMD, `&&` means run the next command only when the previous command succeeds; `&` runs the next command regardless of failure; `|` pipes standard output from one process into another and is not a sequencing substitute. Do not chain commands with `&&` when independent cleanup, diagnostics, or failure-reporting steps intentionally need to run after an earlier failure.
+
+When a long command chain would become unreadable or requires conditional logic, environment capture, loops, or reusable behavior, prefer a small repository-local `.cmd`/script rather than forcing the operator through many manual copy/paste steps.
+
 ## Operator-facing Git validation commands
 
 For commands handed to the user during Chat-mode validation, prefer non-interactive checks such as `git diff --check`, `git diff --cached --check`, `git status --short`, and exact `git rev-parse HEAD` verification. Do not ask the user to run raw `git diff` or `git diff --cached` merely for review: Git may invoke a pager and appear to hang in Windows CMD, and exact remote diff review is jason-brother's responsibility.
