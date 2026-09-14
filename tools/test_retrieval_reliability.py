@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 import sys
 import tempfile
@@ -14,6 +15,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 from context_gateway import prepare_context, task_fingerprint, validate_context_lease  # noqa: E402
 from retrieval_benchmark import evaluate_benchmark, load_benchmark  # noqa: E402
+from semantic_retriever import SemanticRetriever, cosine_similarity  # noqa: E402
 
 
 FIXED_REF = "a" * 40
@@ -25,7 +27,7 @@ class ContextLeaseTests(unittest.TestCase):
         return {"task": task, "topics": ["retrieval"], "now": FIXED_NOW}
 
     def test_prepare_context_emits_valid_proof_of_retrieval(self):
-        pack, lease = prepare_context(self.query(), ROOT, canonical_ref=FIXED_REF)
+        pack, lease = prepare_context(self.query(), ROOT, canonical_ref=FIXED_REF, require_clean=False)
         self.assertTrue(lease["retrieval_invoked"])
         self.assertTrue(lease["source_clean"])
         self.assertEqual(lease["policy"], "mandatory_turn_preflight")
@@ -36,9 +38,15 @@ class ContextLeaseTests(unittest.TestCase):
 
     def test_same_task_refresh_still_invokes_retrieval_and_gets_new_lease(self):
         query = self.query("Continue the same retrieval task")
-        first_pack, first = prepare_context(query, ROOT, canonical_ref=FIXED_REF)
+        first_pack, first = prepare_context(query, ROOT, canonical_ref=FIXED_REF, require_clean=False)
         with mock.patch("context_gateway.compile_context_pack", wraps=__import__("context_gateway").compile_context_pack) as compiler:
-            second_pack, second = prepare_context(query, ROOT, previous_lease=first, canonical_ref=FIXED_REF)
+            second_pack, second = prepare_context(
+                query,
+                ROOT,
+                previous_lease=first,
+                canonical_ref=FIXED_REF,
+                require_clean=False,
+            )
         self.assertEqual(compiler.call_count, 1)
         self.assertTrue(second["retrieval_invoked"])
         self.assertEqual(second["transition"], "same_task_refresh")
@@ -47,12 +55,15 @@ class ContextLeaseTests(unittest.TestCase):
         self.assertEqual(first_pack["query"], second_pack["query"])
 
     def test_changed_task_is_classified_as_transition(self):
-        _, first = prepare_context(self.query("Operator dogfood"), ROOT, canonical_ref=FIXED_REF)
+        _, first = prepare_context(
+            self.query("Operator dogfood"), ROOT, canonical_ref=FIXED_REF, require_clean=False
+        )
         _, second = prepare_context(
             self.query("Diagnose Windows interpreter trust"),
             ROOT,
             previous_lease=first,
             canonical_ref=FIXED_REF,
+            require_clean=False,
         )
         self.assertEqual(second["transition"], "task_transition")
         self.assertNotEqual(second["task_fingerprint"], first["task_fingerprint"])
@@ -70,7 +81,80 @@ class ContextLeaseTests(unittest.TestCase):
                 ROOT,
                 previous_lease={"lease_id": "fake"},
                 canonical_ref=FIXED_REF,
+                require_clean=False,
             )
+
+    def test_dirty_source_is_rejected_before_lease(self):
+        with mock.patch("context_gateway.working_tree_is_clean", return_value=False):
+            with self.assertRaisesRegex(ValueError, "working tree is not clean"):
+                prepare_context(self.query(), ROOT, canonical_ref=FIXED_REF)
+
+
+class FakeEmbeddingBackend:
+    model_name = "fake-semantic-model"
+
+    def embed_documents(self, texts):
+        count = len(texts)
+        return [[1.0, float(index + 1) / max(1, count)] for index in range(count)]
+
+    def embed_query(self, text):
+        return [1.0, 0.0]
+
+
+class StubSemanticRetriever:
+    model_name = "stub"
+
+    def __init__(self, selected_ids):
+        self.selected_ids = set(selected_ids)
+
+    def select_ids(self, query, *, top_k=8):
+        return set(sorted(self.selected_ids)[:top_k])
+
+
+class SemanticRetrieverTests(unittest.TestCase):
+    def test_cosine_similarity_handles_identical_and_orthogonal_vectors(self):
+        self.assertAlmostEqual(cosine_similarity([1.0, 0.0], [1.0, 0.0]), 1.0)
+        self.assertAlmostEqual(cosine_similarity([1.0, 0.0], [0.0, 1.0]), 0.0)
+
+    def test_semantic_selection_is_bounded_and_deterministic_without_fastembed(self):
+        retriever = SemanticRetriever(ROOT, backend=FakeEmbeddingBackend())
+        query = {"task": "semantic fixture", "topics": ["retrieval"], "now": FIXED_NOW}
+        first = retriever.select_ids(query, top_k=3)
+        second = retriever.select_ids(query, top_k=3)
+        self.assertEqual(first, second)
+        self.assertEqual(len(first), 3)
+
+    def test_semantic_benchmark_path_uses_injected_retriever(self):
+        benchmark = {
+            "schema_version": 1,
+            "name": "semantic-fixture",
+            "thresholds": {
+                "critical_case_recall_min": 1.0,
+                "required_id_recall_min": 1.0,
+                "forbidden_hits_max": 0,
+                "mean_extra_ids_max": 8.0,
+            },
+            "cases": [
+                {
+                    "id": "semantic",
+                    "critical": True,
+                    "query": {"task": "fixture", "now": FIXED_NOW},
+                    "required_ids": ["ADR-0022"],
+                    "forbidden_ids": ["ADR-0014"],
+                    "allowed_extra_ids": [],
+                }
+            ],
+        }
+        result = evaluate_benchmark(
+            benchmark,
+            ROOT,
+            mode="semantic",
+            semantic_retriever=StubSemanticRetriever({"ADR-0022"}),
+        )
+        self.assertEqual(result["mode"], "semantic")
+        self.assertEqual(result["metrics"]["required_id_recall"], 1.0)
+        self.assertEqual(result["metrics"]["forbidden_hits"], 0)
+        self.assertTrue(result["pass"])
 
 
 class RetrievalBenchmarkTests(unittest.TestCase):

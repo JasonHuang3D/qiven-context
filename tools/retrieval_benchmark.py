@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
 from context_compiler import compile_context_pack  # noqa: E402
+from semantic_retriever import DEFAULT_MODEL, DEFAULT_TOP_K, SemanticRetriever  # noqa: E402
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -49,9 +50,24 @@ def selected_canonical_ids(pack: Mapping[str, Any]) -> set[str]:
     return result
 
 
-def evaluate_case(case: Mapping[str, Any], root: Path = ROOT) -> dict[str, Any]:
-    pack = compile_context_pack(case["query"], root)
-    selected = selected_canonical_ids(pack)
+def evaluate_case(
+    case: Mapping[str, Any],
+    root: Path = ROOT,
+    *,
+    mode: str = "deterministic",
+    semantic_retriever: SemanticRetriever | None = None,
+    semantic_top_k: int = DEFAULT_TOP_K,
+) -> dict[str, Any]:
+    if mode == "deterministic":
+        pack = compile_context_pack(case["query"], root)
+        selected = selected_canonical_ids(pack)
+    elif mode == "semantic":
+        if semantic_retriever is None:
+            raise ValueError("semantic mode requires a semantic retriever")
+        selected = semantic_retriever.select_ids(case["query"], top_k=semantic_top_k)
+    else:
+        raise ValueError(f"unsupported retrieval mode: {mode}")
+
     required = set(str(item) for item in case["required_ids"])
     forbidden = set(str(item) for item in case["forbidden_ids"])
     allowed_extra = set(str(item) for item in case["allowed_extra_ids"])
@@ -73,8 +89,27 @@ def evaluate_case(case: Mapping[str, Any], root: Path = ROOT) -> dict[str, Any]:
     }
 
 
-def evaluate_benchmark(benchmark: Mapping[str, Any], root: Path = ROOT) -> dict[str, Any]:
-    cases = [evaluate_case(case, root) for case in benchmark["cases"]]
+def evaluate_benchmark(
+    benchmark: Mapping[str, Any],
+    root: Path = ROOT,
+    *,
+    mode: str = "deterministic",
+    semantic_retriever: SemanticRetriever | None = None,
+    semantic_top_k: int = DEFAULT_TOP_K,
+) -> dict[str, Any]:
+    if mode == "semantic" and semantic_retriever is None:
+        semantic_retriever = SemanticRetriever(root)
+
+    cases = [
+        evaluate_case(
+            case,
+            root,
+            mode=mode,
+            semantic_retriever=semantic_retriever,
+            semantic_top_k=semantic_top_k,
+        )
+        for case in benchmark["cases"]
+    ]
     required_total = sum(len(case["required_ids"]) for case in benchmark["cases"])
     required_hits = sum(len(case["required_hits"]) for case in cases)
     critical_cases = [case for case in cases if case["critical"]]
@@ -95,15 +130,21 @@ def evaluate_benchmark(benchmark: Mapping[str, Any], root: Path = ROOT) -> dict[
         "forbidden_hits": metrics["forbidden_hits"] <= thresholds["forbidden_hits_max"],
         "mean_extra_ids": metrics["mean_extra_ids"] <= thresholds["mean_extra_ids_max"],
     }
-    return {
+    result: dict[str, Any] = {
         "benchmark": str(benchmark["name"]),
-        "mode": "deterministic",
+        "mode": mode,
         "thresholds": thresholds,
         "metrics": metrics,
         "checks": checks,
         "pass": all(checks.values()),
         "cases": cases,
     }
+    if mode == "semantic" and semantic_retriever is not None:
+        result["semantic"] = {
+            "model": semantic_retriever.model_name,
+            "top_k": semantic_top_k,
+        }
+    return result
 
 
 def parse_args() -> argparse.Namespace:
@@ -113,6 +154,23 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=Path("benchmarks/retrieval/open-set-v1.yaml"),
         help="Benchmark YAML path.",
+    )
+    parser.add_argument(
+        "--mode",
+        choices=("deterministic", "semantic"),
+        default="deterministic",
+        help="Retrieval candidate to measure.",
+    )
+    parser.add_argument(
+        "--semantic-model",
+        default=DEFAULT_MODEL,
+        help="FastEmbed model name for semantic mode.",
+    )
+    parser.add_argument(
+        "--semantic-top-k",
+        type=int,
+        default=DEFAULT_TOP_K,
+        help="Maximum canonical IDs selected by semantic mode.",
     )
     parser.add_argument("--json", action="store_true", help="Print machine-readable JSON.")
     parser.add_argument(
@@ -125,11 +183,25 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    if args.semantic_top_k < 1:
+        print("ERROR: --semantic-top-k must be >= 1", file=sys.stderr)
+        return 2
     benchmark_path = args.benchmark if args.benchmark.is_absolute() else ROOT / args.benchmark
     try:
         benchmark = load_benchmark(benchmark_path, ROOT)
-        result = evaluate_benchmark(benchmark, ROOT)
-    except (OSError, ValueError) as exc:
+        retriever = (
+            SemanticRetriever(ROOT, model_name=args.semantic_model)
+            if args.mode == "semantic"
+            else None
+        )
+        result = evaluate_benchmark(
+            benchmark,
+            ROOT,
+            mode=args.mode,
+            semantic_retriever=retriever,
+            semantic_top_k=args.semantic_top_k,
+        )
+    except (OSError, RuntimeError, ValueError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2
 
@@ -137,7 +209,12 @@ def main() -> int:
         print(json.dumps(result, ensure_ascii=False, sort_keys=True))
     else:
         print(f"Benchmark: {result['benchmark']}")
-        print("Mode: deterministic")
+        print(f"Mode: {result['mode']}")
+        if "semantic" in result:
+            print(
+                f"Semantic model: {result['semantic']['model']} "
+                f"top_k={result['semantic']['top_k']}"
+            )
         for case in result["cases"]:
             status = "PASS" if case["critical_pass"] else "MISS"
             misses = ",".join(case["required_misses"]) or "-"

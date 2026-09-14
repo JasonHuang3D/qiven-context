@@ -40,6 +40,7 @@ user turn
 Every successful preparation emits a schema-validated Context Lease that records:
 
 - the exact qiven-context Git `canonical_ref` used by the retrieval runtime;
+- `source_clean: true`, proving no uncommitted canonical source change was hidden behind that ref;
 - `retrieval_invoked: true`;
 - the `mandatory_turn_preflight` policy;
 - a task fingerprint derived from all retrieval selectors except `now`;
@@ -47,7 +48,7 @@ Every successful preparation emits a schema-validated Context Lease that records
 - a SHA-256 digest of the generated Context Pack;
 - an optional link to the previous lease.
 
-The lease is **proof of retrieval execution and identity**, not canonical project truth. Canonical truth remains in Markdown/YAML/JSONL/JSON Schema + Git.
+Each successful invocation receives a distinct lease ID and invocation timestamp even if the query and generated pack are otherwise identical. The lease is **proof of retrieval execution and identity**, not canonical project truth. Canonical truth remains in Markdown/YAML/JSONL/JSON Schema + Git.
 
 ## Task fingerprints
 
@@ -79,5 +80,29 @@ The host policy, not the model's memory, must guarantee that the method is calle
 - the retrieval-reliability decision itself.
 
 The benchmark defines thresholds before final semantic/hybrid comparison. `tools/retrieval_benchmark.py` measures the current deterministic baseline without changing thresholds. `--enforce` turns the frozen thresholds into a gate; normal measurement mode reports results without pretending the current baseline already satisfies them.
+
+The owner-validated deterministic baseline at `79872e04107c49bd82810fd5de49737e3d9c7686` achieved required-ID recall 1.000 but failed the frozen benchmark because critical-case recall was 0.500, forbidden hits were 3, and mean extra IDs were 19.500. The evidence is preserved in `evidence/audits/retrieval-open-set-v1-deterministic-baseline.md`.
+
+## Semantic experiment channel
+
+The first semantic candidate is intentionally implemented as a replaceable ranking backend rather than a new source of truth or a Qdrant service dependency.
+
+`tools/semantic_retriever.py` ranks the same canonical record universe with embeddings and selects a bounded top-K set. The first experiment backend is FastEmbed `0.8.0` with `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`, using local ONNX inference. Model files are cached outside the repository under the user cache directory (or `QIVEN_FASTEMBED_CACHE`) so semantic experiments do not dirty canonical source state.
+
+The semantic dependency is optional:
+
+```text
+tools\bootstrap-semantic.cmd
+```
+
+Core `validate.cmd` and `test.cmd` do not require FastEmbed or a downloaded model. Unit tests inject a fake embedding backend so semantic contract/ranking code remains regression-tested without network or model provisioning.
+
+Measure semantic retrieval against the unchanged benchmark with:
+
+```text
+.venv\Scripts\python.exe tools\retrieval_benchmark.py --mode semantic
+```
+
+The initial semantic selector uses `top_k=8`, fixed before observing semantic benchmark results. That bound is not declared sufficient in advance; it is an experiment parameter. If semantic-only retrieval loses required recall or retains forbidden hits, the next step is a measured hybrid/fusion path rather than moving the benchmark thresholds.
 
 A later semantic/hybrid batch must run against the same frozen benchmark plus an additional blind/held-out acceptance set before retrieval reliability can be declared sufficient.
