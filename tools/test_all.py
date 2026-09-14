@@ -42,6 +42,8 @@ SUITES = (
     SuiteRun("rerank-retrieval", "tools/test_rerank_retrieval.py"),
     SuiteRun("retrieval-acceptance", "tools/test_retrieval_acceptance.py"),
     SuiteRun("evidence-span-probe", "tools/test_evidence_span_probe.py"),
+    SuiteRun("nli-answerability-probe", "tools/test_nli_answerability_probe.py"),
+    SuiteRun("concrete-entailment-probe", "tools/test_concrete_entailment_probe.py"),
     SuiteRun("cold-boot-contract", "tools/test_cold_boot_contract.py"),
     SuiteRun("windows-python-resolution", "tools/test_windows_python.py", windows_only=True),
 )
