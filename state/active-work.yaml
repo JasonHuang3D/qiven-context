@@ -1,18 +1,16 @@
 schema_version: 1
-program: qiven-devkit
+program: qiven-context
 phase: 1
 batch: 1
 status: active
-objective: 'Qiven Operator Phase 1: replace repeated ad-hoc CMD orchestration with a reusable Python engineering control layer while keeping repository entrypoints thin and generated repositories independent.'
-validated_work:
-  - 'The owner reproduced the preserved Devkit failure at exact head ac816bb06fbe978c1b41a730104114e8f5778610: devkit-regression failed because the Foundation-shaped adoption fixture recreated .qiven through the new managed .qiven/operator.json path and was rejected before plan classification.'
-  - 'jason-brother repaired only the fixture model in qiven-devkit commit cc463495845e57f68d54b535d7a64c8a293bc652, treating .qiven/operator.json as MISSING for an unadopted Foundation-shaped repository while leaving adoption safety semantics and Operator implementation unchanged.'
-  - 'The owner reported tools/test.cmd ALL PASS on exact head cc463495845e57f68d54b535d7a64c8a293bc652; remote branch verification confirmed that exact head still names jason-brother/devkit-operator-phase1.'
-operator_feedback:
-  - 'During the successful long-running CLI validation, the owner still experienced uncertainty while waiting. Human-visible liveness remains an explicit Operator acceptance concern: prompt start acknowledgement, truthful heartbeat/progress during otherwise silent work, stable [RUN]/[OK]/[FAIL] layout, buffered failure detail, and concise terminal summary belong in Python orchestration rather than renewed CMD glue. This reinforces MEM-20260913T194500Z-8F2C41.'
+objective: 'Retrieval Reliability Reassessment: replace assumed retrieval sufficiency with a measured, mandatory, layered retrieval contract before Qiven Operator Phase 1 merge/release work resumes.'
+paused_work:
+  - 'Qiven Operator Phase 1 on jason-brother/devkit-operator-phase1. The latest owner-reported full Devkit regression PASS was at exact candidate 3ffd5565fe3c0f0d6dfea4a77bf9fb7b8248e86a, but Operator dogfood/merge/release work is paused until qiven-context retrieval reliability is accepted.'
+pause_reason: 'Operator dogfood exposed an operational qiven-context retrieval miss: active canonical memory MEM-20260913T170803Z-A61F2C and the mature Windows Python resolver existed but were not retrieved before reasoning repeated the problem. ADR-0003 revisit conditions are therefore triggered. Batch 004 cold-boot acceptance remains valid for its closed-set safety assertions but does not establish open-set recall or mandatory task-transition retrieval.'
 next_batches:
-  - 'Dogfood Qiven Operator itself and verify human output, no-color behavior, machine JSON, fail-fast semantics, parallel/dependency scheduling, exact Git gates, buffered failure logs, and asynchronous CI dispatch semantics.'
-  - 'Any implementation change discovered during dogfood creates a new exact head and invalidates the cc463495845e57f68d54b535d7a64c8a293bc652 PASS for final merge purposes; rerun required local validation on the final candidate.'
-  - 'After exact final-head local validation and remote review, merge according to ADR-0021, then harden/version Qiven Operator as Devkit 0.1.3.'
-  - 'Only after the 0.1.3 release gate, synchronize accepted managed Operator files into Foundation and Math in controlled repo-specific batches.'
-updated_at: '2026-09-14T11:22:06Z'
+  - 'Freeze an open-set retrieval benchmark and acceptance contract before tuning implementation. Include paraphrased historical incidents, task-transition probes, negative controls, cross-domain distractors, and explicit proof that retrieval was invoked.'
+  - 'Measure the current deterministic/metadata baseline and at least one semantic retrieval candidate; then measure a hybrid/fused path while preserving canonical provenance and rebuildability.'
+  - 'Define critical recall and acceptable retrieval-noise thresholds before observing final benchmark results. Do not move thresholds after results are known.'
+  - 'Integrate mandatory task-specific retrieval into cold boot and material task/domain/repository transitions rather than relying on the reasoning model to remember to search.'
+  - 'Run a new cold-boot/task-transition acceptance and preserve evidence. Resume Qiven Operator Phase 1 only after the owner accepts the strengthened retrieval substrate and OBL-20260914T124259Z-7A4D13 closes.'
+updated_at: '2026-09-14T12:42:59Z'
