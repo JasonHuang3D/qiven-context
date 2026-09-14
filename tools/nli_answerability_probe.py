@@ -6,9 +6,7 @@ import math
 import os
 from pathlib import Path
 import sys
-from typing import Any, Mapping, Sequence
-
-import numpy as np
+from typing import Any, Mapping, Protocol, Sequence
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -25,6 +23,15 @@ MAX_NLI_TOKENS = 512
 TOP_NEGATIVE_DOCUMENTS = 3
 SUFFICIENT_HYPOTHESIS = "The evidence contains enough information to answer the question."
 INSUFFICIENT_HYPOTHESIS = "The evidence does not contain enough information to answer the question."
+
+
+class NliBackend(Protocol):
+    def entailment_probabilities(
+        self,
+        premises: Sequence[str],
+        hypotheses: Sequence[str],
+    ) -> list[float]:
+        ...
 
 
 @dataclass(frozen=True)
@@ -69,10 +76,11 @@ def nli_premise(question: str, evidence: str) -> str:
 
 
 class OnnxNliBackend:
-    """Small experimental multilingual NLI backend using existing semantic-runtime deps.
+    """Experimental multilingual NLI backend using optional semantic-runtime deps.
 
-    This is deliberately a probe backend, not a production selector. It uses the
-    quantized ONNX export so the experiment does not introduce PyTorch.
+    The model dependencies stay lazy so normal qiven-context bootstrap and unit
+    regression do not require the semantic runtime. This probe uses the
+    quantized ONNX export and deliberately does not introduce PyTorch.
     """
 
     def __init__(
@@ -83,6 +91,7 @@ class OnnxNliBackend:
     ) -> None:
         try:
             from huggingface_hub import hf_hub_download
+            import numpy as np
             import onnxruntime as ort
             from tokenizers import Tokenizer
         except ImportError as exc:
@@ -90,6 +99,7 @@ class OnnxNliBackend:
                 "NLI probe requires the optional semantic runtime; run tools\\bootstrap-semantic.cmd first"
             ) from exc
 
+        self._np = np
         self.model_name = model_name
         self.cache_dir = Path(cache_dir) if cache_dir is not None else default_cache_dir()
         self.cache_dir.mkdir(parents=True, exist_ok=True)
@@ -121,6 +131,7 @@ class OnnxNliBackend:
         if not premises:
             return []
 
+        np = self._np
         encodings = self._tokenizer.encode_batch(list(zip(premises, hypotheses)))
         input_ids = np.asarray([encoding.ids for encoding in encodings], dtype=np.int64)
         attention_mask = np.asarray(
@@ -128,7 +139,7 @@ class OnnxNliBackend:
         )
         type_ids = np.asarray([encoding.type_ids for encoding in encodings], dtype=np.int64)
 
-        feeds: dict[str, np.ndarray] = {}
+        feeds: dict[str, Any] = {}
         if "input_ids" in self._input_names:
             feeds["input_ids"] = input_ids
         if "attention_mask" in self._input_names:
@@ -149,7 +160,7 @@ class OnnxNliBackend:
 
 
 def score_answerability(
-    backend: OnnxNliBackend,
+    backend: NliBackend,
     query: Mapping[str, Any],
     chunks: Sequence[str],
 ) -> list[NliEvidenceScore]:
@@ -187,7 +198,7 @@ def _shorten(text: str, limit: int = 180) -> str:
 def probe_case(
     case: Mapping[str, Any],
     retriever: RerankedRetriever,
-    nli: OnnxNliBackend,
+    nli: NliBackend,
 ) -> dict[str, Any]:
     ranked = retriever.rank(case["query"])
     by_id = {hit.id: hit for hit in ranked}
