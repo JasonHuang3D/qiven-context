@@ -43,7 +43,7 @@ records:
   - id: OBL-20260913T182954Z-7B4E20
     file: OBL-20260913T182954Z-7B4E20.md
     title: Resume Math Batch 008 vector algorithms after qiven-context cold-boot acceptance
-    status: open
+    status: done
   - id: OBL-20260913T182954Z-C91A5D
     file: OBL-20260913T182954Z-C91A5D.md
     title: Revisit Math scalar vocabulary only when concrete units or numeric integration requires it
@@ -75,4 +75,8 @@ records:
   - id: OBL-20260914T081146Z-6D2F31
     file: OBL-20260914T081146Z-6D2F31.md
     title: Improve human-facing Devkit adoption plan output
+    status: deferred
+  - id: OBL-20260914T091555Z-C4D8A2
+    file: OBL-20260914T091555Z-C4D8A2.md
+    title: Refresh qiven-math CI Foundation checkout pin
     status: deferred

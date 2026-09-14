@@ -29,6 +29,18 @@ Human-visible tasks that may remain silent long enough to be mistaken for a hang
 
 Progress output must report only observable state. Do not invent percentages, ETAs, completed stages, or progress merely to reassure the operator. Heartbeat cadence should scale with expected duration; for interactive local tasks that normally run for tens of seconds, roughly five seconds of otherwise silent execution is a useful default interval. See `MEM-20260913T194500Z-8F2C41`.
 
+## Operator-facing engineering CLI
+
+Prefer deterministic CLI, API, repository script, or automation paths over asking the user to click through software-engineering UI when a reliable non-interactive path exists. GitHub operations such as workflow dispatch, run inspection, logs, branch/ref checks, and similar engineering tasks should use `gh`, Git, connector APIs, or repository tooling before browser UI instructions.
+
+For Windows CMD command sequences that are known to be strictly sequential and where later commands should run only if earlier commands succeed, prefer a single copy-pasteable command chain joined with `&&`. In CMD, `&&` means run the next command only when the previous command is observed as successful; `&` runs the next command regardless of failure; `||` runs the next command when the previous command is observed as failed; and `|` pipes standard output from one process into another rather than sequencing gates.
+
+A raw `.cmd` or `.bat` invocation is **not** a reliable success/failure operand for `&&`/`||` in all interactive CMD parsing cases, even when the script ends with `exit /b <nonzero>`. Therefore any batch gate used inside an `&&`/`||` chain must be invoked with `call`, for example `call tools\validate.cmd && call tools\test.cmd && call tools\verify-live-state.cmd`. Each gate script must also return an explicit non-zero code on failure. Do not build a fail-fast chain around a command whose exit-code contract is unknown or known to be lossy.
+
+For long or safety-critical chains, prefer one explicit fail-fast command block or a repository-local orchestration `.cmd` over relying on many loosely related commands. The orchestration layer must stop immediately at the first failed required gate, must not run later mutating or validation stages after that failure, and must preserve the failing exit code for automation. Independent diagnostics or cleanup that intentionally run after failure must be outside the success chain and clearly marked as such.
+
+When a long command chain would become unreadable or requires conditional logic, environment capture, loops, diagnostics, or reusable behavior, prefer a small repository-local `.cmd`/script rather than forcing the operator through many manual copy/paste steps.
+
 ## Operator-facing Git validation commands
 
 For commands handed to the user during Chat-mode validation, prefer non-interactive checks such as `git diff --check`, `git diff --cached --check`, `git status --short`, and exact `git rev-parse HEAD` verification. Do not ask the user to run raw `git diff` or `git diff --cached` merely for review: Git may invoke a pager and appear to hang in Windows CMD, and exact remote diff review is jason-brother's responsibility.
