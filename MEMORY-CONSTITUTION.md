@@ -35,3 +35,9 @@ SQLite, FTS, BM25, embeddings, vector or graph indexes, and MCP must remain rebu
 
 ## 12. Private does not mean secret store
 Never commit passwords, private keys, access tokens, API keys, recovery codes, or credentials. A future ingestion strategy may add redaction and secret scanning; Batch 001 does not claim such protection.
+
+## 13. Simplicity must be falsifiable, not assumed sufficient
+Deferring a deeper mechanism is an engineering hypothesis, not proof that the mechanism is unnecessary. For foundational subsystems, especially those with silent false-negative failure modes, a complexity deferral must state the sufficiency hypothesis, observable failure signals, a test that can falsify it, a revisit trigger, and a credible migration or comparison path. “Too complex,” “not necessary yet,” and “we can add it later” are not sufficient engineering evidence by themselves.
+
+## 14. Retrieval reliability includes invocation as well as ranking
+A correct retrieval engine that is not invoked at a material task transition is operationally equivalent to a retrieval miss. Cold boot is not the only retrieval boundary. Long-running conversations must re-retrieve task-specific cognition when the domain, repository, subsystem, or engineering question changes materially.

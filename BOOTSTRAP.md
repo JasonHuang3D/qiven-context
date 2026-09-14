@@ -1,4 +1,4 @@
-# Cold-Boot Protocol
+# Cold-Boot and Task-Transition Protocol
 
 Do not rely on model-native memory as authoritative project state.
 
@@ -7,10 +7,15 @@ Do not rely on model-native memory as authoritative project state.
 3. Read `state/current.md`.
 4. Read `state/active-work.yaml`.
 5. Determine the current task.
-6. Load relevant project material.
-7. Load relevant non-terminal obligations (`open`, `deferred`, and `blocked`) and evaluate their triggers against the task.
-8. Load applicable decisions and rejected alternatives.
-9. Verify relevant live repositories.
-10. Report inconsistencies before acting.
+6. Run task-specific retrieval before using project-history facts. Prefer the Context Compiler / accepted retrieval pipeline. At minimum, inspect task-relevant project material plus `memory/index.yaml`, `decisions/index.yaml`, and non-terminal obligations when the accepted retrieval pipeline is unavailable.
+7. Load relevant project material selected by the retrieval result.
+8. Load relevant canonical memory and accepted decisions, including rejected alternatives that constrain the task.
+9. Load relevant non-terminal obligations (`open`, `deferred`, and `blocked`) and evaluate their triggers against the task.
+10. Verify relevant live repositories and runtime evidence for claims whose authority is live state rather than canonical intent.
+11. Report inconsistencies before acting.
+
+Repeat task-specific retrieval whenever the conversation materially changes domain, repository, subsystem, or engineering question. A successful cold boot does not make the initial context pack sufficient for every later task in a long-running conversation.
+
+Model-native/account memory or prior-chat recollection may suggest search terms or likely source locations, but it must not fill project-history gaps or substitute for canonical qiven-context evidence.
 
 Never invent missing project history. If context is absent, report the absence and retrieve evidence instead.

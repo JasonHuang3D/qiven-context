@@ -84,3 +84,7 @@ records:
     file: ADR-0021.md
     title: Permit jason-brother to merge validated batch branches after user-confirmed local validation
     status: accepted
+  - id: ADR-0022
+    file: ADR-0022.md
+    title: Treat cognition retrieval adequacy as a measured layered reliability property
+    status: accepted

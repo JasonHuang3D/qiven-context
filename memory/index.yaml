@@ -68,3 +68,7 @@ records:
     file: MEM-20260913T194500Z-8F2C41.md
     title: Long-running human-facing tasks must provide truthful liveness and progress feedback
     status: active
+  - id: MEM-20260914T124259Z-5C8E21
+    file: MEM-20260914T124259Z-5C8E21.md
+    title: Complexity deferral is safe only when its sufficiency is falsifiable and observable
+    status: active
