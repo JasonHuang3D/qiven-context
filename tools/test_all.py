@@ -44,6 +44,7 @@ SUITES = (
     SuiteRun("evidence-span-probe", "tools/test_evidence_span_probe.py"),
     SuiteRun("cold-boot-contract", "tools/test_cold_boot_contract.py"),
     SuiteRun("windows-python-resolution", "tools/test_windows_python.py", windows_only=True),
+    SuiteRun("host-preflight", "tools/test_host_preflight.py", windows_only=True),
 )
 
 
