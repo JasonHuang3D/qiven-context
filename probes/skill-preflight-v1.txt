@@ -1,4 +1,4 @@
 QIVEN_SKILL_PREFLIGHT_PROBE_V1
-nonce=45F2D645D6469A43C0813E7BE351A2D3
+state=missing-nonce-for-fail-closed-test
 created_for=explicit-skill-to-github-invocation-test
-rule=The skill must read this file live through the connected GitHub app and echo the nonce. The nonce must not be copied into the skill definition.
+rule=The skill must live-read this file through the connected GitHub app. Because the nonce= line is intentionally absent, preflight must fail closed and must not state Qiven project-history facts.
