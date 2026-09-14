@@ -157,14 +157,15 @@ class HybridRetriever:
         selected: list[str] = []
         seen: set[str] = set()
         explicit = [str(item) for item in query.get("include_ids", []) or []]
+        ranked = self.rank(query)
+        ranked_ids = {hit.id for hit in ranked}
 
-        ranked_ids = {hit.id for hit in self.rank(query)}
         for canonical_id in explicit:
             if canonical_id in ranked_ids and canonical_id not in seen:
                 selected.append(canonical_id)
                 seen.add(canonical_id)
 
-        for hit in self.rank(query):
+        for hit in ranked:
             if len(selected) >= top_k:
                 break
             if hit.id not in seen:
