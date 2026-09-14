@@ -10,6 +10,7 @@ Genesis historical import status: **SLICE COMPLETE** for current architecture, r
 - Managed snapshot: 16 shared paths.
 - Bootstrap-only repository-owned paths: `.gitignore`, `README.md`, `CMakeLists.txt`, `.github/workflows/ci.yml`.
 - The accepted 0.1.2 merge tree is exactly the locally validated candidate tree from `125632e8ebb66aa0f9c3302a1fc93d63356d8004`.
+- qiven-foundation is now formally adopted into this managed lifecycle; accepted Foundation main is `6c09151e1a52830c66e6c7a97b5b68740154f475`.
 
 ## Architectural model
 
@@ -26,7 +27,7 @@ Genesis historical import status: **SLICE COMPLETE** for current architecture, r
 - Adoption classifies managed paths as `EXACT`, `MISSING`, or `CONFLICT`; conflicts abort before normal mutation.
 - Sync uses schema-2 generated state with managed-path SHA-256 hashes and preflights the union of old/new managed paths.
 - Bootstrap-only files are outside synchronization ownership.
-- The MISSING-path adoption fixture now performs an immediate post-adoption sync and verifies all sixteen managed files plus `.qiven/repo.json` and `.qiven/generated-state.cmake` remain byte-for-byte hash-stable. `OBL-20260913T182338Z-8A21D6` is complete.
+- The MISSING-path adoption fixture performs an immediate post-adoption sync and verifies all sixteen managed files plus `.qiven/repo.json` and `.qiven/generated-state.cmake` remain hash-stable. `OBL-20260913T182338Z-8A21D6` is complete.
 
 ## Foundation drift archaeology
 
@@ -56,11 +57,11 @@ Historical conflict paths:
 
 The pre-reconciliation live Foundation versus Devkit 0.1.1 reconstruction independently reproduced the same 3 exact / 13 conflict partition. See `evidence/audits/foundation-managed-drift-reconstruction.md` for semantic dispositions and provenance.
 
-## Reconciliation outcome
+## Reconciliation and adoption outcome
 
-Devkit 0.1.2 generalizes the shared engineering protocol that was previously richer in Foundation, while repository-specific architecture remains repository-owned. It also hardens generated Windows CMD control flow, adds a regression detector for unsafe ungrouped conditional chaining, introduces the dedicated MISSING-adoption sync no-op regression, and standardizes human-facing test-runner output expectations.
+Devkit 0.1.2 generalized the shared engineering protocol that was previously richer in Foundation while keeping repository-specific architecture repository-owned. It also hardened generated Windows CMD control flow, added a regression detector for unsafe ungrouped conditional chaining, introduced the dedicated MISSING-adoption sync no-op regression, and standardized human-facing test-runner output expectations.
 
-The Foundation-side reconciliation branch is now rendering the thirteen former conflicts against this merged 0.1.2 managed surface. Foundation architecture remains in `docs/architecture/foundation.md`; managed protocol files should no longer duplicate repository-specific mission, dependency, ABI, or domain contracts merely to preserve historical wording.
+Foundation then converged the thirteen former conflicts against this accepted surface. A real adoption check reached `16 EXACT / 0 MISSING / 0 CONFLICT`; formal adoption created only `.qiven/repo.json` and `.qiven/generated-state.cmake`; immediate sync left both ownership-state files byte-identical. Foundation main `6c09151e1a52830c66e6c7a97b5b68740154f475` is therefore formally Devkit-managed.
 
 ## Lessons and accepted limitations
 
@@ -69,10 +70,11 @@ The Foundation-side reconciliation branch is now rendering the thirteen former c
 - Devkit managed templates must not automatically override semantically divergent brownfield files; semantic disposition precedes ownership.
 - Evidence absent from canonical context may still be recoverable from authoritative Git history. Do not fabricate missing detail, but distinguish `not imported` from `not recoverable`.
 - Large textual deletion during managed-file convergence is not itself proof of semantic loss: shared protocol may be deduplicated into stronger generic managed contracts while repository-specific rules remain in repository-owned architecture. Exact semantic review is still required before adoption.
+- Human-facing lifecycle commands are engineering interfaces. Adoption `check/apply` output should eventually receive the same deliberate layout/status discipline as the test runner (`OBL-20260914T081146Z-6D2F31`).
 
 ## Active residue
 
-- `OBL-20260913T182338Z-4F7C19` remains open until Foundation's real adoption `check` against merged Devkit 0.1.2 reaches a clean managed surface and the semantic reconciliation is locally validated.
+- Improve human-facing adoption-plan/result layout when that CLI presentation is next touched (`OBL-20260914T081146Z-6D2F31`).
 - Revisit crash-consistent update mechanics if the managed surface or failure cost grows materially (`OBL-20260913T182338Z-B37E54`).
 
-See `evidence/audits/genesis-devkit-slice.md` for the original extraction scope and `evidence/audits/foundation-managed-drift-reconstruction.md` for the live reconciliation.
+See `evidence/audits/genesis-devkit-slice.md`, `evidence/audits/foundation-managed-drift-reconstruction.md`, and `evidence/audits/foundation-devkit-adoption.md`.
