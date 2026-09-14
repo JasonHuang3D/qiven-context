@@ -40,6 +40,7 @@ SUITES = (
     SuiteRun("hybrid-retrieval", "tools/test_hybrid_retrieval.py"),
     SuiteRun("structural-retrieval", "tools/test_structural_retrieval.py"),
     SuiteRun("rerank-retrieval", "tools/test_rerank_retrieval.py"),
+    SuiteRun("retrieval-acceptance", "tools/test_retrieval_acceptance.py"),
     SuiteRun("cold-boot-contract", "tools/test_cold_boot_contract.py"),
     SuiteRun("windows-python-resolution", "tools/test_windows_python.py", windows_only=True),
 )
