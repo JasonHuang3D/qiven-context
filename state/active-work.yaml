@@ -4,14 +4,9 @@ phase: 1
 batch: 1
 status: active
 objective: 'Retrieval Reliability Reassessment: replace assumed retrieval sufficiency with a measured, mandatory, layered retrieval contract before Qiven Operator Phase 1 merge/release work resumes.'
-validated_work:
-  - 'qiven-context already contained active canonical memory MEM-20260913T170803Z-A61F2C and a mature tools/resolve-python.cmd implementation describing messy Windows Python resolution, but that knowledge was not retrieved when Operator dogfood encountered the same problem.'
-  - 'The reasoning path used older model-native conversation context and partially re-invented a weaker resolver before the canonical qiven-context lesson was rediscovered. This is an operational retrieval miss, not a capture failure.'
-  - 'ADR-0003 explicitly deferred semantic retrieval only until cold-boot acceptance or operational experience demonstrated insufficiency; this operational miss triggers that revisit condition while preserving ADR-0003 source/derived separation.'
-  - 'Batch 004 cold-boot acceptance was a closed-set test of known assertions and source discipline. It did not establish open-set recall for unanticipated task wording or prove that retrieval runs at every material task transition.'
-  - 'ADR-0022 and MEM-20260914T124259Z-5C8E21 record the new reliability doctrine: complexity deferral must be falsifiable and retrieval adequacy must be measured rather than assumed.'
-blocked_work:
-  - 'Qiven Operator Phase 1 on jason-brother/devkit-operator-phase1 is blocked by OBL-20260914T124259Z-7A4D13 before merge or Devkit 0.1.3 release. The latest owner-reported full regression PASS was at exact candidate 3ffd5565fe3c0f0d6dfea4a77bf9fb7b8248e86a, but this is not a final merge authorization while the cognition substrate is under reassessment.'
+paused_work:
+  - 'Qiven Operator Phase 1 on jason-brother/devkit-operator-phase1. The latest owner-reported full Devkit regression PASS was at exact candidate 3ffd5565fe3c0f0d6dfea4a77bf9fb7b8248e86a, but Operator dogfood/merge/release work is paused until qiven-context retrieval reliability is accepted.'
+pause_reason: 'Operator dogfood exposed an operational qiven-context retrieval miss: active canonical memory MEM-20260913T170803Z-A61F2C and the mature Windows Python resolver existed but were not retrieved before reasoning repeated the problem. ADR-0003 revisit conditions are therefore triggered. Batch 004 cold-boot acceptance remains valid for its closed-set safety assertions but does not establish open-set recall or mandatory task-transition retrieval.'
 next_batches:
   - 'Freeze an open-set retrieval benchmark and acceptance contract before tuning implementation. Include paraphrased historical incidents, task-transition probes, negative controls, cross-domain distractors, and explicit proof that retrieval was invoked.'
   - 'Measure the current deterministic/metadata baseline and at least one semantic retrieval candidate; then measure a hybrid/fused path while preserving canonical provenance and rebuildability.'
