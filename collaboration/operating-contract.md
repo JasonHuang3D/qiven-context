@@ -39,11 +39,15 @@ A raw `.cmd` or `.bat` invocation is **not** a reliable success/failure operand 
 
 For long or safety-critical chains, prefer one explicit fail-fast command block or a repository-local orchestration `.cmd` over relying on many loosely related commands. The orchestration layer must stop immediately at the first failed required gate, must not run later mutating or validation stages after that failure, and must preserve the failing exit code for automation. Independent diagnostics or cleanup that intentionally run after failure must be outside the success chain and clearly marked as such.
 
+Compound human-run validation must also be observable. Every material stage should print a stable start marker and an explicit success marker when the command itself may otherwise succeed silently. In particular, do not leave `git diff --check`, clean-tree verification, SHA assertions, or similar gates as invisible tail commands whose execution can only be inferred. Prefer output such as `[ RUN] diff-check` followed by `[ OK ] diff-check` so the operator can tell exactly which stages actually ran.
+
+A command that merely prints state is not automatically a validation gate. For example, `git status --short` normally exits successfully whether the tree is clean or dirty. When a clean working tree is a required condition, use an explicit wrapper or check that inspects porcelain output and returns non-zero when tracked, staged, or untracked changes are present; printing `git status --short` may remain a diagnostic, but its exit code must not be treated as proof of cleanliness.
+
 When a long command chain would become unreadable or requires conditional logic, environment capture, loops, diagnostics, or reusable behavior, prefer a small repository-local `.cmd`/script rather than forcing the operator through many manual copy/paste steps.
 
 ## Operator-facing Git validation commands
 
-For commands handed to the user during Chat-mode validation, prefer non-interactive checks such as `git diff --check`, `git diff --cached --check`, `git status --short`, and exact `git rev-parse HEAD` verification. Do not ask the user to run raw `git diff` or `git diff --cached` merely for review: Git may invoke a pager and appear to hang in Windows CMD, and exact remote diff review is jason-brother's responsibility.
+For commands handed to the user during Chat-mode validation, prefer non-interactive checks such as `git diff --check`, `git diff --cached --check`, explicit clean-tree verification, and exact `git rev-parse HEAD` verification. Do not ask the user to run raw `git diff` or `git diff --cached` merely for review: Git may invoke a pager and appear to hang in Windows CMD, and exact remote diff review is jason-brother's responsibility.
 
 If a full local diff is genuinely required for diagnosis, make the non-paged behavior explicit (for example `git --no-pager diff ...`) or capture the output deliberately. Do not silently rely on pager interaction as part of the user's validation workflow.
 
