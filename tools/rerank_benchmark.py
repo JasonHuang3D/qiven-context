@@ -17,14 +17,53 @@ from rerank_retriever import (  # noqa: E402
     DEFAULT_MIN_LOGIT,
     DEFAULT_RERANK_MODEL,
     DEFAULT_SEMANTIC_POOL_TOP_K,
+    RerankHit,
     RerankedRetriever,
 )
 from semantic_retriever import DEFAULT_MODEL  # noqa: E402
 
 
+def _select_from_ranked(
+    query: Mapping[str, Any],
+    ranked: list[RerankHit],
+    *,
+    max_selected: int = DEFAULT_MAX_SELECTED,
+    min_logit: float = DEFAULT_MIN_LOGIT,
+) -> set[str]:
+    if max_selected < 1:
+        raise ValueError("max_selected must be >= 1")
+    if not ranked:
+        return set()
+
+    selected: list[str] = []
+    seen: set[str] = set()
+    explicit_ids = {str(item) for item in query.get("include_ids", []) or []}
+
+    for hit in ranked:
+        if hit.id in explicit_ids and hit.id not in seen:
+            selected.append(hit.id)
+            seen.add(hit.id)
+            if len(selected) >= max_selected:
+                return set(selected)
+
+    for hit in ranked:
+        if len(selected) >= max_selected:
+            break
+        if hit.id in seen:
+            continue
+        if hit.rerank_score >= min_logit:
+            selected.append(hit.id)
+            seen.add(hit.id)
+
+    if not selected:
+        selected.append(ranked[0].id)
+
+    return set(selected)
+
+
 def evaluate_case(case: Mapping[str, Any], retriever: RerankedRetriever) -> dict[str, Any]:
     ranked = retriever.rank(case["query"])
-    selected = retriever.select_ids(case["query"])
+    selected = _select_from_ranked(case["query"], ranked)
     by_id = {hit.id: hit for hit in ranked}
 
     required = set(str(item) for item in case["required_ids"])
