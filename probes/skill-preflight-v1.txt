@@ -1,4 +1,4 @@
 QIVEN_SKILL_PREFLIGHT_PROBE_V1
-nonce=6D94F2A7C1834BE5B0E96A42F7D1C8AF
+nonce=45F2D645D6469A43C0813E7BE351A2D3
 created_for=explicit-skill-to-github-invocation-test
 rule=The skill must read this file live through the connected GitHub app and echo the nonce. The nonce must not be copied into the skill definition.
