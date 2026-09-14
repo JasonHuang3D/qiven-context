@@ -5,15 +5,15 @@ repositories:
     remote: https://github.com/JasonHuang3D/qiven-foundation.git
     local_path: D:/JasonWork/qiven-foundation
     default_branch: main
-    main_sha: f1880847e046425c7f3f3cad22a07d0008aad359
-    observed_at: '2026-09-13T17:21:18Z'
+    main_sha: 39804432866cc37959720db5629d74b51550cc3f
+    observed_at: '2026-09-14T08:11:46Z'
     authority: live_git
   - name: qiven-devkit
     remote: https://github.com/JasonHuang3D/qiven-devkit.git
     local_path: D:/JasonWork/qiven-devkit
     default_branch: main
-    main_sha: 214dc5c933ef4f7db3fce9795a39d49ca382dfbf
-    observed_at: '2026-09-13T17:21:18Z'
+    main_sha: 022aaac1e169d556015b52c32af255031a6de332
+    observed_at: '2026-09-14T08:11:46Z'
     authority: live_git
   - name: qiven-math
     remote: https://github.com/JasonHuang3D/qiven-math.git
