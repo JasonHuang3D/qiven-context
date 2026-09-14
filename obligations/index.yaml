@@ -88,3 +88,7 @@ records:
     file: OBL-20260914T124259Z-7A4D13.md
     title: Reassess qiven-context retrieval reliability before resuming Operator merge
     status: open
+  - id: OBL-20260914T183608Z-4D61B8
+    file: OBL-20260914T183608Z-4D61B8.md
+    title: Accept the local Chat-mode Qiven Context runtime transport before production lease use
+    status: open

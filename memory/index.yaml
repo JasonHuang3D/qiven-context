@@ -72,3 +72,7 @@ records:
     file: MEM-20260914T124259Z-5C8E21.md
     title: Complexity deferral is safe only when its sufficiency is falsifiable and observable
     status: active
+  - id: MEM-20260914T183608Z-7C9E42
+    file: MEM-20260914T183608Z-7C9E42.md
+    title: Qiven remote cognition transport must be coarse-grained and explicitly invoked
+    status: active
