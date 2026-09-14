@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
 import subprocess
 from typing import Any, Mapping
+from uuid import uuid4
 
 from jsonschema import Draft202012Validator, FormatChecker
 
@@ -33,10 +35,10 @@ def _sha256_text(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
 
-def resolve_canonical_ref(root: Path = ROOT) -> str:
+def _run_git(root: Path, *args: str) -> str:
     completed = subprocess.run(
-        ["git", "rev-parse", "HEAD"],
-        cwd=Path(root),
+        ["git", *args],
+        cwd=root,
         check=False,
         text=True,
         stdout=subprocess.PIPE,
@@ -45,11 +47,33 @@ def resolve_canonical_ref(root: Path = ROOT) -> str:
         errors="replace",
     )
     if completed.returncode != 0:
-        detail = completed.stderr.strip() or completed.stdout.strip() or "git rev-parse failed"
-        raise ValueError(f"cannot resolve qiven-context canonical ref: {detail}")
-    ref = completed.stdout.strip().casefold()
+        detail = completed.stderr.strip() or completed.stdout.strip() or f"git {' '.join(args)} failed"
+        raise ValueError(detail)
+    return completed.stdout
+
+
+def resolve_canonical_ref(root: Path = ROOT) -> str:
+    root = Path(root)
+    try:
+        ref = _run_git(root, "rev-parse", "HEAD").strip().casefold()
+    except ValueError as exc:
+        raise ValueError(f"cannot resolve qiven-context canonical ref: {exc}") from exc
     if len(ref) != 40 or any(ch not in "0123456789abcdef" for ch in ref):
         raise ValueError(f"unexpected qiven-context canonical ref: {ref!r}")
+    return ref
+
+
+def require_clean_canonical_source(root: Path = ROOT) -> str:
+    root = Path(root)
+    ref = resolve_canonical_ref(root)
+    try:
+        porcelain = _run_git(root, "status", "--porcelain=v1", "--untracked-files=all")
+    except ValueError as exc:
+        raise ValueError(f"cannot inspect qiven-context working tree: {exc}") from exc
+    if porcelain.strip():
+        raise ValueError(
+            "qiven-context working tree is not clean; refusing to issue a Context Lease whose canonical_ref would not describe the retrieved source"
+        )
     return ref
 
 
@@ -87,12 +111,14 @@ def prepare_context(
 
     # Reliability rule: every host turn reaching this gateway performs retrieval.
     # Reuse may be added later as an optimization, but must never bypass preflight.
-    pack = compile_context_pack(query, root)
-    fingerprint = task_fingerprint(query, root)
-    ref = canonical_ref.casefold() if canonical_ref is not None else resolve_canonical_ref(root)
+    # Production calls resolve and require a clean exact Git source. Tests may pass
+    # canonical_ref explicitly to isolate lease logic from repository state.
+    ref = canonical_ref.casefold() if canonical_ref is not None else require_clean_canonical_source(root)
     if len(ref) != 40 or any(ch not in "0123456789abcdef" for ch in ref):
         raise ValueError(f"invalid canonical ref: {ref!r}")
 
+    pack = compile_context_pack(query, root)
+    fingerprint = task_fingerprint(query, root)
     digest = pack_sha256(pack)
     if previous_lease is None:
         transition = "initial"
@@ -101,12 +127,13 @@ def prepare_context(
     else:
         transition = "task_transition"
 
-    seed = f"{ref}\n{fingerprint}\n{digest}"
+    prepared_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     lease: dict[str, Any] = {
         "schema_version": 1,
-        "lease_id": f"CTX-{_sha256_text(seed)[:16].upper()}",
+        "lease_id": f"CTX-{uuid4().hex[:16].upper()}",
         "canonical_ref": ref,
-        "prepared_at": pack["generated_at"],
+        "source_clean": True,
+        "prepared_at": prepared_at,
         "policy": POLICY,
         "retrieval_invoked": True,
         "task_fingerprint": fingerprint,
