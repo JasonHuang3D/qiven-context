@@ -43,6 +43,8 @@ Compound human-run validation must also be observable. Every material stage shou
 
 A command that merely prints state is not automatically a validation gate. For example, `git status --short` normally exits successfully whether the tree is clean or dirty. When a clean working tree is a required condition, use an explicit wrapper or check that inspects porcelain output and returns non-zero when tracked, staged, or untracked changes are present; printing `git status --short` may remain a diagnostic, but its exit code must not be treated as proof of cleanliness.
 
+Remote CI and comparable server-side work are asynchronous jobs, not local sequential gates. Prefer dispatching them and returning control immediately rather than inserting arbitrary `timeout` sleeps or custom polling loops solely to mirror progress in CMD. If a first-party CLI offers a trustworthy blocking/streaming wait primitive with clear run identity and exit semantics, it may be used deliberately; otherwise capture or preserve enough identity (branch, exact head SHA, workflow, run reference when available) so completion can be verified later through GitHub/API tooling before any dependent merge or release action. Avoid brittle "sleep then query latest run" logic, because queue latency and run discovery are asynchronous and race-prone.
+
 When a long command chain would become unreadable or requires conditional logic, environment capture, loops, diagnostics, or reusable behavior, prefer a small repository-local `.cmd`/script rather than forcing the operator through many manual copy/paste steps.
 
 ## Operator-facing Git validation commands
