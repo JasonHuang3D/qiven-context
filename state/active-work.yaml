@@ -2,15 +2,17 @@ schema_version: 1
 program: qiven-devkit
 phase: 1
 batch: 1
-status: paused
+status: active
 objective: 'Qiven Operator Phase 1: replace repeated ad-hoc CMD orchestration with a reusable Python engineering control layer while keeping repository entrypoints thin and generated repositories independent.'
-paused_work:
-  - 'qiven-devkit branch jason-brother/devkit-operator-phase1 at exact head ac816bb06fbe978c1b41a730104114e8f5778610 still fails tools/test.cmd after one narrow repair; no further repair was attempted in Qiven-v1.'
-  - 'qiven-context branch jason-brother/operator-cli-observability contains unmerged CLI/operator lessons and the Qiven-v1 -> Qiven-v2 handoff.'
-pause_reason: 'Qiven-v1 reached the chat conversation-length boundary. The owner explicitly instructed jason-brother to stop fixing, preserve context, and resume in a new Qiven-v2 session.'
+validated_work:
+  - 'The owner reproduced the preserved Devkit failure at exact head ac816bb06fbe978c1b41a730104114e8f5778610: devkit-regression failed because the Foundation-shaped adoption fixture recreated .qiven through the new managed .qiven/operator.json path and was rejected before plan classification.'
+  - 'jason-brother repaired only the fixture model in qiven-devkit commit cc463495845e57f68d54b535d7a64c8a293bc652, treating .qiven/operator.json as MISSING for an unadopted Foundation-shaped repository while leaving adoption safety semantics and Operator implementation unchanged.'
+  - 'The owner reported tools/test.cmd ALL PASS on exact head cc463495845e57f68d54b535d7a64c8a293bc652; remote branch verification confirmed that exact head still names jason-brother/devkit-operator-phase1.'
+operator_feedback:
+  - 'During the successful long-running CLI validation, the owner still experienced uncertainty while waiting. Human-visible liveness remains an explicit Operator acceptance concern: prompt start acknowledgement, truthful heartbeat/progress during otherwise silent work, stable [RUN]/[OK]/[FAIL] layout, buffered failure detail, and concise terminal summary belong in Python orchestration rather than renewed CMD glue. This reinforces MEM-20260913T194500Z-8F2C41.'
 next_batches:
-  - 'Recover or reproduce the exact remaining Devkit test failure at ac816bb06fbe978c1b41a730104114e8f5778610 before modifying code.'
-  - 'Repair the root cause, run full local Devkit regression/dogfood validation, and establish a new exact validation head.'
-  - 'After acceptance, harden and version Qiven Operator as Devkit 0.1.3.'
+  - 'Dogfood Qiven Operator itself and verify human output, no-color behavior, machine JSON, fail-fast semantics, parallel/dependency scheduling, exact Git gates, buffered failure logs, and asynchronous CI dispatch semantics.'
+  - 'Any implementation change discovered during dogfood creates a new exact head and invalidates the cc463495845e57f68d54b535d7a64c8a293bc652 PASS for final merge purposes; rerun required local validation on the final candidate.'
+  - 'After exact final-head local validation and remote review, merge according to ADR-0021, then harden/version Qiven Operator as Devkit 0.1.3.'
   - 'Only after the 0.1.3 release gate, synchronize accepted managed Operator files into Foundation and Math in controlled repo-specific batches.'
-updated_at: '2026-09-14T10:55:00Z'
+updated_at: '2026-09-14T11:22:06Z'
