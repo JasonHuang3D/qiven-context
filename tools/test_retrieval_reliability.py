@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 import sys
 import tempfile
@@ -28,13 +27,14 @@ class ContextLeaseTests(unittest.TestCase):
     def test_prepare_context_emits_valid_proof_of_retrieval(self):
         pack, lease = prepare_context(self.query(), ROOT, canonical_ref=FIXED_REF)
         self.assertTrue(lease["retrieval_invoked"])
+        self.assertTrue(lease["source_clean"])
         self.assertEqual(lease["policy"], "mandatory_turn_preflight")
         self.assertEqual(lease["transition"], "initial")
         self.assertEqual(lease["canonical_ref"], FIXED_REF)
         self.assertEqual(lease["task"], pack["query"]["task"])
         validate_context_lease(lease, ROOT)
 
-    def test_same_task_refresh_still_invokes_retrieval(self):
+    def test_same_task_refresh_still_invokes_retrieval_and_gets_new_lease(self):
         query = self.query("Continue the same retrieval task")
         first_pack, first = prepare_context(query, ROOT, canonical_ref=FIXED_REF)
         with mock.patch("context_gateway.compile_context_pack", wraps=__import__("context_gateway").compile_context_pack) as compiler:
@@ -43,6 +43,7 @@ class ContextLeaseTests(unittest.TestCase):
         self.assertTrue(second["retrieval_invoked"])
         self.assertEqual(second["transition"], "same_task_refresh")
         self.assertEqual(second["previous_lease_id"], first["lease_id"])
+        self.assertNotEqual(second["lease_id"], first["lease_id"])
         self.assertEqual(first_pack["query"], second_pack["query"])
 
     def test_changed_task_is_classified_as_transition(self):
