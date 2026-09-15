@@ -1,0 +1,180 @@
+schema_version: 1
+name: held-out-retrieval-v2
+purpose: >-
+  Held-out acceptance set frozen after the structural-hybrid algorithm and all of its parameters were
+  fixed at commit 4ba2d2ed89f7b2d5a07a0456687ab4bcd1c617fa. These cases use canonical records that were not
+  target cases for the v1 structural tuning. The benchmark tests both recall and selective restraint;
+  in particular, mean_extra_ids_max is intentionally below the fixed top-8 ceiling so a retriever that
+  always fills eight slots cannot pass merely by finding the required record.
+thresholds:
+  critical_case_recall_min: 1.0
+  required_id_recall_min: 1.0
+  forbidden_hits_max: 0
+  mean_extra_ids_max: 3.0
+cases:
+  - id: question-scoped-authority
+    critical: true
+    query:
+      task: >-
+        A saved architecture note and the live repository appear to disagree about current implementation
+        state. Should Qiven use one universal source-precedence list to decide which statement wins, or
+        does authority depend on the kind of question being answered?
+      topics: [authority, provenance, conflict]
+      now: '2026-09-14T14:10:00Z'
+    required_ids: [ADR-0002]
+    forbidden_ids: [ADR-0021, ADR-0022]
+    allowed_extra_ids: []
+    rationale: Tests source-authority doctrine without using the ADR title or cold-boot phrasing.
+
+  - id: native-layout-is-not-persistence
+    critical: true
+    query:
+      task: >-
+        We already have a convenient native C++ object with pointers, size_t fields, and compiler-defined
+        padding. Can that exact in-memory representation be written to disk or sent across processes as
+        Qiven's durable interchange format?
+      topics: [persistence, ipc, representation, portability]
+      scopes: [qiven-foundation]
+      now: '2026-09-14T14:10:00Z'
+    required_ids: [ADR-0009]
+    forbidden_ids: [ADR-0014]
+    allowed_extra_ids: []
+    rationale: Separates transferable boundary contracts from an adjacent vector-layout decision.
+
+  - id: generated-repo-must-not-call-devkit
+    critical: true
+    query:
+      task: >-
+        After qiven-devkit creates or adopts a repository, should normal builds and validation keep calling
+        back into the developer's live qiven-devkit checkout so every repo always uses the newest scripts?
+      topics: [devkit, repository, independence, runtime-dependency]
+      scopes: [qiven-devkit]
+      now: '2026-09-14T14:10:00Z'
+    required_ids: [ADR-0010]
+    forbidden_ids: [OBL-20260913T183819Z-2C7A11]
+    allowed_extra_ids: [ADR-0011, ADR-0012]
+    rationale: Tests materialized snapshot ownership rather than workspace orchestration.
+
+  - id: math-must-not-fetch-foundation
+    critical: true
+    query:
+      task: >-
+        qiven-math needs Foundation during configure. Is it acceptable for CMake to silently download
+        Foundation from the network when no local copy has been supplied?
+      topics: [cmake, dependency, offline, foundation]
+      scopes: [qiven-math]
+      now: '2026-09-14T14:10:00Z'
+    required_ids: [ADR-0016]
+    forbidden_ids: [ADR-0010]
+    allowed_extra_ids: []
+    rationale: Tests the explicit local-source dependency policy independently from Devkit snapshot policy.
+
+  - id: cad-ui-must-not-lead-semantics
+    critical: true
+    query:
+      task: >-
+        For the architectural drawing product, should we begin by automating AutoCAD or building a DCC-like
+        editor and only later work out the normalized entities and building semantics underneath it?
+      topics: [cad, dwg, editor, semantics, pipeline]
+      scopes: [qiven-cad]
+      now: '2026-09-14T14:10:00Z'
+    required_ids: [ADR-0019, OBL-20260913T183819Z-5D8E32]
+    forbidden_ids: [ADR-0020, OBL-20260913T183819Z-9A4F21]
+    allowed_extra_ids: [ADR-0017, ADR-0018]
+    rationale: Tests a relation-connected decision/obligation pair in a project not used by v1 structural fixes.
+
+  - id: windows-write-failure-is-layered
+    critical: true
+    query:
+      task: >-
+        A worker cannot modify files on Windows and Explorer shows a read-only indication. Is that enough
+        evidence to conclude the NTFS ACL is wrong, or what prior Qiven lesson governs diagnosis?
+      topics: [windows, filesystem, permissions, worker]
+      now: '2026-09-14T14:10:00Z'
+    required_ids: [MEM-20260913T172118Z-4A9C11]
+    forbidden_ids: [MEM-20260913T170803Z-A61F2C]
+    allowed_extra_ids: []
+    rationale: Tests a Windows operational lesson against a nearby but different interpreter lesson.
+
+  - id: github-connection-is-not-private-access
+    critical: true
+    query:
+      task: >-
+        ChatGPT reports that GitHub is connected, yet a private Qiven repository cannot be seen. Should the
+        connected status be treated as proof that repository installation and grants are already correct?
+      topics: [github, connector, private-repository, permissions]
+      now: '2026-09-14T14:10:00Z'
+    required_ids: [MEM-20260913T172118Z-B8D2E4]
+    forbidden_ids: [ADR-0021]
+    allowed_extra_ids: []
+    rationale: Tests capability-state distinctions rather than Git merge authorization.
+
+  - id: yaml-natural-language-needs-safe-serialization
+    critical: true
+    query:
+      task: >-
+        A generated canonical Markdown record looks visually correct, but a provenance sentence in YAML
+        front matter contains punctuation such as a colon followed by a space. Is visual inspection enough
+        to trust the file, or what durable rule applies?
+      topics: [yaml, front-matter, serialization, validation]
+      now: '2026-09-14T14:10:00Z'
+    required_ids: [MEM-20260913T185050Z-2D4721]
+    forbidden_ids: [ADR-0009]
+    allowed_extra_ids: []
+    rationale: Tests textual serialization safety against an unrelated binary/IPC serialization boundary.
+
+  - id: physical-path-identity-not-lexical
+    critical: false
+    query:
+      task: >-
+        A repository safety check compares two absolute paths and their strings differ because one uses a
+        filesystem alias or symlink. Can lexical normalization alone prove they identify different roots?
+      topics: [path, filesystem, repository-root, cross-platform]
+      scopes: [qiven-devkit]
+      now: '2026-09-14T14:10:00Z'
+    required_ids: [MEM-20260913T182338Z-92AD37]
+    forbidden_ids: [MEM-20260913T172118Z-4A9C11]
+    allowed_extra_ids: [ADR-0012]
+    rationale: Tests physical canonicalization without reusing the adoption test wording.
+
+  - id: context-must-not-self-pin-head
+    critical: true
+    query:
+      task: >-
+        To make qiven-context fully self-describing, should canonical state store the repository's own current
+        main commit SHA and update that field on every commit?
+      topics: [git, canonical-state, self-reference]
+      scopes: [qiven-context]
+      now: '2026-09-14T14:10:00Z'
+    required_ids: [MEM-20260913T172118Z-71F0AC]
+    forbidden_ids: [ADR-0021]
+    allowed_extra_ids: []
+    rationale: Tests a self-reference constraint that was not part of v1 retrieval tuning.
+
+  - id: workspace-must-be-earned
+    critical: false
+    query:
+      task: >-
+        It seems architecturally neat to create qiven-workspace now as a placeholder even though repository
+        composition is still manageable and there is no recurring coordination pain. What deferred Qiven
+        work should govern that decision?
+      topics: [workspace, repositories, orchestration, deferral]
+      now: '2026-09-14T14:10:00Z'
+    required_ids: [OBL-20260913T183819Z-2C7A11]
+    forbidden_ids: [ADR-0010]
+    allowed_extra_ids: [ADR-0018]
+    rationale: Tests negative knowledge and a deferred trigger without an explicit qiven-workspace scope selector.
+
+  - id: focused-validation-cannot-be-inferred
+    critical: true
+    query:
+      task: >-
+        A worker believes a code change is tiny and wants to run only one narrow Debug test before declaring
+        the batch locally complete. No CTO instruction authorized reduced validation. Which accepted Qiven
+        rule controls the validation profile?
+      topics: [validation, worker, debug, release]
+      now: '2026-09-14T14:10:00Z'
+    required_ids: [ADR-0006]
+    forbidden_ids: [ADR-0021]
+    allowed_extra_ids: []
+    rationale: Tests local validation authority separately from later merge authorization.
