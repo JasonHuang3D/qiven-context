@@ -1,14 +1,14 @@
 schema_version: 1
 program: qiven-devkit
 phase: 1
-batch: 1
+batch: 2
 status: active
-objective: 'Resume Qiven Operator Phase 1 after retrieval-reliability closeout: establish the exact current Devkit candidate head, rerun required regression and dogfood validation, then perform remote review before merge/release eligibility.'
+objective: 'Prepare Devkit 0.1.3 release after accepted Qiven Operator Phase 1 merge, then perform controlled consumer rollout under exact-head validation.'
 paused_work: []
 pause_reason: ''
 next_batches:
-  - 'Inspect jason-brother/devkit-operator-phase1 and establish the exact current candidate head before making merge/release claims.'
-  - 'Rerun the required local Devkit regression and Operator dogfood validation against that exact head. Historical PASS at 3ffd5565fe3c0f0d6dfea4a77bf9fb7b8248e86a is prior evidence, not automatic merge authorization after the pause.'
-  - 'Review human-facing liveness/output and machine JSON behavior, then perform independent remote review on the exact validated head.'
-  - 'If the exact head passes all required gates, merge according to ADR-0021. Devkit 0.1.3 consumer rollout remains downstream of accepted Operator merge/release.'
-updated_at: '2026-09-15T06:52:00Z'
+  - 'Create a narrow Devkit 0.1.3 release candidate from main 72dd68880ebbc696a6e290c36c18ced45ee85150. Bump the cpp-library template version from 0.1.2 to 0.1.3 and update only version-coupled tests/fixtures or release metadata that must change with it.'
+  - 'Run the required full Devkit validation on the exact release candidate. Do not treat the validated Operator candidate as proof for any changed release head.'
+  - 'After release-head validation and remote review, merge/release according to ADR-0021, then roll the accepted managed template to consumers deliberately rather than syncing all repositories opportunistically.'
+  - 'Treat consumer sync conflicts as repository-specific evidence; do not reopen Operator architecture unless a concrete Operator defect is exposed.'
+updated_at: '2026-09-15T07:41:40Z'
