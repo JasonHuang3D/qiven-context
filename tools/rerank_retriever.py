@@ -18,8 +18,6 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_RERANK_MODEL = "BAAI/bge-reranker-base"
 DEFAULT_SEMANTIC_POOL_TOP_K = 16
 DEFAULT_GRAPH_SEED_TOP_K = 1
-DEFAULT_MAX_SELECTED = 8
-DEFAULT_MIN_LOGIT = 0.0
 
 
 class RerankerBackend(Protocol):
@@ -113,8 +111,9 @@ class RerankedRetriever:
     """High-recall candidate generation followed by cross-encoder reranking.
 
     Relation edges are candidate evidence only. They do not add a ranking score.
-    Final selection uses the reranker's relevance logit rather than fixed top-k
-    filling, with an explicit maximum as a safety/token-budget ceiling.
+    Reranking answers only which canonical evidence cognition should inspect
+    first. It deliberately does not decide answerability or promote candidates
+    into selected truth.
     """
 
     def __init__(
@@ -220,41 +219,3 @@ class RerankedRetriever:
             )
             for index, (item, score) in enumerate(scored, 1)
         ]
-
-    def select_ids(
-        self,
-        query: Mapping[str, Any],
-        *,
-        max_selected: int = DEFAULT_MAX_SELECTED,
-        min_logit: float = DEFAULT_MIN_LOGIT,
-    ) -> set[str]:
-        if max_selected < 1:
-            raise ValueError("max_selected must be >= 1")
-        ranked = self.rank(query)
-        if not ranked:
-            return set()
-
-        selected: list[str] = []
-        seen: set[str] = set()
-        explicit_ids = {str(item) for item in query.get("include_ids", []) or []}
-
-        for hit in ranked:
-            if hit.id in explicit_ids and hit.id not in seen:
-                selected.append(hit.id)
-                seen.add(hit.id)
-                if len(selected) >= max_selected:
-                    return set(selected)
-
-        for hit in ranked:
-            if len(selected) >= max_selected:
-                break
-            if hit.id in seen:
-                continue
-            if hit.rerank_score >= min_logit:
-                selected.append(hit.id)
-                seen.add(hit.id)
-
-        if not selected:
-            selected.append(ranked[0].id)
-
-        return set(selected)
