@@ -104,3 +104,11 @@ records:
     file: ADR-0026.md
     title: Enforce a host-side single-writer execution authority with leases and fencing before further mutating DCR use
     status: accepted
+  - id: ADR-0027
+    file: ADR-0027.md
+    title: Separate Host authority-kernel acceptance from production integration
+    status: accepted
+  - id: ADR-0028
+    file: ADR-0028.md
+    title: Devkit owns Qiven native build-system mechanism while repositories own declarative build graphs
+    status: accepted

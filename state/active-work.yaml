@@ -3,15 +3,13 @@ program: qiven-host
 phase: 0
 batch: 0
 status: active
-objective: 'Implement and validate the JasonPC-resident Qiven Host Execution Broker required by ADR-0026 so duplicated, delayed, retried, or concurrent AI/MCP flows cannot produce multiple local execution authorities. Restore mutating local automation only after single-writer lease, fencing, sequencing, quarantine, reconciliation, and no-bypass acceptance pass.'
+objective: 'Implement and validate Host Phase 0 / Batch 000 Authority Kernel semantics independently; mutating remote execution remains suspended until Batch 001 Production Authority Integration proves the accepted production path cannot bypass Host.'
 paused_work:
-  - qiven-devkit/native-build-system-0.2.0
   - qiven-runtime/process-execution
   - qiven-dcr-win/phase-1-batch-001
   - qiven-cad
 pause_reason: 'P0 authority-plane incident: the project owner directly observed two ChatGPT answer choices concurrently execute through the same JasonPC DCR/MCP capability. Local mutation is unsafe until host-side authority is enforced rather than assumed.'
 next_batches:
-  - 'P0 / Batch 001 — reconcile incident-preserved JasonPC worktrees through the accepted Host Broker/owner-controlled recovery path and classify every incomplete local delta before resuming development'
-  - 'Resume Devkit native-build-system candidate closeout and canonicalize its separate architecture ADR only after host authority integrity is restored'
-  - 'Resume qiven-runtime and qiven-dcr-win Batch 001 above the accepted host authority plane; CAD remains paused until the first DCR transport milestone is accepted'
-updated_at: '2026-09-15T16:35:00Z'
+  - 'Host Phase 0 / Batch 001 — integrate accepted Runtime and DCR production paths and prove production mutation cannot bypass Host'
+  - 'Resume qiven-runtime and qiven-dcr-win work required by the Batch 001 production integration prerequisite; CAD remains paused'
+updated_at: '2026-09-16T02:05:00Z'

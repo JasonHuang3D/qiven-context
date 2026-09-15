@@ -1,7 +1,7 @@
 schema_version: 1
 classification: plan
 immutable_architecture: false
-updated_at: '2026-09-15T16:35:00Z'
+updated_at: '2026-09-16T02:05:00Z'
 items:
   - order: 1
     title: Context Phase 0 / Batch 001
@@ -20,14 +20,16 @@ items:
   - order: 8
     title: Qiven DCR Windows — Phase 0 / Batch 000 Protocol + Failure Model Freeze
   - order: 9
-    title: Qiven Host — P0 / Batch 000 Single-Writer Authority + Fencing Acceptance
+    title: Qiven Host — Phase 0 / Batch 000 Authority Kernel
   - order: 10
-    title: Qiven DCR Windows — Phase 1 Native Supervisor Milestone
+    title: Qiven Host — Phase 0 / Batch 001 Production Authority Integration
   - order: 11
-    title: CAD / floor-plan to semantic 3D
+    title: Qiven DCR Windows — Phase 1 Native Supervisor Milestone
   - order: 12
-    title: Industrial-gas enterprise management / operating system
+    title: CAD / floor-plan to semantic 3D
   - order: 13
-    title: Robotics / simulation
+    title: Industrial-gas enterprise management / operating system
   - order: 14
+    title: Robotics / simulation
+  - order: 15
     title: Deeper Qiven-native physics

@@ -104,3 +104,7 @@ records:
     file: MEM-20260915T163500Z-5E7A91.md
     title: Treat upstream conversational execution as potentially split-brain and enforce single-writer authority on the host
     status: active
+  - id: MEM-20260916T020500Z-A27C91
+    file: MEM-20260916T020500Z-A27C91.md
+    title: Place acceptance gates at the earliest architecture layer where they can be truthfully proven
+    status: active
