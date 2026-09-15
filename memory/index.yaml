@@ -72,3 +72,7 @@ records:
     file: MEM-20260914T124259Z-5C8E21.md
     title: Complexity deferral is safe only when its sufficiency is falsifiable and observable
     status: active
+  - id: MEM-20260915T092000Z-3C7A41
+    file: MEM-20260915T092000Z-3C7A41.md
+    title: Use DCR as a bounded substitute for human CMD validation before considering autonomous local execution
+    status: active
