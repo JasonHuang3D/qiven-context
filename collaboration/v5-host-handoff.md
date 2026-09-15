@@ -35,6 +35,12 @@ The proven semantic checkpoint passed exact-commit Debug and Release validation,
 
 For the remainder of Host Batch 000, jason-brother should prefer direct GitHub-native implementation and exact remote review where the work is remote-native. Local Windows-only validation remains a separate trusted-owner step because mutating DCR is still forbidden. Do not use Desktop Commander mutation to bootstrap Host merely to avoid this restriction.
 
+## Current Chat execution observations
+
+The project owner has now observed the same roughly 26-minute long-turn cutoff during direct GitHub-native remote development with no DCR execution in the turn. This weakens the hypothesis that DCR causes the cutoff. Treat the boundary as a Chat/tool-turn execution-window constraint for engineering purposes, while keeping the underlying product mechanism unproven. Create durable checkpoints continuously and target coherent checkpoint completion before approximately 20-22 minutes. See `MEM-20260915T135800Z-6B0D8A`.
+
+Direct GitHub writes may occasionally be rejected by connector safety/policy classification even when the intended Qiven canonical record is legitimate project documentation. Do not preserve connector success by euphemizing, omitting, or weakening material engineering semantics. State the tool boundary and move the authoring operation to a trusted local Work/owner path, then exact-review the pushed result. If that path is unavailable, generate the exact Markdown or patch for the project owner as the final reliable authoring fallback. This does not permit bypassing a policy that actually forbids the underlying content. See `MEM-20260915T203423Z-C4A912` and `collaboration/operating-contract.md`.
+
 ## Immediate next engineering step
 
 Start from the proven Host semantic checkpoint and review the preserved FenceStore WIP rather than assuming it is correct. Complete Host-owned durability semantics with native Windows durable I/O and deterministic corruption/truncation/failure-injection tests, then continue through BoundedJournal, broker singleton, bounded protocol codec, named-pipe transport, recovery challenge/authenticator/WebAuthn, multiprocess split-brain acceptance, crash/restart acceptance, and Release performance observations.
