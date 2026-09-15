@@ -58,6 +58,22 @@ During the DCR probe, `python` resolved the same way and also reported `3.14.7`,
 
 This discrepancy is execution evidence that a DCR process must not be assumed to have identical launcher/environment semantics to the user's foreground CMD. Qiven validation should prefer an explicit known executable or a repository-owned resolver whose selection is itself validated. In particular, do not use the bare `py` launcher as an authority merely because it exists.
 
+## DCR Git/SSH parity gap
+
+The project owner's foreground CMD successfully fetched `jason-brother/jasonpc-dev-environment-baseline` from the repository's SSH origin. A DCR-launched CMD against the same checkout failed both `git fetch` and a later `git ls-remote` attempt with Git's generic `Could not read from remote repository` error.
+
+Read-only DCR probes established that:
+
+- the DCR command process identifies as `JASONPC\61626` with `USERPROFILE=C:\Users\61626`;
+- the checkout origin is `git@github.com:JasonHuang3D/qiven-context.git`;
+- global Git config exposes `http.proxy=http://127.0.0.1:7897`, but the SSH remote does not rely on that HTTP setting;
+- `C:\Users\61626\.ssh\config` routes GitHub SSH to `ssh.github.com:443` through Git for Windows `connect.exe -S 127.0.0.1:7897`, with strict host-key checking and an explicit identity file;
+- global Git config explicitly selects `C:/Windows/System32/OpenSSH/ssh.exe` through `core.sshCommand`.
+
+These observations rule out the simplest explanation that DCR merely resolved a different SSH executable. They do **not** establish the root cause of the DCR-only remote-access failure. Several diagnostic command wrappers used during the probe also demonstrated Windows CMD quoting / `%ERRORLEVEL%` capture pitfalls; their printed exit-code values are not accepted as SSH-authentication evidence.
+
+The accepted evidence is therefore limited to a capability gap: Human CMD Git/SSH remote access is currently proven working; DCR-launched Git/SSH remote access is currently proven failing. No proxy, SSH, Git, credential, key, or host configuration was changed in response.
+
 ## DCR operating observation
 
 The project owner starts the current DCR transport in a foreground CMD with:
