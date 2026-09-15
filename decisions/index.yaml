@@ -82,7 +82,7 @@ records:
     status: accepted
   - id: ADR-0021
     file: ADR-0021.md
-    title: Permit jason-brother to merge validated batch branches after user-confirmed local validation
+    title: Permit jason-brother to merge exact validated batch heads after local validation evidence
     status: accepted
   - id: ADR-0022
     file: ADR-0022.md
