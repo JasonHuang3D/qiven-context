@@ -3,13 +3,13 @@ program: qiven-host
 phase: 0
 batch: 0
 status: active
-objective: 'Complete Host Phase 0 / Batch 000 Authority Kernel from remote provenance: preserve proven semantic checkpoint 7d7ff602affacd1839fbcf19709e4f2e326fe680, review rather than trust FenceStore WIP 4a40a249c657b64564e41dfc2ab6735d73d3657e, prefer jason-brother direct GitHub-native implementation for remote-native work, and reserve JasonPC-only validation for the trusted owner-local path. Mutating remote execution remains suspended until Batch 001 Production Authority Integration proves the accepted production path cannot bypass Host.'
+objective: 'Continue Host Phase 0 / Batch 000 from exact proven remote stack 7d7ff602affacd1839fbcf19709e4f2e326fe680 -> b1d1d28199c02b1d3d21fc3995ba0ec8c194f56d -> 59ca1fa1bf9106b3b5cff5feef060957e825b75c -> 888062f3042c6c39c6419d515c4a86405d1140ea. Authority semantics, durable FenceStore, bounded durable journal, and owner-scoped Windows broker singleton have exact cross-platform Debug/Release CI proof. Next establish broker orchestration and fail-closed persistence ordering across AuthorityState, FenceStore, and BoundedJournal before protocol/IPC. Mutating remote execution remains suspended until Batch 001 Production Authority Integration proves the accepted production path cannot bypass Host.'
 paused_work:
   - qiven-runtime/process-execution
   - qiven-dcr-win/phase-1-batch-001
   - qiven-cad
-pause_reason: 'P0 authority-plane incident: the project owner directly observed two ChatGPT answer choices concurrently execute through the same JasonPC DCR/MCP capability. Local mutation is unsafe until host-side authority is enforced rather than assumed; Work run limits are execution-environment boundaries, not reasons to weaken or redefine Host acceptance.'
+pause_reason: 'P0 authority-plane incident: the project owner directly observed two ChatGPT answer choices concurrently execute through the same JasonPC DCR/MCP capability. Local mutation is unsafe until host-side authority is enforced rather than assumed; Work run limits and the observed roughly 26-minute Chat tool-turn boundary are execution-environment constraints, not reasons to weaken Host acceptance.'
 next_batches:
   - 'Host Phase 0 / Batch 001 — integrate accepted Runtime and DCR production paths and prove production mutation cannot bypass Host'
   - 'Resume qiven-runtime and qiven-dcr-win work required by the Batch 001 production integration prerequisite; CAD remains paused'
-updated_at: '2026-09-15T19:46:00Z'
+updated_at: '2026-09-15T20:50:00Z'
