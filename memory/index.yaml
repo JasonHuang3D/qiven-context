@@ -94,5 +94,5 @@ records:
     status: active
   - id: MEM-20260915T121700Z-4F6C2A
     file: MEM-20260915T121700Z-4F6C2A.md
-    title: Recover DCR transport loss by reconciling local state before replaying work
+    title: Recover controller or DCR interruption by reconciling durable state before replay
     status: active
