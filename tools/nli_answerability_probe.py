@@ -35,6 +35,22 @@ class NliBackend(Protocol):
 
 
 @dataclass(frozen=True)
+class NliClassProbabilities:
+    entailment: float
+    neutral: float
+    contradiction: float
+
+    @property
+    def winner(self) -> str:
+        values = {
+            "entailment": self.entailment,
+            "neutral": self.neutral,
+            "contradiction": self.contradiction,
+        }
+        return max(values, key=values.__getitem__)
+
+
+@dataclass(frozen=True)
 class NliEvidenceScore:
     text: str
     sufficient_entailment: float
@@ -121,11 +137,11 @@ class OnnxNliBackend:
         self._session = ort.InferenceSession(model_path, providers=["CPUExecutionProvider"])
         self._input_names = {item.name for item in self._session.get_inputs()}
 
-    def entailment_probabilities(
+    def class_probabilities(
         self,
         premises: Sequence[str],
         hypotheses: Sequence[str],
-    ) -> list[float]:
+    ) -> list[NliClassProbabilities]:
         if len(premises) != len(hypotheses):
             raise ValueError("premises and hypotheses must have the same length")
         if not premises:
@@ -151,12 +167,28 @@ class OnnxNliBackend:
             raise RuntimeError(f"unsupported NLI ONNX inputs: {sorted(missing)}")
 
         logits = self._session.run(None, feeds)[0]
-        result: list[float] = []
+        result: list[NliClassProbabilities] = []
         for row in logits:
             probabilities = _softmax(row)
             # Model config freezes id2label: 0=entailment, 1=neutral, 2=contradiction.
-            result.append(float(probabilities[0]))
+            result.append(
+                NliClassProbabilities(
+                    entailment=float(probabilities[0]),
+                    neutral=float(probabilities[1]),
+                    contradiction=float(probabilities[2]),
+                )
+            )
         return result
+
+    def entailment_probabilities(
+        self,
+        premises: Sequence[str],
+        hypotheses: Sequence[str],
+    ) -> list[float]:
+        return [
+            row.entailment
+            for row in self.class_probabilities(premises, hypotheses)
+        ]
 
 
 def score_answerability(

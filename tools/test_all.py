@@ -44,6 +44,8 @@ SUITES = (
     SuiteRun("evidence-span-probe", "tools/test_evidence_span_probe.py"),
     SuiteRun("nli-answerability-probe", "tools/test_nli_answerability_probe.py"),
     SuiteRun("concrete-entailment-probe", "tools/test_concrete_entailment_probe.py"),
+    SuiteRun("atomic-entailment-probe", "tools/test_atomic_entailment_probe.py"),
+    SuiteRun("atomic-nli-class-probe", "tools/test_atomic_nli_class_probe.py"),
     SuiteRun("cold-boot-contract", "tools/test_cold_boot_contract.py"),
     SuiteRun("windows-python-resolution", "tools/test_windows_python.py", windows_only=True),
 )

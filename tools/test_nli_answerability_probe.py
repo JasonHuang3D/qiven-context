@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
 from nli_answerability_probe import (  # noqa: E402
+    NliClassProbabilities,
     _softmax,
     default_cache_dir,
     nli_premise,
@@ -32,6 +33,11 @@ class NliAnswerabilityProbeTests(unittest.TestCase):
         self.assertAlmostEqual(sum(values), 1.0, places=7)
         self.assertGreater(values[0], values[1])
         self.assertGreater(values[1], values[2])
+
+    def test_nli_class_winner_uses_native_three_way_semantics(self):
+        self.assertEqual(NliClassProbabilities(0.7, 0.2, 0.1).winner, "entailment")
+        self.assertEqual(NliClassProbabilities(0.2, 0.7, 0.1).winner, "neutral")
+        self.assertEqual(NliClassProbabilities(0.1, 0.2, 0.7).winner, "contradiction")
 
     def test_question_text_preserves_task_and_structured_hints(self):
         text = question_text(
