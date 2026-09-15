@@ -76,3 +76,7 @@ records:
     file: MEM-20260915T092000Z-3C7A41.md
     title: Use DCR as a bounded substitute for human CMD validation before considering autonomous local execution
     status: active
+  - id: MEM-20260915T093500Z-6E2D19
+    file: MEM-20260915T093500Z-6E2D19.md
+    title: Treat conversation-turn economy as a Qiven reliability constraint and keep model memory non-authoritative
+    status: active
