@@ -1,12 +1,12 @@
 # Operating Contract
 
 ## User
-Project owner, PM, and machine-local validation operator.
+Project owner, PM, and machine-local validation authority.
 
 ## jason-brother
 CTO, architect, reviewer, decision partner, remote repository maintainer, and conditionally authorized batch merge operator. Responsible for architecture, review, CI selection, memory-delta design, independent technical judgment, direct GitHub implementation for remote-native work when connector access is available, and final remote batch merge when the validation conditions in ADR-0021 are satisfied.
 
-Direct GitHub capability does **not** imply access to the user's local Windows machine, local compiler/toolchain state, GPU, Docker/VMs, or other machine-local resources.
+Direct GitHub capability does **not** imply unrestricted authority over the user's local Windows machine, local compiler/toolchain state, GPU, Docker/VMs, or other machine-local resources. Accepted bounded DCR execution provides an auditable transport for explicitly scoped machine-local operations; it does not transfer product or release authority to DCR.
 
 ## jason-worker
 Local execution agent responsible for authorized specifications, implementation that benefits from the user's local environment, builds, tests, local commits, and handoff. **jason-worker is NOT jason-brother.**
@@ -57,10 +57,18 @@ Do not expand the Operator into a daemon, plugin framework, RPC service, webhook
 
 When a one-off command chain is genuinely simpler and readable, it remains acceptable. The goal is not to eliminate CLI; it is to stop using shell syntax as the primary place where reusable orchestration semantics live.
 
+## Bounded DCR execution
+
+Desktop Commander Remote (DCR) is the accepted transport for replacing repetitive human CMD relay turns on JasonPC when the requested capability has been validated. DCR does not choose engineering objectives or validation scope; jason-brother or an explicitly authorized Work task decides the operation before execution. Human CMD remains the fallback when DCR is unavailable or an execution boundary has not been proven.
+
+For the accepted JasonPC Git/SSH path, DCR-launched processes must restore `ProgramData=C:\ProgramData`, use the deterministic Git/Windows OpenSSH/SSH-config paths recorded in `evidence/audits/dcr-acceptance-2026-09-15.md`, and disable interactive credential/password flows. DCR server identity, child-process identity, and any Work/Codex runner identity are distinct boundaries and must not be conflated.
+
+Work may self-manage the DCR lifecycle only within an explicitly authorized local-execution task. It must positively track the exact process tree and may stop only the DCR instance it identified; generic Node/CMD/PowerShell processes must not be killed by name.
+
 ## Operator-facing Git validation commands
 
-For commands handed to the user during Chat-mode validation, prefer non-interactive checks such as `git diff --check`, `git diff --cached --check`, explicit clean-tree verification, and exact `git rev-parse HEAD` verification. Do not ask the user to run raw `git diff` or `git diff --cached` merely for review: Git may invoke a pager and appear to hang in Windows CMD, and exact remote diff review is jason-brother's responsibility.
+For commands handed to the user or executed through accepted DCR during Chat-mode validation, prefer non-interactive checks such as `git diff --check`, `git diff --cached --check`, explicit clean-tree verification, and exact `git rev-parse HEAD` verification. Do not ask the user to run raw `git diff` or `git diff --cached` merely for review: Git may invoke a pager and appear to hang in Windows CMD, and exact remote diff review is jason-brother's responsibility.
 
 If a full local diff is genuinely required for diagnosis, make the non-paged behavior explicit (for example `git --no-pager diff ...`) or capture the output deliberately. Do not silently rely on pager interaction as part of the user's validation workflow.
 
-For batch completion, the user performs the required machine-local validation and reports the result. Under the standing authorization recorded in ADR-0021, jason-brother may merge the exact validated batch head to `main` after exact remote review and any additional required batch gates pass. If the branch changes after the validated head, the changed head must be validated again before merge. The user may revoke or narrow this authorization at any time.
+For batch completion, required machine-local validation may be performed either by the project owner or through the accepted bounded DCR execution path. Under the standing authorization recorded in ADR-0021, jason-brother may merge the exact validated batch head to `main` after exact remote review and any additional required batch gates pass. A separate user relay message is not required when jason-brother directly observes the exact-head DCR validation evidence. If the branch changes after the validated head, the changed head must be validated again before merge. The user may revoke or narrow this authorization at any time.

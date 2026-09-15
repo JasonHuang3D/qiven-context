@@ -72,3 +72,15 @@ records:
     file: MEM-20260914T124259Z-5C8E21.md
     title: Complexity deferral is safe only when its sufficiency is falsifiable and observable
     status: active
+  - id: MEM-20260915T092000Z-3C7A41
+    file: MEM-20260915T092000Z-3C7A41.md
+    title: Use DCR as the accepted bounded substitute for human CMD relay on JasonPC
+    status: active
+  - id: MEM-20260915T093500Z-6E2D19
+    file: MEM-20260915T093500Z-6E2D19.md
+    title: Treat conversation-turn economy as a Qiven reliability constraint and keep model memory non-authoritative
+    status: active
+  - id: MEM-20260915T101200Z-91B4F0
+    file: MEM-20260915T101200Z-91B4F0.md
+    title: DCR Git SSH on JasonPC requires ProgramData restoration because its Windows environment whitelist omits it
+    status: active
