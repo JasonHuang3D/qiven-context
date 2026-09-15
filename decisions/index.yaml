@@ -27,7 +27,7 @@ records:
   - id: ADR-0007
     file: ADR-0007.md
     title: Keep Qiven Foundation small, foundational, and downstream-demand-driven
-    status: accepted
+    status: superseded
   - id: ADR-0008
     file: ADR-0008.md
     title: Make ownership, failure behavior, and allocation semantics explicit in Foundation
@@ -91,4 +91,8 @@ records:
   - id: ADR-0023
     file: ADR-0023.md
     title: Prioritize Qiven DCR Windows transport before CAD and stage native transport behind supervisor acceptance
+    status: accepted
+  - id: ADR-0024
+    file: ADR-0024.md
+    title: Prefer correct downward semantic ownership over local duplication or staged refactoring
     status: accepted
