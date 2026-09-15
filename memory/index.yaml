@@ -92,3 +92,11 @@ records:
     file: MEM-20260915T114600Z-7D2F8C.md
     title: Official DCR terminal history is per-session bounded but aggregate completed-session retention is not byte-bounded
     status: active
+  - id: MEM-20260915T135500Z-9F4C21
+    file: MEM-20260915T135500Z-9F4C21.md
+    title: Apply known engineering architecture directly instead of reproducing human trial-and-refactor history
+    status: active
+  - id: MEM-20260915T135800Z-6B0D8A
+    file: MEM-20260915T135800Z-6B0D8A.md
+    title: Treat the observed roughly 26-minute Chat/DCR turn boundary as an operational checkpoint budget
+    status: active
