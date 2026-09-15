@@ -1,0 +1,201 @@
+schema_version: 1
+name: blind-retrieval-v4-candidate-boundary
+purpose: >-
+  Final held-out acceptance after blind-v3 falsified retrieval-level answerability selection and the
+  candidate/reasoning boundary was frozen at affc09e2afb1a44d23ee3b9ff61e63a04edde1a4. Retrieval is
+  responsible for a small provenance-preserving evidence bundle; cognition is responsible for deciding
+  whether the bundle actually supports an answer. These cases were frozen before the candidate was run
+  against them.
+frozen_candidate: affc09e2afb1a44d23ee3b9ff61e63a04edde1a4
+max_candidates: 3
+thresholds:
+  positive_required_id_recall_min: 1.0
+  positive_top1_required_rate_min: 1.0
+  forbidden_top1_hits_max: 0
+cases:
+  - id: worker-authority-is-not-release-authority
+    kind: positive
+    critical: true
+    cognition_expectation: answer
+    query:
+      task: >-
+        A local execution agent finished its tests and now wants to broaden the architecture, push the
+        branch, and decide release on its own. Does the Qiven collaboration model give that local worker
+        those authorities merely because implementation passed locally?
+      topics: [worker, authority, architecture, release]
+      scopes: [qiven]
+      now: '2026-09-15T06:20:00Z'
+    required_ids: [ADR-0004]
+    forbidden_ids: [ADR-0006]
+    rationale: Separates role/authority boundaries from validation-profile policy.
+
+  - id: focused-validation-needs-explicit-cto-scope
+    kind: positive
+    critical: true
+    cognition_expectation: answer
+    query:
+      task: >-
+        A change looks tiny, so may the local implementation agent silently run only a narrow subset of
+        tests and call the batch complete, or is reduced validation allowed only when the CTO explicitly
+        defines the focused proof obligation?
+      topics: [validation, focused, full, worker]
+      scopes: [qiven]
+      now: '2026-09-15T06:20:00Z'
+    required_ids: [ADR-0006]
+    forbidden_ids: [ADR-0005]
+    rationale: Tests the local FULL/FOCUSED contract rather than remote CI selection.
+
+  - id: passing-handoff-still-needs-remote-review
+    kind: positive
+    critical: true
+    cognition_expectation: answer
+    query:
+      task: >-
+        If a structured local worker handoff says every Windows validation passed, may jason-brother accept
+        the committed result without independently reading the exact remote delta, or did Qiven record a
+        lesson showing why the handoff itself is not sufficient proof?
+      topics: [handoff, remote-review, validation, committed-state]
+      scopes: [qiven-context, collaboration]
+      now: '2026-09-15T06:20:00Z'
+    required_ids: [MEM-20260913T162546Z-E73124]
+    forbidden_ids: [MEM-20260913T194500Z-8F2C41]
+    rationale: Tests exact remote review without drifting into generic command-liveness guidance.
+
+  - id: devkit-conflict-atomic-is-not-crash-atomic
+    kind: positive
+    critical: true
+    cognition_expectation: answer
+    query:
+      task: >-
+        Devkit preflights all known sync conflicts before mutating files. Can we therefore describe the
+        whole lifecycle operation as a crash-safe filesystem transaction that rolls back after power loss
+        or process termination?
+      topics: [devkit, sync, transaction, crash, rollback]
+      scopes: [qiven-devkit]
+      now: '2026-09-15T06:20:00Z'
+    required_ids: [MEM-20260913T182338Z-D5E8A2]
+    forbidden_ids: [ADR-0012]
+    rationale: Separates conflict atomicity from crash-consistent transactionality.
+
+  - id: math-scalars-stay-float-double-until-demand
+    kind: positive
+    critical: true
+    cognition_expectation: answer
+    query:
+      task: >-
+        Should qiven-math proactively generalize its scalar concept to long double, integers, bool and a
+        user-extensible numeric framework now, even though no concrete integration requires that breadth?
+      topics: [math, scalar, numeric, generality]
+      scopes: [qiven-math]
+      now: '2026-09-15T06:20:00Z'
+    required_ids: [MEM-20260913T182954Z-A6D249]
+    forbidden_ids: [MEM-20260913T182954Z-3F8C71]
+    rationale: Tests the narrow scalar vocabulary independently from vector-core implementation history.
+
+  - id: cad-is-building-semantic-not-arbitrary-dwg
+    kind: positive
+    critical: true
+    cognition_expectation: answer
+    query:
+      task: >-
+        For the first CAD product, should Qiven promise to understand arbitrary unknown DWG semantics and
+        make AutoCAD or a DCC editor the architectural center, or was the intended core a headless
+        provider-backed pipeline that owns normalized building semantics?
+      topics: [cad, dwg, semantics, headless, provider]
+      scopes: [qiven-cad]
+      now: '2026-09-15T06:20:00Z'
+    required_ids: [ADR-0019]
+    forbidden_ids: [MEM-20260913T183819Z-C2D841]
+    rationale: Separates the CAD semantic architecture from the broader product roadmap.
+
+  - id: exact-validated-head-allows-jason-brother-merge
+    kind: positive
+    critical: true
+    cognition_expectation: answer
+    query:
+      task: >-
+        The user has just reported the required local validation PASS for the exact batch head, and remote
+        review plus required CI are green. Must the user still type the final merge command, or is there a
+        Qiven decision granting jason-brother standing authorization to merge that exact validated head?
+      topics: [merge, exact-head, validation, authorization]
+      scopes: [qiven, collaboration]
+      now: '2026-09-15T06:20:00Z'
+    required_ids: [ADR-0021]
+    forbidden_ids: [ADR-0004]
+    rationale: Tests the specific merge authorization against the older/general role-boundary decision.
+
+  - id: task-switch-path-identity-needs-real-path
+    kind: positive
+    critical: true
+    cognition_expectation: answer
+    query:
+      task: >-
+        We were discussing CAD output, but switch domains now: during Devkit brownfield adoption, can a
+        safety check prove two repository roots are identical just by comparing normalized absolute text,
+        or is physical canonicalization required for aliases such as Windows short paths and macOS /var
+        versus /private/var?
+      topics: [devkit, paths, repository-root, canonicalization]
+      scopes: [qiven-devkit]
+      changed: [cad-to-devkit-task-transition]
+      now: '2026-09-15T06:20:00Z'
+    required_ids: [MEM-20260913T182338Z-92AD37]
+    forbidden_ids: [MEM-20260913T172118Z-4A9C11]
+    rationale: Explicitly tests a material task switch plus a cross-domain distractor.
+
+  - id: negative-generic-rust-borrow-checker
+    kind: negative
+    critical: true
+    cognition_expectation: abstain
+    query:
+      task: >-
+        Explain Rust ownership, borrowing, and the borrow checker with a tiny generic example. This is a
+        language-learning question and does not ask for Qiven history or policy.
+      topics: [rust, ownership, borrowing]
+      now: '2026-09-15T06:20:00Z'
+    required_ids: []
+    forbidden_ids: []
+    rationale: Generic technical knowledge may yield candidates but cognition must not treat them as Qiven evidence.
+
+  - id: negative-generic-quaternion-slerp
+    kind: negative
+    critical: true
+    cognition_expectation: abstain
+    query:
+      task: >-
+        Explain the mathematical idea of quaternion SLERP in general terms. Do not use any Qiven-specific
+        design decision or historical fact.
+      topics: [math, quaternion, slerp]
+      now: '2026-09-15T06:20:00Z'
+    required_ids: []
+    forbidden_ids: []
+    rationale: A math-shaped generic question should not turn nearby qiven-math records into project claims.
+
+  - id: negative-unknown-cad-ifc-version
+    kind: negative
+    critical: true
+    cognition_expectation: abstain
+    query:
+      task: >-
+        Which exact IFC schema version is qiven-cad required to emit by default? Answer only if canonical
+        Qiven cognition has already fixed that exporter-version requirement.
+      topics: [cad, ifc, export, schema-version]
+      scopes: [qiven-cad]
+      now: '2026-09-15T06:20:00Z'
+    required_ids: []
+    forbidden_ids: []
+    rationale: Tests a plausible but unrecorded fact inside a known project scope.
+
+  - id: negative-unknown-foundation-allocation-cap
+    kind: negative
+    critical: true
+    cognition_expectation: abstain
+    query:
+      task: >-
+        What exact maximum allocation size in bytes does Qiven Foundation permit? Answer only if canonical
+        Qiven cognition explicitly records a numeric allocation cap.
+      topics: [foundation, allocation, limit, bytes]
+      scopes: [qiven-foundation]
+      now: '2026-09-15T06:20:00Z'
+    required_ids: []
+    forbidden_ids: []
+    rationale: Tests unknown factual detail near a strongly represented Foundation topic.
