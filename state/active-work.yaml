@@ -3,7 +3,7 @@ program: qiven-dcr-win
 phase: 1
 batch: 1
 status: active
-objective: 'Correct the native supervisor layering before further product implementation: place generic process-generation, child-tree ownership, bounded stop, pipe-drain, and required runtime primitives in their natural lower shared owner, then make qiven-dcr-win consume the accepted lower-layer contract without a duplicate product-local implementation.'
+objective: 'Implement and validate the missing generic process-execution substrate in qiven-runtime (with any truly foundational prerequisite first in qiven-foundation), then make qiven-dcr-win consume the exact accepted runtime baseline and remove its duplicate product-local ProcessGeneration spike before continuing DCR-specific supervisor policy.'
 paused_work:
   - qiven-cad
 pause_reason: 'The project owner explicitly prioritized DCR Windows transport stability ahead of CAD because it is the execution plane for all later product work.'
@@ -11,4 +11,4 @@ next_batches:
   - 'Phase 1 / Batch 002 — supervise the real official DCR client with byte-bounded logging, memory pressure, bounded restart/backoff, deterministic environment injection, and health/liveness state'
   - 'Phase 1 / Batch 003 — minimal Win32 UI/tray and end-to-end DCR validation dogfood'
   - 'Phase 2 — native transport only after protocol compatibility is sufficiently understood and independently testable'
-updated_at: '2026-09-15T13:55:00Z'
+updated_at: '2026-09-15T15:05:00Z'
