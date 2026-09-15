@@ -100,3 +100,7 @@ records:
     file: ADR-0025.md
     title: Establish qiven-runtime as the shared native owner of process and execution-runtime semantics
     status: accepted
+  - id: ADR-0026
+    file: ADR-0026.md
+    title: Enforce a host-side single-writer execution authority with leases and fencing before further mutating DCR use
+    status: accepted

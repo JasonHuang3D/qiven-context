@@ -12,8 +12,9 @@ Do not rely on model-native memory as authoritative project state.
 8. Load relevant project material selected by the retrieval result.
 9. Load relevant canonical memory and accepted decisions, including rejected alternatives that constrain the task.
 10. Load relevant non-terminal obligations (`open`, `deferred`, and `blocked`) and evaluate their triggers against the task.
-11. Verify relevant live repositories and runtime evidence for claims whose authority is live state rather than canonical intent.
-12. Report inconsistencies before acting.
+11. Before any machine-local mutation or validation that can mutate local state, explicitly verify the current host-execution authority contract and any safety-gate obligation. Transport reachability, DCR liveness, a clean Git tree, or a claim that only one assistant flow is active is not sufficient authority. When `collaboration/dcr-operational-contract.md` exists and DCR/MCP is relevant, read it before invoking the transport.
+12. Verify relevant live repositories and runtime evidence for claims whose authority is live state rather than canonical intent.
+13. Report inconsistencies before acting.
 
 Repeat task-specific retrieval whenever the conversation materially changes domain, repository, subsystem, or engineering question. A successful cold boot does not make the initial context pack sufficient for every later task in a long-running conversation.
 
