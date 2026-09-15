@@ -1,14 +1,17 @@
 schema_version: 1
-program: qiven-dcr-win
-phase: 1
-batch: 1
+program: qiven-host
+phase: 0
+batch: 0
 status: active
-objective: 'Implement and validate the missing generic process-execution substrate in qiven-runtime (with any truly foundational prerequisite first in qiven-foundation), then make qiven-dcr-win consume the exact accepted runtime baseline and remove its duplicate product-local ProcessGeneration spike before continuing DCR-specific supervisor policy.'
+objective: 'Implement and validate the JasonPC-resident Qiven Host Execution Broker required by ADR-0026 so duplicated, delayed, retried, or concurrent AI/MCP flows cannot produce multiple local execution authorities. Restore mutating local automation only after single-writer lease, fencing, sequencing, quarantine, reconciliation, and no-bypass acceptance pass.'
 paused_work:
+  - qiven-devkit/native-build-system-0.2.0
+  - qiven-runtime/process-execution
+  - qiven-dcr-win/phase-1-batch-001
   - qiven-cad
-pause_reason: 'The project owner explicitly prioritized DCR Windows transport stability ahead of CAD because it is the execution plane for all later product work.'
+pause_reason: 'P0 authority-plane incident: the project owner directly observed two ChatGPT answer choices concurrently execute through the same JasonPC DCR/MCP capability. Local mutation is unsafe until host-side authority is enforced rather than assumed.'
 next_batches:
-  - 'Phase 1 / Batch 002 — supervise the real official DCR client with byte-bounded logging, memory pressure, bounded restart/backoff, deterministic environment injection, and health/liveness state'
-  - 'Phase 1 / Batch 003 — minimal Win32 UI/tray and end-to-end DCR validation dogfood'
-  - 'Phase 2 — native transport only after protocol compatibility is sufficiently understood and independently testable'
-updated_at: '2026-09-15T15:05:00Z'
+  - 'P0 / Batch 001 — reconcile incident-preserved JasonPC worktrees through the accepted Host Broker/owner-controlled recovery path and classify every incomplete local delta before resuming development'
+  - 'Resume Devkit native-build-system candidate closeout and canonicalize its separate architecture ADR only after host authority integrity is restored'
+  - 'Resume qiven-runtime and qiven-dcr-win Batch 001 above the accepted host authority plane; CAD remains paused until the first DCR transport milestone is accepted'
+updated_at: '2026-09-15T16:35:00Z'
