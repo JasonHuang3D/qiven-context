@@ -2,13 +2,9 @@ schema_version: 1
 program: qiven-devkit
 phase: 1
 batch: 3
-status: active
-objective: 'Roll accepted Devkit template 0.1.3 to managed consumers deliberately under exact-head validation, starting with qiven-foundation and then qiven-math.'
+status: complete
+objective: 'Release Devkit template 0.1.3 and roll it deliberately to the managed Foundation and Math consumers under exact-head validation.'
 paused_work: []
 pause_reason: ''
-next_batches:
-  - 'Foundation rollout: start from clean qiven-foundation main 6c09151e1a52830c66e6c7a97b5b68740154f475, run the accepted Devkit 0.1.3 sync path, inspect the managed-only delta, then validate the exact candidate before remote review and ADR-0021 merge.'
-  - 'Treat any Foundation sync conflict as repository-specific evidence. Do not reopen Operator architecture unless the conflict exposes a concrete Operator defect.'
-  - 'After Foundation is accepted, roll qiven-math from its own clean exact main. Preserve its immutable Foundation CI integration pin unless a new approved Foundation baseline is intentionally selected and validated; do not silently follow moving main.'
-  - 'After both managed consumers record template 0.1.3 and required validations pass, close Devkit Phase 1 rollout state and return to product-domain work rather than extending Operator infrastructure without concrete demand.'
-updated_at: '2026-09-15T08:04:28Z'
+next_batches: []
+updated_at: '2026-09-15T08:30:32Z'
