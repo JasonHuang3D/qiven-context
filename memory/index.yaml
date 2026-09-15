@@ -88,3 +88,7 @@ records:
     file: MEM-20260915T111500Z-42A7D1.md
     title: Current Qiven product roadmap starts with DCR Windows transport before CAD
     status: active
+  - id: MEM-20260915T114600Z-7D2F8C
+    file: MEM-20260915T114600Z-7D2F8C.md
+    title: Official DCR terminal history is per-session bounded but aggregate completed-session retention is not byte-bounded
+    status: active

@@ -19,13 +19,15 @@ Before implementation, freeze the observed execution contract, protocol question
 Required reconnaissance includes:
 
 - current official `@wonderwhy-er/desktop-commander remote` process tree and local MCP bridge;
-- remote WebSocket/session endpoint behavior, authentication/device registration, heartbeat, reconnect and version semantics to the extent they are observable without weakening security;
+- remote session transport behavior, authentication/device registration, heartbeat, reconnect and version semantics to the extent they are observable without weakening security;
 - message framing/correlation and the boundary between protocol data and diagnostic stdout/stderr;
 - child-process environment propagation, including the accepted `ProgramData=C:\ProgramData` repair for Windows OpenSSH;
 - lifecycle states: starting, connected, degraded, reconnecting, stopping, stopped and failed;
 - stale control-plane `online` state versus proven liveness by ping or successful bounded execution;
 - Chat UI/backend execution decoupling: a UI send failure does not imply already-dispatched tool calls stopped;
 - log flood, backpressure, memory growth, disk growth, slow UI, child-process hang, network loss and crash/restart behavior.
+
+The current official 0.2.50 transport has been observed as Supabase Auth + Realtime private channel/presence/broadcast plus remote-call database rows, rather than a single raw WebSocket RPC stream. V2 compatibility must preserve or deliberately replace those semantics.
 
 ## V1 — Native Windows supervisor
 
@@ -42,9 +44,11 @@ The first implementation should supervise the existing official Node/NPM DCR cli
 
 Transport must never block on human-visible logging. UI rendering may coalesce or drop display updates when overloaded, but execution/result integrity and durable logging policy must remain explicit.
 
+The provisional V1 hard invariants and numeric test budgets are defined in `projects/dcr-win/supervisor-resource-contract.md`.
+
 ## V2 — Native transport
 
-A native WebSocket/session implementation is allowed only after Batch 000 reconnaissance demonstrates a sufficiently understood and testable protocol contract. V2 removes the supervised Node transport only when compatibility, reconnect, authentication, framing and failure semantics can be validated independently.
+A native transport implementation is allowed only after Batch 000 reconnaissance demonstrates a sufficiently understood and testable protocol contract. V2 removes the supervised Node transport only when compatibility, reconnect, authentication, framing, device-presence, call-state and failure semantics can be validated independently.
 
 ## Runtime and Foundation boundary
 
@@ -66,4 +70,12 @@ Stop transport-first work and return to CAD when all of the following are true:
 
 ## Evidence
 
-See `evidence/audits/dcr-acceptance-2026-09-15.md`, `MEM-20260915T092000Z-3C7A41`, and `ADR-0023`.
+See:
+
+- `evidence/audits/dcr-acceptance-2026-09-15.md`;
+- `evidence/audits/dcr-windows-b000-runtime-recon-2026-09-15.md`;
+- `evidence/audits/dcr-windows-b000-output-retention-2026-09-15.md`;
+- `projects/dcr-win/supervisor-resource-contract.md`;
+- `MEM-20260915T092000Z-3C7A41`;
+- `MEM-20260915T114600Z-7D2F8C`;
+- `ADR-0023`.
