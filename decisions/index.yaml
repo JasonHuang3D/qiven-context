@@ -96,3 +96,7 @@ records:
     file: ADR-0024.md
     title: Prefer correct downward semantic ownership over local duplication or staged refactoring
     status: accepted
+  - id: ADR-0025
+    file: ADR-0025.md
+    title: Establish qiven-runtime as the shared native owner of process and execution-runtime semantics
+    status: accepted
