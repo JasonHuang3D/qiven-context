@@ -88,3 +88,7 @@ records:
     file: OBL-20260914T124259Z-7A4D13.md
     title: Reassess qiven-context retrieval reliability before resuming Operator merge
     status: done
+  - id: OBL-20260915T163500Z-9D4C72
+    file: OBL-20260915T163500Z-9D4C72.md
+    title: Do not resume mutating DCR execution before qiven-host split-brain acceptance
+    status: open
