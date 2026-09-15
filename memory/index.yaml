@@ -55,7 +55,7 @@ records:
   - id: MEM-20260913T183819Z-C2D841
     file: MEM-20260913T183819Z-C2D841.md
     title: Current Qiven product roadmap stages CAD, industrial-gas management, robotics simulation, then deeper native physics
-    status: active
+    status: superseded
   - id: MEM-20260913T185050Z-18E61C
     file: MEM-20260913T185050Z-18E61C.md
     title: qiven-toolchain-win currently pins CMake and clang-format as executable build tools
@@ -83,4 +83,8 @@ records:
   - id: MEM-20260915T101200Z-91B4F0
     file: MEM-20260915T101200Z-91B4F0.md
     title: DCR Git SSH on JasonPC requires ProgramData restoration because its Windows environment whitelist omits it
+    status: active
+  - id: MEM-20260915T111500Z-42A7D1
+    file: MEM-20260915T111500Z-42A7D1.md
+    title: Current Qiven product roadmap starts with DCR Windows transport before CAD
     status: active
