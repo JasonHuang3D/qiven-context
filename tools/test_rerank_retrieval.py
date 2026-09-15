@@ -12,8 +12,6 @@ sys.path.insert(0, str(ROOT / "tools"))
 from hybrid_retriever import HybridHit  # noqa: E402
 from rerank_retriever import (  # noqa: E402
     DEFAULT_GRAPH_SEED_TOP_K,
-    DEFAULT_MAX_SELECTED,
-    DEFAULT_MIN_LOGIT,
     DEFAULT_RERANK_MODEL,
     DEFAULT_SEMANTIC_POOL_TOP_K,
     RerankedRetriever,
@@ -56,12 +54,10 @@ def hit(canonical_id, *, d=None, s=None, score=1.0):
 
 
 class RerankRetrievalTests(unittest.TestCase):
-    def test_frozen_experiment_constants(self):
+    def test_frozen_candidate_constants(self):
         self.assertEqual(DEFAULT_RERANK_MODEL, "BAAI/bge-reranker-base")
         self.assertEqual(DEFAULT_SEMANTIC_POOL_TOP_K, 16)
         self.assertEqual(DEFAULT_GRAPH_SEED_TOP_K, 1)
-        self.assertEqual(DEFAULT_MAX_SELECTED, 8)
-        self.assertEqual(DEFAULT_MIN_LOGIT, 0.0)
 
     def test_deterministic_candidate_is_preserved_beyond_semantic_pool(self):
         retriever = RerankedRetriever(
@@ -114,24 +110,7 @@ class RerankRetrievalTests(unittest.TestCase):
         self.assertIn("ADR-0020", evidence)
         self.assertNotIn("OBL-20260913T183819Z-9A4F21", evidence)
 
-    def test_adaptive_selection_does_not_fill_negative_logit_slots(self):
-        retriever = RerankedRetriever(
-            ROOT,
-            hybrid_retriever=FakeHybrid(
-                [
-                    hit("ADR-0002", d=1, s=1),
-                    hit("ADR-0021", d=2, s=2),
-                    hit("ADR-0022", d=3, s=3),
-                ]
-            ),
-            reranker_backend=FakeReranker(
-                {"ADR-0002": 4.0, "ADR-0021": -0.25, "ADR-0022": -2.0}
-            ),
-        )
-        selected = retriever.select_ids({"task": "authority question"})
-        self.assertEqual(selected, {"ADR-0002"})
-
-    def test_explicit_id_is_retained_even_with_negative_logit(self):
+    def test_rank_orders_candidates_by_cross_encoder_score(self):
         retriever = RerankedRetriever(
             ROOT,
             hybrid_retriever=FakeHybrid(
@@ -140,26 +119,11 @@ class RerankRetrievalTests(unittest.TestCase):
                     hit("ADR-0021", d=2, s=2),
                 ]
             ),
-            reranker_backend=FakeReranker({"ADR-0002": 3.0, "ADR-0021": -5.0}),
+            reranker_backend=FakeReranker({"ADR-0002": 0.2, "ADR-0021": 0.8}),
         )
-        selected = retriever.select_ids(
-            {"task": "explicit fixture", "include_ids": ["ADR-0021"]}
-        )
-        self.assertIn("ADR-0021", selected)
-
-    def test_top_candidate_is_fail_safe_when_all_logits_are_negative(self):
-        retriever = RerankedRetriever(
-            ROOT,
-            hybrid_retriever=FakeHybrid(
-                [
-                    hit("ADR-0002", d=1, s=1),
-                    hit("ADR-0021", d=2, s=2),
-                ]
-            ),
-            reranker_backend=FakeReranker({"ADR-0002": -0.5, "ADR-0021": -3.0}),
-        )
-        selected = retriever.select_ids({"task": "fixture"})
-        self.assertEqual(selected, {"ADR-0002"})
+        ranked = retriever.rank({"task": "authority question"})
+        self.assertEqual([item.id for item in ranked[:2]], ["ADR-0021", "ADR-0002"])
+        self.assertEqual([item.rerank_rank for item in ranked[:2]], [1, 2])
 
 
 if __name__ == "__main__":
