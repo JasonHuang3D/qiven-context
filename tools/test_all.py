@@ -40,6 +40,7 @@ SUITES = (
     SuiteRun("hybrid-retrieval", "tools/test_hybrid_retrieval.py"),
     SuiteRun("structural-retrieval", "tools/test_structural_retrieval.py"),
     SuiteRun("rerank-retrieval", "tools/test_rerank_retrieval.py"),
+    SuiteRun("retrieval-candidate-bundle", "tools/test_retrieval_candidate_bundle.py"),
     SuiteRun("retrieval-acceptance", "tools/test_retrieval_acceptance.py"),
     SuiteRun("evidence-span-probe", "tools/test_evidence_span_probe.py"),
     SuiteRun("nli-answerability-probe", "tools/test_nli_answerability_probe.py"),
