@@ -1,10 +1,15 @@
 schema_version: 1
-program: qiven-devkit
-phase: 1
-batch: 3
-status: complete
-objective: 'Release Devkit template 0.1.3 and roll it deliberately to the managed Foundation and Math consumers under exact-head validation.'
-paused_work: []
-pause_reason: ''
-next_batches: []
-updated_at: '2026-09-15T08:30:32Z'
+program: qiven-dcr-win
+phase: 0
+batch: 0
+status: active
+objective: 'Freeze the DCR Windows protocol, lifecycle, logging/backpressure, liveness, environment, and failure model before implementation; define the V1 native supervisor acceptance boundary and the conditions for later V2 native transport.'
+paused_work:
+  - qiven-cad
+pause_reason: 'The project owner explicitly prioritized DCR Windows transport stability ahead of CAD because it is the execution plane for all later product work.'
+next_batches:
+  - 'Phase 1 / Batch 001 — qiven-dcr-win repository bootstrap and native Windows supervisor skeleton'
+  - 'Phase 1 / Batch 002 — bounded logging, process supervision, health/liveness, and reconnect behavior'
+  - 'Phase 1 / Batch 003 — minimal Win32 UI and end-to-end DCR validation dogfood'
+  - 'Phase 2 — native transport only after protocol reconnaissance is sufficient'
+updated_at: '2026-09-15T11:15:00Z'
