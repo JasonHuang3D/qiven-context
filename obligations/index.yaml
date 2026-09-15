@@ -83,7 +83,7 @@ records:
   - id: OBL-20260914T105500Z-7F31B2
     file: OBL-20260914T105500Z-7F31B2.md
     title: Resume Qiven Operator Phase 1 after Qiven-v1 session rollover
-    status: open
+    status: done
   - id: OBL-20260914T124259Z-7A4D13
     file: OBL-20260914T124259Z-7A4D13.md
     title: Reassess qiven-context retrieval reliability before resuming Operator merge
