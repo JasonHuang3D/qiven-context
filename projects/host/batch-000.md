@@ -19,3 +19,7 @@ Batch 000 has no dependency on `qiven-runtime` and contains no production proces
 ## Safety gate
 
 Passing Batch 000 does not re-enable mutating DCR or remote AI execution. The trusted owner-local path remains the only bootstrap path until Batch 001 passes.
+
+## Recovery authority
+
+Normal IPC does not expose Reconcile. A separate recovery surface accepts only challenge, assertion, and status messages. Only a current one-shot Windows Hello/WebAuthn assertion with required user verification may authorize `AbandonPriorAuthorityAndAdvanceFence`, durably advancing generation and fence before Ready while preserving prior uncertainty and journal evidence. Automated tests use a cryptographically faithful interface implementation; final JasonPC acceptance requires a real Windows Hello ceremony.

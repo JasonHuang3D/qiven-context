@@ -39,3 +39,5 @@ The broker owns only local execution authority and recovery evidence. It does no
 - Phase 0 / Batch 001 integrates accepted Runtime and DCR production paths and proves production mutation cannot bypass Host.
 
 Validation architecture follows semantic ownership just like code: a lower-layer batch proves only facts available at that layer. Batch 000 cannot re-enable mutating DCR; remote mutation remains suspended until Batch 001 passes and canonical state explicitly lifts the gate.
+
+ADR-0029 further separates ordinary owner-local IPC from recovery authority. Neither the owner token nor the normal protocol can clear an uncertain or quarantined Host; recovery requires a separate user-verifying Windows Hello/WebAuthn ceremony.
