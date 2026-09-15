@@ -17,6 +17,20 @@ Worker defaults: no push, merge, PR creation, Git identity changes, or unrelated
 
 Remote-native work may be implemented directly by jason-brother on GitHub.
 
+## Tool-policy and connector write boundary
+
+A connector refusal is a tool or platform boundary and must be stated as such. Do not disguise a connector or policy refusal as an engineering objection, filesystem problem, or repository limitation.
+
+When legitimate Qiven canonical content is blocked by a selected connector because the connector classifies the write as sensitive, restricted, or otherwise unacceptable, do not silently euphemize the engineering meaning, omit material facts, or weaken the canonical record merely to make the connector accept it. Preserve the intended semantics and switch authoring path.
+
+The preferred fallback is an explicitly trusted local authoring path: jason-worker or the project owner may create the exact file or patch locally and push it, after which jason-brother performs exact remote review. If no suitable trusted execution path is available, the last reliable fallback is for jason-brother to generate the exact Markdown or patch for the project owner to write or apply.
+
+This fallback does not authorize circumvention of an actual platform policy that forbids the underlying content. If the content itself is disallowed, that policy boundary remains and must be stated directly.
+
+Qiven Host and DCR are a separate local execution and authority plane. After Host acceptance, their responsibility is admission, fencing, execution authority, recovery, and no-bypass safety; Qiven should not intentionally duplicate a remote connector's content-classification policy inside Host. External connector policies still apply whenever those external tools are used.
+
+See `MEM-20260915T203423Z-C4A912`.
+
 ## Execution-mode control
 
 Chat is the default interaction mode. Do not interrupt an active Chat workflow with an automatic Work handoff, even when Work could be useful. A switch or handoff to Work requires explicit user intent.
