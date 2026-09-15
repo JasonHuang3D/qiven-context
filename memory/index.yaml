@@ -98,7 +98,7 @@ records:
     status: active
   - id: MEM-20260915T135800Z-6B0D8A
     file: MEM-20260915T135800Z-6B0D8A.md
-    title: Treat the observed roughly 26-minute Chat/DCR turn boundary as an operational checkpoint budget
+    title: Treat the observed roughly 26-minute Chat tool-turn boundary as an operational checkpoint budget
     status: active
   - id: MEM-20260915T163500Z-5E7A91
     file: MEM-20260915T163500Z-5E7A91.md
@@ -107,4 +107,8 @@ records:
   - id: MEM-20260916T020500Z-A27C91
     file: MEM-20260916T020500Z-A27C91.md
     title: Place acceptance gates at the earliest architecture layer where they can be truthfully proven
+    status: active
+  - id: MEM-20260915T203423Z-C4A912
+    file: MEM-20260915T203423Z-C4A912.md
+    title: Preserve canonical engineering semantics when a connector write is blocked; switch authoring path instead of rewriting the meaning
     status: active
