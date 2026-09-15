@@ -1,6 +1,6 @@
 # Qiven DCR Windows
 
-Status: **ACTIVE PRODUCT TRACK — Phase 0 / Batch 000**.
+Status: **ACTIVE PRODUCT TRACK — Phase 1 / Batch 001**.
 
 ## Product objective
 
@@ -14,24 +14,37 @@ Qiven DCR Windows is inserted ahead of CAD because it directly improves the reli
 
 ## Phase 0 / Batch 000 — Protocol + Failure Model Freeze
 
-Before implementation, freeze the observed execution contract, protocol questions, and failure model. Batch 000 produces architecture and acceptance evidence, not a speculative networking framework.
+Status: **COMPLETE**.
 
-Required reconnaissance includes:
+Batch 000 froze the observed execution contract, protocol questions, resource/failure model, and V1/V2 boundary before implementation.
 
-- current official `@wonderwhy-er/desktop-commander remote` process tree and local MCP bridge;
-- remote session transport behavior, authentication/device registration, heartbeat, reconnect and version semantics to the extent they are observable without weakening security;
-- message framing/correlation and the boundary between protocol data and diagnostic stdout/stderr;
+Reconnaissance established:
+
+- the official `@wonderwhy-er/desktop-commander remote` process tree and local stdio MCP bridge;
+- Supabase Auth + Realtime private channel/presence/broadcast plus remote-call database-row transport semantics;
+- device/session restoration, heartbeat, reconnect, half-open detection and bounded duplicate suppression behavior;
 - child-process environment propagation, including the accepted `ProgramData=C:\ProgramData` repair for Windows OpenSSH;
-- lifecycle states: starting, connected, degraded, reconnecting, stopping, stopped and failed;
 - stale control-plane `online` state versus proven liveness by ping or successful bounded execution;
 - Chat UI/backend execution decoupling: a UI send failure does not imply already-dispatched tool calls stopped;
-- log flood, backpressure, memory growth, disk growth, slow UI, child-process hang, network loss and crash/restart behavior.
+- normal-path full argument/result console logging;
+- per-session terminal-output caps versus aggregate completed-session memory-retention risk;
+- restart as an effective in-process resource-reclamation boundary.
 
-The current official 0.2.50 transport has been observed as Supabase Auth + Realtime private channel/presence/broadcast plus remote-call database rows, rather than a single raw WebSocket RPC stream. V2 compatibility must preserve or deliberately replace those semantics.
+The canonical V1 hard invariants and provisional test budgets are in `projects/dcr-win/supervisor-resource-contract.md`.
+
+## Phase 1 / Batch 001 — Headless native supervisor skeleton
+
+Status: **ACTIVE**.
+
+Bootstrap `qiven-dcr-win` and prove the smallest native Windows process-supervision substrate before integrating the real DCR client.
+
+The batch owns exact process-generation identity, Windows Job Object containment, concurrent stdout/stderr draining, bounded stop behavior, explicit state transitions, and deterministic synthetic fixtures. It intentionally excludes production resource policy, real DCR lifecycle integration, and Win32 UI.
+
+See `projects/dcr-win/batch-001.md`.
 
 ## V1 — Native Windows supervisor
 
-The first implementation should supervise the existing official Node/NPM DCR client rather than immediately reimplement its wire protocol. The supervisor owns:
+The first implementation supervises the existing official Node/NPM DCR client rather than immediately reimplementing its wire protocol. Across Phase 1 the supervisor owns:
 
 - exact child process-tree lifetime and graceful restart/stop;
 - deterministic environment injection and canonical tool paths;
@@ -44,11 +57,9 @@ The first implementation should supervise the existing official Node/NPM DCR cli
 
 Transport must never block on human-visible logging. UI rendering may coalesce or drop display updates when overloaded, but execution/result integrity and durable logging policy must remain explicit.
 
-The provisional V1 hard invariants and numeric test budgets are defined in `projects/dcr-win/supervisor-resource-contract.md`.
-
 ## V2 — Native transport
 
-A native transport implementation is allowed only after Batch 000 reconnaissance demonstrates a sufficiently understood and testable protocol contract. V2 removes the supervised Node transport only when compatibility, reconnect, authentication, framing, device-presence, call-state and failure semantics can be validated independently.
+A native transport implementation is allowed only after protocol compatibility is sufficiently understood and independently testable. V2 removes the supervised Node transport only when compatibility, reconnect, authentication, framing, device-presence, call-state and failure semantics can be validated independently.
 
 ## Runtime and Foundation boundary
 
@@ -76,6 +87,7 @@ See:
 - `evidence/audits/dcr-windows-b000-runtime-recon-2026-09-15.md`;
 - `evidence/audits/dcr-windows-b000-output-retention-2026-09-15.md`;
 - `projects/dcr-win/supervisor-resource-contract.md`;
+- `projects/dcr-win/batch-001.md`;
 - `MEM-20260915T092000Z-3C7A41`;
 - `MEM-20260915T114600Z-7D2F8C`;
 - `ADR-0023`.

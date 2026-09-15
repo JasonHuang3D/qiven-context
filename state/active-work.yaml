@@ -1,15 +1,14 @@
 schema_version: 1
 program: qiven-dcr-win
-phase: 0
-batch: 0
+phase: 1
+batch: 1
 status: active
-objective: 'Freeze the DCR Windows protocol, lifecycle, logging/backpressure, liveness, environment, and failure model before implementation; define the V1 native supervisor acceptance boundary and the conditions for later V2 native transport.'
+objective: 'Bootstrap the qiven-dcr-win repository and implement the smallest headless native Windows supervisor skeleton proving exact process-generation ownership, bounded stop semantics, and concurrent stdout/stderr draining with deterministic synthetic fixtures.'
 paused_work:
   - qiven-cad
 pause_reason: 'The project owner explicitly prioritized DCR Windows transport stability ahead of CAD because it is the execution plane for all later product work.'
 next_batches:
-  - 'Phase 1 / Batch 001 — qiven-dcr-win repository bootstrap and native Windows supervisor skeleton'
-  - 'Phase 1 / Batch 002 — bounded logging, process supervision, health/liveness, and reconnect behavior'
-  - 'Phase 1 / Batch 003 — minimal Win32 UI and end-to-end DCR validation dogfood'
-  - 'Phase 2 — native transport only after protocol reconnaissance is sufficient'
-updated_at: '2026-09-15T11:15:00Z'
+  - 'Phase 1 / Batch 002 — supervise the real official DCR client with byte-bounded logging, memory pressure, bounded restart/backoff, deterministic environment injection, and health/liveness state'
+  - 'Phase 1 / Batch 003 — minimal Win32 UI/tray and end-to-end DCR validation dogfood'
+  - 'Phase 2 — native transport only after protocol compatibility is sufficiently understood and independently testable'
+updated_at: '2026-09-15T11:58:00Z'
