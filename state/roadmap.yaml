@@ -1,21 +1,23 @@
 schema_version: 1
 classification: plan
 immutable_architecture: false
-updated_at: '2026-09-16T07:46:00Z'
+updated_at: '2026-09-16T12:50:00Z'
 items:
   - order: 1
-    title: Context v2 — continuity, canonicalization, governance, and Project Continuity acceptance
+    title: Context v2 — canonical continuity plus operational ContextView / Qiven Operator Human Manual Mode
   - order: 2
-    title: Complete Qiven Host Phase 0 / Batch 000 semantic acceptance from the preserved dispatcher + protected NoOp candidate
+    title: qiven-context.exe / Context Engine — semantic provider-consumer architecture, representation-independent storage, migration and backup/export
   - order: 3
-    title: Qiven Host Phase 0 / Batch 001 — Production Authority Integration
+    title: Complete Qiven Host Phase 0 / Batch 000 semantic acceptance from the preserved dispatcher + protected NoOp candidate
   - order: 4
-    title: Qiven DCR Windows — Phase 1 Native Supervisor Milestone
+    title: Qiven Host Phase 0 / Batch 001 — Production Authority Integration
   - order: 5
-    title: CAD / floor-plan to semantic 3D
+    title: Qiven DCR Windows — Phase 1 Native Supervisor Milestone
   - order: 6
-    title: Industrial-gas enterprise management / operating system
+    title: CAD / floor-plan to semantic 3D
   - order: 7
-    title: Robotics / simulation
+    title: Industrial-gas enterprise management / operating system
   - order: 8
+    title: Robotics / simulation
+  - order: 9
     title: Deeper Qiven-native physics
