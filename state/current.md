@@ -2,47 +2,54 @@
 
 ## Active objective
 
-Qiven engineering feature development remains frozen while `qiven-context` completes Context v2 acceptance on `jason-brother/context-v2-operating-model`. The migration reduces active write surfaces, reconciles known stale cognition, establishes GitHub-remote authority, and makes fresh-session Project Continuity the routine highest-level Context gate.
+Context v2 is canonically published on `JasonHuang3D/qiven-context/main` at merge commit `9b2bba53e61d80468f0a3d6bf9147c9295de0877`. Qiven now resumes the previously paused boundary: semantic acceptance review of the preserved Host dispatcher + protected NoOp candidate `0e35bb111deb2faeec885ffc9664deab6049f693`. No additional Host feature implementation starts before that review completes.
 
 ## Context authority and governance
 
 - Canonical project cognition is the GitHub remote `JasonHuang3D/qiven-context`; local clones are non-authoritative working copies.
-- Current governance authentication trusts GitHub account-level identity. `JasonHuang3D` is the root governance principal. Qiven does not attempt biological-human authentication; accepted residual risks are recorded in `governance/authority.yaml`.
-- `collaboration/` is normative only. Session continuity evidence belongs in `sessions/`.
-- Manual ledger writes are frozen. `evidence/ci`, `evidence/handoffs`, and `evidence/research` are deprecated active surfaces. Curated durable evidence remains in `evidence/audits/`.
-- Known conflicts must be canonicalized; superseded/legacy material remains historical but must not compete as active truth.
+- Current governance authentication trusts GitHub account-level identity. `JasonHuang3D` is the root governance principal. Qiven does not attempt biological-human authentication.
+- Context v2 Project Continuity acceptance passed and is now canonical. Human Succession remains a separate higher-order benchmark, not a routine release gate.
+- Manual ledger writes remain frozen; deprecated evidence buckets and legacy handoffs remain non-current.
+- Known conflicts must be canonicalized; superseded/legacy material must not compete as active truth.
 
-## Context v2 acceptance evidence
+## Context v2 accepted evidence
 
-Exact predecessor candidate `8f854de4398053f68f9b571c1875a867b78836d0` passed the owner-controlled repository validation gate from a fresh detached clone: all full suites, diff checks, clean-tree, and final exact-head verification passed. Evidence is `evidence/audits/context-v2-exact-validation-2026-09-16.md`.
+- exact final corrected candidate: `37fdbb33eb527f7df56e2ed1de3f58115c5315be`;
+- final candidate tree: `8dc5c93ea4b2a2d0362767415e019040053ed2a8`;
+- owner-controlled exact-head repository validation: PASS;
+- fresh-session Project Continuity Run 001: PASS, carried forward under the corrected acceptance contract;
+- canonical merge: `9b2bba53e61d80468f0a3d6bf9147c9295de0877`, whose tree exactly equals the validated candidate tree.
 
-Fresh-session Project Continuity Run 001 against the same exact remote ref also passed. It reconstructed governance, accepted/candidate boundaries, blockers/obligations, superseded/legacy cognition, live GitHub/CI facts, inconsistencies, and the next valid action without prior conversation/model memory or invented history. Evidence is `evidence/audits/project-continuity-context-v2-run001-2026-09-16.md`.
+Durable evidence remains in `evidence/audits/context-v2-exact-validation-2026-09-16.md` and `evidence/audits/project-continuity-context-v2-run001-2026-09-16.md`.
 
-Post-run review corrected one acceptance-spec defect: a fresh human operator is not required for every routine Context release. Fresh-human replaceability is now the separate higher-order Human Succession Acceptance contract. Because this correction does not change the project cognition/retrieval inputs reconstructed by Run 001, the blind continuity result carries forward; the corrected final candidate still requires a fresh exact-head repository validation before merge.
+## GitHub mutation incident and operator tooling guardrail
 
-## Accepted engineering checkpoint
+During Context v2 merge closeout, Chat repeatedly invoked a high-level GitHub contents write while intending a different repository operation. All unintended files were explicitly reverted; no accidental file content remains canonical. The exact history and recovery are preserved in `evidence/audits/github-connector-mutation-incident-2026-09-16.md`.
+
+High-level Chat-side GitHub contents mutation is not currently accepted for canonical merges or other critical writes until explicitly requalified. Read-only connector use remains allowed. Human-critical mutation defaults to a human-visible local Git orchestration path; any low-level Git object/ref path must bind exact identities and reviewed ref semantics.
+
+Human-facing `.cmd/.bat` entrypoints must preserve terminal success/failure visibility on direct launch: default human mode prints final status, pauses on success and failure, and only then returns the truthful exit code. See `collaboration/human-facing-executable-contract.md`.
+
+## Accepted Host engineering checkpoint
 
 The latest formally accepted Host checkpoint remains `8e5b9dec64bf739af84e981df12afc1969599738`, the bounded owner-only Windows named-pipe transport/session lifecycle. Exact GitHub Actions run `35060483714` passed. Acceptance evidence is `evidence/audits/host-local-pipe-transport-acceptance-2026-09-16.md`.
 
-## Preserved unaccepted Host candidate
+## Host candidate under semantic review
 
-`JasonHuang3D/qiven-host:jason-brother/host-batch-000` currently resolves remotely to `0e35bb111deb2faeec885ffc9664deab6049f693` (`host: add protocol dispatcher and protected NoOp`). Exact GitHub Actions run `35063639174` completed successfully for that SHA. The run was push-triggered, which is a process regression against ADR-0005. The candidate is **not formally accepted** because Host semantic acceptance was intentionally paused for the Context v2 migration.
-
-A green CI run is validation evidence, not semantic acceptance.
+`JasonHuang3D/qiven-host:jason-brother/host-batch-000` has preserved candidate `0e35bb111deb2faeec885ffc9664deab6049f693` (`host: add protocol dispatcher and protected NoOp`). Exact GitHub Actions run `35063639174` completed successfully for that SHA, but semantic acceptance remains pending. A green CI run is validation evidence, not semantic acceptance.
 
 ## Safety gate and paused work
 
-`OBL-20260915T163500Z-9D4C72` remains open. Mutating DCR or other remote-AI execution on JasonPC stays suspended until Host Batch 001 production authority integration proves the production mutation path cannot bypass Host.
+`OBL-20260915T163500Z-9D4C72` remains open. Mutating DCR or other remote-AI execution on JasonPC stays suspended until Host Batch 001 production authority integration proves that the production mutation path cannot bypass Host.
 
-Host feature work, Runtime process execution, DCR Windows Phase 1, and CAD remain paused until Context v2 is canonically accepted.
+Runtime process execution, DCR Windows Phase 1, CAD, and later product work remain paused behind the Host authority boundary.
 
-## Known continuity gaps
+## Known live/process inconsistencies
 
-- session evidence for Qiven-v2 through Qiven-v5 was not maintained; no fabricated backfill is allowed;
-- the v1 ledger stopped after 2026-09-14 and is frozen legacy rather than complete cognition history;
-- `qiven-runtime` did not resolve as a GitHub repository during migration and no remote may be invented;
-- qiven-host CI push-trigger behavior still conflicts with ADR-0005 and must be corrected before normal Host checkpoint CI resumes.
+- qiven-host CI still auto-runs full validation on pushes to `jason-brother/**`, contrary to ADR-0005; correct this before normal future Host checkpoint CI dispatch resumes;
+- `qiven-runtime` still has no verified GitHub remote and no remote may be invented;
+- Qiven-v2 through Qiven-v5 session evidence remains a historical gap; no fabricated backfill is allowed.
 
 ## Next boundary
 
-Run `tools\validate-candidate.cmd <exact-corrected-head>` on the corrected Context v2 candidate. If it passes, perform Context v2 canonical acceptance/merge. Only then resume semantic review of Host candidate `0e35bb...`; do not start additional Host feature implementation first.
+Perform exact semantic review of Host candidate `0e35bb111deb2faeec885ffc9664deab6049f693` against the accepted transport checkpoint, Host ADRs, protocol/dispatcher implementation, protected NoOp semantics, disconnect/competing-session behavior, and exact successful CI evidence. Accept, correct, or reject that existing candidate before writing additional Host functionality.

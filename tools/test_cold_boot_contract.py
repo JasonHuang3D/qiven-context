@@ -45,8 +45,6 @@ class ColdBootContractTests(unittest.TestCase):
         gate=self.front("obligations/OBL-20260913T152950Z-D4E5F6.md"); self.assertEqual(gate["status"],"done")
         self.assertTrue((ROOT/"evidence/audits/cold-boot-batch004-run001.md").is_file())
         self.assertTrue((ROOT/"evidence/audits/context-phase0-batch004-closeout.md").is_file())
-        self.assertEqual(active["program"],"qiven-context")
-        self.assertIn("v2 continuity",active["objective"])
 
     def test_project_continuity_contract_covers_v2_reconstruction_without_fresh_human_gate(self):
         contract=self.read("collaboration/project-continuity-acceptance.md")
@@ -76,6 +74,30 @@ class ColdBootContractTests(unittest.TestCase):
             "not a routine prerequisite for every Context release",
         ):
             self.assertIn(required,contract)
+
+    def test_human_facing_executable_contract_is_durable(self):
+        contract=self.read("collaboration/human-facing-executable-contract.md")
+        for required in (
+            "double-clicked",
+            "pause",
+            "truthful exit code",
+            "--no-pause",
+            "[ RUN]",
+            "[ OK ]",
+            "[FAIL]",
+        ):
+            self.assertIn(required,contract)
+
+    def test_github_mutation_incident_guardrail_is_active(self):
+        workflow=self.read("collaboration/git-workflow.md")
+        self.assertIn("high-level Chat-side GitHub contents mutation",workflow)
+        self.assertIn("not an accepted path for canonical merges",workflow)
+        audit=self.read("evidence/audits/github-connector-mutation-incident-2026-09-16.md")
+        self.assertIn("action-selection/invocation failure",audit)
+        memory_index=yaml.safe_load(self.read("memory/index.yaml"))
+        ids={str(item["id"]) for item in memory_index["records"] if item.get("status")=="active"}
+        self.assertIn("MEM-20260916T095000Z-7C4E91",ids)
+        self.assertIn("MEM-20260916T095200Z-1D6B42",ids)
 
     def test_current_session_checkpoint_has_required_continuity_fields(self):
         checkpoint=self.read("sessions/2026-09-16-qiven-v6.md")
