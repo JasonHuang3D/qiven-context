@@ -21,6 +21,7 @@ The active direct-development branch is `jason-brother/host-batch-000`. Its exac
 2. `b1d1d28199c02b1d3d21fc3995ba0ec8c194f56d` — `host: add durable fence store`, parent exactly `7d7ff602...`; exact CI run `35018685694` passed Windows MSVC, Linux GCC, and macOS AppleClang in Debug and Release plus CI Gate.
 3. `59ca1fa1bf9106b3b5cff5feef060957e825b75c` — `host: add bounded durable journal`, parent exactly `b1d1d281...`; exact CI run `35021345295` passed Windows/Linux/macOS Debug and Release plus CI Gate.
 4. `888062f3042c6c39c6419d515c4a86405d1140ea` — `host: enforce owner-scoped broker singleton`, parent exactly `59ca1fa1...`; exact CI run `35021873826` passed Windows/Linux/macOS Debug and Release plus CI Gate. The Windows test includes a real eight-process acquisition race and proves exactly one accepted broker instance while the winner remains alive.
+5. `2faecefb9f9e9b3c983eccc2e5a12836fc2f5a8e` — current accepted broker-persistence orchestration head, parent chain `888062f... -> 7e13bbbc1526a65c2ebd87c37fb6af6751ebca60 -> 2faecefb...`; exact CI run `35054237070` passed Windows MSVC, Linux GCC, and macOS AppleClang in Debug and Release plus CI Gate. `7e13bbbc...` introduced the orchestration layer but is not the accepted checkpoint by itself: exact remote semantic review found that a wrong-session `Release` could move in-memory authority to `Quarantined` while its rejection path failed to persist that stronger phase. Correction `2faecefb...` persists rejection-induced phase changes before journaling the rejection and adds a Windows restart test proving `Quarantined` survives broker replacement.
 
 The earlier worker preservation branch `jason-worker/host-authority-kernel-batch-000` and WIP head `4a40a249c657b64564e41dfc2ab6735d73d3657e` remain historical evidence only. Do not resume from that FenceStore prototype; the direct-development stack above supersedes it for current implementation work.
 
@@ -29,6 +30,8 @@ The earlier worker preservation branch `jason-worker/host-authority-kernel-batch
 ### AuthorityState
 
 The kernel owns explicit `Ready`, `Leased`, `Reconciling`, and `Quarantined` phases; opaque execution/lease/operation/session identities; persistent generation and fencing epoch; strict request sequence and replay/idempotency semantics; competitor quarantine; disconnect reconciliation; and recovery as abandonment of prior authority plus fence advancement rather than a claim that uncertain work did not execute.
+
+The broker-orchestration checkpoint also strengthened operation completion authority at the natural owner: `AuthorityState::complete` now authenticates the original broker session, execution, lease, fence, sequence, operation identity, and digest before consuming an admitted request. An original owner may finish an already-admitted operation to its safe boundary after a competitor has forced `Quarantined`; a competing caller cannot steal completion authority.
 
 ### FenceStore
 
@@ -41,6 +44,16 @@ The journal is bounded evidence rather than the authority source of truth. It re
 ### BrokerInstanceGuard
 
 The Windows singleton is owner-scoped using `Global\\QivenHost.Broker.<SID>`. It uses named-object existence and guard-handle lifetime rather than mutex thread ownership. A second broker deterministically receives `already_running`; it is not admitted or queued. This singleton constrains broker-process multiplicity only; lease/fencing/sequence/quarantine remain separate execution-authority mechanisms. It does not claim protection against arbitrary malicious code with unrestricted same-user control.
+
+### AuthorityBroker persistence orchestration
+
+`AuthorityBroker` composes one primary in-process authority mutex, `AuthorityState`, `FenceStore`, and `BoundedJournal` without pretending the two durable stores form an atomic transaction. Fresh bootstrap requires both durable substrates to be absent; a later start that observes only one initialized substrate fails closed as inconsistent persistence. Persisted `Ready` restores as `Ready`; persisted `Leased` cannot resurrect its ephemeral lease and is durably converted to `Reconciling`; persisted `Reconciling` and `Quarantined` remain fail-closed.
+
+Acquire persists `Leased` before returning a usable lease. Operation admission is durably journaled before it is exposed as admitted. Terminal operation evidence is journaled before a later release can return durable authority to `Ready`. Normal release first records an uncertain transition while durable state remains `Leased`, then persists `Ready`, then records successful transition completion; failure before the durable Ready write restarts conservatively from `Leased -> Reconciling`, while failure after a required durable write latches the running broker closed. Reconciling/quarantine transitions persist the fail-closed authority state before relying on journal evidence.
+
+A rejected request is not assumed to leave authority unchanged. Exact review of `7e13bbbc...` caught a rejection path where wrong-session release had already changed `AuthorityState` to `Quarantined`; accepted correction `2faecefb...` compares pre/post phase and persists the stronger fail-closed state before returning the rejection. See `MEM-20260916T040700Z-D8A4C2`.
+
+The authority mutex covers validation and required durable authority transitions only. Future protected test-operation execution remains outside that mutex between admission and completion so a competing flow can reach authority state and force quarantine while work is in flight. The broker checkpoint does not yet implement the protected operation itself.
 
 ## qiven-devkit prerequisite
 
@@ -57,16 +70,18 @@ For the remainder of Host Batch 000, jason-brother should prefer direct GitHub-n
 
 The project owner observed the same roughly 26-minute long-turn cutoff during direct GitHub-native remote development with no DCR execution in the turn. This weakens the hypothesis that DCR causes the cutoff. Treat the boundary as a Chat/tool-turn execution-window constraint for engineering purposes, while keeping the underlying product mechanism unproven. Create durable checkpoints continuously and target coherent checkpoint completion before approximately 20-22 minutes. See `MEM-20260915T135800Z-6B0D8A`.
 
+A green CI result is not itself checkpoint acceptance for authority code. The broker-orchestration work demonstrated why: the first orchestration head compiled and tested across the existing suite, but exact semantic review still found a crash/restart persistence omission on a rejected transition. Remote review must explicitly inspect fail-closed state changes, durable ordering, and restart interpretation before accepting an exact CI-proven head.
+
 ## Connector write fallback
 
 Direct GitHub writes may occasionally be rejected by connector safety/policy classification even when the intended Qiven canonical record is legitimate project documentation. Do not preserve connector success by euphemizing, omitting, or weakening material engineering semantics. State the tool boundary and move the authoring operation to a trusted local Work/owner path, then exact-review the pushed result. If that path is unavailable, generate the exact Markdown or patch for the project owner as the final reliable authoring fallback. This does not permit bypassing a policy that actually forbids the underlying content. See `MEM-20260915T203423Z-C4A912` and `collaboration/operating-contract.md`.
 
 ## Immediate next engineering step
 
-Continue from exact Host checkpoint `888062f3042c6c39c6419d515c4a86405d1140ea` with broker orchestration and persistence ordering before adding normal IPC. The broker should own one primary in-process mutex, `AuthorityState`, `FenceStore`, and `BoundedJournal`, but must not hold the authority mutex across an arbitrary protected operation.
+Continue from exact Host checkpoint `2faecefb9f9e9b3c983eccc2e5a12836fc2f5a8e` with the bounded versioned protocol codec as its own coherent checkpoint before named-pipe transport.
 
-The next contract must explicitly handle partial durability rather than pretending FenceStore and BoundedJournal form one atomic filesystem transaction. If a durable admission/transition write succeeds and a later required durable write fails, the broker must fail closed and reject further authority until restart/recovery can reconcile persistent evidence. Restart must conservatively restore persisted `Ready` as `Ready`, but a persisted `Leased` state cannot resurrect its old ephemeral lease and should become durably `Reconciling`; persisted `Reconciling` and `Quarantined` remain fail-closed. An admitted protected operation whose terminal result is not durably known remains uncertain; absence of client success never proves the operation did not execute.
+The codec must express only Batch-000 authority-kernel operations that can be truthfully implemented at this layer. Keep messages and frames explicitly bounded and versioned; reject malformed, oversized, unknown-version, and semantically invalid inputs without unbounded allocation or partial dispatch. Do not add Runtime/DCR production adapters, arbitrary filesystem/Git/process operations, or a normal-protocol `Reconcile` operation. Recovery remains a separate authority surface under ADR-0029, and Windows Hello/WebAuthn platform claims still require native API/consent re-verification before the real recovery ceremony is implemented.
 
-After broker orchestration, continue with the bounded protocol codec, owner-only local named-pipe transport, protected test operations, crash/failure injection, recovery authority, and full synthetic split-brain acceptance. Before implementing ADR-0029's real Windows Hello/WebAuthn recovery ceremony, re-verify the native Windows API contract and consent semantics; do not force WebAuthn if it cannot faithfully bind a trusted local recovery action and required user verification.
+After the protocol codec is proven, continue with owner-only local named-pipe transport, protected test operations, crash/failure injection, recovery authority, and full synthetic split-brain acceptance.
 
 Batch 000 acceptance still does not re-enable mutating remote execution. Batch 001 remains the production Runtime/DCR integration and no-bypass gate.
