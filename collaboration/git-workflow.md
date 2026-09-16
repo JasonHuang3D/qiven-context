@@ -3,7 +3,7 @@
 - Remote-native branches created directly by jason-brother normally use `jason-brother/<name>`.
 - Local-execution branches implemented by jason-worker normally use `jason-worker/<name>`.
 - jason-worker commits locally and does not push by default; the user pushes worker branches for remote review unless a separately accepted authority path explicitly permits the push.
-- jason-brother may create/update remote branches and commits directly for authorized remote-native work when GitHub connector access is available.
+- jason-brother may create/update remote branches and commits directly for authorized remote-native work when GitHub connector access is available and the selected mutation path is currently accepted.
 - GitHub remote state is authoritative for published repository identity; a local clone is a non-authoritative working copy.
 - jason-brother reviews the exact remote delta before selecting validation scope.
 - WIP pushes provide remote durability only. They must not implicitly trigger expensive full CI.
@@ -19,3 +19,11 @@
 - Git `user.name` and `user.email` are never changed as workflow machinery.
 
 A remembered SHA, local ref, or cached state file never overrides live GitHub remote state.
+
+## Current Chat-side GitHub mutation restriction
+
+The 2026-09-16 Context v2 merge incident demonstrated repeated Chat-side action-selection/invocation failures in the high-level GitHub contents mutation path. The evidence does **not** establish GitHub repository corruption or a GitHub backend defect: the connector executed the concrete high-level write action that Chat invoked, while the invoked action did not match the engineering operation Chat intended.
+
+Until this path is explicitly requalified, high-level Chat-side GitHub contents mutations are **not an accepted path for canonical merges or other critical repository writes**. Read-only GitHub connector operations remain allowed. For critical mutation, prefer a human-visible local Git orchestration script satisfying `collaboration/human-facing-executable-contract.md`. A low-level Git object/ref path may be used only when the exact repository, base/head identities, tree, parent set, and ref update are explicitly bound and reviewed; an ad-hoc contents write must never be used as a surrogate for a merge.
+
+Requalification must be deliberate and isolated from canonical branches. It must prove that the intended engineering action maps to the invoked connector action before the restriction is removed.

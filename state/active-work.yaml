@@ -1,10 +1,9 @@
 schema_version: 2
-program: qiven-context
+program: qiven-host
 status: active
 objective: >-
-  Complete qiven-context v2 continuity acceptance: preserve the exact executable-validation and fresh-session Project Continuity
-  PASS evidence, separate the higher-order fresh-human Human Succession benchmark from routine acceptance, validate the corrected
-  exact candidate, and establish Context v2 canonically before Host work resumes.
+  Validate and disposition the corrected Host dispatcher + protected NoOp candidate 49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
+  after semantic review rejected ancestor 0e35bb111deb2faeec885ffc9664deab6049f693 as-is for an unbound dispatch/close lifecycle window.
 accepted_checkpoint:
   subject: qiven-host
   ref: 8e5b9dec64bf739af84e981df12afc1969599738
@@ -12,18 +11,18 @@ accepted_checkpoint:
     - 'GitHub Actions run 35060483714 PASS'
     - evidence/audits/host-local-pipe-transport-acceptance-2026-09-16.md
 current_candidate:
-  subject: qiven-context-v2
-  ref: jason-brother/context-v2-operating-model
-  state: acceptance-correction-candidate
+  subject: qiven-host-dispatcher-protected-noop-lifecycle-correction
+  ref: 49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
+  state: exact-ci-pending
 blockers:
-  - The corrected Context v2 candidate requires one fresh exact-head repository validation before canonical merge acceptance.
-  - Mutating DCR remains suspended by OBL-20260915T163500Z-9D4C72.
+  - Corrected dispatcher candidate requires manually dispatched full CI bound to expected_sha 49e69c02fe2ded0b9607ccb4090c21cde96b8a1c before checkpoint acceptance.
+  - Mutating DCR remains suspended by OBL-20260915T163500Z-9D4C72 until Host Batch 001 production no-bypass acceptance and explicit re-enable.
+  - High-level Chat-side GitHub contents mutation is suspended for critical writes until explicitly requalified after the 2026-09-16 action-selection incident.
 paused_work:
-  - qiven-host/phase-0-batch-000
   - qiven-runtime/process-execution
   - qiven-dcr-win/phase-1-batch-001
   - qiven-cad
 next_boundary: >-
-  Run tools/validate-candidate.cmd on the exact corrected Context v2 branch head. If PASS, canonically accept/merge Context v2,
-  then resume semantic review of the preserved Host dispatcher + protected NoOp candidate before any further Host implementation.
-updated_at: '2026-09-16T09:15:00Z'
+  Manually dispatch qiven-host full CI against jason-brother/host-batch-000 with expected_sha=49e69c02fe2ded0b9607ccb4090c21cde96b8a1c.
+  On exact success, perform final semantic disposition of this dispatcher checkpoint before any new Host feature work.
+updated_at: '2026-09-16T10:00:00Z'

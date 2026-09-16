@@ -2,47 +2,57 @@
 
 ## Active objective
 
-Qiven engineering feature development remains frozen while `qiven-context` completes Context v2 acceptance on `jason-brother/context-v2-operating-model`. The migration reduces active write surfaces, reconciles known stale cognition, establishes GitHub-remote authority, and makes fresh-session Project Continuity the routine highest-level Context gate.
+Context v2 is canonically published on `JasonHuang3D/qiven-context/main` at merge commit `9b2bba53e61d80468f0a3d6bf9147c9295de0877`. The active engineering boundary is the corrected Host dispatcher + protected NoOp checkpoint on `JasonHuang3D/qiven-host:jason-brother/host-batch-000` at `49e69c02fe2ded0b9607ccb4090c21cde96b8a1c`. No additional Host feature implementation starts before exact full CI and final semantic disposition of that correction candidate.
 
 ## Context authority and governance
 
 - Canonical project cognition is the GitHub remote `JasonHuang3D/qiven-context`; local clones are non-authoritative working copies.
-- Current governance authentication trusts GitHub account-level identity. `JasonHuang3D` is the root governance principal. Qiven does not attempt biological-human authentication; accepted residual risks are recorded in `governance/authority.yaml`.
-- `collaboration/` is normative only. Session continuity evidence belongs in `sessions/`.
-- Manual ledger writes are frozen. `evidence/ci`, `evidence/handoffs`, and `evidence/research` are deprecated active surfaces. Curated durable evidence remains in `evidence/audits/`.
-- Known conflicts must be canonicalized; superseded/legacy material remains historical but must not compete as active truth.
+- Current governance authentication trusts GitHub account-level identity. `JasonHuang3D` is the root governance principal. Qiven does not attempt biological-human authentication.
+- Context v2 Project Continuity acceptance passed and is canonical. Human Succession remains a separate higher-order benchmark, not a routine release gate.
+- Manual ledger writes remain frozen; deprecated evidence buckets and legacy handoffs remain non-current.
+- Known conflicts must be canonicalized; superseded/legacy material must not compete as active truth.
 
-## Context v2 acceptance evidence
+## Context v2 accepted evidence
 
-Exact predecessor candidate `8f854de4398053f68f9b571c1875a867b78836d0` passed the owner-controlled repository validation gate from a fresh detached clone: all full suites, diff checks, clean-tree, and final exact-head verification passed. Evidence is `evidence/audits/context-v2-exact-validation-2026-09-16.md`.
+- exact final corrected candidate: `37fdbb33eb527f7df56e2ed1de3f58115c5315be`;
+- final candidate tree: `8dc5c93ea4b2a2d0362767415e019040053ed2a8`;
+- owner-controlled exact-head repository validation: PASS;
+- fresh-session Project Continuity Run 001: PASS;
+- canonical merge: `9b2bba53e61d80468f0a3d6bf9147c9295de0877`, whose tree exactly equals the validated candidate tree.
 
-Fresh-session Project Continuity Run 001 against the same exact remote ref also passed. It reconstructed governance, accepted/candidate boundaries, blockers/obligations, superseded/legacy cognition, live GitHub/CI facts, inconsistencies, and the next valid action without prior conversation/model memory or invented history. Evidence is `evidence/audits/project-continuity-context-v2-run001-2026-09-16.md`.
+## Operator tooling and GitHub mutation guardrails
 
-Post-run review corrected one acceptance-spec defect: a fresh human operator is not required for every routine Context release. Fresh-human replaceability is now the separate higher-order Human Succession Acceptance contract. Because this correction does not change the project cognition/retrieval inputs reconstructed by Run 001, the blind continuity result carries forward; the corrected final candidate still requires a fresh exact-head repository validation before merge.
+The 2026-09-16 Chat-side GitHub mutation incident and human-facing batch-window failure are durable current constraints, not future TODOs. Exact incident evidence is `evidence/audits/github-connector-mutation-incident-2026-09-16.md`.
 
-## Accepted engineering checkpoint
+High-level Chat-side GitHub contents mutation is not currently accepted for canonical merges or other critical writes until explicitly requalified. Read-only connector use remains allowed. Critical mutation uses a human-visible local Git orchestration path by default or a low-level Git object/ref path with exact repository/base/head/tree/parent/ref semantics bound and reviewed.
 
-The latest formally accepted Host checkpoint remains `8e5b9dec64bf739af84e981df12afc1969599738`, the bounded owner-only Windows named-pipe transport/session lifecycle. Exact GitHub Actions run `35060483714` passed. Acceptance evidence is `evidence/audits/host-local-pipe-transport-acceptance-2026-09-16.md`.
+Human-facing `.cmd/.bat` entrypoints must preserve terminal success/failure visibility on direct launch: default human mode prints final status, pauses on success and failure, and only then returns the truthful exit code. `tools/validate-candidate.cmd` now implements this contract and supports explicit `--no-pause` for automation.
 
-## Preserved unaccepted Host candidate
+## Accepted Host engineering checkpoint
 
-`JasonHuang3D/qiven-host:jason-brother/host-batch-000` currently resolves remotely to `0e35bb111deb2faeec885ffc9664deab6049f693` (`host: add protocol dispatcher and protected NoOp`). Exact GitHub Actions run `35063639174` completed successfully for that SHA. The run was push-triggered, which is a process regression against ADR-0005. The candidate is **not formally accepted** because Host semantic acceptance was intentionally paused for the Context v2 migration.
+The latest formally accepted Host checkpoint remains `8e5b9dec64bf739af84e981df12afc1969599738`, the bounded owner-only Windows named-pipe transport/session lifecycle. Exact GitHub Actions run `35060483714` passed.
 
-A green CI run is validation evidence, not semantic acceptance.
+## Host dispatcher semantic review
+
+Original candidate `0e35bb111deb2faeec885ffc9664deab6049f693` is **not accepted as-is** despite exact CI run `35063639174` being green. Semantic review found an unbound dispatch/close lifecycle window: Broker Acquire could establish `Leased` authority before dispatcher active-lease tracking became visible to connection close, while the API accepted a caller-supplied session and existing tests serialized the whole exchange.
+
+Correction `49e69c02fe2ded0b9607ccb4090c21cde96b8a1c` binds dispatch to `(OwnerPipeServer, slot)`, derives the Host-owned session under a dispatcher lifecycle gate, serializes dispatch/close for this conservative Batch 000 layer, and adds stale-frame-after-close regression coverage. It also corrects qiven-host CI to manual `workflow_dispatch` with required `expected_sha`; the branch update produced no new push-trigger run.
+
+The correction candidate has passed exact remote semantic/delta review but has **not yet passed its new full CI gate**.
 
 ## Safety gate and paused work
 
-`OBL-20260915T163500Z-9D4C72` remains open. Mutating DCR or other remote-AI execution on JasonPC stays suspended until Host Batch 001 production authority integration proves the production mutation path cannot bypass Host.
+`OBL-20260915T163500Z-9D4C72` remains open. Mutating DCR or other remote-AI execution on JasonPC stays suspended until Host Batch 001 production authority integration proves that the production mutation path cannot bypass Host.
 
-Host feature work, Runtime process execution, DCR Windows Phase 1, and CAD remain paused until Context v2 is canonically accepted.
+Runtime process execution, DCR Windows Phase 1, CAD, and later product work remain paused behind the Host authority boundary.
 
-## Known continuity gaps
+ADR-0026's bounded scope/intent audit metadata and ADR-0029 recovery authority remain outstanding Batch 000 work; acceptance of the dispatcher checkpoint will not imply full Batch 000 acceptance.
 
-- session evidence for Qiven-v2 through Qiven-v5 was not maintained; no fabricated backfill is allowed;
-- the v1 ledger stopped after 2026-09-14 and is frozen legacy rather than complete cognition history;
-- `qiven-runtime` did not resolve as a GitHub repository during migration and no remote may be invented;
-- qiven-host CI push-trigger behavior still conflicts with ADR-0005 and must be corrected before normal Host checkpoint CI resumes.
+## Known continuity/process gaps
+
+- `qiven-runtime` still has no verified GitHub remote and no remote may be invented;
+- Qiven-v2 through Qiven-v5 session evidence remains a historical gap; no fabricated backfill is allowed.
 
 ## Next boundary
 
-Run `tools\validate-candidate.cmd <exact-corrected-head>` on the corrected Context v2 candidate. If it passes, perform Context v2 canonical acceptance/merge. Only then resume semantic review of Host candidate `0e35bb...`; do not start additional Host feature implementation first.
+Manually dispatch qiven-host `CI / full` against `jason-brother/host-batch-000` with `expected_sha=49e69c02fe2ded0b9607ccb4090c21cde96b8a1c`. If exact CI passes, perform final exact-identity review and accept/reject this dispatcher checkpoint. Do not start additional Host functionality and do not re-enable mutating DCR before that disposition.
