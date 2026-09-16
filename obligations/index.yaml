@@ -92,3 +92,7 @@ records:
     file: OBL-20260915T163500Z-9D4C72.md
     title: Do not resume mutating DCR execution before qiven-host split-brain acceptance
     status: open
+  - id: OBL-20260916T102700Z-7C2A91
+    file: OBL-20260916T102700Z-7C2A91.md
+    title: Reconcile and remove Qiven-v6 unmanaged temporary repository clones
+    status: open

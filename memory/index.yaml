@@ -32,5 +32,6 @@ records:
   - {id: MEM-20260916T042800Z-B71E3C, file: MEM-20260916T042800Z-B71E3C.md, title: Broker session identity belongs to Host transport and must not be client-selected on the wire, status: active}
   - {id: MEM-20260916T045200Z-C8F219, file: MEM-20260916T045200Z-C8F219.md, title: Host-owned broker session identity outranks copied client execution identity for competing Acquire detection, status: active}
   - {id: MEM-20260916T095000Z-7C4E91, file: MEM-20260916T095000Z-7C4E91.md, title: Treat high-level Chat-side GitHub contents mutation as unsafe for critical writes until requalified, status: active}
-  - {id: MEM-20260916T095200Z-1D6B42, file: MEM-20260916T095200Z-1D6B42.md, title: Human-facing Windows batch entrypoints must preserve terminal outcome on direct launch, status: active}
+  - {id: MEM-20260916T095200Z-1D6B42, file: MEM-20260916T095200Z-1D6B42.md, title: Human-facing Windows batch entrypoints must preserve terminal outcome on direct launch, status: superseded}
   - {id: MEM-20260916T100000Z-6A2E4C, file: MEM-20260916T100000Z-6A2E4C.md, title: Bind transport-session dispatch and retirement inside one Host lifecycle authority boundary, status: active}
+  - {id: MEM-20260916T102500Z-4F7A21, file: MEM-20260916T102500Z-4F7A21.md, title: Qiven Operator is the shared local execution interface for both human manual mode and Host-driven AI execution, status: active}

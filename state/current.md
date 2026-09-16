@@ -2,7 +2,7 @@
 
 ## Active objective
 
-Context v2 is canonically published on `JasonHuang3D/qiven-context/main` at merge commit `9b2bba53e61d80468f0a3d6bf9147c9295de0877`. The active engineering boundary is the corrected Host dispatcher + protected NoOp checkpoint on `JasonHuang3D/qiven-host:jason-brother/host-batch-000` at `49e69c02fe2ded0b9607ccb4090c21cde96b8a1c`. No additional Host feature implementation starts before exact full CI and final semantic disposition of that correction candidate.
+Context v2 and the post-v2 operating guardrails are canonical on `JasonHuang3D/qiven-context/main`. The current engineering objective remains disposition of corrected Host dispatcher + protected NoOp candidate `49e69c02fe2ded0b9607ccb4090c21cde96b8a1c`, but the immediate local-validation boundary is to restore actual use of the existing Qiven Operator Human Manual Mode instead of continuing ad-hoc shell scripts and unmanaged temporary clones.
 
 ## Context authority and governance
 
@@ -12,21 +12,21 @@ Context v2 is canonically published on `JasonHuang3D/qiven-context/main` at merg
 - Manual ledger writes remain frozen; deprecated evidence buckets and legacy handoffs remain non-current.
 - Known conflicts must be canonicalized; superseded/legacy material must not compete as active truth.
 
-## Context v2 accepted evidence
+## Local execution workflows
 
-- exact final corrected candidate: `37fdbb33eb527f7df56e2ed1de3f58115c5315be`;
-- final candidate tree: `8dc5c93ea4b2a2d0362767415e019040053ed2a8`;
-- owner-controlled exact-head repository validation: PASS;
-- fresh-session Project Continuity Run 001: PASS;
-- canonical merge: `9b2bba53e61d80468f0a3d6bf9147c9295de0877`, whose tree exactly equals the validated candidate tree.
+`collaboration/local-execution-workflows.md` is the canonical local-execution model.
 
-## Operator tooling and GitHub mutation guardrails
+Workflow 1 is active now: remote AI may develop against GitHub, and whenever JasonPC evidence or execution is required the project owner switches to Human Manual Mode and invokes Qiven Operator. Operator, not ad-hoc shell choreography, owns human-facing progress/state, validation sequencing, exact identity, summaries, task isolation, and managed scratch/worktree cleanup.
 
-The 2026-09-16 Chat-side GitHub mutation incident and human-facing batch-window failure are durable current constraints, not future TODOs. Exact incident evidence is `evidence/audits/github-connector-mutation-incident-2026-09-16.md`.
+Workflow 2 remains future/blocked: after Host Batch 001 proves production no-bypass and Context explicitly re-enables remote mutation, AI reaches the same Operator/task surface through remote transport -> Qiven Host. The caller/authority changes; local engineering semantics remain the same.
 
-High-level Chat-side GitHub contents mutation is not currently accepted for canonical merges or other critical writes until explicitly requalified. Read-only connector use remains allowed. Critical mutation uses a human-visible local Git orchestration path by default or a low-level Git object/ref path with exact repository/base/head/tree/parent/ref semantics bound and reviewed.
+JasonPC's current long-lived Qiven workspace is `D:\JasonWork`. Unmanaged `%TEMP%` repository clones are not an accepted routine validation mechanism. `OBL-20260916T102700Z-7C2A91` tracks cleanup of Qiven-v6 temporary clone debt.
 
-Human-facing `.cmd/.bat` entrypoints must preserve terminal success/failure visibility on direct launch: default human mode prints final status, pauses on success and failure, and only then returns the truthful exit code. `tools/validate-candidate.cmd` now implements this contract and supports explicit `--no-pause` for automation.
+The earlier `.cmd/.bat`-centric human-facing rule is superseded. Platform launchers are thin adapters; the project-level contract is Operator/manual-mode behavior. The underlying transient-console observability lesson remains valid but does not define the architecture.
+
+## GitHub mutation guardrail
+
+The 2026-09-16 Chat-side GitHub mutation incident remains a durable constraint. High-level Chat-side GitHub contents mutation is not currently accepted for canonical merges or other critical writes until explicitly requalified. Read-only connector use remains allowed. Low-level Git object/ref mutation is allowed only with exact repository/base/head/tree/parent/ref semantics bound and reviewed.
 
 ## Accepted Host engineering checkpoint
 
@@ -34,25 +34,26 @@ The latest formally accepted Host checkpoint remains `8e5b9dec64bf739af84e981df1
 
 ## Host dispatcher semantic review
 
-Original candidate `0e35bb111deb2faeec885ffc9664deab6049f693` is **not accepted as-is** despite exact CI run `35063639174` being green. Semantic review found an unbound dispatch/close lifecycle window: Broker Acquire could establish `Leased` authority before dispatcher active-lease tracking became visible to connection close, while the API accepted a caller-supplied session and existing tests serialized the whole exchange.
+Original candidate `0e35bb111deb2faeec885ffc9664deab6049f693` is not accepted as-is despite exact CI run `35063639174` being green. Semantic review found an unbound dispatch/close lifecycle window.
 
-Correction `49e69c02fe2ded0b9607ccb4090c21cde96b8a1c` binds dispatch to `(OwnerPipeServer, slot)`, derives the Host-owned session under a dispatcher lifecycle gate, serializes dispatch/close for this conservative Batch 000 layer, and adds stale-frame-after-close regression coverage. It also corrects qiven-host CI to manual `workflow_dispatch` with required `expected_sha`; the branch update produced no new push-trigger run.
+Correction `49e69c02fe2ded0b9607ccb4090c21cde96b8a1c` binds dispatch to `(OwnerPipeServer, slot)`, derives the Host-owned session under a dispatcher lifecycle gate, serializes dispatch/close for this conservative Batch 000 layer, adds stale-frame-after-close regression coverage, and changes qiven-host CI to manual `workflow_dispatch` with required `expected_sha`.
 
-The correction candidate has passed exact remote semantic/delta review but has **not yet passed its new full CI gate**.
+The correction candidate has passed exact remote semantic/delta review but has not yet passed the new local/full validation + exact CI acceptance boundary.
 
 ## Safety gate and paused work
 
-`OBL-20260915T163500Z-9D4C72` remains open. Mutating DCR or other remote-AI execution on JasonPC stays suspended until Host Batch 001 production authority integration proves that the production mutation path cannot bypass Host.
+`OBL-20260915T163500Z-9D4C72` remains open. Mutating DCR or other remote-AI execution on JasonPC stays suspended until Host Batch 001 production authority integration proves that the production mutation path cannot bypass Host and Context explicitly re-enables it.
 
-Runtime process execution, DCR Windows Phase 1, CAD, and later product work remain paused behind the Host authority boundary.
+Runtime process execution, DCR Windows Phase 1 production integration, CAD, and later product work remain paused behind the Host authority boundary.
 
-ADR-0026's bounded scope/intent audit metadata and ADR-0029 recovery authority remain outstanding Batch 000 work; acceptance of the dispatcher checkpoint will not imply full Batch 000 acceptance.
+ADR-0026 bounded scope/intent audit metadata and ADR-0029 recovery authority remain outstanding Batch 000 work; acceptance of the dispatcher checkpoint will not imply full Batch 000 acceptance.
 
 ## Known continuity/process gaps
 
 - `qiven-runtime` still has no verified GitHub remote and no remote may be invented;
-- Qiven-v2 through Qiven-v5 session evidence remains a historical gap; no fabricated backfill is allowed.
+- Qiven-v2 through Qiven-v5 session evidence remains a historical gap; no fabricated backfill is allowed;
+- Qiven-v6 created unmanaged temporary qiven-context clones during ad-hoc validation; cleanup is explicitly tracked by `OBL-20260916T102700Z-7C2A91` and must not be delegated to human memory.
 
 ## Next boundary
 
-Manually dispatch qiven-host `CI / full` against `jason-brother/host-batch-000` with `expected_sha=49e69c02fe2ded0b9607ccb4090c21cde96b8a1c`. If exact CI passes, perform final exact-identity review and accept/reject this dispatcher checkpoint. Do not start additional Host functionality and do not re-enable mutating DCR before that disposition.
+Use/restore Qiven Operator as Workflow 1 for the next JasonPC-assisted operation. The first manual-mode cycle must reconcile the known Qiven-v6 temporary-clone debt and validate exact qiven-host candidate `49e69c02fe2ded0b9607ccb4090c21cde96b8a1c` from the long-lived Qiven workspace without creating another unmanaged `%TEMP%` clone. After local validation, use the accepted explicit CI path and perform final semantic disposition before any new Host feature work.
