@@ -2,30 +2,27 @@ schema_version: 2
 program: qiven-context
 status: active
 objective: >-
-  Make Context v2 operational through Qiven Operator Human Manual Mode under ContextView<ChatGPT, Jason>,
-  reconcile Qiven-v6 workstation cleanup debt, and preserve the next-session qiven-context.exe / Context Engine architecture boundary.
+  Design qiven-context.exe / Context Engine as a semantic provider-consumer architecture with
+  representation-independent storage, provenance, lifecycle, migration, backup/export, and authority-cutover semantics.
 accepted_checkpoint:
-  subject: qiven-context-v2
+  subject: qiven-context-v2-operator-runtime
   ref: canonical-main
   evidence:
     - 'Context v2 Project Continuity Run 001 PASS'
-    - 'Post-v2 operating guardrails accepted on canonical qiven-context/main'
+    - 'ContextView + Operator runtime candidate a3ee448731ae26cce3cbf4afaa12d4d492769141 accepted by merge 35343c50c6df50d0ffc35664b24d029360787f35'
+    - 'Project owner reported Qiven Operator cleanup-v6-temp ALL PASS on 2026-09-16'
 current_candidate:
-  subject: qiven-context-view-operator-runtime
-  ref: jason-brother/context-v2-operator-runtime
-  state: exact-local-operator-validation-pending
-blockers:
-  - Clean Context candidate must pass Qiven Operator local gate from the long-lived D:\JasonWork\qiven-context working copy.
-  - OBL-20260916T102700Z-7C2A91 requires identity-safe reconciliation of known Qiven-v6 unmanaged temporary clones.
-  - High-level Chat-side GitHub contents mutation remains suspended for critical writes.
+  subject: qiven-context-engine-architecture
+  ref: OBL-20260916T125000Z-5A8C31
+  state: architecture-definition-active
+blockers: []
 paused_work:
   - qiven-host/49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
   - qiven-runtime/process-execution
   - qiven-dcr-win/phase-1-batch-001
   - qiven-cad
 next_boundary: >-
-  Switch to Human Manual Mode in D:\JasonWork\qiven-context, bootstrap the clean operator-runtime branch into that existing working copy,
-  run Operator cleanup-v6-temp, then run the Operator context-local gate bound to the exact remote branch head.
-  After Context v2 operational acceptance/merge, close Qiven-v6 and begin OBL-20260916T125000Z-5A8C31 in the next session;
-  preserve the Host candidate without resuming Host implementation first.
-updated_at: '2026-09-16T12:50:00Z'
+  Establish the representation-independent Context Engine semantic model and authority boundary before selecting
+  persistence technology or implementing qiven-context.exe. Preserve GitHub as canonical until a separately accepted
+  migration proves semantic equivalence, provenance, continuity, backup/restore, and governance behavior.
+updated_at: '2026-09-16T18:20:26Z'
