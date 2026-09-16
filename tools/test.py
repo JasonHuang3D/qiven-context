@@ -38,7 +38,12 @@ class ValidatorTests(unittest.TestCase):
     def test_repository_inventory_rejects_live_sha(self):
         d=self.copy(); p=d/"state/repositories.yaml"; data=yaml.safe_load(p.read_text()); data["repositories"][0]["main_sha"]="0"*40; p.write_text(yaml.safe_dump(data,sort_keys=False)); self.assertIn("main_sha",self.errors(d))
     def test_governance_provider_is_enforced(self): d=self.copy(); p=d/"governance/authority.yaml"; p.write_text(p.read_text().replace("trust_provider: github","trust_provider: local")); self.assertIn("github",self.errors(d))
-    def test_missing_session_next_action(self): d=self.copy(); p=d/"sessions/2026-09-16-qiven-v6.md"; p.write_text(p.read_text().replace("## Next action","## Later")); self.assertIn("missing session heading Next action",self.errors(d))
+    def test_missing_session_next_action(self):
+        d=self.copy()
+        sessions=[p for p in (d/"sessions").glob("*.md") if re.match(r"^\d{4}-\d{2}-\d{2}-qiven-v\d+\.md$",p.name)]
+        p=max(sessions,key=lambda item:(item.name[:10],int(re.search(r"-v(\d+)\.md$",item.name).group(1))))
+        p.write_text(p.read_text().replace("## Next action","## Later"))
+        self.assertIn("missing session heading Next action",self.errors(d))
     def test_superseded_record_requires_successor(self): d=self.copy(); p=d/"decisions/ADR-0001.md"; self.rewrite_front_matter(p,lambda data:data.__setitem__("superseded_by",[])); self.assertIn("requires superseded_by",self.errors(d))
     def test_index_missing_record(self): d=self.copy(); idx=yaml.safe_load((d/"memory/index.yaml").read_text()); idx["records"].append({"id":"MEM-20260913T010203Z-A1B2C3","file":"missing.md","title":"x","status":"active"}); (d/"memory/index.yaml").write_text(yaml.safe_dump(idx)); self.assertIn("index points to missing record",self.errors(d))
     def test_invalid_timestamp(self): d=self.copy(); p=d/"state/active-work.yaml"; p.write_text(re.sub(r"updated_at: .+","updated_at: 'not-a-timestamp'",p.read_text())); self.assertIn("invalid timestamp",self.errors(d))

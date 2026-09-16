@@ -2,39 +2,35 @@
 
 ## Active objective
 
-Context v2 is canonical and the immediate objective is to make its `ContextView<ChatGPT, Jason>` + Qiven Operator workflow operational on JasonPC. The clean Context candidate is `jason-brother/context-v2-operator-runtime`; resolve its exact remote head live before validation. After this operational acceptance, Qiven-v6 closes and the next session begins the `qiven-context.exe` / Context Engine architecture obligation `OBL-20260916T125000Z-5A8C31`.
+Context v2, `ContextView<ChatGPT, Jason>`, and Qiven Operator Human Manual Mode are operational and canonical. Qiven-v6 is closed. The active objective is now `OBL-20260916T125000Z-5A8C31`: design `qiven-context.exe` / Context Engine as a semantic provider-consumer system with representation-independent storage, provenance, lifecycle, authority, migration, and backup/export behavior.
+
+Architecture begins from semantic ownership and contracts rather than selecting a database product. GitHub remote `JasonHuang3D/qiven-context` remains canonical until a separately accepted authority migration proves semantic equivalence, provenance, continuity, backup/restore, and governance behavior.
+
+## Accepted Context v2 operational checkpoint
+
+- Context v2 and its post-v2 operating guardrails are canonical on `main`.
+- The validated ContextView + Operator runtime candidate `a3ee448731ae26cce3cbf4afaa12d4d492769141` was accepted by canonical merge commit `35343c50c6df50d0ffc35664b24d029360787f35`.
+- On 2026-09-16, Jason ran the declared Qiven Operator `cleanup-v6-temp` task from the long-lived `D:\JasonWork\qiven-context` working copy and reported `ALL PASS`.
+- `OBL-20260916T102700Z-7C2A91` is complete. Normal validation uses the long-lived workspace plus Operator-owned scratch/worktrees rather than unmanaged ambient TEMP clones.
 
 ## Context authority and governance
 
-- Canonical project cognition remains the GitHub remote `JasonHuang3D/qiven-context`; local repositories are non-authoritative working materializations.
+- Canonical project cognition remains the GitHub remote; local repositories are non-authoritative working materializations.
 - GitHub account-level identity remains the current governance authentication boundary.
 - ContextView adapts interaction, environment, and workflow but cannot override identity-independent ProjectContext truth.
-- GitHub remains canonical until a separately accepted Context Engine authority migration proves semantic equivalence, provenance, continuity, backup/restore, and governance behavior.
+- Provider and consumer are semantic roles; human, agent, CI, repository, and runtime participants may occupy either role under explicit authority rules.
 
 ## ContextView<ChatGPT, Jason>
 
-- `views/chatgpt-jason.yaml` composes the current view.
-- `views/environments/jasonpc.yaml` records durable JasonPC facts such as `D:\JasonWork`, `C:\Env`, known Git/Python tool families, MSVC/Visual Studio 2022/Unreal Engine/Unity families, and Clash Verge routing intent. Mutable paths, versions, PATH and network state are live-verified when required.
-- `views/workflows/chatgpt-jason-local-execution.md` owns Workflow 1 and Workflow 2.
-
-Workflow 1 is active: ChatGPT may develop remotely, then Jason switches to Human Manual Mode and invokes Qiven Operator for local evidence/execution. Workflow 2 remains fail-closed until Host production authority is accepted; then Host invokes the same Operator task/gate surface.
-
-## Operator operationalization
-
-The clean Context candidate vendors Qiven Operator runtime and a qiven-context-specific `.qiven/operator.json`. Its `context-local` gate runs bootstrap, full tests, diff-check, and clean-tree; `--expect-head` adds exact-head binding. Task `cleanup-v6-temp` performs identity-safe cleanup of known Qiven-v6 temp clones and refuses to delete dirty or non-qiven-context repositories.
-
-The generic Operator packaging candidate in qiven-devkit is `f5945df3c8c85b3fc49e228dcf7f88339567ff24` on `jason-brother/operator-generic-component`. It is not yet accepted and intentionally does not disturb the mature cpp-library template path before non-C++ use is proven.
+Workflow 1 is active: ChatGPT may develop remotely, then Jason switches to Human Manual Mode and invokes Qiven Operator for machine-local evidence or execution. Workflow 2 remains fail-closed until Host production authority is accepted.
 
 ## Safety and mutation guardrails
 
-- `OBL-20260915T163500Z-9D4C72` remains open; mutating DCR/remote-AI execution on JasonPC is still suspended.
-- High-level Chat-side GitHub contents mutation is still not accepted for critical writes after the 2026-09-16 action-selection incident. Low-level exact Git object/ref mutation remains the only Chat-side critical-write path currently admitted.
-- `OBL-20260916T102700Z-7C2A91` tracks Qiven-v6 unmanaged temp-clone cleanup; human memory is not the cleanup mechanism.
-
-## Preserved Host state
-
-Latest formally accepted Host checkpoint remains `8e5b9dec64bf739af84e981df12afc1969599738`, CI run `35060483714`. Corrected unaccepted Host candidate `49e69c02fe2ded0b9607ccb4090c21cde96b8a1c` remains preserved and paused while Context v2 is operationalized and the next Context Engine architecture session takes priority.
+- `OBL-20260915T163500Z-9D4C72` remains open; mutating DCR/remote-AI execution on JasonPC is suspended.
+- High-level Chat-side GitHub contents mutation remains unaccepted for critical writes. Low-level exact Git object/ref mutation is the admitted Chat-side critical-write path.
+- The generic Operator packaging candidate in qiven-devkit remains unaccepted at `f5945df3c8c85b3fc49e228dcf7f88339567ff24`.
+- The latest formally accepted Host checkpoint remains `8e5b9dec64bf739af84e981df12afc1969599738`, CI run `35060483714`. Corrected Host candidate `49e69c02fe2ded0b9607ccb4090c21cde96b8a1c` remains preserved and paused.
 
 ## Next boundary
 
-From the existing `D:\JasonWork\qiven-context` working copy, bootstrap the clean `jason-brother/context-v2-operator-runtime` branch, run Operator task `cleanup-v6-temp`, then run the Operator `context-local` gate against the exact remote branch head. Do not create another unmanaged temp clone. If that exact candidate passes and is canonically merged, close Qiven-v6; next session begins `qiven-context.exe` / Context Engine architecture rather than resuming Host implementation first.
+Define the Context Engine semantic architecture: ContextKernel object model, provider command surface, AI-consumer query and ContextBundle surface, ContextView compilation, provenance and lifecycle semantics, transaction boundaries, storage abstraction, Git migration, deterministic backup/export/restore, and explicit authority-cutover criteria. Do not resume Host implementation first and do not canonicalize a storage technology before these semantics are accepted.

@@ -133,7 +133,8 @@ class ColdBootContractTests(unittest.TestCase):
         self.assertIn("MEM-20260916T095200Z-1D6B42",superseded)
 
     def test_current_session_checkpoint_has_required_continuity_fields(self):
-        checkpoint=self.read("sessions/2026-09-16-qiven-v6.md")
+        sessions=[p for p in (ROOT/"sessions").glob("*.md") if re.match(r"^\d{4}-\d{2}-\d{2}-qiven-v\d+\.md$",p.name)]
+        checkpoint=max(sessions,key=lambda item:(item.name[:10],int(re.search(r"-v(\d+)\.md$",item.name).group(1)))).read_text(encoding="utf-8")
         for heading in (
             "Session identity","Exact current task","Accepted refs and evidence","Unaccepted candidate refs",
             "Pending asynchronous work","Known inconsistencies and evidence gaps","Next action",
