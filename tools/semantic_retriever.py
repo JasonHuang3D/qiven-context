@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping, Protocol, Sequence
 
 from context_compiler import CanonicalRecord, load_canonical_store, prepare_query
+from record_lifecycle import record_is_eligible
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -99,22 +100,11 @@ def _record_text(record: CanonicalRecord) -> str:
     return "\n".join(lines)
 
 
-def eligible_records(root: Path = ROOT) -> tuple[CanonicalRecord, ...]:
-    """Return only records eligible for default current-state retrieval.
-
-    Superseded/rejected/history remains addressable from canonical files and Git,
-    but it must not compete with current truth in the normal retrieval corpus.
-    """
+def eligible_records(root: Path = ROOT, query: Mapping[str, Any] | None = None) -> tuple[CanonicalRecord, ...]:
+    """Select lifecycle-qualified records without changing their status."""
     store = load_canonical_store(root)
-    rows: list[CanonicalRecord] = [
-        record for record in store["decisions"] if record.status == "accepted"
-    ]
-    rows.extend(record for record in store["memory"] if record.status == "active")
-    rows.extend(
-        record
-        for record in store["obligations"]
-        if record.status in {"open", "deferred", "blocked"}
-    )
+    rows = [record for records in store.values() for record in records
+            if record_is_eligible(record, query or {})]
     return tuple(sorted(rows, key=lambda record: record.id))
 
 
@@ -143,17 +133,29 @@ class SemanticRetriever:
         self.root = Path(root)
         self.backend = backend if backend is not None else FastEmbedBackend(model_name=model_name)
         self.model_name = str(self.backend.model_name)
-        self.records = eligible_records(self.root)
-        documents = [_record_text(record) for record in self.records]
-        self.document_vectors = self.backend.embed_documents(documents)
-        if len(self.document_vectors) != len(self.records):
+        # Load all metadata, but embed historical bodies only when requested.
+        self.records = eligible_records(self.root, {"record_mode": "history"})
+        self._vectors: dict[str, list[float]] = {}
+        self._ensure_vectors([r for r in self.records if record_is_eligible(r, {})])
+
+    def _ensure_vectors(self, records: Sequence[CanonicalRecord]) -> None:
+        missing = [record for record in records if record.id not in self._vectors]
+        if not missing:
+            return
+        vectors = self.backend.embed_documents([_record_text(record) for record in missing])
+        if len(vectors) != len(missing):
             raise RuntimeError("semantic backend returned an unexpected document embedding count")
+        self._vectors.update((record.id, vector) for record, vector in zip(missing, vectors))
 
     def rank(self, query: Mapping[str, Any]) -> list[SemanticHit]:
-        query_vector = self.backend.embed_query(_query_text(query, self.root))
+        prepared = prepare_query(query, self.root)
+        records = [record for record in self.records if record_is_eligible(record, prepared)]
+        self._ensure_vectors(records)
+        query_vector = self.backend.embed_query(_query_text(prepared, self.root))
         hits = [
-            SemanticHit(id=record.id, category=record.category, path=record.path, title=record.title, score=cosine_similarity(query_vector, vector))
-            for record, vector in zip(self.records, self.document_vectors)
+            SemanticHit(id=record.id, category=record.category, path=record.path, title=record.title,
+                        score=cosine_similarity(query_vector, self._vectors[record.id]))
+            for record in records
         ]
         return sorted(hits, key=lambda hit: (-hit.score, hit.id))
 
@@ -163,7 +165,7 @@ class SemanticRetriever:
         explicit = [str(item) for item in query.get("include_ids", []) or []]
         selected: list[str] = []
         seen: set[str] = set()
-        eligible_ids = {record.id for record in self.records}
+        eligible_ids = {record.id for record in self.records if record_is_eligible(record, query)}
         for canonical_id in explicit:
             if canonical_id in eligible_ids and canonical_id not in seen:
                 selected.append(canonical_id); seen.add(canonical_id)

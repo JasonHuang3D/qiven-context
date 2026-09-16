@@ -11,6 +11,8 @@ from typing import Any, Iterable, Mapping
 import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 
+from record_lifecycle import CURRENT_STATUSES, is_current, lifecycle_fields, record_is_eligible
+
 
 ROOT = Path(__file__).resolve().parents[1]
 MANDATORY_SOURCE_PATHS = (
@@ -24,7 +26,7 @@ CATEGORY_LAYOUT = {
     "memory": ("memory/index.yaml", "memory/records"),
     "obligations": ("obligations/index.yaml", "obligations"),
 }
-NON_TERMINAL_OBLIGATION_STATUSES = frozenset({"open", "deferred", "blocked"})
+NON_TERMINAL_OBLIGATION_STATUSES = CURRENT_STATUSES["obligations"]
 TOKEN_RE = re.compile(r"[^\W_]+(?:-[^\W_]+)*", re.UNICODE)
 ALTERNATIVE_RE = re.compile(r"\s+(?:or|或)\s+|\s*\|\s*", re.IGNORECASE)
 SELECTION_THRESHOLD = 20
@@ -104,7 +106,7 @@ def validate_query(query: Mapping[str, Any], root: Path = ROOT) -> None:
 
 def prepare_query(query: Mapping[str, Any], root: Path = ROOT) -> dict[str, Any]:
     validate_query(query, root)
-    prepared: dict[str, Any] = {"task": str(query["task"]).strip()}
+    prepared: dict[str, Any] = {"task": str(query["task"]).strip(), "record_mode": query.get("record_mode", "current")}
     for key in ("topics", "scopes", "touches", "signals", "conditions", "changed", "include_ids"):
         prepared[key] = list(query.get(key, []))
     if "now" in query:
@@ -484,7 +486,8 @@ def select_project_documents(query: Mapping[str, Any], root: Path = ROOT) -> lis
 def _select_decisions_and_memory(
     store: Mapping[str, tuple[CanonicalRecord, ...]], query: Mapping[str, Any]
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], set[str]]:
-    records = [*store["decisions"], *store["memory"]]
+    records = [record for record in (*store["decisions"], *store["memory"])
+               if record_is_eligible(record, query)]
     by_id = {record.id: record for record in records}
     selected: dict[str, tuple[CanonicalRecord, int, list[dict[str, str]]]] = {}
     direct_ids: list[str] = []
@@ -522,6 +525,7 @@ def _select_decisions_and_memory(
                         "path": record.path,
                         "title": record.title,
                         "status": record.status,
+                        **lifecycle_fields(record),
                         "reasons": reasons,
                     },
                 )
@@ -540,23 +544,17 @@ def _select_obligations(
 ) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
     selected: list[tuple[int, str, dict[str, Any]]] = []
     diagnostics: list[dict[str, str]] = []
-    include_ids = {str(item) for item in query.get("include_ids", []) or []}
-
     for record in store["obligations"]:
-        if record.status not in NON_TERMINAL_OBLIGATION_STATUSES:
-            if record.id in include_ids:
-                diagnostics.append(
-                    {
-                        "level": "info",
-                        "code": "terminal-obligation-not-in-normal-pack",
-                        "message": f"Explicitly requested terminal obligation {record.id} is not emitted by the v1 normal task-pack contract.",
-                        "source": record.path,
-                    }
-                )
+        if not record_is_eligible(record, query):
             continue
 
         score, reasons = _record_relevance(record, query)
-        trigger = evaluate_trigger(record.metadata.get("trigger", {}), query, root, now=now)
+        if is_current(record.category, record.status):
+            trigger = evaluate_trigger(record.metadata.get("trigger", {}), query, root, now=now)
+        else:
+            # Inspecting a completed/cancelled obligation must never reopen it.
+            trigger = {"type": "inactive", "result": "inactive",
+                       "explanation": "Terminal obligation; trigger evaluation is disabled."}
         if trigger["result"] == "due":
             score += 240
             _add_reason(reasons, "trigger_due", trigger.get("value", trigger["type"]))
@@ -593,6 +591,7 @@ def _select_obligations(
                     "path": record.path,
                     "title": record.title,
                     "status": record.status,
+                    **lifecycle_fields(record),
                     "reasons": reasons,
                     "trigger": trigger,
                     "completion": str(record.metadata["completion"]),
@@ -647,7 +646,7 @@ def compile_context_pack(
     ]
 
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "generated_at": generated_at,
         "query": prepared,
         "mandatory_sources": mandatory_sources,

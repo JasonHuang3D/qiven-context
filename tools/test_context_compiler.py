@@ -189,7 +189,7 @@ class ContextCompilerCoreTests(unittest.TestCase):
         decision_ids = [item["id"] for item in pack["decisions"]]
         obligation_ids = [item["id"] for item in pack["obligations"]]
         self.assertIn("projects/foundation/README.md", project_paths)
-        self.assertIn("ADR-0007", decision_ids)
+        self.assertIn("ADR-0024", decision_ids)
         self.assertIn("OBL-20260913T181224Z-A3F690", obligation_ids)
         obligation = next(item for item in pack["obligations"] if item["id"] == "OBL-20260913T181224Z-A3F690")
         self.assertEqual(obligation["trigger"]["result"], "not_triggered")
@@ -272,10 +272,10 @@ class ContextCompilerCoreTests(unittest.TestCase):
         )
         markdown = render_context_markdown(pack)
         self.assertIn("# Qiven Generated Task Context", markdown)
-        self.assertIn("ADR-0007", markdown)
+        self.assertIn("ADR-0024", markdown)
         self.assertIn("OBL-20260913T181224Z-A3F690", markdown)
         self.assertIn("-> **not_triggered**", markdown)
-        self.assertIn("downstream-demand-driven", markdown)
+        self.assertIn("semantic ownership", markdown)
         self.assertIn("Derived working context only", markdown)
 
     def test_write_context_pack_is_deterministic_for_fixed_pack(self):

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from record_lifecycle import lifecycle_fields, record_is_eligible
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -39,7 +40,18 @@ def build_candidate_bundle(
     root = Path(root)
     prepared = prepare_query(query, root)
     active = retriever if retriever is not None else RerankedRetriever(root)
-    ranked = list(active.rank(prepared))[:max_candidates]
+    ranked = [hit for hit in active.rank(prepared)
+              if record_is_eligible(active.records[hit.id], prepared)]
+    explicit = set(prepared["include_ids"])
+    pinned = [hit for hit in ranked if hit.id in explicit]
+    if len(pinned) > max_candidates:
+        raise ValueError("explicit IDs exceed max_candidates; increase the candidate ceiling")
+    selected = {hit.id for hit in pinned}
+    for hit in ranked:
+        if len(selected) >= max_candidates:
+            break
+        selected.add(hit.id)
+    ranked = [hit for hit in ranked if hit.id in selected]
 
     candidates: list[dict[str, Any]] = []
     for hit in ranked:
@@ -51,6 +63,7 @@ def build_candidate_bundle(
                 "category": record.category,
                 "title": record.title,
                 "status": record.status,
+                **lifecycle_fields(record),
                 "candidate_rank": hit.rerank_rank,
                 "ranking": {
                     "rerank_score": hit.rerank_score,
@@ -65,11 +78,15 @@ def build_candidate_bundle(
         )
 
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "role": CANDIDATE_ROLE,
         "answerability": "unresolved",
         "instruction": CANDIDATE_INSTRUCTION,
         "query": prepared,
         "max_candidates": max_candidates,
         "candidates": candidates,
+        "diagnostics": [
+            {"code": "unknown-explicit-id", "id": canonical_id}
+            for canonical_id in sorted(explicit - set(active.records))
+        ],
     }

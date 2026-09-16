@@ -64,7 +64,7 @@ class RerankRetrievalTests(unittest.TestCase):
             ROOT,
             hybrid_retriever=FakeHybrid(
                 [
-                    hit("ADR-0002", d=1, s=1),
+                    hit("ADR-0030", d=1, s=1),
                     hit("ADR-0009", d=20, s=40),
                 ]
             ),
@@ -115,14 +115,14 @@ class RerankRetrievalTests(unittest.TestCase):
             ROOT,
             hybrid_retriever=FakeHybrid(
                 [
-                    hit("ADR-0002", d=1, s=1),
+                    hit("ADR-0030", d=1, s=1),
                     hit("ADR-0021", d=2, s=2),
                 ]
             ),
-            reranker_backend=FakeReranker({"ADR-0002": 0.2, "ADR-0021": 0.8}),
+            reranker_backend=FakeReranker({"ADR-0030": 0.2, "ADR-0021": 0.8}),
         )
         ranked = retriever.rank({"task": "authority question"})
-        self.assertEqual([item.id for item in ranked[:2]], ["ADR-0021", "ADR-0002"])
+        self.assertEqual([item.id for item in ranked[:2]], ["ADR-0021", "ADR-0030"])
         self.assertEqual([item.rerank_rank for item in ranked[:2]], [1, 2])
 
 

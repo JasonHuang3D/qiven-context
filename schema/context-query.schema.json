@@ -9,6 +9,11 @@
       "type": "string",
       "minLength": 1
     },
+    "record_mode": {
+      "enum": ["current", "history"],
+      "default": "current",
+      "description": "History includes all lifecycle states at the supplied snapshot, not as-of-time reconstruction. Explicit IDs are inspectable in either mode."
+    },
     "topics": {
       "type": "array",
       "items": {"type": "string", "minLength": 1},

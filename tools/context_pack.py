@@ -69,6 +69,9 @@ def _render_source_section(
         if reasons:
             lines.append(f"Selection: {reasons}")
             lines.append("")
+        if "current_eligible" in item:
+            lines.append(f"Lifecycle: status={item['status']}; current_eligible={item['current_eligible']}")
+            lines.append("")
         if show_trigger:
             trigger = item["trigger"]
             trigger_value = f" value={trigger['value']}" if "value" in trigger else ""
@@ -97,6 +100,7 @@ def render_context_markdown(pack: Mapping[str, Any], root: Path = ROOT) -> str:
         f"Generated at: `{pack['generated_at']}`",
         "",
         f"Task: {query['task']}",
+        f"Record mode: {query.get('record_mode', 'current')}",
         "",
     ]
 
@@ -114,7 +118,7 @@ def render_context_markdown(pack: Mapping[str, Any], root: Path = ROOT) -> str:
     lines.extend(_render_source_section("Canonical Memory", list(pack["memory"]), root))
     lines.extend(
         _render_source_section(
-            "Non-terminal Obligations",
+            "Obligations (terminal records are inspection only)",
             list(pack["obligations"]),
             root,
             show_trigger=True,

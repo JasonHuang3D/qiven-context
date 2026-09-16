@@ -1,5 +1,10 @@
 # Context Compiler — Deterministic Retrieval Contract
 
+Lifecycle selection is amended by [Canonical Record Lifecycle Query Contract](record-lifecycle.md).
+That contract governs current/history modes, explicit historical inspection,
+terminal obligations, and v2 output qualification. Other Batch 003 mechanisms
+below remain scoped to their stated implementation boundary.
+
 ## Purpose
 
 Batch 003 turns the canonical cognition captured by `qiven-context` into task-specific working context without making generated output canonical.
@@ -97,7 +102,7 @@ Selection is relevance filtering, not truth resolution. If two relevant records 
 
 ### 5. Retrieve non-terminal obligations
 
-Every obligation with status `open`, `deferred`, or `blocked` is considered by the obligation evaluator. Terminal obligations (`done`, `cancelled`, `superseded`) are excluded from normal task packs unless explicitly requested for historical analysis or reached through a relation that matters to the task.
+Every obligation with status `open`, `deferred`, or `blocked` is considered by the obligation evaluator. Terminal obligations (`done`, `cancelled`, `superseded`) are excluded from default current queries. Explicit IDs or `record_mode: history` admit them for inspection only, with an inactive trigger; relation expansion alone does not admit excluded records.
 
 For each considered non-terminal obligation, the compiler records:
 
