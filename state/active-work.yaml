@@ -1,15 +1,29 @@
-schema_version: 1
-program: qiven-host
-phase: 0
-batch: 0
+schema_version: 2
+program: qiven-context
 status: active
-objective: 'Continue Host Phase 0 / Batch 000 from exact proven remote stack 7d7ff602affacd1839fbcf19709e4f2e326fe680 -> b1d1d28199c02b1d3d21fc3995ba0ec8c194f56d -> 59ca1fa1bf9106b3b5cff5feef060957e825b75c -> 888062f3042c6c39c6419d515c4a86405d1140ea -> 2faecefb9f9e9b3c983eccc2e5a12836fc2f5a8e -> be3a22e7b90381b17451a10c5ed52d526c2d2a9d -> 4aca5b12031e0b9c2677738f67c929cb0bfa687d -> 8e5b9dec64bf739af84e981df12afc1969599738. The latest accepted checkpoint is the bounded owner-only Windows named-pipe transport/session lifecycle, with exact CI run 35060483714 PASS across Windows MSVC, Linux GCC, and macOS AppleClang Debug/Release plus CI Gate. Next implement protocol dispatcher + protected NoOp as an isolated checkpoint: consume the accepted transport and V1 codec, inject the Host-owned BrokerSessionId out-of-band into authority calls, preserve existing sequence/idempotency/fencing semantics, perform authority-side disconnect/reconciliation before retiring a transport slot, and keep arbitrary filesystem/Git/process mutation plus Runtime/DCR production adapters out of scope. Mutating remote execution remains suspended until Batch 001 Production Authority Integration proves the accepted production path cannot bypass Host.'
+objective: >-
+  Complete qiven-context v2 continuity acceptance: preserve the exact executable-validation and fresh-session Project Continuity
+  PASS evidence, separate the higher-order fresh-human Human Succession benchmark from routine acceptance, validate the corrected
+  exact candidate, and establish Context v2 canonically before Host work resumes.
+accepted_checkpoint:
+  subject: qiven-host
+  ref: 8e5b9dec64bf739af84e981df12afc1969599738
+  evidence:
+    - 'GitHub Actions run 35060483714 PASS'
+    - evidence/audits/host-local-pipe-transport-acceptance-2026-09-16.md
+current_candidate:
+  subject: qiven-context-v2
+  ref: jason-brother/context-v2-operating-model
+  state: acceptance-correction-candidate
+blockers:
+  - The corrected Context v2 candidate requires one fresh exact-head repository validation before canonical merge acceptance.
+  - Mutating DCR remains suspended by OBL-20260915T163500Z-9D4C72.
 paused_work:
+  - qiven-host/phase-0-batch-000
   - qiven-runtime/process-execution
   - qiven-dcr-win/phase-1-batch-001
   - qiven-cad
-pause_reason: 'P0 authority-plane incident: the project owner directly observed two ChatGPT answer choices concurrently execute through the same JasonPC DCR/MCP capability. Local mutation is unsafe until host-side authority is enforced rather than assumed. Separately, the 2026-09-16 Qiven-v5 Chat polling/thread-availability incident establishes a Chat control-plane safety rule: CI polling loops are forbidden and other repeated external waits are hard-bounded. These execution-environment constraints are not reasons to weaken Host acceptance.'
-next_batches:
-  - 'Host Phase 0 / Batch 001 — integrate accepted Runtime and DCR production paths and prove production mutation cannot bypass Host'
-  - 'Resume qiven-runtime and qiven-dcr-win work required by the Batch 001 production integration prerequisite; CAD remains paused'
-updated_at: '2026-09-16T06:02:00Z'
+next_boundary: >-
+  Run tools/validate-candidate.cmd on the exact corrected Context v2 branch head. If PASS, canonically accept/merge Context v2,
+  then resume semantic review of the preserved Host dispatcher + protected NoOp candidate before any further Host implementation.
+updated_at: '2026-09-16T09:15:00Z'

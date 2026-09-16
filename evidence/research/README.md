@@ -1,3 +1,5 @@
-# Research evidence
+# Deprecated research bucket
 
-Evidence is preserved here so canonical memory can be reconstructed or corrected later. Batch 001 does not populate historical evidence.
+**Status: deprecated legacy placeholder.**
+
+Do not add active Context v2 records here. Cite live research sources from canonical records and preserve irreplaceable historical snapshots under `evidence/audits/` when needed.

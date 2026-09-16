@@ -1,3 +1,5 @@
-# Worker handoffs
+# Deprecated handoff bucket
 
-Evidence is preserved here so canonical memory can be reconstructed or corrected later. Batch 001 does not populate historical evidence.
+**Status: deprecated legacy placeholder.**
+
+Do not add active Context v2 records here. Session continuity belongs under `sessions/`; durable canonical cognition belongs in its semantic owner. Existing Git history preserves the original placeholder intent.

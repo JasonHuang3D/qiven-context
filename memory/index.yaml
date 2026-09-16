@@ -1,126 +1,33 @@
 schema_version: 1
 records:
-  - id: MEM-20260913T162546Z-E73124
-    file: MEM-20260913T162546Z-E73124.md
-    title: Exact remote review is required even after a passing worker handoff
-    status: active
-  - id: MEM-20260913T170803Z-A61F2C
-    file: MEM-20260913T170803Z-A61F2C.md
-    title: Command presence is not interpreter availability on Windows
-    status: active
-  - id: MEM-20260913T172118Z-4A9C11
-    file: MEM-20260913T172118Z-4A9C11.md
-    title: Windows write failures require layered permission diagnosis
-    status: active
-  - id: MEM-20260913T172118Z-B8D2E4
-    file: MEM-20260913T172118Z-B8D2E4.md
-    title: GitHub plugin authorization does not imply private-repository installation access
-    status: active
-  - id: MEM-20260913T172118Z-71F0AC
-    file: MEM-20260913T172118Z-71F0AC.md
-    title: qiven-context must not self-pin its live main SHA inside canonical state
-    status: active
-  - id: MEM-20260913T180134Z-E3C993
-    file: MEM-20260913T180134Z-E3C993.md
-    title: Recurring workflow ambiguity should be codified or automated rather than left to session memory
-    status: active
-  - id: MEM-20260913T181224Z-F041D2
-    file: MEM-20260913T181224Z-F041D2.md
-    title: Foundation Phase I surface is a compact C++20 static library with explicit low-level primitives
-    status: active
-  - id: MEM-20260913T181224Z-5BA4E1
-    file: MEM-20260913T181224Z-5BA4E1.md
-    title: Foundation portability is defined by explicit platform boundaries and continuously verified CI targets
-    status: active
-  - id: MEM-20260913T182338Z-6BC4F1
-    file: MEM-20260913T182338Z-6BC4F1.md
-    title: Devkit template 0.1.1 manages sixteen shared paths and leaves four bootstrap-only
-    status: active
-  - id: MEM-20260913T182338Z-92AD37
-    file: MEM-20260913T182338Z-92AD37.md
-    title: Cross-platform path identity must use physical canonicalization when repository-root equivalence matters
-    status: active
-  - id: MEM-20260913T182338Z-D5E8A2
-    file: MEM-20260913T182338Z-D5E8A2.md
-    title: Devkit lifecycle operations are conflict-atomic by preflight but not crash-consistent filesystem transactions
-    status: active
-  - id: MEM-20260913T182954Z-A6D249
-    file: MEM-20260913T182954Z-A6D249.md
-    title: Math scalar vocabulary is intentionally float and double only until concrete integration requires more
-    status: active
-  - id: MEM-20260913T182954Z-3F8C71
-    file: MEM-20260913T182954Z-3F8C71.md
-    title: Math Batch 007 established compact Vec2 Vec3 Vec4 core with exact equality and same-scalar arithmetic
-    status: active
-  - id: MEM-20260913T183819Z-C2D841
-    file: MEM-20260913T183819Z-C2D841.md
-    title: Current Qiven product roadmap stages CAD, industrial-gas management, robotics simulation, then deeper native physics
-    status: superseded
-  - id: MEM-20260913T185050Z-18E61C
-    file: MEM-20260913T185050Z-18E61C.md
-    title: qiven-toolchain-win currently pins CMake and clang-format as executable build tools
-    status: active
-  - id: MEM-20260913T185050Z-2D4721
-    file: MEM-20260913T185050Z-2D4721.md
-    title: Natural-language YAML fields require safe serialization or explicit quoting
-    status: active
-  - id: MEM-20260913T194500Z-8F2C41
-    file: MEM-20260913T194500Z-8F2C41.md
-    title: Long-running human-facing tasks must provide truthful liveness and progress feedback
-    status: active
-  - id: MEM-20260914T124259Z-5C8E21
-    file: MEM-20260914T124259Z-5C8E21.md
-    title: Complexity deferral is safe only when its sufficiency is falsifiable and observable
-    status: active
-  - id: MEM-20260915T092000Z-3C7A41
-    file: MEM-20260915T092000Z-3C7A41.md
-    title: Use DCR as the accepted bounded substitute for human CMD relay on JasonPC
-    status: active
-  - id: MEM-20260915T093500Z-6E2D19
-    file: MEM-20260915T093500Z-6E2D19.md
-    title: Treat conversation-turn economy as a Qiven reliability constraint and keep model memory non-authoritative
-    status: active
-  - id: MEM-20260915T101200Z-91B4F0
-    file: MEM-20260915T101200Z-91B4F0.md
-    title: DCR Git SSH on JasonPC requires ProgramData restoration because its Windows environment whitelist omits it
-    status: active
-  - id: MEM-20260915T111500Z-42A7D1
-    file: MEM-20260915T111500Z-42A7D1.md
-    title: Current Qiven product roadmap starts with DCR Windows transport before CAD
-    status: active
-  - id: MEM-20260915T114600Z-7D2F8C
-    file: MEM-20260915T114600Z-7D2F8C.md
-    title: Official DCR terminal history is per-session bounded but aggregate completed-session retention is not byte-bounded
-    status: active
-  - id: MEM-20260915T135500Z-9F4C21
-    file: MEM-20260915T135500Z-9F4C21.md
-    title: Apply known engineering architecture directly instead of reproducing human trial-and-refactor history
-    status: active
-  - id: MEM-20260915T135800Z-6B0D8A
-    file: MEM-20260915T135800Z-6B0D8A.md
-    title: Treat the observed roughly 26-minute Chat tool-turn boundary as an operational checkpoint budget
-    status: active
-  - id: MEM-20260915T163500Z-5E7A91
-    file: MEM-20260915T163500Z-5E7A91.md
-    title: Treat upstream conversational execution as potentially split-brain and enforce single-writer authority on the host
-    status: active
-  - id: MEM-20260916T020500Z-A27C91
-    file: MEM-20260916T020500Z-A27C91.md
-    title: Place acceptance gates at the earliest architecture layer where they can be truthfully proven
-    status: active
-  - id: MEM-20260915T203423Z-C4A912
-    file: MEM-20260915T203423Z-C4A912.md
-    title: Preserve canonical engineering semantics when a connector write is blocked; switch authoring path instead of rewriting the meaning
-    status: active
-  - id: MEM-20260916T040700Z-D8A4C2
-    file: MEM-20260916T040700Z-D8A4C2.md
-    title: Persist fail-closed authority transitions even when the triggering request is rejected
-    status: active
-  - id: MEM-20260916T042800Z-B71E3C
-    file: MEM-20260916T042800Z-B71E3C.md
-    title: Broker session identity belongs to Host transport and must not be client-selected on the wire
-    status: active
-  - id: MEM-20260916T045200Z-C8F219
-    file: MEM-20260916T045200Z-C8F219.md
-    title: Host-owned broker session identity outranks copied client execution identity for competing Acquire detection
-    status: active
+  - {id: MEM-20260913T162546Z-E73124, file: MEM-20260913T162546Z-E73124.md, title: Exact remote review is required even after a passing worker handoff, status: active}
+  - {id: MEM-20260913T170803Z-A61F2C, file: MEM-20260913T170803Z-A61F2C.md, title: Command presence is not interpreter availability on Windows, status: active}
+  - {id: MEM-20260913T172118Z-4A9C11, file: MEM-20260913T172118Z-4A9C11.md, title: Windows write failures require layered permission diagnosis, status: active}
+  - {id: MEM-20260913T172118Z-B8D2E4, file: MEM-20260913T172118Z-B8D2E4.md, title: GitHub plugin authorization does not imply private-repository installation access, status: active}
+  - {id: MEM-20260913T172118Z-71F0AC, file: MEM-20260913T172118Z-71F0AC.md, title: qiven-context must not self-pin its live main SHA inside canonical state, status: active}
+  - {id: MEM-20260913T180134Z-E3C993, file: MEM-20260913T180134Z-E3C993.md, title: Recurring workflow ambiguity should be codified or automated rather than left to session memory, status: active}
+  - {id: MEM-20260913T181224Z-F041D2, file: MEM-20260913T181224Z-F041D2.md, title: Foundation Phase I surface is a compact C++20 static library with explicit low-level primitives, status: active}
+  - {id: MEM-20260913T181224Z-5BA4E1, file: MEM-20260913T181224Z-5BA4E1.md, title: Foundation portability is defined by explicit platform boundaries and continuously verified CI targets, status: active}
+  - {id: MEM-20260913T182338Z-6BC4F1, file: MEM-20260913T182338Z-6BC4F1.md, title: Devkit template 0.1.1 manages sixteen shared paths and leaves four bootstrap-only, status: active}
+  - {id: MEM-20260913T182338Z-92AD37, file: MEM-20260913T182338Z-92AD37.md, title: Cross-platform path identity must use physical canonicalization when repository-root equivalence matters, status: active}
+  - {id: MEM-20260913T182338Z-D5E8A2, file: MEM-20260913T182338Z-D5E8A2.md, title: Devkit lifecycle operations are conflict-atomic by preflight but not crash-consistent filesystem transactions, status: active}
+  - {id: MEM-20260913T182954Z-A6D249, file: MEM-20260913T182954Z-A6D249.md, title: Math scalar vocabulary is intentionally float and double only until concrete integration requires more, status: active}
+  - {id: MEM-20260913T182954Z-3F8C71, file: MEM-20260913T182954Z-3F8C71.md, title: Math Batch 007 established compact Vec2 Vec3 Vec4 core with exact equality and same-scalar arithmetic, status: active}
+  - {id: MEM-20260913T183819Z-C2D841, file: MEM-20260913T183819Z-C2D841.md, title: 'Current Qiven product roadmap stages CAD, industrial-gas management, robotics simulation, then deeper native physics', status: superseded}
+  - {id: MEM-20260913T185050Z-18E61C, file: MEM-20260913T185050Z-18E61C.md, title: qiven-toolchain-win currently pins CMake and clang-format as executable build tools, status: active}
+  - {id: MEM-20260913T185050Z-2D4721, file: MEM-20260913T185050Z-2D4721.md, title: Natural-language YAML fields require safe serialization or explicit quoting, status: active}
+  - {id: MEM-20260913T194500Z-8F2C41, file: MEM-20260913T194500Z-8F2C41.md, title: Long-running human-facing tasks must provide truthful liveness and progress feedback, status: active}
+  - {id: MEM-20260914T124259Z-5C8E21, file: MEM-20260914T124259Z-5C8E21.md, title: Complexity deferral is safe only when its sufficiency is falsifiable and observable, status: active}
+  - {id: MEM-20260915T092000Z-3C7A41, file: MEM-20260915T092000Z-3C7A41.md, title: Use DCR as the accepted bounded substitute for human CMD relay on JasonPC, status: superseded}
+  - {id: MEM-20260915T093500Z-6E2D19, file: MEM-20260915T093500Z-6E2D19.md, title: Treat conversation-turn economy as a Qiven reliability constraint and keep model memory non-authoritative, status: active}
+  - {id: MEM-20260915T101200Z-91B4F0, file: MEM-20260915T101200Z-91B4F0.md, title: DCR Git SSH on JasonPC requires ProgramData restoration because its Windows environment whitelist omits it, status: active}
+  - {id: MEM-20260915T111500Z-42A7D1, file: MEM-20260915T111500Z-42A7D1.md, title: Current Qiven product roadmap starts with DCR Windows transport before CAD, status: superseded}
+  - {id: MEM-20260915T114600Z-7D2F8C, file: MEM-20260915T114600Z-7D2F8C.md, title: Official DCR terminal history is per-session bounded but aggregate completed-session retention is not byte-bounded, status: active}
+  - {id: MEM-20260915T135500Z-9F4C21, file: MEM-20260915T135500Z-9F4C21.md, title: Apply known engineering architecture directly instead of reproducing human trial-and-refactor history, status: active}
+  - {id: MEM-20260915T135800Z-6B0D8A, file: MEM-20260915T135800Z-6B0D8A.md, title: Treat the observed roughly 26-minute Chat tool-turn boundary as an operational checkpoint budget, status: active}
+  - {id: MEM-20260915T163500Z-5E7A91, file: MEM-20260915T163500Z-5E7A91.md, title: Treat upstream conversational execution as potentially split-brain and enforce single-writer authority on the host, status: active}
+  - {id: MEM-20260916T020500Z-A27C91, file: MEM-20260916T020500Z-A27C91.md, title: Place acceptance gates at the earliest architecture layer where they can be truthfully proven, status: active}
+  - {id: MEM-20260915T203423Z-C4A912, file: MEM-20260915T203423Z-C4A912.md, title: Preserve canonical engineering semantics when a connector write is blocked; switch authoring path instead of rewriting the meaning, status: active}
+  - {id: MEM-20260916T040700Z-D8A4C2, file: MEM-20260916T040700Z-D8A4C2.md, title: Persist fail-closed authority transitions even when the triggering request is rejected, status: active}
+  - {id: MEM-20260916T042800Z-B71E3C, file: MEM-20260916T042800Z-B71E3C.md, title: Broker session identity belongs to Host transport and must not be client-selected on the wire, status: active}
+  - {id: MEM-20260916T045200Z-C8F219, file: MEM-20260916T045200Z-C8F219.md, title: Host-owned broker session identity outranks copied client execution identity for competing Acquire detection, status: active}

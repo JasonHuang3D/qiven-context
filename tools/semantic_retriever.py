@@ -47,7 +47,6 @@ class FastEmbedBackend:
                 "semantic retrieval requires the optional FastEmbed dependency; "
                 "run tools\\bootstrap-semantic.cmd first"
             ) from exc
-
         self.model_name = model_name
         self.cache_dir = Path(cache_dir) if cache_dir is not None else default_cache_dir()
         self.cache_dir.mkdir(parents=True, exist_ok=True)
@@ -83,12 +82,7 @@ def _query_text(query: Mapping[str, Any], root: Path = ROOT) -> str:
 
 def _record_text(record: CanonicalRecord) -> str:
     metadata = record.metadata
-    lines = [
-        f"category: {record.category}",
-        f"id: {record.id}",
-        f"title: {record.title}",
-        f"status: {record.status}",
-    ]
+    lines = [f"category: {record.category}", f"id: {record.id}", f"title: {record.title}", f"status: {record.status}"]
     scopes = metadata.get("scope", []) or []
     tags = metadata.get("tags", []) or []
     if scopes:
@@ -106,8 +100,16 @@ def _record_text(record: CanonicalRecord) -> str:
 
 
 def eligible_records(root: Path = ROOT) -> tuple[CanonicalRecord, ...]:
+    """Return only records eligible for default current-state retrieval.
+
+    Superseded/rejected/history remains addressable from canonical files and Git,
+    but it must not compete with current truth in the normal retrieval corpus.
+    """
     store = load_canonical_store(root)
-    rows: list[CanonicalRecord] = [*store["decisions"], *store["memory"]]
+    rows: list[CanonicalRecord] = [
+        record for record in store["decisions"] if record.status == "accepted"
+    ]
+    rows.extend(record for record in store["memory"] if record.status == "active")
     rows.extend(
         record
         for record in store["obligations"]
@@ -137,13 +139,7 @@ class SemanticHit:
 
 
 class SemanticRetriever:
-    def __init__(
-        self,
-        root: Path = ROOT,
-        *,
-        backend: EmbeddingBackend | None = None,
-        model_name: str = DEFAULT_MODEL,
-    ) -> None:
+    def __init__(self, root: Path = ROOT, *, backend: EmbeddingBackend | None = None, model_name: str = DEFAULT_MODEL) -> None:
         self.root = Path(root)
         self.backend = backend if backend is not None else FastEmbedBackend(model_name=model_name)
         self.model_name = str(self.backend.model_name)
@@ -156,13 +152,7 @@ class SemanticRetriever:
     def rank(self, query: Mapping[str, Any]) -> list[SemanticHit]:
         query_vector = self.backend.embed_query(_query_text(query, self.root))
         hits = [
-            SemanticHit(
-                id=record.id,
-                category=record.category,
-                path=record.path,
-                title=record.title,
-                score=cosine_similarity(query_vector, vector),
-            )
+            SemanticHit(id=record.id, category=record.category, path=record.path, title=record.title, score=cosine_similarity(query_vector, vector))
             for record, vector in zip(self.records, self.document_vectors)
         ]
         return sorted(hits, key=lambda hit: (-hit.score, hit.id))
@@ -176,12 +166,10 @@ class SemanticRetriever:
         eligible_ids = {record.id for record in self.records}
         for canonical_id in explicit:
             if canonical_id in eligible_ids and canonical_id not in seen:
-                selected.append(canonical_id)
-                seen.add(canonical_id)
+                selected.append(canonical_id); seen.add(canonical_id)
         for hit in self.rank(query):
             if len(selected) >= top_k:
                 break
             if hit.id not in seen:
-                selected.append(hit.id)
-                seen.add(hit.id)
+                selected.append(hit.id); seen.add(hit.id)
         return set(selected)

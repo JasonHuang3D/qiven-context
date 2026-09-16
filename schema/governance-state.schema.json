@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version", "trust_provider", "canonical_context", "root_principal", "authentication_semantics", "limitations", "evolution"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "trust_provider": {"const": "github"},
+    "canonical_context": {
+      "type": "object",
+      "required": ["repository", "branch", "remote_state", "local_state"],
+      "properties": {
+        "repository": {"const": "JasonHuang3D/qiven-context"},
+        "branch": {"const": "main"},
+        "remote_state": {"const": "authoritative"},
+        "local_state": {"const": "non_authoritative_working_copy"}
+      },
+      "additionalProperties": false
+    },
+    "root_principal": {
+      "type": "object",
+      "required": ["provider", "account", "role", "authorities"],
+      "properties": {
+        "provider": {"const": "github"},
+        "account": {"type": "string", "minLength": 1},
+        "role": {"const": "root_governance"},
+        "authorities": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      },
+      "additionalProperties": false
+    },
+    "authentication_semantics": {
+      "type": "object",
+      "required": ["biological_identity_verification", "account_level_identity"],
+      "properties": {
+        "biological_identity_verification": {"const": "out_of_scope"},
+        "account_level_identity": {"const": "accepted"}
+      },
+      "additionalProperties": false
+    },
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "evolution": {
+      "type": "object",
+      "required": ["strengthen_only_when"],
+      "properties": {"strengthen_only_when": {"const": "actual_project_requirements_justify_it"}},
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

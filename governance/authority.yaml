@@ -1,0 +1,27 @@
+schema_version: 1
+trust_provider: github
+canonical_context:
+  repository: JasonHuang3D/qiven-context
+  branch: main
+  remote_state: authoritative
+  local_state: non_authoritative_working_copy
+root_principal:
+  provider: github
+  account: JasonHuang3D
+  role: root_governance
+  authorities:
+    - ratify_adr
+    - supersede_adr
+    - change_governance
+    - accept_checkpoint
+    - delegate_authority
+    - merge_canonical_context
+authentication_semantics:
+  biological_identity_verification: out_of_scope
+  account_level_identity: accepted
+limitations:
+  - GitHub account authentication does not distinguish the biological operator from software operating authorized account credentials.
+  - Possession of a local clone or local machine is not an independent governance proof.
+  - Device compromise, account compromise, and GitHub compromise are accepted residual risks at the current project stage.
+evolution:
+  strengthen_only_when: actual_project_requirements_justify_it

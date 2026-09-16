@@ -1,32 +1,31 @@
 # qiven-context
 
-`qiven-context` is Qiven's durable, Git-versioned repository for externalized project cognition. It preserves current state, accepted and rejected reasoning, unresolved and deferred work, validation gaps, risks, assumptions, lessons, incidents, collaboration rules, provenance, and revisit triggers independently of any model session.
+`qiven-context` is Qiven's durable, Git-versioned project cognition and continuity repository. Its purpose is to let the project survive session loss, turn failures, model/provider replacement, agent replacement, and authorized human-operator changes without making any one conversation or model-native memory authoritative.
 
-It is not a C++ library, a qiven-devkit consumer, a generic notes repository, a vector database, an MCP/API service, or a transcript dump.
+The canonical repository is `JasonHuang3D/qiven-context` on GitHub. GitHub remote state is the current trust anchor for repository identity and project-governance authentication. Local clones are working copies and may be stale, contaminated, or disposable.
 
-## Memory layers
+## Active semantic surfaces
 
-- **L0 — Live world:** authoritative external reality such as Git, builds, tests, CI, and external systems.
-- **L1 — Evidence archive:** raw or near-raw sessions, handoffs, CI results, audits, research, and source references.
-- **L2 — Cognition ledger:** append-oriented events such as noticed, learned, questioned, decided, deferred, rejected, and superseded.
-- **L3 — Canonical knowledge:** curated state, memory records, obligations, ADRs, project models, and collaboration protocol.
-- **L4 — Working context:** derived, task-specific context packs. L4 is never canonical.
+- `collaboration/` — normative operating contracts only.
+- `state/` — compact current operational state; never a historical transcript.
+- `decisions/` — ADRs and their lifecycle.
+- `memory/` — durable facts, lessons, invariants, risks, protocols, and negative knowledge.
+- `obligations/` — explicit future work, commitments, revisit triggers, and validation gaps.
+- `projects/` — durable project/domain models.
+- `sessions/` — bounded continuity evidence for recent work. No canonical project cognition may exist only here.
+- `evidence/audits/` — curated durable evidence and incident/acceptance records.
+- `schema/` — record contracts.
+- `generated/` — rebuildable derived context only.
+- `tools/`, `tests/`, `benchmarks/` — validation and derived retrieval machinery.
 
-Evidence and canonical interpretation remain separate so interpretations can be corrected without destroying their sources. Generated context is derived and rebuildable. Private repository does not mean secret store: never commit credentials, tokens, private keys, recovery codes, or API keys.
+Historical `ledger/` data and the placeholder `evidence/ci`, `evidence/handoffs`, and `evidence/research` buckets are retained only as explicit legacy/deprecated history. They are not active write surfaces.
 
-## Cold boot and tooling
+## Continuity model
 
-Start with [BOOTSTRAP.md](BOOTSTRAP.md). Use Python 3.11 or newer.
+Project truth is identity-independent. Presentation may adapt to an agent's capabilities and a human's preferences. Mutation depends on explicit project authority. Current authentication is intentionally account-level: GitHub authenticates the `JasonHuang3D` root principal; Qiven does not attempt to prove biological identity.
 
-```text
-tools\bootstrap.cmd
-tools\validate.cmd
-tools\test.cmd
-tools\verify-live-state.cmd
-```
+Conflicts are preserved when discovered but are not a permanent operating mode. When evidence permits, conflicting active records must be reconciled into one current canonical interpretation while displaced records remain historically available as superseded, archived, retired, or legacy material.
 
-POSIX equivalents are in `tools/*.sh`. Bootstrap creates the ignored repository-local `.venv`; validation never installs dependencies implicitly. Live-state verification reads local refs only and never fetches or switches branches.
+Start with `BOOTSTRAP.md`. The highest-level acceptance target is the Project Continuity Test in `collaboration/project-continuity-acceptance.md`.
 
-On Windows, `tools\bootstrap.cmd` resolves Python in this order: an explicit `QIVEN_PYTHON`, executable candidates returned by `where python`, then a working `py` launcher as an optional fallback. Finding `python` or `py` on PATH is not sufficient: each candidate is executed and version checked for Python 3.11 or newer. For example, `set QIVEN_PYTHON=C:\path with spaces\python.exe` explicitly selects an interpreter; an invalid explicit selection fails without fallback.
-
-This repository is currently **Phase 0**. Genesis historical import has **not** happened yet; it is Batch 002.
+Never store credentials, tokens, private keys, recovery codes, or other secrets in this repository.
