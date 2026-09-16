@@ -124,3 +124,7 @@ records:
     file: MEM-20260916T045200Z-C8F219.md
     title: Host-owned broker session identity outranks copied client execution identity for competing Acquire detection
     status: active
+  - id: MEM-20260916T054300Z-2E8C47
+    file: MEM-20260916T054300Z-2E8C47.md
+    title: Host transport must bound peer-controlled waiting and preserve session identity through transport uncertainty
+    status: active
