@@ -1,0 +1,27 @@
+schema_version: 1
+id: chatgpt-jason
+status: active
+human:
+  display_name: Jason
+  governance_principal: 'github:JasonHuang3D'
+agent:
+  family: ChatGPT
+  runtime_capabilities: verify_live
+project_context:
+  repository: JasonHuang3D/qiven-context
+  authority: github_remote
+  inheritance: canonical_project_truth
+  override_allowed: false
+environments:
+  - views/environments/jasonpc.yaml
+workflows:
+  local_execution: views/workflows/chatgpt-jason-local-execution.md
+semantics:
+  interaction: capability_dependent
+  authority: governance_dependent
+  environment: view_dependent
+  workflow: view_dependent
+  session_state: ephemeral
+notes:
+  - Agent/model/tool availability may change between sessions and must be re-evaluated live.
+  - This view adapts Qiven for ChatGPT + Jason; it does not make JasonPC or ChatGPT properties project-global truth.

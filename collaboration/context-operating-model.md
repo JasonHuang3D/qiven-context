@@ -8,7 +8,43 @@ Qiven Context is project continuity infrastructure. Its first-order requirement 
 
 Canonical project truth is independent of the identity reading it. Agent capabilities may change retrieval/presentation. Human preferences may change explanation. Mutation authority is governed separately.
 
-`collaboration/` contains normative contracts only. Session-specific handoffs and progress narratives belong under `sessions/`.
+`collaboration/` contains normative project contracts only. Session-specific handoffs and progress narratives belong under `sessions/`. Participant/environment/workflow adaptation belongs under `views/`.
+
+## ContextView model
+
+Qiven separates identity-independent project cognition from participant-specific operating context.
+
+Conceptually:
+
+```cpp
+ProjectContext project;
+
+template<CognitiveAgent Agent, HumanOperator Human>
+struct ContextView {
+    ProjectContext& project;
+    HumanProfile human;
+    AgentProfile agent;
+    std::vector<EnvironmentProfile> environments;
+    WorkflowProfile workflow;
+    SessionState session;
+};
+```
+
+The invariant is:
+
+```text
+Project truth is identity-independent.
+Interaction is capability-dependent.
+Authority is governance-dependent.
+Environment and workflow are view-dependent.
+Session state is ephemeral continuity.
+```
+
+A `ContextView<Agent, Human>` may adapt retrieval, presentation, local execution workflow, machine/tool inventory, and other participant-specific operating details. It must not override project architecture, accepted decisions, obligations, governance, or live remote authority.
+
+Durable view material lives under `views/`. Current agent capabilities that can change by model/product/session are resolved live at cold boot rather than frozen as permanent project truth. Environment profiles may contain owner-declared durable facts such as workspace roots or installed tool families, but version-sensitive paths, versions, reachability, VPN state, and similar operational facts must be verified live when they matter.
+
+If no matching view exists, a capable agent must still be able to boot the identity-independent `ProjectContext`; absence of a view is a loss of adaptation, not a loss of project truth.
 
 ## Active write surfaces
 
@@ -19,6 +55,7 @@ A material context transaction may write only the surfaces whose semantics actua
 - `obligations/` for unfinished work and resurfacing triggers;
 - `projects/` for durable project/domain models;
 - `state/` for compact current operational state;
+- `views/` for participant-, environment-, and workflow-specific ContextView material that does not belong to identity-independent project truth;
 - `sessions/` for bounded current-session continuity evidence;
 - `evidence/audits/` for curated durable incident/acceptance/migration evidence;
 - `governance/` for current project authority policy.
@@ -36,7 +73,8 @@ Create a context transaction when at least one of the following occurs:
 5. a material incident occurs;
 6. execution exits to asynchronous work whose identity must survive the turn;
 7. the active task/domain/repository changes materially and continuity state must follow it;
-8. a session rolls over or closes.
+8. a session rolls over or closes;
+9. an active ContextView changes materially enough that a future agent/human would otherwise reconstruct the collaboration incorrectly.
 
 Ordinary conversational turns do not require context commits.
 
@@ -47,7 +85,7 @@ Use one coherent transaction:
 1. verify live evidence;
 2. classify durable cognition;
 3. reconcile conflicts and lifecycle transitions;
-4. update ADR/memory/obligation/audit records as needed;
+4. update ADR/memory/obligation/audit/view records as needed;
 5. update compact current operational state;
 6. update this session's checkpoint;
 7. validate repository invariants and affected derived tooling;
@@ -92,6 +130,6 @@ For current qiven-context truth, GitHub remote is authoritative and local clones
 
 ## Validation
 
-Repository validation must enforce both record schemas and operating invariants, including legacy write bans, collaboration/session separation, repository-inventory purity, active-session continuity, canonical lifecycle coherence, governance presence, and the existence of both continuity contracts.
+Repository validation must enforce both record schemas and operating invariants, including legacy write bans, collaboration/session separation, repository-inventory purity, active-session continuity, canonical lifecycle coherence, governance presence, ContextView reference integrity, and the existence of both continuity contracts.
 
 The routine highest-level Context gate is Project Continuity: fresh LLM/session reconstruction without hidden model or human-private project memory. Human Succession is a separate stronger benchmark for replacement of the authorized human operator and is run only when that property is intentionally being proved.

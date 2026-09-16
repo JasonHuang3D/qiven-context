@@ -19,7 +19,7 @@ class ColdBootContractTests(unittest.TestCase):
         challenge=self.read("tests/cold-boot/challenge.txt").strip(); prompt=self.read("tests/cold-boot/candidate-prompt.md")
         self.assertRegex(challenge,r"^CB04-[0-9A-F]{8}$"); self.assertNotIn(challenge,prompt); self.assertIn("tests/cold-boot/challenge.txt",prompt)
 
-    def test_bootstrap_uses_v2_remote_authority_and_material_order(self):
+    def test_bootstrap_uses_v2_remote_authority_material_order_and_context_view(self):
         bootstrap=self.read("BOOTSTRAP.md")
         expected=(
             "canonical GitHub repository",
@@ -29,13 +29,16 @@ class ColdBootContractTests(unittest.TestCase):
             "collaboration/software-engineering-philosophy.md",
             "collaboration/context-operating-model.md",
             "state/current.md",
+            "Resolve the applicable ContextView",
             "latest non-legacy session checkpoint",
             "Determine the current task",
             "Run task-specific retrieval",
-            "Verify live GitHub/CI/runtime facts",
+            "Verify live GitHub/CI/runtime/environment facts",
             "Report and classify any inconsistency",
         )
         positions=[bootstrap.index(item) for item in expected]; self.assertEqual(positions,sorted(positions))
+        self.assertIn("views/chatgpt-jason.yaml",bootstrap)
+        self.assertIn("ContextView files tailor interaction, environment, and workflow",bootstrap)
         self.assertIn("Repeat task-specific retrieval whenever the conversation materially changes",bootstrap)
         self.assertIn("Local repositories are working copies",bootstrap)
         self.assertIn("Never invent missing history",bootstrap)
@@ -75,18 +78,46 @@ class ColdBootContractTests(unittest.TestCase):
         ):
             self.assertIn(required,contract)
 
-    def test_human_facing_executable_contract_is_durable(self):
+    def test_operator_human_contract_is_cross_platform_and_view_bound(self):
         contract=self.read("collaboration/human-facing-executable-contract.md")
         for required in (
-            "double-clicked",
-            "pause",
-            "truthful exit code",
-            "--no-pause",
-            "[ RUN]",
+            "Qiven Operator",
+            "[RUN]",
+            "[WAIT]",
             "[ OK ]",
             "[FAIL]",
+            "No file extension is a project-level human-interface requirement",
+            "active ContextView",
+            "views/chatgpt-jason.yaml",
         ):
             self.assertIn(required,contract)
+        self.assertNotIn("A human-facing `.cmd` or `.bat` entrypoint must assume it may be double-clicked",contract)
+
+    def test_context_view_separates_project_truth_from_jasonpc_workflow(self):
+        model=self.read("collaboration/context-operating-model.md")
+        self.assertIn("ContextView<Agent, Human>",model)
+        self.assertIn("Environment and workflow are view-dependent",model)
+        self.assertIn("views/",model)
+
+        view=yaml.safe_load(self.read("views/chatgpt-jason.yaml"))
+        self.assertEqual(view["id"],"chatgpt-jason")
+        self.assertEqual(view["human"]["governance_principal"],"github:JasonHuang3D")
+        self.assertEqual(view["agent"]["family"],"ChatGPT")
+        self.assertFalse(view["project_context"]["override_allowed"])
+        self.assertEqual(view["workflows"]["local_execution"],"views/workflows/chatgpt-jason-local-execution.md")
+        self.assertIn("views/environments/jasonpc.yaml",view["environments"])
+
+        env=yaml.safe_load(self.read("views/environments/jasonpc.yaml"))
+        self.assertEqual(env["workspace"]["qiven_root"],r"D:\JasonWork")
+        self.assertEqual(env["managed_environment"]["root"],r"C:\Env")
+        self.assertEqual(env["network"]["vpn_client"],"Clash Verge")
+        self.assertEqual(env["engineering_stack"]["exact_versions"],"verify_live")
+
+        workflow=self.read("views/workflows/chatgpt-jason-local-execution.md")
+        self.assertIn("Workflow 1",workflow)
+        self.assertIn("Workflow 2",workflow)
+        self.assertIn("ContextView<ChatGPT, Jason>",workflow)
+        self.assertFalse((ROOT/"collaboration/local-execution-workflows.md").exists())
 
     def test_github_mutation_incident_guardrail_is_active(self):
         workflow=self.read("collaboration/git-workflow.md")
@@ -95,9 +126,11 @@ class ColdBootContractTests(unittest.TestCase):
         audit=self.read("evidence/audits/github-connector-mutation-incident-2026-09-16.md")
         self.assertIn("action-selection/invocation failure",audit)
         memory_index=yaml.safe_load(self.read("memory/index.yaml"))
-        ids={str(item["id"]) for item in memory_index["records"] if item.get("status")=="active"}
-        self.assertIn("MEM-20260916T095000Z-7C4E91",ids)
-        self.assertIn("MEM-20260916T095200Z-1D6B42",ids)
+        active={str(item["id"]) for item in memory_index["records"] if item.get("status")=="active"}
+        superseded={str(item["id"]) for item in memory_index["records"] if item.get("status")=="superseded"}
+        self.assertIn("MEM-20260916T095000Z-7C4E91",active)
+        self.assertIn("MEM-20260916T102500Z-4F7A21",active)
+        self.assertIn("MEM-20260916T095200Z-1D6B42",superseded)
 
     def test_current_session_checkpoint_has_required_continuity_fields(self):
         checkpoint=self.read("sessions/2026-09-16-qiven-v6.md")
@@ -108,6 +141,7 @@ class ColdBootContractTests(unittest.TestCase):
             self.assertRegex(checkpoint,rf"(?m)^## {re.escape(heading)}$")
         self.assertIn("Qiven-v2 through Qiven-v5",checkpoint)
         self.assertIn("Do not synthesize them",checkpoint)
+        self.assertIn("ContextView<ChatGPT, Jason>",checkpoint)
 
     def test_governance_contract_is_remote_and_account_level(self):
         authority=yaml.safe_load(self.read("governance/authority.yaml"))

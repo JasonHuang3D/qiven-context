@@ -1,28 +1,31 @@
 schema_version: 2
-program: qiven-host
+program: qiven-context
 status: active
 objective: >-
-  Validate and disposition the corrected Host dispatcher + protected NoOp candidate 49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
-  after semantic review rejected ancestor 0e35bb111deb2faeec885ffc9664deab6049f693 as-is for an unbound dispatch/close lifecycle window.
+  Make Context v2 operational through Qiven Operator Human Manual Mode under ContextView<ChatGPT, Jason>,
+  reconcile Qiven-v6 workstation cleanup debt, and preserve the next-session qiven-context.exe / Context Engine architecture boundary.
 accepted_checkpoint:
-  subject: qiven-host
-  ref: 8e5b9dec64bf739af84e981df12afc1969599738
+  subject: qiven-context-v2
+  ref: canonical-main
   evidence:
-    - 'GitHub Actions run 35060483714 PASS'
-    - evidence/audits/host-local-pipe-transport-acceptance-2026-09-16.md
+    - 'Context v2 Project Continuity Run 001 PASS'
+    - 'Post-v2 operating guardrails accepted on canonical qiven-context/main'
 current_candidate:
-  subject: qiven-host-dispatcher-protected-noop-lifecycle-correction
-  ref: 49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
-  state: exact-ci-pending
+  subject: qiven-context-view-operator-runtime
+  ref: jason-brother/context-v2-operator-runtime
+  state: exact-local-operator-validation-pending
 blockers:
-  - Corrected dispatcher candidate requires manually dispatched full CI bound to expected_sha 49e69c02fe2ded0b9607ccb4090c21cde96b8a1c before checkpoint acceptance.
-  - Mutating DCR remains suspended by OBL-20260915T163500Z-9D4C72 until Host Batch 001 production no-bypass acceptance and explicit re-enable.
-  - High-level Chat-side GitHub contents mutation is suspended for critical writes until explicitly requalified after the 2026-09-16 action-selection incident.
+  - Clean Context candidate must pass Qiven Operator local gate from the long-lived D:\JasonWork\qiven-context working copy.
+  - OBL-20260916T102700Z-7C2A91 requires identity-safe reconciliation of known Qiven-v6 unmanaged temporary clones.
+  - High-level Chat-side GitHub contents mutation remains suspended for critical writes.
 paused_work:
+  - qiven-host/49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
   - qiven-runtime/process-execution
   - qiven-dcr-win/phase-1-batch-001
   - qiven-cad
 next_boundary: >-
-  Manually dispatch qiven-host full CI against jason-brother/host-batch-000 with expected_sha=49e69c02fe2ded0b9607ccb4090c21cde96b8a1c.
-  On exact success, perform final semantic disposition of this dispatcher checkpoint before any new Host feature work.
-updated_at: '2026-09-16T10:00:00Z'
+  Switch to Human Manual Mode in D:\JasonWork\qiven-context, bootstrap the clean operator-runtime branch into that existing working copy,
+  run Operator cleanup-v6-temp, then run the Operator context-local gate bound to the exact remote branch head.
+  After Context v2 operational acceptance/merge, close Qiven-v6 and begin OBL-20260916T125000Z-5A8C31 in the next session;
+  preserve the Host candidate without resuming Host implementation first.
+updated_at: '2026-09-16T12:50:00Z'
