@@ -96,3 +96,7 @@ records:
     file: OBL-20260916T102700Z-7C2A91.md
     title: Reconcile and remove Qiven-v6 unmanaged temporary repository clones
     status: open
+  - id: OBL-20260916T125000Z-5A8C31
+    file: OBL-20260916T125000Z-5A8C31.md
+    title: Design qiven-context.exe as a semantic Context Engine with representation-independent storage
+    status: deferred

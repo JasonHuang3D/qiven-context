@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "repository_name": "qiven-context",
+  "default_gate": "context-local",
+  "tasks": {
+    "exact-head": {
+      "builtin": "exact_head"
+    },
+    "bootstrap": {
+      "argv": ["tools/bootstrap.cmd"]
+    },
+    "full-tests": {
+      "argv": ["tools/test.cmd"]
+    },
+    "diff-check": {
+      "builtin": "git_diff_check",
+      "base": "origin/main"
+    },
+    "clean-tree": {
+      "builtin": "git_clean_tree"
+    },
+    "cleanup-v6-temp": {
+      "argv": ["python", "tools/cleanup_qiven_v6_temp.py"]
+    }
+  },
+  "gates": {
+    "context-local": [
+      "bootstrap",
+      "full-tests",
+      "diff-check",
+      "clean-tree"
+    ]
+  },
+  "ci": {}
+}
