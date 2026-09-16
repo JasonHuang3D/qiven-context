@@ -2,8 +2,8 @@ schema_version: 2
 program: qiven-host
 status: active
 objective: >-
-  Semantically review the preserved Host dispatcher + protected NoOp candidate 0e35bb111deb2faeec885ffc9664deab6049f693
-  against accepted Host authority/transport contracts and exact CI evidence before any additional Host feature implementation.
+  Validate and disposition the corrected Host dispatcher + protected NoOp candidate 49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
+  after semantic review rejected ancestor 0e35bb111deb2faeec885ffc9664deab6049f693 as-is for an unbound dispatch/close lifecycle window.
 accepted_checkpoint:
   subject: qiven-host
   ref: 8e5b9dec64bf739af84e981df12afc1969599738
@@ -11,18 +11,18 @@ accepted_checkpoint:
     - 'GitHub Actions run 35060483714 PASS'
     - evidence/audits/host-local-pipe-transport-acceptance-2026-09-16.md
 current_candidate:
-  subject: qiven-host-dispatcher-protected-noop
-  ref: 0e35bb111deb2faeec885ffc9664deab6049f693
-  state: semantic-review
+  subject: qiven-host-dispatcher-protected-noop-lifecycle-correction
+  ref: 49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
+  state: exact-ci-pending
 blockers:
+  - Corrected dispatcher candidate requires manually dispatched full CI bound to expected_sha 49e69c02fe2ded0b9607ccb4090c21cde96b8a1c before checkpoint acceptance.
   - Mutating DCR remains suspended by OBL-20260915T163500Z-9D4C72 until Host Batch 001 production no-bypass acceptance and explicit re-enable.
   - High-level Chat-side GitHub contents mutation is suspended for critical writes until explicitly requalified after the 2026-09-16 action-selection incident.
-  - qiven-host push-trigger full CI conflicts with ADR-0005 and must be corrected before normal future checkpoint CI dispatch resumes.
 paused_work:
   - qiven-runtime/process-execution
   - qiven-dcr-win/phase-1-batch-001
   - qiven-cad
 next_boundary: >-
-  Complete exact semantic review of qiven-host candidate 0e35bb111deb2faeec885ffc9664deab6049f693. Accept, correct, or reject that candidate
-  before any new Host feature work; preserve mutating-DCR suspension regardless of Batch 000 disposition.
-updated_at: '2026-09-16T09:55:00Z'
+  Manually dispatch qiven-host full CI against jason-brother/host-batch-000 with expected_sha=49e69c02fe2ded0b9607ccb4090c21cde96b8a1c.
+  On exact success, perform final semantic disposition of this dispatcher checkpoint before any new Host feature work.
+updated_at: '2026-09-16T10:00:00Z'
