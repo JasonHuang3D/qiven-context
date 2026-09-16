@@ -72,11 +72,11 @@ def _operating_invariants(errors):
             bad=forbidden.intersection(item or {})
             if bad: errors.append(f"state/repositories.yaml: live-state cache keys forbidden for {item.get('name','?')}: {', '.join(sorted(bad))}")
 
-    sessions=sorted(p for p in (ROOT/"sessions").glob("*.md") if SESSION_RE.match(p.name))
+    sessions=[p for p in (ROOT/"sessions").glob("*.md") if SESSION_RE.match(p.name)]
     if not sessions:
         errors.append("sessions: at least one v2 active session checkpoint is required")
     else:
-        latest=sessions[-1]
+        latest=max(sessions,key=lambda p:(p.name[:10],int(re.search(r"-v(\d+)\.md$",p.name).group(1))))
         body=latest.read_text(encoding="utf-8")
         for h in SESSION_HEADINGS:
             if not re.search(rf"^## {re.escape(h)}\s*$",body,re.M): errors.append(f"{latest.relative_to(ROOT)}: missing session heading {h}")
