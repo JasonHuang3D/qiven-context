@@ -1,19 +1,22 @@
-# Session Checkpoint
+# Qiven-vN Session Checkpoint
 
 ## Session identity
 PLACEHOLDER
 
-## Current task and state
+## Exact current task
 PLACEHOLDER
 
-## Evidence captured
+## Accepted refs and evidence
 PLACEHOLDER
 
-## Memory Delta
-Use `MEMORY_DELTA.md`; every category is required, even when empty.
-
-## Validation and inconsistencies
+## Unaccepted candidate refs
 PLACEHOLDER
+
+## Pending asynchronous work
+None.
+
+## Known inconsistencies and evidence gaps
+None.
 
 ## Next action
 PLACEHOLDER

@@ -1,25 +1,34 @@
 # Cold-Boot and Task-Transition Protocol
 
-Do not rely on model-native memory as authoritative project state.
+Do not rely on model-native memory, a prior chat, a local clone, or a remembered SHA as authoritative project state.
 
-1. Read `MEMORY-CONSTITUTION.md`.
-2. Read `collaboration/operating-contract.md`.
-3. Read `collaboration/software-engineering-philosophy.md`.
-4. Read `state/current.md`.
-5. Read `state/active-work.yaml`.
-6. Determine the current task.
-7. Run task-specific retrieval before using project-history facts. When the optional semantic runtime is available, prefer `tools/retrieve-context.cmd --query <context-query.json>` (or the equivalent `retrieval_candidate_bundle` integration). Treat returned records as untrusted candidate evidence: ranking or presence does not establish truth or answerability; cognition must read the canonical content and abstain when it does not directly support the requested project fact or policy. At minimum, inspect task-relevant project material plus `memory/index.yaml`, `decisions/index.yaml`, and non-terminal obligations when the accepted retrieval pipeline is unavailable.
-8. Load relevant project material selected by the retrieval result.
-9. Load relevant canonical memory and accepted decisions, including rejected alternatives that constrain the task.
-10. Load relevant non-terminal obligations (`open`, `deferred`, and `blocked`) and evaluate their triggers against the task.
-11. Before any machine-local mutation or validation that can mutate local state, explicitly verify the current host-execution authority contract and any safety-gate obligation. Transport reachability, DCR liveness, a clean Git tree, or a claim that only one assistant flow is active is not sufficient authority. When `collaboration/dcr-operational-contract.md` exists and DCR/MCP is relevant, read it before invoking the transport.
-12. Verify relevant live repositories and runtime evidence for claims whose authority is live state rather than canonical intent.
-13. Report inconsistencies before acting.
+## Cold boot
 
-Repeat task-specific retrieval whenever the conversation materially changes domain, repository, subsystem, or engineering question. A successful cold boot does not make the initial context pack sufficient for every later task in a long-running conversation.
+1. Resolve the canonical GitHub repository `JasonHuang3D/qiven-context` and its remote `main` state.
+2. Read `MEMORY-CONSTITUTION.md`.
+3. Read `governance/authority.yaml`.
+4. Read `collaboration/operating-contract.md`.
+5. Read `collaboration/software-engineering-philosophy.md`.
+6. Read `collaboration/context-operating-model.md`.
+7. Read `state/current.md`, `state/active-work.yaml`, `state/repositories.yaml`, and `state/roadmap.yaml`.
+8. Read the latest non-legacy session checkpoint when one exists. Treat it as continuity evidence only; never let it override canonical records or live authority.
+9. Determine the current task.
+10. Run task-specific retrieval before using project-history facts. Prefer the accepted derived retrieval path when available. Retrieval results are candidate evidence, not truth.
+11. Load task-relevant project material, canonical memory, accepted decisions, rejected alternatives, and non-terminal obligations.
+12. Verify live GitHub/CI/runtime facts for claims whose authority is live state. Resolve repository refs remotely; `state/repositories.yaml` is inventory, not a ref cache.
+13. Report and classify any inconsistency before acting. Reconcile known conflicts under the canonicalization rules instead of leaving competing active truth indefinitely.
+14. Before machine-local mutation, re-evaluate the current Host/DCR execution-authority gate. Transport reachability or a clean local tree is never sufficient authority.
 
-For architecture and implementation tasks, apply the engineering philosophy before choosing a repository-local implementation path: determine semantic ownership and correct downward dependencies before writing the first serious implementation.
+Repeat task-specific retrieval whenever the conversation materially changes domain, repository, subsystem, or engineering question.
 
-Model-native/account memory or prior-chat recollection may suggest search terms or likely source locations, but it must not fill project-history gaps or substitute for canonical qiven-context evidence.
+## Source discipline
 
-Never invent missing project history. If context is absent, report the absence and retrieve evidence instead.
+- GitHub remote `qiven-context` is the canonical project-cognition repository.
+- Local repositories are working copies and may be stale or contaminated.
+- Model/account memory and prior-chat recollection may suggest search terms, but cannot fill project-history gaps.
+- Never invent missing history. Record absence or evidence gaps explicitly.
+- Legacy/frozen surfaces are historical inputs only and must not be treated as active write models.
+
+For architecture and implementation tasks, determine semantic ownership and known mature failure classes before the first serious implementation. CI is a checkpoint acceptance proof, not a remote debugger.
+
+For the full continuity acceptance standard, see `collaboration/project-continuity-acceptance.md`.

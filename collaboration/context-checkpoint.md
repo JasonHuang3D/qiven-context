@@ -1,19 +1,11 @@
 # Context Checkpoint Protocol
 
-A **Memory Delta** contains every category below; a category may be empty, but may not be omitted:
+This v2 protocol is a compatibility entry point. The normative transaction model is `collaboration/context-operating-model.md`.
 
-- New facts
-- New decisions
-- New rejected alternatives
-- New obligations
-- Changed obligations
-- Closed obligations
-- New risks
-- New assumptions/hypotheses
-- New lessons/incidents
-- Superseded records
-- Evidence references
+A context checkpoint is created only for a material context transaction; ordinary turns do not require one. There is no mandatory all-category Memory Delta and no manual ledger dual-write.
 
-Future checkpoint sequence: (1) capture evidence; (2) produce memory delta; (3) update canonical records; (4) update obligations; (5) update state; (6) refresh live repository observations; (7) validate; (8) compile working context; (9) cold-boot smoke test; (10) commit context checkpoint.
+The checkpoint sequence is: verify live evidence; classify durable cognition; reconcile lifecycle/conflicts; update only affected canonical records and audits; update compact operational state; update the current session checkpoint; validate schemas and v2 repository invariants; validate affected derived tooling; commit the coherent context transaction.
 
-Context compiler and cold-boot execution are future work. Batch 001 defines only the protocol.
+If an asynchronous external job remains nonterminal, persist exact correlation identity and return control rather than keeping the Chat turn alive by polling.
+
+Historical `templates/MEMORY_DELTA.md` is retained only as a legacy capture worksheet; it is not a required transaction artifact.

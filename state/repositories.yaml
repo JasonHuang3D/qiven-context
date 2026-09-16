@@ -1,31 +1,31 @@
-# External repositories only. qiven-context intentionally does not self-pin its current commit SHA in canonical state.
-schema_version: 1
+# Stable repository inventory only. Resolve live refs, visibility, CI, and branch state from GitHub at use time.
+schema_version: 2
 repositories:
+  - name: qiven-context
+    remote: https://github.com/JasonHuang3D/qiven-context.git
+    default_branch: main
+    role: canonical-project-cognition
   - name: qiven-foundation
     remote: https://github.com/JasonHuang3D/qiven-foundation.git
     local_path: D:/JasonWork/qiven-foundation
     default_branch: main
-    main_sha: 6c09151e1a52830c66e6c7a97b5b68740154f475
-    observed_at: '2026-09-14T08:25:57Z'
-    authority: live_git
+    role: foundational-native-library
   - name: qiven-devkit
     remote: https://github.com/JasonHuang3D/qiven-devkit.git
     local_path: D:/JasonWork/qiven-devkit
     default_branch: main
-    main_sha: 022aaac1e169d556015b52c32af255031a6de332
-    observed_at: '2026-09-14T08:11:46Z'
-    authority: live_git
+    role: shared-native-development-kit
   - name: qiven-math
     remote: https://github.com/JasonHuang3D/qiven-math.git
     local_path: D:/JasonWork/qiven-math
     default_branch: main
-    main_sha: e38afb6b47f2052926fdc2a2de8cab0238cdfb23
-    observed_at: '2026-09-14T10:01:45Z'
-    authority: live_git
+    role: deterministic-native-math
   - name: qiven-toolchain-win
     remote: https://github.com/JasonHuang3D/qiven-toolchain-win.git
     local_path: D:/JasonWork/qiven-toolchain-win
     default_branch: main
-    main_sha: a79825031e838d80354d31489c87327dd6adbfb7
-    observed_at: '2026-09-13T17:21:18Z'
-    authority: live_git
+    role: pinned-windows-build-tools
+  - name: qiven-host
+    remote: https://github.com/JasonHuang3D/qiven-host.git
+    default_branch: main
+    role: host-execution-authority

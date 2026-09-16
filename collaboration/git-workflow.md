@@ -2,14 +2,20 @@
 
 - Remote-native branches created directly by jason-brother normally use `jason-brother/<name>`.
 - Local-execution branches implemented by jason-worker normally use `jason-worker/<name>`.
-- jason-worker commits locally and does not push by default; the user pushes worker branches for remote review.
+- jason-worker commits locally and does not push by default; the user pushes worker branches for remote review unless a separately accepted authority path explicitly permits the push.
 - jason-brother may create/update remote branches and commits directly for authorized remote-native work when GitHub connector access is available.
-- jason-brother reviews the exact remote delta and selects CI scope.
-- CI executes deterministic requested validation.
-- For each batch, the user runs the required machine-local validation and reports PASS/FAIL.
-- After a PASS, jason-brother may merge the exact validated batch head to `main` under ADR-0021 after exact remote review and any additional required gates pass.
+- GitHub remote state is authoritative for published repository identity; a local clone is a non-authoritative working copy.
+- jason-brother reviews the exact remote delta before selecting validation scope.
+- WIP pushes provide remote durability only. They must not implicitly trigger expensive full CI.
+- A checkpoint candidate receives explicit CI dispatch only after its architecture/semantics/delta have been reviewed enough to define the required validation plan.
+- Where a workflow supports an `expected_sha` input, it must fail before expensive validation when the workflow SHA does not match the requested candidate SHA.
+- CI executes the requested deterministic validation plan; CI does not infer architectural relevance from the diff.
+- CI is acceptance evidence for an exact reviewed candidate, not a remote debugging loop.
+- After CI dispatch, Chat may perform at most one immediate exact-identity status read. If the run remains queued/in-progress, report repository, workflow/run, exact SHA, scope, last status, and the direct GitHub run URL, then return control.
+- Required machine-local validation must use the currently accepted local-authority path.
+- After required validation and exact remote review, jason-brother may merge an exact validated batch head under ADR-0021 when all additional gates are satisfied.
 - If any commit is added after the validated head, that changed head requires validation again before merge.
-- Prefer a normal no-fast-forward merge when preserving the batch boundary is useful. Never force-push or bypass required validation as merge machinery.
+- Prefer a normal no-fast-forward merge when preserving the batch boundary is useful. Never force-push or bypass required validation.
 - Git `user.name` and `user.email` are never changed as workflow machinery.
 
-Repository live state beats a remembered SHA. Exact remote commit review is required before CTO PASS and before an authorized remote merge.
+A remembered SHA, local ref, or cached state file never overrides live GitHub remote state.

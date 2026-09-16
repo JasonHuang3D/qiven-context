@@ -1,118 +1,33 @@
 schema_version: 1
 records:
-  - id: ADR-0001
-    file: ADR-0001.md
-    title: Externalize Qiven project cognition from LLM sessions
-    status: accepted
-  - id: ADR-0002
-    file: ADR-0002.md
-    title: Use question-scoped authority instead of a global source-precedence chain
-    status: accepted
-  - id: ADR-0003
-    file: ADR-0003.md
-    title: Keep semantic source data simple and derived retrieval replaceable
-    status: accepted
-  - id: ADR-0004
-    file: ADR-0004.md
-    title: Separate architecture and release authority from local implementation execution
-    status: accepted
-  - id: ADR-0005
-    file: ADR-0005.md
-    title: Select GitHub CI validation explicitly after remote review
-    status: accepted
-  - id: ADR-0006
-    file: ADR-0006.md
-    title: Default local validation to FULL and allow FOCUSED only by explicit CTO scope
-    status: accepted
-  - id: ADR-0007
-    file: ADR-0007.md
-    title: Keep Qiven Foundation small, foundational, and downstream-demand-driven
-    status: superseded
-  - id: ADR-0008
-    file: ADR-0008.md
-    title: Make ownership, failure behavior, and allocation semantics explicit in Foundation
-    status: accepted
-  - id: ADR-0009
-    file: ADR-0009.md
-    title: Treat C++ object layout, ABI, IPC, wire, and persistent representation as separate boundaries
-    status: accepted
-  - id: ADR-0010
-    file: ADR-0010.md
-    title: Materialize Devkit conventions as independent repository snapshots
-    status: accepted
-  - id: ADR-0011
-    file: ADR-0011.md
-    title: Separate Devkit-managed shared conventions from bootstrap-only repository-owned files
-    status: accepted
-  - id: ADR-0012
-    file: ADR-0012.md
-    title: Preserve consumer edits with hash-tracked all-conflicts-first Devkit lifecycle operations
-    status: accepted
-  - id: ADR-0013
-    file: ADR-0013.md
-    title: Keep qiven-math a small deterministic external-semantics-free spatial vocabulary
-    status: accepted
-  - id: ADR-0014
-    file: ADR-0014.md
-    title: Keep canonical vector values compact and scalar-aligned instead of encoding SIMD ABI
-    status: accepted
-  - id: ADR-0015
-    file: ADR-0015.md
-    title: Keep coordinate conventions and approximate tolerance explicit at higher semantic boundaries
-    status: accepted
-  - id: ADR-0016
-    file: ADR-0016.md
-    title: Resolve qiven-foundation as an existing local source dependency without network CMake fetching
-    status: accepted
-  - id: ADR-0017
-    file: ADR-0017.md
-    title: Layer the shared native core by semantic responsibility instead of forcing product verticals into one stack
-    status: accepted
-  - id: ADR-0018
-    file: ADR-0018.md
-    title: Delay repository splits and workspace orchestration until coordination or reuse is real
-    status: accepted
-  - id: ADR-0019
-    file: ADR-0019.md
-    title: Make CAD a building-semantic pipeline behind provider boundaries rather than an arbitrary DWG interpreter
-    status: accepted
-  - id: ADR-0020
-    file: ADR-0020.md
-    title: Keep the industrial-gas product stack independent from the native C++ core unless domain needs justify coupling
-    status: accepted
-  - id: ADR-0021
-    file: ADR-0021.md
-    title: Permit jason-brother to merge exact validated batch heads after local validation evidence
-    status: accepted
-  - id: ADR-0022
-    file: ADR-0022.md
-    title: Treat cognition retrieval adequacy as a measured layered reliability property
-    status: accepted
-  - id: ADR-0023
-    file: ADR-0023.md
-    title: Prioritize Qiven DCR Windows transport before CAD and stage native transport behind supervisor acceptance
-    status: accepted
-  - id: ADR-0024
-    file: ADR-0024.md
-    title: Prefer correct downward semantic ownership over local duplication or staged refactoring
-    status: accepted
-  - id: ADR-0025
-    file: ADR-0025.md
-    title: Establish qiven-runtime as the shared native owner of process and execution-runtime semantics
-    status: accepted
-  - id: ADR-0026
-    file: ADR-0026.md
-    title: Enforce a host-side single-writer execution authority with leases and fencing before further mutating DCR use
-    status: accepted
-  - id: ADR-0027
-    file: ADR-0027.md
-    title: Separate Host authority-kernel acceptance from production integration
-    status: accepted
-  - id: ADR-0028
-    file: ADR-0028.md
-    title: Devkit owns Qiven native build-system mechanism while repositories own declarative build graphs
-    status: accepted
-  - id: ADR-0029
-    file: ADR-0029.md
-    title: Require cryptographic local user presence for Host recovery authority
-    status: accepted
+  - {id: ADR-0001, file: ADR-0001.md, title: Externalize Qiven project cognition from LLM sessions, status: superseded}
+  - {id: ADR-0002, file: ADR-0002.md, title: Use question-scoped authority instead of a global source-precedence chain, status: superseded}
+  - {id: ADR-0003, file: ADR-0003.md, title: Keep semantic source data simple and derived retrieval replaceable, status: accepted}
+  - {id: ADR-0004, file: ADR-0004.md, title: Separate architecture and release authority from local implementation execution, status: accepted}
+  - {id: ADR-0005, file: ADR-0005.md, title: Select GitHub CI validation explicitly after remote review, status: accepted}
+  - {id: ADR-0006, file: ADR-0006.md, title: Default local validation to FULL and allow FOCUSED only by explicit CTO scope, status: accepted}
+  - {id: ADR-0007, file: ADR-0007.md, title: Keep Qiven Foundation small, foundational, and downstream-demand-driven, status: superseded}
+  - {id: ADR-0008, file: ADR-0008.md, title: 'Make ownership, failure behavior, and allocation semantics explicit in Foundation', status: accepted}
+  - {id: ADR-0009, file: ADR-0009.md, title: 'Treat C++ object layout, ABI, IPC, wire, and persistent representation as separate boundaries', status: accepted}
+  - {id: ADR-0010, file: ADR-0010.md, title: Materialize Devkit conventions as independent repository snapshots, status: accepted}
+  - {id: ADR-0011, file: ADR-0011.md, title: Separate Devkit-managed shared conventions from bootstrap-only repository-owned files, status: accepted}
+  - {id: ADR-0012, file: ADR-0012.md, title: Preserve consumer edits with hash-tracked all-conflicts-first Devkit lifecycle operations, status: accepted}
+  - {id: ADR-0013, file: ADR-0013.md, title: Keep qiven-math a small deterministic external-semantics-free spatial vocabulary, status: accepted}
+  - {id: ADR-0014, file: ADR-0014.md, title: Keep canonical vector values compact and scalar-aligned instead of encoding SIMD ABI, status: accepted}
+  - {id: ADR-0015, file: ADR-0015.md, title: Keep coordinate conventions and approximate tolerance explicit at higher semantic boundaries, status: accepted}
+  - {id: ADR-0016, file: ADR-0016.md, title: Resolve qiven-foundation as an existing local source dependency without network CMake fetching, status: accepted}
+  - {id: ADR-0017, file: ADR-0017.md, title: Layer the shared native core by semantic responsibility instead of forcing product verticals into one stack, status: accepted}
+  - {id: ADR-0018, file: ADR-0018.md, title: Delay repository splits and workspace orchestration until coordination or reuse is real, status: accepted}
+  - {id: ADR-0019, file: ADR-0019.md, title: Make CAD a building-semantic pipeline behind provider boundaries rather than an arbitrary DWG interpreter, status: accepted}
+  - {id: ADR-0020, file: ADR-0020.md, title: Keep the industrial-gas product stack independent from the native C++ core unless domain needs justify coupling, status: accepted}
+  - {id: ADR-0021, file: ADR-0021.md, title: Permit jason-brother to merge exact validated batch heads after local validation evidence, status: accepted}
+  - {id: ADR-0022, file: ADR-0022.md, title: Treat cognition retrieval adequacy as a measured layered reliability property, status: accepted}
+  - {id: ADR-0023, file: ADR-0023.md, title: Prioritize Qiven DCR Windows transport before CAD and stage native transport behind supervisor acceptance, status: accepted}
+  - {id: ADR-0024, file: ADR-0024.md, title: Prefer correct downward semantic ownership over local duplication or staged refactoring, status: accepted}
+  - {id: ADR-0025, file: ADR-0025.md, title: Establish qiven-runtime as the shared native owner of process and execution-runtime semantics, status: accepted}
+  - {id: ADR-0026, file: ADR-0026.md, title: Enforce a host-side single-writer execution authority with leases and fencing before further mutating DCR use, status: accepted}
+  - {id: ADR-0027, file: ADR-0027.md, title: Separate Host authority-kernel acceptance from production integration, status: accepted}
+  - {id: ADR-0028, file: ADR-0028.md, title: Devkit owns Qiven native build-system mechanism while repositories own declarative build graphs, status: accepted}
+  - {id: ADR-0029, file: ADR-0029.md, title: Require cryptographic local user presence for Host recovery authority, status: accepted}
+  - {id: ADR-0030, file: ADR-0030.md, title: Make qiven-context a participant-independent project continuity system, status: accepted}
+  - {id: ADR-0031, file: ADR-0031.md, title: Trust GitHub account identity and remote state for current qiven-context governance, status: accepted}

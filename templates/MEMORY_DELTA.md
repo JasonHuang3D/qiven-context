@@ -1,35 +1,7 @@
-# Memory Delta
+# Legacy Memory Delta Worksheet
 
-## New facts
+**Status: legacy optional worksheet.**
 
-None.
-## New decisions
+Context v2 does not require an all-category Memory Delta on every checkpoint. Use `collaboration/context-operating-model.md` and update only semantic surfaces that materially changed.
 
-None.
-## New rejected alternatives
-
-None.
-## New obligations
-
-None.
-## Changed obligations
-
-None.
-## Closed obligations
-
-None.
-## New risks
-
-None.
-## New assumptions/hypotheses
-
-None.
-## New lessons/incidents
-
-None.
-## Superseded records
-
-None.
-## Evidence references
-
-None.
+When a temporary capture worksheet is useful, classify only material facts/observations, decisions/rejected alternatives, obligations, risks/open questions, lessons/incidents, lifecycle changes, and evidence references. The worksheet itself is not canonical and is not a required commit artifact.
