@@ -1,0 +1,36 @@
+schema_version: 1
+id: jasonpc
+status: active
+scope_view: chatgpt-jason
+basis: owner_declared
+platform:
+  os_family: windows
+workspace:
+  qiven_root: 'D:\JasonWork'
+  semantics: long_lived_working_materialization
+  remote_authority: github
+managed_environment:
+  root: 'C:\Env'
+  known_tool_families:
+    - git
+    - python
+  completeness: non_exhaustive
+engineering_stack:
+  known_installed_families:
+    - MSVC
+    - Visual Studio 2022
+    - Unreal Engine
+    - Unity
+  exact_versions: verify_live
+network:
+  vpn_client: Clash Verge
+  routing_intent: 'Use VPN for non-China-domain access; China-domain access should remain direct when the configured policy supports it.'
+  operational_state: verify_live
+verification_policy:
+  - Verify exact executable paths and versions before a task depends on them.
+  - Verify mutable environment/PATH state rather than treating this profile as a live snapshot.
+  - Verify VPN/routing behavior before diagnosing or changing connectivity-sensitive workflows.
+  - Do not use ambient OS temporary directories as unmanaged repository clone storage for normal Qiven validation.
+notes:
+  - This profile is ContextView material, not identity-independent ProjectContext truth.
+  - Additional JasonPC tools may exist beyond the explicitly listed families; absence from this file does not prove absence from the machine.

@@ -6,12 +6,13 @@ The canonical repository is `JasonHuang3D/qiven-context` on GitHub. GitHub remot
 
 ## Active semantic surfaces
 
-- `collaboration/` — normative operating contracts only.
+- `collaboration/` — normative project-wide operating contracts only.
 - `state/` — compact current operational state; never a historical transcript.
 - `decisions/` — ADRs and their lifecycle.
 - `memory/` — durable facts, lessons, invariants, risks, protocols, and negative knowledge.
 - `obligations/` — explicit future work, commitments, revisit triggers, and validation gaps.
 - `projects/` — durable project/domain models.
+- `views/` — participant-specific ContextView material: human/agent adaptation, environment profiles, and workflow profiles that must not redefine project truth.
 - `sessions/` — bounded continuity evidence for recent work. No canonical project cognition may exist only here.
 - `evidence/audits/` — curated durable evidence and incident/acceptance records.
 - `schema/` — record contracts.
@@ -22,7 +23,9 @@ Historical `ledger/` data and the placeholder `evidence/ci`, `evidence/handoffs`
 
 ## Continuity model
 
-Project truth is identity-independent. Presentation may adapt to an agent's capabilities and a human's preferences. Mutation depends on explicit project authority. Current authentication is intentionally account-level: GitHub authenticates the `JasonHuang3D` root principal; Qiven does not attempt to prove biological identity.
+Project truth is identity-independent. A `ContextView<Agent, Human>` may adapt presentation, workflow, environment knowledge, and interaction to a concrete participant combination without changing that truth. Mutation depends on explicit project authority. Current authentication is intentionally account-level: GitHub authenticates the `JasonHuang3D` root principal; Qiven does not attempt to prove biological identity.
+
+Current ChatGPT + Jason adaptation lives under `views/chatgpt-jason.yaml`; it references JasonPC environment and local-execution workflow profiles. Different agents, humans, or machines may use different views while reading the same canonical ProjectContext.
 
 Conflicts are preserved when discovered but are not a permanent operating mode. When evidence permits, conflicting active records must be reconciled into one current canonical interpretation while displaced records remain historically available as superseded, archived, retired, or legacy material.
 

@@ -3,7 +3,7 @@ program: qiven-host
 status: active
 objective: >-
   Validate and disposition corrected Host dispatcher + protected NoOp candidate 49e69c02fe2ded0b9607ccb4090c21cde96b8a1c,
-  using Qiven Operator Human Manual Mode for JasonPC-local evidence instead of ad-hoc shell scripts or unmanaged temporary clones.
+  using Qiven Operator Human Manual Mode from the active ContextView<ChatGPT, Jason> for JasonPC-local evidence instead of ad-hoc shell scripts or unmanaged temporary clones.
 accepted_checkpoint:
   subject: qiven-host
   ref: 8e5b9dec64bf739af84e981df12afc1969599738
@@ -15,7 +15,7 @@ current_candidate:
   ref: 49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
   state: operator-local-validation-and-exact-ci-pending
 blockers:
-  - Qiven Operator must be used/restored as Workflow 1 for the next JasonPC-assisted validation; do not create another unmanaged %TEMP% repository clone.
+  - Active local assistance view is views/chatgpt-jason.yaml; its Workflow 1 uses Qiven Operator from the JasonPC environment profile and must replace ad-hoc shell/manual clone choreography.
   - OBL-20260916T102700Z-7C2A91 requires reconciliation/removal of Qiven-v6 unmanaged temporary repository clones.
   - Corrected dispatcher candidate requires exact local validation plus manually dispatched full CI bound to expected_sha 49e69c02fe2ded0b9607ccb4090c21cde96b8a1c before checkpoint acceptance.
   - Mutating DCR remains suspended by OBL-20260915T163500Z-9D4C72 until Host Batch 001 production no-bypass acceptance and explicit re-enable.
@@ -25,7 +25,7 @@ paused_work:
   - qiven-dcr-win/phase-1-batch-001
   - qiven-cad
 next_boundary: >-
-  Run the next JasonPC-assisted operation through Qiven Operator Human Manual Mode from the long-lived D:\JasonWork workspace.
-  Reconcile Qiven-v6 temp-clone debt, validate exact qiven-host candidate 49e69c02fe2ded0b9607ccb4090c21cde96b8a1c locally without unmanaged temp cloning,
+  Run the next JasonPC-assisted operation through Qiven Operator Human Manual Mode under views/chatgpt-jason.yaml.
+  Reconcile Qiven-v6 temp-clone debt, validate exact qiven-host candidate 49e69c02fe2ded0b9607ccb4090c21cde96b8a1c locally from the long-lived JasonPC workspace without unmanaged temp cloning,
   then dispatch exact full CI and perform final semantic disposition before any new Host feature work.
-updated_at: '2026-09-16T10:27:00Z'
+updated_at: '2026-09-16T11:20:00Z'

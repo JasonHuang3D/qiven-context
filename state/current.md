@@ -12,15 +12,21 @@ Context v2 and the post-v2 operating guardrails are canonical on `JasonHuang3D/q
 - Manual ledger writes remain frozen; deprecated evidence buckets and legacy handoffs remain non-current.
 - Known conflicts must be canonicalized; superseded/legacy material must not compete as active truth.
 
-## Local execution workflows
+## Active ContextView
 
-`collaboration/local-execution-workflows.md` is the canonical local-execution model.
+The current participant-specific operating projection is `ContextView<ChatGPT, Jason>`, represented by `views/chatgpt-jason.yaml`.
 
-Workflow 1 is active now: remote AI may develop against GitHub, and whenever JasonPC evidence or execution is required the project owner switches to Human Manual Mode and invokes Qiven Operator. Operator, not ad-hoc shell choreography, owns human-facing progress/state, validation sequencing, exact identity, summaries, task isolation, and managed scratch/worktree cleanup.
+This view binds the current ChatGPT + Jason collaboration to `views/environments/jasonpc.yaml` and `views/workflows/chatgpt-jason-local-execution.md`. These files adapt interaction, local workflow, and JasonPC environment knowledge; they do not override identity-independent ProjectContext, governance, accepted decisions, obligations, or live GitHub authority.
+
+JasonPC durable view facts currently include the long-lived Qiven workspace root `D:\JasonWork`, managed environment root `C:\Env` with known Git/Python tool families, installed engineering tool families including MSVC, Visual Studio 2022, Unreal Engine, and Unity, and the owner-declared Clash Verge routing intent for non-China-domain access. Exact versions, executable paths, mutable environment state, and VPN behavior remain live facts to verify when operationally relevant.
+
+## Local execution workflow in the active view
+
+Workflow 1 is active now: remote AI may develop against GitHub, and whenever JasonPC evidence or execution is required Jason switches to Human Manual Mode and invokes Qiven Operator. Operator, not ad-hoc shell choreography, owns human-facing progress/state, validation sequencing, exact identity, summaries, task isolation, and managed scratch/worktree cleanup.
 
 Workflow 2 remains future/blocked: after Host Batch 001 proves production no-bypass and Context explicitly re-enables remote mutation, AI reaches the same Operator/task surface through remote transport -> Qiven Host. The caller/authority changes; local engineering semantics remain the same.
 
-JasonPC's current long-lived Qiven workspace is `D:\JasonWork`. Unmanaged `%TEMP%` repository clones are not an accepted routine validation mechanism. `OBL-20260916T102700Z-7C2A91` tracks cleanup of Qiven-v6 temporary clone debt.
+Unmanaged `%TEMP%` repository clones are not an accepted routine validation mechanism. `OBL-20260916T102700Z-7C2A91` tracks cleanup of Qiven-v6 temporary clone debt.
 
 The earlier `.cmd/.bat`-centric human-facing rule is superseded. Platform launchers are thin adapters; the project-level contract is Operator/manual-mode behavior. The underlying transient-console observability lesson remains valid but does not define the architecture.
 
@@ -56,4 +62,4 @@ ADR-0026 bounded scope/intent audit metadata and ADR-0029 recovery authority rem
 
 ## Next boundary
 
-Use/restore Qiven Operator as Workflow 1 for the next JasonPC-assisted operation. The first manual-mode cycle must reconcile the known Qiven-v6 temporary-clone debt and validate exact qiven-host candidate `49e69c02fe2ded0b9607ccb4090c21cde96b8a1c` from the long-lived Qiven workspace without creating another unmanaged `%TEMP%` clone. After local validation, use the accepted explicit CI path and perform final semantic disposition before any new Host feature work.
+Use Qiven Operator under the active `ContextView<ChatGPT, Jason>` for the next JasonPC-assisted operation. The first manual-mode cycle must reconcile the known Qiven-v6 temporary-clone debt and validate exact qiven-host candidate `49e69c02fe2ded0b9607ccb4090c21cde96b8a1c` from the long-lived Qiven workspace without creating another unmanaged `%TEMP%` clone. After local validation, use the accepted explicit CI path and perform final semantic disposition before any new Host feature work.
