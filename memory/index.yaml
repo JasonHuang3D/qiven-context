@@ -46,7 +46,7 @@ records:
     status: active
   - id: MEM-20260913T182954Z-A6D249
     file: MEM-20260913T182954Z-A6D249.md
-    title: Math scalar vocabulary is intentionally float and double only until concrete integration requires more
+    title: Math scalar vocabulary is intentionally float and double only until concrete units or numeric integration requires it
     status: active
   - id: MEM-20260913T182954Z-3F8C71
     file: MEM-20260913T182954Z-3F8C71.md
@@ -111,4 +111,8 @@ records:
   - id: MEM-20260915T203423Z-C4A912
     file: MEM-20260915T203423Z-C4A912.md
     title: Preserve canonical engineering semantics when a connector write is blocked; switch authoring path instead of rewriting the meaning
+    status: active
+  - id: MEM-20260916T040700Z-D8A4C2
+    file: MEM-20260916T040700Z-D8A4C2.md
+    title: Persist fail-closed authority transitions even when the triggering request is rejected
     status: active
