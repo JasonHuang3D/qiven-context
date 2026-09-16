@@ -2,9 +2,9 @@ schema_version: 2
 program: qiven-context
 status: active
 objective: >-
-  Migrate qiven-context to the v2 continuity model: make project cognition independent of session/model/human identity,
-  reconcile known canonical conflicts, freeze/deprecate abandoned write surfaces explicitly, make GitHub remote the current
-  context/governance trust anchor, strengthen repository invariants, and establish Project Continuity acceptance before Host work resumes.
+  Complete qiven-context v2 continuity acceptance: preserve the exact executable-validation and fresh-session Project Continuity
+  PASS evidence, separate the higher-order fresh-human Human Succession benchmark from routine acceptance, validate the corrected
+  exact candidate, and establish Context v2 canonically before Host work resumes.
 accepted_checkpoint:
   subject: qiven-host
   ref: 8e5b9dec64bf739af84e981df12afc1969599738
@@ -14,9 +14,9 @@ accepted_checkpoint:
 current_candidate:
   subject: qiven-context-v2
   ref: jason-brother/context-v2-operating-model
-  state: migration-candidate
+  state: acceptance-correction-candidate
 blockers:
-  - Context v2 requires repository validation and a fresh-session Project Continuity acceptance before canonical merge acceptance.
+  - The corrected Context v2 candidate requires one fresh exact-head repository validation before canonical merge acceptance.
   - Mutating DCR remains suspended by OBL-20260915T163500Z-9D4C72.
 paused_work:
   - qiven-host/phase-0-batch-000
@@ -24,6 +24,6 @@ paused_work:
   - qiven-dcr-win/phase-1-batch-001
   - qiven-cad
 next_boundary: >-
-  Validate the complete Context v2 remote candidate, then run a fresh-session Project Continuity test. Only after Context v2 acceptance
-  resume semantic review of the preserved Host dispatcher + protected NoOp candidate.
-updated_at: '2026-09-16T07:46:00Z'
+  Run tools/validate-candidate.cmd on the exact corrected Context v2 branch head. If PASS, canonically accept/merge Context v2,
+  then resume semantic review of the preserved Host dispatcher + protected NoOp candidate before any further Host implementation.
+updated_at: '2026-09-16T09:15:00Z'

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Qiven Context is project continuity infrastructure. Its first-order requirement is not merely session handoff: project cognition must remain usable after session loss, turn incidents, LLM or provider replacement, agent replacement, and transfer to another authorized human operator.
+Qiven Context is project continuity infrastructure. Its first-order requirement is not merely session handoff: project cognition must remain usable after session loss, turn incidents, LLM or provider replacement, agent replacement, and eventual transfer to another authorized human operator.
 
 ## Ownership boundaries
 
@@ -92,6 +92,6 @@ For current qiven-context truth, GitHub remote is authoritative and local clones
 
 ## Validation
 
-Repository validation must enforce both record schemas and operating invariants, including legacy write bans, collaboration/session separation, repository-inventory purity, active-session continuity, canonical lifecycle coherence, and governance presence.
+Repository validation must enforce both record schemas and operating invariants, including legacy write bans, collaboration/session separation, repository-inventory purity, active-session continuity, canonical lifecycle coherence, governance presence, and the existence of both continuity contracts.
 
-The highest-level acceptance is the Project Continuity Test.
+The routine highest-level Context gate is Project Continuity: fresh LLM/session reconstruction without hidden model or human-private project memory. Human Succession is a separate stronger benchmark for replacement of the authorized human operator and is run only when that property is intentionally being proved.

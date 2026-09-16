@@ -2,7 +2,7 @@
 
 ## Active objective
 
-Qiven engineering feature development is frozen while `qiven-context` migrates to the v2 continuity model on `jason-brother/context-v2-operating-model`. The migration reduces active write surfaces, reconciles known stale cognition, establishes GitHub-remote authority, and introduces Project Continuity acceptance.
+Qiven engineering feature development remains frozen while `qiven-context` completes Context v2 acceptance on `jason-brother/context-v2-operating-model`. The migration reduces active write surfaces, reconciles known stale cognition, establishes GitHub-remote authority, and makes fresh-session Project Continuity the routine highest-level Context gate.
 
 ## Context authority and governance
 
@@ -11,6 +11,14 @@ Qiven engineering feature development is frozen while `qiven-context` migrates t
 - `collaboration/` is normative only. Session continuity evidence belongs in `sessions/`.
 - Manual ledger writes are frozen. `evidence/ci`, `evidence/handoffs`, and `evidence/research` are deprecated active surfaces. Curated durable evidence remains in `evidence/audits/`.
 - Known conflicts must be canonicalized; superseded/legacy material remains historical but must not compete as active truth.
+
+## Context v2 acceptance evidence
+
+Exact predecessor candidate `8f854de4398053f68f9b571c1875a867b78836d0` passed the owner-controlled repository validation gate from a fresh detached clone: all full suites, diff checks, clean-tree, and final exact-head verification passed. Evidence is `evidence/audits/context-v2-exact-validation-2026-09-16.md`.
+
+Fresh-session Project Continuity Run 001 against the same exact remote ref also passed. It reconstructed governance, accepted/candidate boundaries, blockers/obligations, superseded/legacy cognition, live GitHub/CI facts, inconsistencies, and the next valid action without prior conversation/model memory or invented history. Evidence is `evidence/audits/project-continuity-context-v2-run001-2026-09-16.md`.
+
+Post-run review corrected one acceptance-spec defect: a fresh human operator is not required for every routine Context release. Fresh-human replaceability is now the separate higher-order Human Succession Acceptance contract. Because this correction does not change the project cognition/retrieval inputs reconstructed by Run 001, the blind continuity result carries forward; the corrected final candidate still requires a fresh exact-head repository validation before merge.
 
 ## Accepted engineering checkpoint
 
@@ -26,17 +34,15 @@ A green CI run is validation evidence, not semantic acceptance.
 
 `OBL-20260915T163500Z-9D4C72` remains open. Mutating DCR or other remote-AI execution on JasonPC stays suspended until Host Batch 001 production authority integration proves the production mutation path cannot bypass Host.
 
-Host feature work, Runtime process execution, DCR Windows Phase 1, and CAD are paused behind Context v2 continuity acceptance.
+Host feature work, Runtime process execution, DCR Windows Phase 1, and CAD remain paused until Context v2 is canonically accepted.
 
-## Current continuity inconsistencies being removed
+## Known continuity gaps
 
-- v5/v6/v7 Chat handoffs were incorrectly stored under normative `collaboration/`; v2 moves them to `sessions/legacy/`.
-- session evidence for Qiven-v2 through Qiven-v5 was not maintained. The gap is recorded; no fabricated backfill is allowed.
-- `ledger/events` stopped after 2026-09-14 and is no longer a complete cognition history; v2 freezes it as legacy instead of pretending it remains authoritative.
-- repository inventory previously cached stale SHAs while claiming `live_git` authority; v2 removes all live ref snapshots from canonical inventory.
-- old active DCR/roadmap memory that predates the split-brain authority correction is superseded rather than left active.
-- the root README and old checkpoint protocol contained obsolete Phase-0/future-work statements; v2 makes them timeless/current-contract documents.
+- session evidence for Qiven-v2 through Qiven-v5 was not maintained; no fabricated backfill is allowed;
+- the v1 ledger stopped after 2026-09-14 and is frozen legacy rather than complete cognition history;
+- `qiven-runtime` did not resolve as a GitHub repository during migration and no remote may be invented;
+- qiven-host CI push-trigger behavior still conflicts with ADR-0005 and must be corrected before normal Host checkpoint CI resumes.
 
 ## Next boundary
 
-Complete repository/schema/invariant validation on the v2 candidate and run the first fresh-session Project Continuity acceptance. After Context v2 is accepted, reconcile the Host candidate `0e35bb...` by semantic review against its exact successful CI evidence before any further Host implementation.
+Run `tools\validate-candidate.cmd <exact-corrected-head>` on the corrected Context v2 candidate. If it passes, perform Context v2 canonical acceptance/merge. Only then resume semantic review of Host candidate `0e35bb...`; do not start additional Host feature implementation first.

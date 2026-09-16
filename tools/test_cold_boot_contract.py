@@ -48,10 +48,12 @@ class ColdBootContractTests(unittest.TestCase):
         self.assertEqual(active["program"],"qiven-context")
         self.assertIn("v2 continuity",active["objective"])
 
-    def test_project_continuity_contract_covers_v2_reconstruction(self):
+    def test_project_continuity_contract_covers_v2_reconstruction_without_fresh_human_gate(self):
         contract=self.read("collaboration/project-continuity-acceptance.md")
         for required in (
             "fresh capable LLM/agent",
+            "fresh session",
+            "authorized human operator may be the existing operator or a fresh operator",
             "current governance trust boundary",
             "latest accepted engineering checkpoint",
             "current unaccepted candidate",
@@ -60,6 +62,18 @@ class ColdBootContractTests(unittest.TestCase):
             "next valid engineering action",
             "green CI",
             "semantic acceptance",
+        ):
+            self.assertIn(required,contract)
+        self.assertNotIn("fresh authorized human operator with no prior Qiven conversation",contract)
+        self.assertIn("human-succession-acceptance.md",contract)
+
+    def test_human_succession_is_separate_higher_order_contract(self):
+        contract=self.read("collaboration/human-succession-acceptance.md")
+        for required in (
+            "fresh authorized human operator",
+            "no prior private Qiven knowledge",
+            "does not bootstrap or self-grant authority",
+            "not a routine prerequisite for every Context release",
         ):
             self.assertIn(required,contract)
 

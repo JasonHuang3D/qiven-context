@@ -6,7 +6,7 @@ import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT=Path(__file__).resolve().parents[1]
-REQUIRED=["README.md","BOOTSTRAP.md","MEMORY-CONSTITUTION.md","governance/authority.yaml","state","ledger/events","memory/records","obligations","decisions","projects","sessions","sessions/legacy","evidence/audits","evidence/ci","evidence/handoffs","evidence/research","collaboration","schema","templates","generated","tests/fixtures","tests/cold-boot","tools"]
+REQUIRED=["README.md","BOOTSTRAP.md","MEMORY-CONSTITUTION.md","governance/authority.yaml","state","ledger/events","memory/records","obligations","decisions","projects","sessions","sessions/legacy","evidence/audits","evidence/ci","evidence/handoffs","evidence/research","collaboration","collaboration/project-continuity-acceptance.md","collaboration/human-succession-acceptance.md","schema","templates","generated","tests/fixtures","tests/cold-boot","tools"]
 HEADINGS=["Context","Decision","Alternatives Considered","Consequences","Revisit Conditions","Provenance"]
 SESSION_HEADINGS=["Session identity","Exact current task","Accepted refs and evidence","Unaccepted candidate refs","Pending asynchronous work","Known inconsistencies and evidence gaps","Next action"]
 INTERNAL=re.compile(r"^(?:MEM-\d{8}T\d{6}Z-[A-F0-9]{6}|OBL-\d{8}T\d{6}Z-[A-F0-9]{6}|ADR-\d{4})$")
@@ -158,16 +158,20 @@ def validate_repository(root=ROOT):
                 except Exception: continue
                 for field in ("related","supersedes","superseded_by"):
                     for ref in data.get(field,[]) or []:
-                        if INTERNAL.match(str(ref)) and ref not in known: errors.append(f"{p.name}: broken internal relation {ref}")
+                        if INTERNAL.match(str(ref)) and str(ref) not in known: errors.append(f"{p.relative_to(ROOT)}: broken internal relation {field} -> {ref}")
 
         _operating_invariants(errors)
         return errors
-    finally: ROOT=old
+    finally:
+        ROOT=old
 
-if __name__=="__main__":
-    failures=validate_repository()
-    if failures:
-        print("VALIDATION FAILED")
-        for x in failures: print(f"- {x}")
-        sys.exit(1)
-    print("Context repository validation PASS")
+def main():
+    errors=validate_repository(ROOT)
+    if errors:
+        print("Context validation FAILED")
+        for e in errors: print(" -",e)
+        return 1
+    print("Context validation PASS")
+    return 0
+
+if __name__=="__main__": sys.exit(main())
