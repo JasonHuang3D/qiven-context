@@ -3,6 +3,7 @@ import shutil, tempfile, unittest, yaml, json, sys, re
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"tools"))
 from validate_context import validate_repository
+from semantic_retriever import eligible_records
 
 class ValidatorTests(unittest.TestCase):
     def copy(self):
@@ -42,6 +43,11 @@ class ValidatorTests(unittest.TestCase):
     def test_index_missing_record(self): d=self.copy(); idx=yaml.safe_load((d/"memory/index.yaml").read_text()); idx["records"].append({"id":"MEM-20260913T010203Z-A1B2C3","file":"missing.md","title":"x","status":"active"}); (d/"memory/index.yaml").write_text(yaml.safe_dump(idx)); self.assertIn("index points to missing record",self.errors(d))
     def test_invalid_timestamp(self): d=self.copy(); p=d/"state/active-work.yaml"; p.write_text(re.sub(r"updated_at: .+","updated_at: 'not-a-timestamp'",p.read_text())); self.assertIn("invalid timestamp",self.errors(d))
     def test_broken_internal_relation(self): d=self.copy(); p=self.sample_memory(d); p.write_text(p.read_text().replace("related: []","related: [ADR-9999]")); self.assertIn("broken internal relation",self.errors(d))
+    def test_default_retrieval_corpus_excludes_superseded_records(self):
+        ids={record.id for record in eligible_records(ROOT)}
+        self.assertNotIn("ADR-0001",ids); self.assertNotIn("ADR-0002",ids); self.assertNotIn("ADR-0007",ids)
+        self.assertNotIn("MEM-20260915T092000Z-3C7A41",ids); self.assertNotIn("MEM-20260915T111500Z-42A7D1",ids)
+        self.assertIn("ADR-0030",ids); self.assertIn("ADR-0031",ids)
     def test_generated_context_is_allowed(self): d=self.copy(); (d/"generated/GLOBAL_CONTEXT.md").write_text("# Derived\n"); self.assertEqual(self.errors(d),"")
 
 if __name__=="__main__":

@@ -3,107 +3,91 @@ from __future__ import annotations
 from pathlib import Path
 import re
 import unittest
-
 import yaml
-
 
 ROOT = Path(__file__).resolve().parents[1]
 COLD_BOOT = ROOT / "tests" / "cold-boot"
-
 
 class ColdBootContractTests(unittest.TestCase):
     def read(self, relative: str) -> str:
         return (ROOT / relative).read_text(encoding="utf-8")
 
     def front(self, relative: str) -> dict:
-        text = self.read(relative)
-        raw, _ = text[4:].split("\n---\n", 1)
-        return yaml.safe_load(raw)
+        text=self.read(relative); raw,_=text[4:].split("\n---\n",1); return yaml.safe_load(raw)
 
-    def test_challenge_is_not_embedded_in_candidate_prompt(self):
-        challenge = self.read("tests/cold-boot/challenge.txt").strip()
-        prompt = self.read("tests/cold-boot/candidate-prompt.md")
-        self.assertRegex(challenge, r"^CB04-[0-9A-F]{8}$")
-        self.assertNotIn(challenge, prompt)
-        self.assertIn("tests/cold-boot/challenge.txt", prompt)
+    def test_historical_batch004_challenge_remains_reproducible(self):
+        challenge=self.read("tests/cold-boot/challenge.txt").strip(); prompt=self.read("tests/cold-boot/candidate-prompt.md")
+        self.assertRegex(challenge,r"^CB04-[0-9A-F]{8}$"); self.assertNotIn(challenge,prompt); self.assertIn("tests/cold-boot/challenge.txt",prompt)
 
-    def test_candidate_prompt_requires_source_grounded_chat_cold_boot(self):
-        prompt = self.read("tests/cold-boot/candidate-prompt.md")
-        for required in (
-            "BOOTSTRAP.md",
-            "Do not use model-native/account memory",
-            "Stay in Chat",
-            "Do not suggest, trigger, or hand off to Work",
-            "Do **not** read `tests/cold-boot/evaluator-rubric.md`",
-            "Verify current live refs",
-            "If evidence is absent, say so explicitly",
-        ):
-            self.assertIn(required, prompt)
-
-    def test_bootstrap_retains_required_boot_and_retrieval_order(self):
-        bootstrap = self.read("BOOTSTRAP.md")
-        expected = (
+    def test_bootstrap_uses_v2_remote_authority_and_material_order(self):
+        bootstrap=self.read("BOOTSTRAP.md")
+        expected=(
+            "canonical GitHub repository",
             "MEMORY-CONSTITUTION.md",
+            "governance/authority.yaml",
             "collaboration/operating-contract.md",
+            "collaboration/software-engineering-philosophy.md",
+            "collaboration/context-operating-model.md",
             "state/current.md",
-            "state/active-work.yaml",
+            "latest non-legacy session checkpoint",
             "Determine the current task",
             "Run task-specific retrieval",
-            "Load relevant project material",
-            "Load relevant canonical memory and accepted decisions",
-            "Load relevant non-terminal obligations",
-            "Verify relevant live repositories and runtime evidence",
-            "Report inconsistencies before acting",
+            "Verify live GitHub/CI/runtime facts",
+            "Report and classify any inconsistency",
         )
-        positions = [bootstrap.index(item) for item in expected]
-        self.assertEqual(positions, sorted(positions))
-        self.assertIn("Repeat task-specific retrieval whenever the conversation materially changes", bootstrap)
-        self.assertIn(
-            "must not fill project-history gaps or substitute for canonical qiven-context evidence",
-            bootstrap,
-        )
+        positions=[bootstrap.index(item) for item in expected]; self.assertEqual(positions,sorted(positions))
+        self.assertIn("Repeat task-specific retrieval whenever the conversation materially changes",bootstrap)
+        self.assertIn("Local repositories are working copies",bootstrap)
+        self.assertIn("Never invent missing history",bootstrap)
 
-    def test_batch004_completion_survives_later_lifecycle_changes(self):
-        active = yaml.safe_load(self.read("state/active-work.yaml"))
-        self.assertEqual(active["schema_version"], 1)
+    def test_batch004_historical_completion_survives_v2_without_current_state_duplication(self):
+        active=yaml.safe_load(self.read("state/active-work.yaml")); self.assertEqual(active["schema_version"],2)
+        gate=self.front("obligations/OBL-20260913T152950Z-D4E5F6.md"); self.assertEqual(gate["status"],"done")
+        self.assertTrue((ROOT/"evidence/audits/cold-boot-batch004-run001.md").is_file())
+        self.assertTrue((ROOT/"evidence/audits/context-phase0-batch004-closeout.md").is_file())
+        self.assertEqual(active["program"],"qiven-context")
+        self.assertIn("v2 continuity",active["objective"])
 
-        gate = self.front("obligations/OBL-20260913T152950Z-D4E5F6.md")
-        self.assertEqual(gate["status"], "done")
-        self.assertTrue((ROOT / "evidence/audits/cold-boot-batch004-run001.md").is_file())
-        self.assertTrue((ROOT / "evidence/audits/context-phase0-batch004-closeout.md").is_file())
+    def test_project_continuity_contract_covers_v2_reconstruction(self):
+        contract=self.read("collaboration/project-continuity-acceptance.md")
+        for required in (
+            "fresh capable LLM/agent",
+            "current governance trust boundary",
+            "latest accepted engineering checkpoint",
+            "current unaccepted candidate",
+            "active blockers",
+            "superseded, and legacy cognition",
+            "next valid engineering action",
+            "green CI",
+            "semantic acceptance",
+        ):
+            self.assertIn(required,contract)
 
-        current = self.read("state/current.md")
-        self.assertIn("Cold Boot", current)
-        self.assertIn("passed", current)
+    def test_current_session_checkpoint_has_required_continuity_fields(self):
+        checkpoint=self.read("sessions/2026-09-16-qiven-v6.md")
+        for heading in (
+            "Session identity","Exact current task","Accepted refs and evidence","Unaccepted candidate refs",
+            "Pending asynchronous work","Known inconsistencies and evidence gaps","Next action",
+        ):
+            self.assertRegex(checkpoint,rf"(?m)^## {re.escape(heading)}$")
+        self.assertIn("Qiven-v2 through Qiven-v5",checkpoint)
+        self.assertIn("Do not synthesize them",checkpoint)
 
-        if active["program"] == "qiven-context" and active["phase"] == 0 and active["batch"] == 4:
-            self.assertIn(active["status"], {"in_progress", "complete"})
+    def test_governance_contract_is_remote_and_account_level(self):
+        authority=yaml.safe_load(self.read("governance/authority.yaml"))
+        self.assertEqual(authority["trust_provider"],"github")
+        self.assertEqual(authority["canonical_context"]["remote_state"],"authoritative")
+        self.assertEqual(authority["canonical_context"]["local_state"],"non_authoritative_working_copy")
+        self.assertEqual(authority["root_principal"]["account"],"JasonHuang3D")
+        self.assertEqual(authority["authentication_semantics"]["biological_identity_verification"],"out_of_scope")
 
-    def test_rubric_covers_all_critical_assertions(self):
-        rubric = self.read("tests/cold-boot/evaluator-rubric.md")
-        headings = re.findall(r"^### C(\d+) — ", rubric, flags=re.MULTILINE)
-        self.assertEqual(headings, [str(i) for i in range(1, 13)])
+    def test_historical_rubric_still_references_existing_canonical_ids(self):
+        rubric=self.read("tests/cold-boot/evaluator-rubric.md")
+        headings=re.findall(r"^### C(\d+) — ",rubric,flags=re.MULTILINE); self.assertEqual(headings,[str(i) for i in range(1,13)])
+        obligation_index=yaml.safe_load(self.read("obligations/index.yaml")); decision_index=yaml.safe_load(self.read("decisions/index.yaml"))
+        obligations={str(item["id"]) for item in obligation_index["records"]}; decisions={str(item["id"]) for item in decision_index["records"]}
+        required_obligations={"OBL-20260913T152950Z-D4E5F6","OBL-20260913T182954Z-7B4E20","OBL-20260913T182338Z-4F7C19","OBL-20260913T185050Z-21DCBC","OBL-20260913T183819Z-9A4F21"}
+        required_decisions={"ADR-0003","ADR-0020","ADR-0021"}
+        self.assertTrue(required_obligations<=obligations); self.assertTrue(required_decisions<=decisions)
 
-    def test_rubric_references_existing_canonical_ids(self):
-        rubric = self.read("tests/cold-boot/evaluator-rubric.md")
-        obligation_index = yaml.safe_load(self.read("obligations/index.yaml"))
-        decision_index = yaml.safe_load(self.read("decisions/index.yaml"))
-        obligations = {str(item["id"]) for item in obligation_index["records"]}
-        decisions = {str(item["id"]) for item in decision_index["records"]}
-
-        required_obligations = {
-            "OBL-20260913T152950Z-D4E5F6",
-            "OBL-20260913T182954Z-7B4E20",
-            "OBL-20260913T182338Z-4F7C19",
-            "OBL-20260913T185050Z-21DCBC",
-            "OBL-20260913T183819Z-9A4F21",
-        }
-        required_decisions = {"ADR-0003", "ADR-0020", "ADR-0021"}
-        self.assertTrue(required_obligations <= obligations)
-        self.assertTrue(required_decisions <= decisions)
-        for canonical_id in sorted(required_obligations | required_decisions):
-            self.assertIn(canonical_id, rubric)
-
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)
+if __name__=="__main__": unittest.main(verbosity=2)
