@@ -6,7 +6,7 @@ records:
   - {id: ADR-0004, file: ADR-0004.md, title: Separate architecture and release authority from local implementation execution, status: accepted}
   - {id: ADR-0005, file: ADR-0005.md, title: Select GitHub CI validation explicitly after remote review, status: accepted}
   - {id: ADR-0006, file: ADR-0006.md, title: Default local validation to FULL and allow FOCUSED only by explicit CTO scope, status: accepted}
-  - {id: ADR-0007, file: ADR-0007.md, title: Keep Qiven Foundation small, foundational, and downstream-demand-driven, status: superseded}
+  - {id: ADR-0007, file: ADR-0007.md, title: 'Keep Qiven Foundation small, foundational, and downstream-demand-driven', status: superseded}
   - {id: ADR-0008, file: ADR-0008.md, title: 'Make ownership, failure behavior, and allocation semantics explicit in Foundation', status: accepted}
   - {id: ADR-0009, file: ADR-0009.md, title: 'Treat C++ object layout, ABI, IPC, wire, and persistent representation as separate boundaries', status: accepted}
   - {id: ADR-0010, file: ADR-0010.md, title: Materialize Devkit conventions as independent repository snapshots, status: accepted}
