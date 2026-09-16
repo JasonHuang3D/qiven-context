@@ -46,7 +46,7 @@ records:
     status: active
   - id: MEM-20260913T182954Z-A6D249
     file: MEM-20260913T182954Z-A6D249.md
-    title: Math scalar vocabulary is intentionally float and double only until concrete units or numeric integration requires it
+    title: Math scalar vocabulary is intentionally float and double only until concrete integration requires more
     status: active
   - id: MEM-20260913T182954Z-3F8C71
     file: MEM-20260913T182954Z-3F8C71.md
