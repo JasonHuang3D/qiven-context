@@ -61,16 +61,14 @@ class ContextCompilerCoreTests(unittest.TestCase):
         self.assertEqual(terms, query_terms(query))
 
     def test_mandatory_sources_load_in_contract_order(self):
+        import yaml
+        declaration = yaml.safe_load((ROOT / "collaboration/context-inputs.yaml").read_text(encoding="utf-8"))
         documents = load_mandatory_sources()
-        self.assertEqual(
-            [document.path for document in documents],
-            [
-                "MEMORY-CONSTITUTION.md",
-                "collaboration/operating-contract.md",
-                "state/current.md",
-                "state/active-work.yaml",
-            ],
-        )
+        self.assertEqual([document.path for document in documents],
+                         list(dict.fromkeys(["collaboration/context-inputs.yaml", *declaration["mandatory"]])))
+        for path in ("governance/authority.yaml", "collaboration/software-engineering-philosophy.md",
+                     "collaboration/context-operating-model.md", "state/repositories.yaml", "state/roadmap.yaml"):
+            self.assertIn(path, [document.path for document in documents])
 
     def test_project_documents_are_stably_sorted(self):
         documents = load_project_documents()
@@ -103,7 +101,7 @@ class ContextCompilerCoreTests(unittest.TestCase):
             {"type": "on_touch", "value": "repeated-downstream-scope-cleanup-patterns"},
             {"task": "Add ScopeExit to Foundation", "touches": []},
         )
-        self.assertEqual(result["result"], "not_triggered")
+        self.assertEqual(result["result"], "unresolved")
 
     def test_before_requires_named_boundary(self):
         trigger = {"type": "before", "value": "qiven-gas implementation batch"}
@@ -135,7 +133,7 @@ class ContextCompilerCoreTests(unittest.TestCase):
         trigger = {"type": "on_change", "value": "tools/resolve-python.cmd"}
         no = evaluate_trigger(trigger, {"task": "Discuss resolver", "changed": []})
         yes = evaluate_trigger(trigger, {"task": "Unrelated", "changed": ["tools/resolve-python.cmd"]})
-        self.assertEqual(no["result"], "not_triggered")
+        self.assertEqual(no["result"], "unresolved")
         self.assertEqual(yes["result"], "applicable")
 
     def test_on_date_is_reproducible_with_explicit_now(self):
@@ -167,7 +165,7 @@ class ContextCompilerCoreTests(unittest.TestCase):
             trigger,
             {"task": "workspace", "conditions": ["multi-repository composition is recurring"]},
         )
-        self.assertEqual(no["result"], "not_triggered")
+        self.assertEqual(no["result"], "unresolved")
         self.assertEqual(yes["result"], "due")
 
     def test_manual_trigger_never_auto_fires(self):
@@ -192,7 +190,7 @@ class ContextCompilerCoreTests(unittest.TestCase):
         self.assertIn("ADR-0024", decision_ids)
         self.assertIn("OBL-20260913T181224Z-A3F690", obligation_ids)
         obligation = next(item for item in pack["obligations"] if item["id"] == "OBL-20260913T181224Z-A3F690")
-        self.assertEqual(obligation["trigger"]["result"], "not_triggered")
+        self.assertEqual(obligation["trigger"]["result"], "unresolved")
         self.assertTrue(any(reason["kind"] in {"scope_match", "project_match", "title_match"} for reason in obligation["reasons"]))
 
     def test_math_vec3f_pack_surfaces_representation_adr(self):
@@ -274,7 +272,7 @@ class ContextCompilerCoreTests(unittest.TestCase):
         self.assertIn("# Qiven Generated Task Context", markdown)
         self.assertIn("ADR-0024", markdown)
         self.assertIn("OBL-20260913T181224Z-A3F690", markdown)
-        self.assertIn("-> **not_triggered**", markdown)
+        self.assertIn("-> **unresolved**", markdown)
         self.assertIn("semantic ownership", markdown)
         self.assertIn("Derived working context only", markdown)
 

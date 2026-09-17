@@ -12,15 +12,12 @@ import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 
 from record_lifecycle import CURRENT_STATUSES, is_current, lifecycle_fields, record_is_eligible
+from context_snapshot import SourceSnapshot, as_snapshot
+from context_inputs import mandatory_paths, resolve_constraints
+from context_evidence import record_evidence, apply_pack_budget
 
 
 ROOT = Path(__file__).resolve().parents[1]
-MANDATORY_SOURCE_PATHS = (
-    "MEMORY-CONSTITUTION.md",
-    "collaboration/operating-contract.md",
-    "state/current.md",
-    "state/active-work.yaml",
-)
 CATEGORY_LAYOUT = {
     "decisions": ("decisions/index.yaml", "decisions"),
     "memory": ("memory/index.yaml", "memory/records"),
@@ -94,7 +91,7 @@ def read_front_matter(path: Path) -> tuple[dict[str, Any], str]:
 
 
 def validate_query(query: Mapping[str, Any], root: Path = ROOT) -> None:
-    schema = _read_json(Path(root) / "schema/context-query.schema.json")
+    schema = json.loads(root.text("schema/context-query.schema.json")) if isinstance(root, SourceSnapshot) else _read_json(Path(root) / "schema/context-query.schema.json")
     errors = sorted(
         Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(dict(query)),
         key=lambda item: tuple(str(x) for x in item.absolute_path),
@@ -107,10 +104,15 @@ def validate_query(query: Mapping[str, Any], root: Path = ROOT) -> None:
 def prepare_query(query: Mapping[str, Any], root: Path = ROOT) -> dict[str, Any]:
     validate_query(query, root)
     prepared: dict[str, Any] = {"task": str(query["task"]).strip(), "record_mode": query.get("record_mode", "current")}
-    for key in ("topics", "scopes", "touches", "signals", "conditions", "changed", "include_ids"):
+    for key in ("topics", "scopes", "touches", "signals", "conditions", "changed", "include_ids", "negative_conditions", "complete_inputs"):
         prepared[key] = list(query.get(key, []))
-    if "now" in query:
-        prepared["now"] = query["now"]
+    for key in ("now", "view", "operation", "input_evidence", "max_context_bytes"):
+        if key in query:
+            from copy import deepcopy
+            prepared[key] = deepcopy(query[key])
+    for field in prepared["complete_inputs"]:
+        if not prepared.get("input_evidence", {}).get(field):
+            raise ValueError(f"complete_inputs requires an evidence reference for {field}")
     return prepared
 
 
@@ -144,10 +146,10 @@ def query_terms(query: Mapping[str, Any]) -> tuple[str, ...]:
     return normalize_tokens(values)
 
 
-def load_mandatory_sources(root: Path = ROOT) -> tuple[SourceDocument, ...]:
+def load_mandatory_sources(root: Path = ROOT, query: Mapping[str, Any] | None = None) -> tuple[SourceDocument, ...]:
     root = Path(root)
     documents: list[SourceDocument] = []
-    for relative in MANDATORY_SOURCE_PATHS:
+    for relative in mandatory_paths(root, query):
         path = root / relative
         if not path.is_file():
             raise FileNotFoundError(f"missing mandatory context source: {relative}")
@@ -282,6 +284,11 @@ def evaluate_trigger(
     conditions = [str(item) for item in query.get("conditions", []) or []]
     changed = [str(item) for item in query.get("changed", []) or []]
     trigger_value = str(value or "")
+    complete = set(query.get("complete_inputs", []))
+    evidence = query.get("input_evidence", {})
+    def absence_result(field):
+        return "not_triggered" if field in complete and evidence.get(field) else "unresolved"
+
 
     if trigger_type == "manual":
         result.update(result="manual", explanation="Manual trigger requires an explicit human decision.")
@@ -295,8 +302,8 @@ def evaluate_trigger(
         candidates = [*touches, *scopes, *topics, task]
         matched = trigger_value_matches(trigger_value, candidates)
         result.update(
-            result="applicable" if matched else "not_triggered",
-            explanation="Trigger target matches the task/touch scope." if matched else "No deterministic task/touch match for trigger target.",
+            result="applicable" if matched else absence_result("touches"),
+            explanation="Trigger target matches the task/touch scope." if matched else "No match; absence requires an evidenced complete touches set.",
         )
         return result
 
@@ -322,8 +329,8 @@ def evaluate_trigger(
     if trigger_type == "on_change":
         matched = trigger_value_matches(trigger_value, changed)
         result.update(
-            result="applicable" if matched else "not_triggered",
-            explanation="Changed set matches trigger target." if matched else "Changed set does not match trigger target.",
+            result="applicable" if matched else absence_result("changed"),
+            explanation="Changed set matches trigger target." if matched else "No match; absence requires an evidenced complete changed set.",
         )
         return result
 
@@ -348,11 +355,19 @@ def evaluate_trigger(
         return result
 
     if trigger_type == "condition":
-        matched = trigger_value_matches(trigger_value, conditions)
-        result.update(
-            result="due" if matched else "not_triggered",
-            explanation="Condition is explicitly asserted true by the query." if matched else "Condition is not explicitly asserted true by the query.",
-        )
+        # Conditions are named assertions, not bags of words: "not X" must not match X.
+        positive = _canonical_text(trigger_value) in {_canonical_text(x) for x in conditions}
+        negative = _canonical_text(trigger_value) in {
+            _canonical_text(str(x)) for x in query.get("negative_conditions", [])}
+        if positive and negative:
+            result.update(result="unresolved", explanation="Contradictory positive and negative condition assertions.")
+        elif positive:
+            result.update(result="due", explanation="Condition explicitly asserted true by caller; not authorization evidence.")
+        elif negative:
+            result.update(result="not_triggered", explanation="Condition explicitly asserted false by caller.")
+        else:
+            result.update(result=absence_result("conditions"),
+                          explanation="Condition absent; only an evidenced complete condition set supports a negative result.")
         return result
 
     result.update(result="unresolved", explanation=f"Unsupported trigger type: {trigger_type}.")
@@ -609,8 +624,8 @@ def _format_utc(value: datetime) -> str:
     return value.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
-def compile_context_pack(
-    query: Mapping[str, Any], root: Path = ROOT, *, now: datetime | None = None
+def _compile_context_pack(
+    query: Mapping[str, Any], root: Path, snapshot: SourceSnapshot, *, now: datetime | None = None
 ) -> dict[str, Any]:
     root = Path(root)
     prepared = prepare_query(query, root)
@@ -642,11 +657,20 @@ def compile_context_pack(
             "path": document.path,
             "reasons": [{"kind": "mandatory", "value": "always-loaded operating context"}],
         }
-        for document in load_mandatory_sources(root)
+        for document in load_mandatory_sources(root, prepared)
     ]
 
-    return {
-        "schema_version": 2,
+    constraints = resolve_constraints(root, prepared, store)
+    by_path = {r.path: r for rows in store.values() for r in rows}
+    for rows in (decisions, memory, obligations):
+        for row in rows:
+            row["evidence"] = record_evidence(by_path[row["path"]], snapshot)
+    pack = {
+        "schema_version": 3,
+        "snapshot": snapshot.manifest(),
+        "constraints": constraints,
+        "readiness": "review_required" if constraints["prohibited"] or constraints["status"] == "unresolved" else "context_loaded",
+        "authorization": "not_granted",
         "generated_at": generated_at,
         "query": prepared,
         "mandatory_sources": mandatory_sources,
@@ -659,3 +683,12 @@ def compile_context_pack(
             key=lambda item: (item["level"], item["code"], item["message"]),
         ),
     }
+
+    apply_pack_budget(pack, snapshot)
+    return pack
+
+
+def compile_context_pack(query: Mapping[str, Any], root=ROOT, *, now: datetime | None = None) -> dict[str, Any]:
+    snapshot = as_snapshot(root)
+    with snapshot.materialize() as frozen:
+        return _compile_context_pack(query, frozen, snapshot, now=now)

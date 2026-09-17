@@ -1,12 +1,14 @@
 from __future__ import annotations
 
+from context_snapshot import bind_snapshot
+
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 from record_lifecycle import record_is_eligible
 
-from context_compiler import CanonicalRecord, compile_context_pack
+from context_compiler import CanonicalRecord, prepare_query, select_project_documents
 from hybrid_retriever import DEFAULT_RRF_K, DEFAULT_TOP_K, HybridRetriever, reciprocal_rank
 from semantic_retriever import DEFAULT_MODEL, eligible_records
 
@@ -42,9 +44,12 @@ def project_scopes(record: CanonicalRecord) -> set[str]:
 
 def infer_active_project_scopes(query: Mapping[str, Any], root: Path = ROOT) -> set[str]:
     """Use the existing Context Compiler's project selection as the scope resolver."""
-    pack = compile_context_pack(query, root)
+    snapshot = bind_snapshot(root)
+    prepared = prepare_query(query, snapshot)
+    with snapshot.materialize() as frozen:
+        projects = select_project_documents(prepared, frozen)
     active: set[str] = set()
-    for item in pack.get("projects", []) or []:
+    for item in projects:
         path = Path(str(item["path"]))
         if len(path.parts) >= 2 and path.parts[0] == "projects":
             active.add(f"qiven-{path.parts[1]}".casefold())
@@ -119,7 +124,8 @@ class StructuralRetriever:
     ) -> None:
         if graph_seed_top_k < 1:
             raise ValueError("graph_seed_top_k must be >= 1")
-        self.root = Path(root)
+        self.snapshot = bind_snapshot(root, hybrid_retriever)
+        self.root = self.snapshot
         self.hybrid = (
             hybrid_retriever
             if hybrid_retriever is not None

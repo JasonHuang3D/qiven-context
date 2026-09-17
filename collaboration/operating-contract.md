@@ -1,5 +1,11 @@
 # Operating Contract
 
+For qiven-context Python semantics and source-contract work, the project owner's
+2026-09-17 authorization in `collaboration/context-validation.md` (ADR-0032)
+applies: jason-brother validates directly in the agent runtime, without duplicate
+JasonPC validation. Platform-dependent work and Host/DCR restrictions remain scoped
+as described below.
+
 ## User
 Project owner, PM, and machine-local validation authority.
 

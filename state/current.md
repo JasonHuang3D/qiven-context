@@ -2,9 +2,19 @@
 
 ## Active objective
 
-Context v2, `ContextView<ChatGPT, Jason>`, and Qiven Operator Human Manual Mode are operational and canonical. Qiven-v6 is closed. The active objective is now `OBL-20260916T125000Z-5A8C31`: design `qiven-context.exe` / Context Engine as a semantic provider-consumer system with representation-independent storage, provenance, lifecycle, authority, migration, and backup/export behavior.
+Context R1 (C01-C06) is accepted. C01 is accepted by merge
+`6913c903fac9a9222f40943433ab3d9d47712054` after the owner's JasonPC ALL PASS report.
+R1 adds shared mandatory inputs, protected constraint coverage,
+lossless record evidence, immutable read snapshots and explicit unknown semantics.
+Implementation candidate `0ababe93290213afd3167e66efa75300eb1b9672` passed 11 portable suites / 119 tests. Acceptance evidence is `evidence/audits/context-r1-2026-09-17.md`.
 
-Architecture begins from semantic ownership and contracts rather than selecting a database product. GitHub remote `JasonHuang3D/qiven-context` remains canonical until a separately accepted authority migration proves semantic equivalence, provenance, continuity, backup/restore, and governance behavior.
+Under ADR-0032, jason-brother validates portable Context Python/source-contract
+changes directly in the agent runtime, without duplicate JasonPC validation.
+Machine-specific changes still require evidence from the relevant environment.
+
+Context Engine architecture remains the subsequent design objective under
+`OBL-20260916T125000Z-5A8C31`; it has not acquired an accepted architecture candidate.
+GitHub remote remains canonical until an independently accepted authority migration.
 
 ## Accepted Context v2 operational checkpoint
 
@@ -22,7 +32,7 @@ Architecture begins from semantic ownership and contracts rather than selecting 
 
 ## ContextView<ChatGPT, Jason>
 
-Workflow 1 is active: ChatGPT may develop remotely, then Jason switches to Human Manual Mode and invokes Qiven Operator for machine-local evidence or execution. Workflow 2 remains fail-closed until Host production authority is accepted.
+Workflow 1 remains active for JasonPC-dependent work. Portable Context Python/source-contract changes are implemented and validated directly by jason-brother under ADR-0032. Workflow 2 remains fail-closed until Host production authority is accepted.
 
 ## Safety and mutation guardrails
 
@@ -33,4 +43,7 @@ Workflow 1 is active: ChatGPT may develop remotely, then Jason switches to Human
 
 ## Next boundary
 
-Define the Context Engine semantic architecture: ContextKernel object model, provider command surface, AI-consumer query and ContextBundle surface, ContextView compilation, provenance and lifecycle semantics, transaction boundaries, storage abstraction, Git migration, deterministic backup/export/restore, and explicit authority-cutover criteria. Do not resume Host implementation first and do not canonicalize a storage technology before these semantics are accepted.
+R1 is complete. The next remediation boundary is review of C07/C08
+(normative-contract cleanup and structural lifecycle invariants) before continuing
+the representation-independent Context Engine architecture. Do not resume Host
+implementation or select canonical storage technology first.

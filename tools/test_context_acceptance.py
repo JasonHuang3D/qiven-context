@@ -108,7 +108,7 @@ class ContextCompilerAcceptanceTests(unittest.TestCase):
         obligation = next(
             item for item in broad["obligations"] if item["id"] == "OBL-20260913T181224Z-9E27A4"
         )
-        self.assertEqual(obligation["trigger"]["result"], "not_triggered")
+        self.assertEqual(obligation["trigger"]["result"], "unresolved")
 
         exact = compile_context_pack(
             {
@@ -133,7 +133,7 @@ class ContextCompilerAcceptanceTests(unittest.TestCase):
         obligation = next(
             item for item in pack["obligations"] if item["id"] == "OBL-20260913T183819Z-2C7A11"
         )
-        self.assertEqual(obligation["trigger"]["result"], "not_triggered")
+        self.assertEqual(obligation["trigger"]["result"], "unresolved")
 
         query["conditions"] = [
             "multi-native-repository version composition or coordinated validation becomes recurring manual coordination work"

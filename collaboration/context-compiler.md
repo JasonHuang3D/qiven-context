@@ -5,6 +5,8 @@ That contract governs current/history modes, explicit historical inspection,
 terminal obligations, and v2 output qualification. Other Batch 003 mechanisms
 below remain scoped to their stated implementation boundary.
 
+Current R1 read behavior is defined by [Context Read Contract](context-read-contract.md). It governs mandatory-input resolution, constraint coverage, v3 snapshot-bound output, and unknown-condition handling where the historical v1 description below differs.
+
 ## Purpose
 
 Batch 003 turns the canonical cognition captured by `qiven-context` into task-specific working context without making generated output canonical.

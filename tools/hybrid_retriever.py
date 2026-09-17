@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from context_snapshot import bind_snapshot
+
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Mapping, Protocol, Sequence
@@ -49,7 +51,7 @@ def deterministic_reason_score(category: str, reasons: Sequence[Mapping[str, str
     return score
 
 def deterministic_rank(query: Mapping[str, Any], root: Path = ROOT) -> list[DeterministicHit]:
-    pack=compile_context_pack(query,root); rows=[]
+    pack=compile_context_pack({k:v for k,v in query.items() if k != "max_context_bytes"},root); rows=[]
     for category in ("decisions","memory","obligations"):
         for item in pack.get(category,[]) or []:
             canonical_id=item.get("id")
@@ -66,7 +68,8 @@ def reciprocal_rank(rank: int | None, *, k: int = DEFAULT_RRF_K) -> float:
 class HybridRetriever:
     """Equal-weight RRF over current deterministic and semantic retrieval."""
     def __init__(self, root: Path = ROOT, *, semantic_retriever: SemanticRanker | None = None, semantic_model: str = DEFAULT_MODEL, deterministic_ranker: DeterministicRanker | None = None) -> None:
-        self.root=Path(root)
+        self.snapshot=bind_snapshot(root,semantic_retriever)
+        self.root=self.snapshot
         self.semantic_retriever=semantic_retriever if semantic_retriever is not None else SemanticRetriever(self.root,model_name=semantic_model)
         self.semantic_model=str(self.semantic_retriever.model_name)
         self.deterministic_ranker=deterministic_ranker or deterministic_rank

@@ -1,5 +1,11 @@
 # ChatGPT + Jason Local Execution Workflow
 
+For qiven-context Python semantics and source-contract work, the project owner's
+2026-09-17 authorization in `collaboration/context-validation.md` (ADR-0032)
+applies: jason-brother validates directly in the agent runtime, without duplicate
+JasonPC validation. Platform-dependent work and Host/DCR restrictions remain scoped
+as described below.
+
 This workflow belongs to `ContextView<ChatGPT, Jason>`. It adapts Qiven's project truth to Jason's current workstation and collaboration model; it is not a project-global assumption for every future human or agent.
 
 Qiven uses one local orchestration plane, Qiven Operator, with two authority/trigger workflows.

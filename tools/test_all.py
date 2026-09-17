@@ -36,6 +36,7 @@ SUITES = (
     SuiteRun("repository-validator", "tools/test.py"),
     SuiteRun("context-compiler", "tools/test_context_compiler.py"),
     SuiteRun("record-lifecycle", "tools/test_record_lifecycle.py"),
+    SuiteRun("context-r1", "tools/test_context_r1.py"),
     SuiteRun("hybrid-retrieval", "tools/test_hybrid_retrieval.py"),
     SuiteRun("structural-retrieval", "tools/test_structural_retrieval.py"),
     SuiteRun("rerank-retrieval", "tools/test_rerank_retrieval.py"),
