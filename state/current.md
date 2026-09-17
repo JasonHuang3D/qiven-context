@@ -2,6 +2,12 @@
 
 ## Active objective
 
+ContextKernel K3 is accepted on implementation candidate
+`a8c817f3115c29e32ecb7c5a6bf00d03566b1761`: immutable kernel read projection,
+resolved views, compatible queries/bundles, replay binding and full-envelope
+protected budgets. Evidence: `evidence/audits/context-k3-review-2026-09-17.md`
+and the 193-test log. No K4 implementation has started.
+
 ContextKernel K2 is accepted on implementation candidate
 `4e18ffadf6d112539e68fe2ba9e2e0413d6efa03`: immutable request identity, exact revision
 preconditions, old-policy/live admission, atomic receipt/result/head publication,
@@ -45,6 +51,5 @@ Workflow 1 remains active for JasonPC-dependent work. Portable Context Python/so
 
 ## Next boundary
 
-K3: resolved ContextViews and a compatible query/ContextBundle pipeline with fixed
-old/new semantic equivalence fixtures under ADR-0033. K3 has not started. K4 remains
-a separate export/restore and continuity batch. Host stays paused.
+K4: canonical export/restore, completeness diagnostics and continuity proof under
+ADR-0033. Production storage and authority cutover remain separate. Host stays paused.

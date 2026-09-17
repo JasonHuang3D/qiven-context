@@ -1,17 +1,17 @@
 schema_version: 2
 program: qiven-context
 status: active
-objective: ContextKernel K2 is accepted; next boundary is K3 resolved views and compatible
-  query/ContextBundle semantics.
+objective: ContextKernel K3 is accepted; next boundary is K4 canonical export,
+  restore completeness and continuity proof.
 accepted_checkpoint:
-  subject: context-engine-k2
-  ref: 4e18ffadf6d112539e68fe2ba9e2e0413d6efa03
-  evidence:
-  - 13 portable Python suites / 175 tests PASS in agent runtime
-  - evidence/audits/context-k2-review-2026-09-17.md
-  - evidence/audits/context-k2-python-validation-2026-09-17.txt
-current_candidate:
   subject: context-engine-k3
+  ref: a8c817f3115c29e32ecb7c5a6bf00d03566b1761
+  evidence:
+  - 14 portable Python suites / 193 tests PASS in agent runtime
+  - evidence/audits/context-k3-review-2026-09-17.md
+  - evidence/audits/context-k3-python-validation-2026-09-17.txt
+current_candidate:
+  subject: context-engine-k4
   ref: not-created
   state: not-started
 blockers: []
@@ -20,7 +20,7 @@ paused_work:
 - qiven-runtime/process-execution
 - qiven-dcr-win/phase-1-batch-001
 - qiven-cad
-next_boundary: Implement and independently validate K3 old/new read equivalence under
-  ADR-0033. K4 remains separate; no production storage decision, authority cutover
-  or resumed Host work.
-updated_at: '2026-09-17T13:02:57Z'
+next_boundary: Implement and independently validate K4 canonical export/restore and
+  continuity under ADR-0033; no production storage decision, authority cutover or
+  resumed Host work.
+updated_at: '2026-09-17T13:55:00Z'
