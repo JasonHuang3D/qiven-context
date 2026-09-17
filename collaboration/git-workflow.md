@@ -1,5 +1,11 @@
 # Git Workflow
 
+For qiven-context Python semantics and source-contract work, the project owner's
+2026-09-17 authorization in `collaboration/context-validation.md` (ADR-0032)
+applies: jason-brother validates directly in the agent runtime, without duplicate
+JasonPC validation. Platform-dependent work and Host/DCR restrictions remain scoped
+as described below.
+
 - Remote-native branches created directly by jason-brother normally use `jason-brother/<name>`.
 - Local-execution branches implemented by jason-worker normally use `jason-worker/<name>`.
 - jason-worker commits locally and does not push by default; the user pushes worker branches for remote review unless a separately accepted authority path explicitly permits the push.

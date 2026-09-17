@@ -20,6 +20,8 @@ Do not rely on model-native memory, a prior chat, a local clone, or a remembered
 14. Report and classify any inconsistency before acting. Reconcile known conflicts under the canonicalization rules instead of leaving competing active truth indefinitely.
 15. Before machine-local mutation, re-evaluate the current Host/DCR execution-authority gate and the active ContextView workflow. Transport reachability or a clean local tree is never sufficient authority.
 
+The machine input declaration is `collaboration/context-inputs.yaml`; compiler and candidate-bundle entrypoints resolve it through the same loader. See `collaboration/context-read-contract.md` for protected constraints, snapshot evidence and query semantics.
+
 Repeat task-specific retrieval whenever the conversation materially changes domain, repository, subsystem, or engineering question.
 
 ## Source discipline

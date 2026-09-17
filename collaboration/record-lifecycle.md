@@ -42,11 +42,11 @@ lifecycle interpretation.
 
 ## Output and compatibility
 
-Compiled packs and candidate bundles use `schema_version: 2`. Canonical selections
+Compiled packs and candidate bundles use `schema_version: 3` under the R1 Context Read Contract. Canonical selections
 carry the original `status`, `current_eligible`, `supersedes`, and `superseded_by`.
 Missing replacement links remain empty; no relationship is inferred or fabricated.
 Markdown packs display lifecycle qualification and include the original source.
-Existing v1 derived packs should be regenerated; they are not canonical records.
+Existing v1/v2 derived packs should be regenerated; they are not canonical records.
 
 Terminal obligations may be inspected but are never evaluated as outstanding
 work. Their generated trigger has `type: inactive` and `result: inactive`; their
@@ -62,8 +62,8 @@ Current-query semantic embeddings retain the existing model input. Historical
 records are embedded on first requested inspection and cached by record identity
 within the retriever instance. Returning to a current query reapplies lifecycle
 qualification; previously cached history cannot leak into the current results.
-Retriever instances remain bound to their loaded repository materialization;
-create a new instance after source mutation. Snapshot enforcement is C05.
+Retriever instances are bound to the immutable source snapshot introduced by C05;
+create a new instance for a later source revision.
 
 `tools/test_record_lifecycle.py` checks all schema-defined states across the real
 entrypoints with deterministic model backends, including relation leakage,

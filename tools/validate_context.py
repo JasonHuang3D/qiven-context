@@ -81,6 +81,16 @@ def _operating_invariants(errors):
         for h in SESSION_HEADINGS:
             if not re.search(rf"^## {re.escape(h)}\s*$",body,re.M): errors.append(f"{latest.relative_to(ROOT)}: missing session heading {h}")
 
+    try:
+        from context_inputs import checked_yaml, mandatory_paths
+        declaration = checked_yaml(ROOT, "collaboration/context-inputs.yaml", "context-inputs.schema.json")
+        mandatory_paths(ROOT)
+        for view in declaration["views"]:
+            mandatory_paths(ROOT, {"view": view})
+        checked_yaml(ROOT, "governance/context-constraints.yaml", "context-constraints.schema.json")
+    except Exception as exc:
+        errors.append(f"Context input declaration: {exc}")
+
     boot=(ROOT/"BOOTSTRAP.md").read_text(encoding="utf-8") if (ROOT/"BOOTSTRAP.md").is_file() else ""
     for required in ("governance/authority.yaml","collaboration/context-operating-model.md","state/repositories.yaml"):
         if required not in boot: errors.append(f"BOOTSTRAP.md: missing v2 mandatory source {required}")

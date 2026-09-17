@@ -1,0 +1,28 @@
+schema_version: 1
+# This is a declared applicability index, not an execution authorization service.
+rules:
+  - id: project-governance
+    when: {}
+    effect: require
+    sources:
+      - governance/authority.yaml
+      - collaboration/operating-contract.md
+      - collaboration/software-engineering-philosophy.md
+  - id: jasonpc-remote-mutation-suspension
+    when:
+      action: [write, execute, validate]
+      target: [jasonpc]
+      channel: [remote-ai]
+    effect: prohibit
+    sources:
+      - obligations/OBL-20260915T163500Z-9D4C72.md
+      - decisions/ADR-0026.md
+      - decisions/ADR-0027.md
+  - id: canonical-publication-review
+    when:
+      action: [merge, publish]
+    effect: require
+    sources:
+      - decisions/ADR-0021.md
+      - collaboration/git-workflow.md
+      - collaboration/context-validation.md

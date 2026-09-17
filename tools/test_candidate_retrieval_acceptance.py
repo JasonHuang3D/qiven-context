@@ -16,26 +16,19 @@ from candidate_retrieval_acceptance import (  # noqa: E402
     evaluate_acceptance,
     load_candidate_acceptance,
 )
-from context_compiler import CanonicalRecord  # noqa: E402
+from context_compiler import load_canonical_store
+from context_snapshot import as_snapshot  # noqa: E402
 
 
 class FakeRetriever:
     def __init__(self):
-        self.records = {}
-        for canonical_id in ("ADR-A", "ADR-B", "ADR-C", "ADR-D"):
-            self.records[canonical_id] = CanonicalRecord(
-                category="decisions",
-                id=canonical_id,
-                path=f"decisions/{canonical_id}.md",
-                title=canonical_id,
-                status="accepted",
-                metadata={},
-                body=f"canonical body for {canonical_id}",
-            )
+        self.snapshot = as_snapshot(ROOT)
+        with self.snapshot.materialize() as frozen:
+            self.records = {r.id: r for rows in load_canonical_store(frozen).values() for r in rows}
 
     def rank(self, query):
         task = str(query["task"])
-        order = ["ADR-A", "ADR-B", "ADR-C"] if "positive" in task else ["ADR-D", "ADR-C", "ADR-B"]
+        order = ["ADR-0003", "ADR-0004", "ADR-0005"] if "positive" in task else ["ADR-0006", "ADR-0005", "ADR-0004"]
         return [
             SimpleNamespace(
                 id=canonical_id,
@@ -69,8 +62,8 @@ class CandidateRetrievalAcceptanceTests(unittest.TestCase):
                     "critical": True,
                     "cognition_expectation": "answer",
                     "query": {"task": "positive task"},
-                    "required_ids": ["ADR-A"],
-                    "forbidden_ids": ["ADR-D"],
+                    "required_ids": ["ADR-0003"],
+                    "forbidden_ids": ["ADR-0006"],
                 },
                 {
                     "id": "negative-case",
@@ -89,7 +82,7 @@ class CandidateRetrievalAcceptanceTests(unittest.TestCase):
         self.assertEqual(result["metrics"]["positive_top1_required_rate"], 1.0)
         self.assertEqual(result["metrics"]["forbidden_top1_hits"], 0)
         self.assertEqual(result["cognition_status"], "manual-pending")
-        self.assertEqual(result["cases"][1]["candidate_ids"], ["ADR-D", "ADR-C", "ADR-B"])
+        self.assertEqual(result["cases"][1]["candidate_ids"], ["ADR-0006", "ADR-0005", "ADR-0004"])
 
     def test_loader_rejects_wrong_cognition_expectation(self):
         payload = {
@@ -110,7 +103,7 @@ class CandidateRetrievalAcceptanceTests(unittest.TestCase):
                     "critical": True,
                     "cognition_expectation": "abstain",
                     "query": {"task": "bad expectation"},
-                    "required_ids": ["ADR-A"],
+                    "required_ids": ["ADR-0003"],
                     "forbidden_ids": [],
                 }
             ],

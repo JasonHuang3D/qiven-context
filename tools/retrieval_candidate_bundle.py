@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from record_lifecycle import lifecycle_fields, record_is_eligible
+from context_snapshot import bind_snapshot, canonical_json
+from context_evidence import record_evidence, attach_sources, validate_bound_sources
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -34,12 +36,15 @@ def build_candidate_bundle(
 
     # Imports remain lazy so normal context-compiler use does not acquire the
     # optional semantic/reranker runtime merely by importing this module.
-    from context_compiler import prepare_query
+    from context_compiler import prepare_query, compile_context_pack
     from rerank_retriever import RerankedRetriever, record_text
 
-    root = Path(root)
-    prepared = prepare_query(query, root)
-    active = retriever if retriever is not None else RerankedRetriever(root)
+    snapshot = bind_snapshot(root, retriever)
+    prepared = prepare_query(query, snapshot)
+    envelope_query = {k: v for k, v in prepared.items() if k != "max_context_bytes"}
+    envelope = compile_context_pack(envelope_query, snapshot)
+    prepared["now"] = envelope["query"]["now"]
+    active = retriever if retriever is not None else RerankedRetriever(snapshot)
     ranked = [hit for hit in active.rank(prepared)
               if record_is_eligible(active.records[hit.id], prepared)]
     explicit = set(prepared["include_ids"])
@@ -73,12 +78,18 @@ def build_candidate_bundle(
                     "graph_candidate": hit.graph_candidate,
                     "explicit": hit.explicit,
                 },
-                "content": record_text(record),
+                "content": snapshot.text(record.path),
+                "evidence": record_evidence(record, snapshot),
             }
         )
 
-    return {
-        "schema_version": 2,
+    bundle = {
+        "schema_version": 3,
+        "snapshot": snapshot.manifest(),
+        "mandatory_sources": envelope["mandatory_sources"],
+        "constraints": envelope["constraints"],
+        "readiness": envelope["readiness"],
+        "authorization": "not_granted",
         "role": CANDIDATE_ROLE,
         "answerability": "unresolved",
         "instruction": CANDIDATE_INSTRUCTION,
@@ -90,3 +101,17 @@ def build_candidate_bundle(
             for canonical_id in sorted(explicit - set(active.records))
         ],
     }
+
+    budget = prepared.get("max_context_bytes")
+    bundle["budget"] = {"limit_bytes": budget, "omitted": []}
+    attach_sources(bundle, snapshot)
+    optional = [r for r in candidates if r["id"] not in explicit]
+    while budget is not None and len(canonical_json(bundle)) > budget and optional:
+        removed = optional.pop()
+        candidates.remove(removed)
+        bundle["budget"]["omitted"].append(removed["id"])
+        attach_sources(bundle, snapshot)
+    if budget is not None and len(canonical_json(bundle)) > budget:
+        raise ValueError("Context byte budget cannot contain protected inputs, constraints and explicit evidence")
+    validate_bound_sources(bundle)
+    return bundle

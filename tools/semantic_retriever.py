@@ -8,6 +8,7 @@ from typing import Any, Iterable, Mapping, Protocol, Sequence
 
 from context_compiler import CanonicalRecord, load_canonical_store, prepare_query
 from record_lifecycle import record_is_eligible
+from context_snapshot import SourceSnapshot, as_snapshot
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -102,7 +103,11 @@ def _record_text(record: CanonicalRecord) -> str:
 
 def eligible_records(root: Path = ROOT, query: Mapping[str, Any] | None = None) -> tuple[CanonicalRecord, ...]:
     """Select lifecycle-qualified records without changing their status."""
-    store = load_canonical_store(root)
+    if isinstance(root, SourceSnapshot):
+        with root.materialize() as frozen:
+            store = load_canonical_store(frozen)
+    else:
+        store = load_canonical_store(root)
     rows = [record for records in store.values() for record in records
             if record_is_eligible(record, query or {})]
     return tuple(sorted(rows, key=lambda record: record.id))
@@ -130,7 +135,8 @@ class SemanticHit:
 
 class SemanticRetriever:
     def __init__(self, root: Path = ROOT, *, backend: EmbeddingBackend | None = None, model_name: str = DEFAULT_MODEL) -> None:
-        self.root = Path(root)
+        self.snapshot = as_snapshot(root)
+        self.root = self.snapshot
         self.backend = backend if backend is not None else FastEmbedBackend(model_name=model_name)
         self.model_name = str(self.backend.model_name)
         # Load all metadata, but embed historical bodies only when requested.

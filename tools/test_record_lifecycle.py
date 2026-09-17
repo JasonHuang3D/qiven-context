@@ -54,6 +54,13 @@ class LifecycleTests(unittest.TestCase):
             target = cls.root / path
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text("fixture\n", encoding="utf-8")
+        inputs = {"schema_version": 1, "mandatory": ["MEMORY-CONSTITUTION.md",
+                  "collaboration/operating-contract.md", "state/current.md", "state/active-work.yaml"], "views": {}}
+        (cls.root / "collaboration/context-inputs.yaml").write_text(yaml.safe_dump(inputs), encoding="utf-8")
+        (cls.root / "governance").mkdir()
+        rules = {"schema_version": 1, "rules": [{"id": "fixture", "when": {}, "effect": "require",
+                 "sources": ["MEMORY-CONSTITUTION.md"]}]}
+        (cls.root / "governance/context-constraints.yaml").write_text(yaml.safe_dump(rules), encoding="utf-8")
         cls.by_status = {}
         for category, states in KNOWN_STATUSES.items():
             folder = "memory/records" if category == "memory" else category

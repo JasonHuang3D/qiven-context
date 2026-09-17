@@ -9,7 +9,8 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
-from context_compiler import CanonicalRecord  # noqa: E402
+from context_compiler import load_canonical_store
+from context_snapshot import as_snapshot  # noqa: E402
 from retrieval_candidate_bundle import (  # noqa: E402
     CANDIDATE_ROLE,
     build_candidate_bundle,
@@ -18,49 +19,14 @@ from retrieval_candidate_bundle import (  # noqa: E402
 
 class FakeRetriever:
     def __init__(self):
-        self.records = {
-            "ADR-TEST-1": CanonicalRecord(
-                category="decisions",
-                id="ADR-TEST-1",
-                path="decisions/ADR-TEST-1.md",
-                title="First candidate",
-                status="accepted",
-                metadata={"scope": ["qiven-test"], "tags": ["first"]},
-                body="The first candidate directly states a durable rule.",
-            ),
-            "MEM-TEST-2": CanonicalRecord(
-                category="memory",
-                id="MEM-TEST-2",
-                path="memory/records/MEM-TEST-2.md",
-                title="Second candidate",
-                status="active",
-                metadata={"scope": ["qiven-test"], "tags": ["second"]},
-                body="The second candidate is related background.",
-            ),
-            "OBL-TEST-3": CanonicalRecord(
-                category="obligations",
-                id="OBL-TEST-3",
-                path="obligations/OBL-TEST-3.md",
-                title="Third candidate",
-                status="open",
-                metadata={"scope": ["qiven-test"], "tags": ["third"]},
-                body="The third candidate is an open obligation.",
-            ),
-            "ADR-TEST-4": CanonicalRecord(
-                category="decisions",
-                id="ADR-TEST-4",
-                path="decisions/ADR-TEST-4.md",
-                title="Fourth candidate",
-                status="accepted",
-                metadata={"scope": ["qiven-test"], "tags": ["fourth"]},
-                body="The fourth candidate must be cut by the bundle ceiling.",
-            ),
-        }
+        self.snapshot = as_snapshot(ROOT)
+        with self.snapshot.materialize() as frozen:
+            self.records = {r.id: r for rows in load_canonical_store(frozen).values() for r in rows}
         self._hits = [
-            self._hit("ADR-TEST-1", 1, 4.2, deterministic_rank=1, semantic_rank=2),
-            self._hit("MEM-TEST-2", 2, 2.1, deterministic_rank=None, semantic_rank=1),
-            self._hit("OBL-TEST-3", 3, 0.4, deterministic_rank=3, semantic_rank=5),
-            self._hit("ADR-TEST-4", 4, -0.2, deterministic_rank=4, semantic_rank=7),
+            self._hit("ADR-0003", 1, 4.2, deterministic_rank=1, semantic_rank=2),
+            self._hit("MEM-20260913T170803Z-A61F2C", 2, 2.1, deterministic_rank=None, semantic_rank=1),
+            self._hit("OBL-20260915T163500Z-9D4C72", 3, 0.4, deterministic_rank=3, semantic_rank=5),
+            self._hit("ADR-0004", 4, -0.2, deterministic_rank=4, semantic_rank=7),
         ]
 
     @staticmethod
@@ -101,7 +67,7 @@ class RetrievalCandidateBundleTests(unittest.TestCase):
         )
         self.assertEqual(
             [item["id"] for item in bundle["candidates"]],
-            ["ADR-TEST-1", "MEM-TEST-2", "OBL-TEST-3"],
+            ["ADR-0003", "MEM-20260913T170803Z-A61F2C", "OBL-20260915T163500Z-9D4C72"],
         )
         self.assertEqual(bundle["max_candidates"], 3)
 
@@ -113,8 +79,8 @@ class RetrievalCandidateBundleTests(unittest.TestCase):
             max_candidates=1,
         )
         candidate = bundle["candidates"][0]
-        self.assertEqual(candidate["path"], "decisions/ADR-TEST-1.md")
-        self.assertIn("durable rule", candidate["content"])
+        self.assertEqual(candidate["path"], "decisions/ADR-0003.md")
+        self.assertIn("Source data remains inspectable", candidate["content"])
         self.assertEqual(candidate["candidate_rank"], 1)
         self.assertEqual(candidate["ranking"]["deterministic_rank"], 1)
         self.assertEqual(candidate["ranking"]["semantic_rank"], 2)

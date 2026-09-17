@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from context_snapshot import bind_snapshot
+
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Protocol, Sequence
@@ -127,7 +129,8 @@ class RerankedRetriever:
         semantic_model: str = DEFAULT_MODEL,
         rerank_model: str = DEFAULT_RERANK_MODEL,
     ) -> None:
-        self.root = Path(root)
+        self.snapshot = bind_snapshot(root, hybrid_retriever)
+        self.root = self.snapshot
         self.hybrid = (
             hybrid_retriever
             if hybrid_retriever is not None

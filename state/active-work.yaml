@@ -1,28 +1,26 @@
 schema_version: 2
 program: qiven-context
 status: active
-objective: >-
-  Design qiven-context.exe / Context Engine as a semantic provider-consumer architecture with
-  representation-independent storage, provenance, lifecycle, migration, backup/export, and authority-cutover semantics.
+objective: 'Complete Context R1 (C01-C06): lifecycle consistency, shared mandatory
+  inputs, protected constraints, lossless evidence, immutable read snapshots and explicit
+  unknown-condition semantics.'
 accepted_checkpoint:
-  subject: qiven-context-v2-operator-runtime
-  ref: canonical-main
+  subject: context-c01-lifecycle
+  ref: 6913c903fac9a9222f40943433ab3d9d47712054
   evidence:
-    - 'Context v2 Project Continuity Run 001 PASS'
-    - 'ContextView + Operator runtime candidate a3ee448731ae26cce3cbf4afaa12d4d492769141 accepted by merge 35343c50c6df50d0ffc35664b24d029360787f35'
-    - 'Project owner reported Qiven Operator cleanup-v6-temp ALL PASS on 2026-09-16'
+  - Owner reported C01 ALL PASS on candidate 151294cffa2b91995b9c814df0a72d64e6312986
+  - evidence/audits/context-r1-2026-09-17.md
 current_candidate:
-  subject: qiven-context-engine-architecture
-  ref: OBL-20260916T125000Z-5A8C31
-  state: architecture-definition-active
+  subject: context-r1-c01-c06
+  ref: jason-brother/context-r1
+  state: integrated-validation-pending
 blockers: []
 paused_work:
-  - qiven-host/49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
-  - qiven-runtime/process-execution
-  - qiven-dcr-win/phase-1-batch-001
-  - qiven-cad
-next_boundary: >-
-  Establish the representation-independent Context Engine semantic model and authority boundary before selecting
-  persistence technology or implementing qiven-context.exe. Preserve GitHub as canonical until a separately accepted
-  migration proves semantic equivalence, provenance, continuity, backup/restore, and governance behavior.
-updated_at: '2026-09-16T18:20:26Z'
+- qiven-host/49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
+- qiven-runtime/process-execution
+- qiven-dcr-win/phase-1-batch-001
+- qiven-cad
+next_boundary: Finish one integrated R1 validation and exact remote review. C07/C08
+  remain the next remediation boundary; Context Engine architecture is still unaccepted
+  and follows remediation.
+updated_at: '2026-09-17T06:23:10Z'

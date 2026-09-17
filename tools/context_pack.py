@@ -7,6 +7,8 @@ from typing import Any, Mapping
 
 from jsonschema import Draft202012Validator, FormatChecker
 
+from context_evidence import validate_bound_sources
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -17,9 +19,12 @@ def _read_json(path: Path) -> dict[str, Any]:
 
 def validate_context_pack(pack: Mapping[str, Any], root: Path = ROOT) -> None:
     """Validate a generated pack without relying on remote schema resolution."""
-    root = Path(root)
-    pack_schema = deepcopy(_read_json(root / "schema/context-pack.schema.json"))
-    query_schema = _read_json(root / "schema/context-query.schema.json")
+    try:
+        validate_bound_sources(pack)
+        pack_schema = deepcopy(json.loads(pack["source_contents"]["schema/context-pack.schema.json"]["content"]))
+        query_schema = json.loads(pack["source_contents"]["schema/context-query.schema.json"]["content"])
+    except (KeyError, TypeError, json.JSONDecodeError) as exc:
+        raise ValueError(f"invalid snapshot-bound context pack: {exc}") from exc
 
     # context-pack.schema.json keeps the canonical relative $ref for humans/tools.
     # Runtime validation in Phase 0 stays local and deterministic by inlining the
@@ -40,19 +45,13 @@ def _reason_text(item: Mapping[str, Any]) -> str:
     return "; ".join(f"{reason['kind']}={reason['value']}" for reason in reasons)
 
 
-def _source_body(path: str, root: Path) -> str:
-    target = root / path
-    if not target.is_file():
-        raise FileNotFoundError(f"selected context source is missing: {path}")
-    return target.read_text(encoding="utf-8").rstrip()
-
-
 def _render_source_section(
     title: str,
     items: list[Mapping[str, Any]],
     root: Path,
     *,
     show_trigger: bool = False,
+    source_contents: Mapping | None = None,
 ) -> list[str]:
     lines = [f"## {title}", ""]
     if not items:
@@ -81,7 +80,7 @@ def _render_source_section(
             lines.append("")
             lines.append(f"Completion: {item['completion']}")
             lines.append("")
-        lines.append(_source_body(str(item["path"]), root))
+        lines.append(source_contents[str(item["path"])]["content"].rstrip())
         lines.extend(["", "---", ""])
     return lines
 
@@ -98,6 +97,7 @@ def render_context_markdown(pack: Mapping[str, Any], root: Path = ROOT) -> str:
         "> Derived working context only. Canonical truth remains in the referenced source files.",
         "",
         f"Generated at: `{pack['generated_at']}`",
+        f"Snapshot: `{pack['snapshot']['id']}`; commit: `{pack['snapshot']['git_commit']}`",
         "",
         f"Task: {query['task']}",
         f"Record mode: {query.get('record_mode', 'current')}",
@@ -112,19 +112,25 @@ def render_context_markdown(pack: Mapping[str, Any], root: Path = ROOT) -> str:
     if selectors:
         lines.extend(["## Query Selectors", "", *selectors, ""])
 
-    lines.extend(_render_source_section("Mandatory Operating Context", list(pack["mandatory_sources"]), root))
-    lines.extend(_render_source_section("Project Context", list(pack["projects"]), root))
-    lines.extend(_render_source_section("Decisions", list(pack["decisions"]), root))
-    lines.extend(_render_source_section("Canonical Memory", list(pack["memory"]), root))
+    lines.extend(_render_source_section("Mandatory Operating Context", list(pack["mandatory_sources"]), root, source_contents=pack["source_contents"]))
+    lines.extend(_render_source_section("Project Context", list(pack["projects"]), root, source_contents=pack["source_contents"]))
+    lines.extend(_render_source_section("Decisions", list(pack["decisions"]), root, source_contents=pack["source_contents"]))
+    lines.extend(_render_source_section("Canonical Memory", list(pack["memory"]), root, source_contents=pack["source_contents"]))
     lines.extend(
         _render_source_section(
             "Obligations (terminal records are inspection only)",
             list(pack["obligations"]),
             root,
             show_trigger=True,
+            source_contents=pack["source_contents"],
         )
     )
 
+    lines.extend(["## Protected constraints", "", "Execution authorization: not granted.", ""])
+    for rule in pack["constraints"]["rules"]:
+        lines.extend([f"### {rule['id']}: {rule['applicability']} / {rule['effect']}", ""])
+        for path in rule["sources"]:
+            lines.extend([f"Source: `{path}`", "", pack["source_contents"][path]["content"].rstrip(), ""])
     lines.extend(["## Diagnostics", ""])
     diagnostics = pack.get("diagnostics", []) or []
     if diagnostics:
