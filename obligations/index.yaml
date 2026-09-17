@@ -99,4 +99,4 @@ records:
   - id: OBL-20260916T125000Z-5A8C31
     file: OBL-20260916T125000Z-5A8C31.md
     title: Design qiven-context.exe as a semantic Context Engine with representation-independent storage
-    status: open
+    status: done

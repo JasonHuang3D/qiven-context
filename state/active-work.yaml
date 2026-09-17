@@ -1,24 +1,24 @@
 schema_version: 2
 program: qiven-context
 status: active
-objective: Context R2 C07-C08 is accepted. Next objective is the representation-independent
-  Context Engine semantic architecture.
+objective: Revised ADR-0033 accepts the ContextKernel architecture. Next boundary
+  is K1 semantic objects, serialization and exact Git import.
 accepted_checkpoint:
-  subject: context-r2-lifecycle-coherence
-  ref: 88a6fedeaf7dda8d19620a6adc9c447aa02e85b5
-  evidence:
-  - 11 portable Python suites / 126 tests PASS in agent runtime
-  - evidence/audits/context-r2-2026-09-17.md
-current_candidate:
   subject: context-engine-architecture
+  ref: decisions/ADR-0033.md
+  evidence:
+  - Explicit user approval of review corrections and authorization to publish and merge
+  - evidence/audits/context-engine-architecture-review-2026-09-17.md
+current_candidate:
+  subject: context-engine-k1
   ref: not-created
-  state: design-not-started
+  state: not-started
 blockers: []
 paused_work:
 - qiven-host/49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
 - qiven-runtime/process-execution
 - qiven-dcr-win/phase-1-batch-001
 - qiven-cad
-next_boundary: Define and accept the representation-independent Context Engine semantic
-  architecture before selecting storage or resuming Host implementation.
-updated_at: '2026-09-17T08:41:15Z'
+next_boundary: Define K1 fixtures and implement only the K1 boundary under ADR-0033.
+  No production storage choice, authority cutover or resumed Host work is authorized.
+updated_at: '2026-09-17T09:12:00Z'
