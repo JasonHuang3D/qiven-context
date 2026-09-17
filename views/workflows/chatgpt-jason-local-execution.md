@@ -37,6 +37,23 @@ Jason is an authority/physical-execution participant, not a substitute automatio
 engine. Human effort should be reduced to a short, legible trigger plus review of a
 deterministic final summary.
 
+### Human view versus machine view
+
+Human Manual Mode uses the Operator's **human view** by default. Do not add global
+`--json` to an owner-run acceptance command merely because the resulting evidence or
+artifact is machine-readable: `--json` deliberately selects the machine view and
+suppresses human `[RUN]` / `[WAIT]` / `[OK]` / `[FAIL]` rendering and heartbeat.
+
+When an owner-run task must expose structured stdout from a successful child task,
+use human view with `--verbose`; this preserves liveness while showing the child's
+final machine-readable summary after that task completes. Reserve global `--json`
+for agents/automation that require one stable final JSON object and do not require a
+human progress display.
+
+This distinction is part of the execution contract. A human-facing acceptance command
+that is silent for its material duration because it was unnecessarily forced into
+machine view is an invocation error, not acceptable Human Manual Mode evidence.
+
 ## Artifact-acceptance roles are not duplicate validation
 
 ADR-0032 removes redundant JasonPC execution of portable Python/source tests. It does
@@ -53,6 +70,13 @@ verification.
 The required Operator task is part of the K4 implementation. Until that task exists,
 use only a minimal explicit bootstrap fallback; do not reinterpret its absence as
 permission to run the producer role inside the authoring LLM.
+
+For an owner-run K4 producer trial, invoke the Operator in human view and use
+`--verbose` so the producer's final JSON summary (including artifact path and digests)
+is visible after successful completion while heartbeat remains visible during the
+gate. Do not use global `--json` for that manual trial. The handoff artifact itself,
+not the Operator terminal rendering mode, is the machine-readable object transferred
+to the fresh consumer.
 
 ## Workflow 2 — AI-controlled JasonPC through Host
 

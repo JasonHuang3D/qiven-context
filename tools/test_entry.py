@@ -1,6 +1,6 @@
 """Cross-platform process entry for qiven-context test suites only.
 
-This module changes no production Context semantics.  It repairs two fixture-runtime
+This module changes no production Context semantics.  It repairs fixture-runtime
 assumptions before executing a suite:
 
 * sqlite3.Connection's context manager commits/rolls back but does not own/close the
@@ -10,6 +10,10 @@ assumptions before executing a suite:
 * the K1 synthetic Git fixture mutates canonical Markdown through text mode.  Git is
   told to normalize committed text to LF so the synthetic commit uses the same
   canonical line ending as exact Git source snapshots on every OS.
+* suite scripts are resolved to physical absolute paths before ``runpy`` execution.
+  Tests that intentionally change cwd and spawn a fresh copy via ``__file__`` must
+  therefore remain bound to the repository script rather than reinterpreting a
+  relative ``tools/...`` path under the temporary cwd.
 
 The normal public runner remains ``python tools/test_all.py``.
 """
@@ -57,7 +61,7 @@ def _append_git_config(key: str, value: str) -> None:
 def main() -> int:
     if len(sys.argv) < 2:
         raise SystemExit("usage: test_entry.py TEST_SCRIPT [ARGS ...]")
-    target = Path(sys.argv[1])
+    target = Path(sys.argv[1]).resolve()
     if not target.is_file():
         raise SystemExit(f"test target does not exist: {target}")
 
