@@ -4,7 +4,7 @@
 
 The owner reported work advanced in another account and explicitly authorized
 review, direct remediation and continuation when coherent. jason-brother reviewed
-remote main `3e1d1be` (full identity is bound in the publication parent) against
+remote main `3e1d1bed27072e0a49e2c2d78b303267288c85b9` against
 previous R1 merge `fa06d1475df85e4654838d133b2b2292bf305b34`.
 The intervening work is R2 C07/C08 and revised accepted ADR-0033.
 Portable Python validation follows ADR-0032 and batch merging follows ADR-0021.
@@ -46,10 +46,29 @@ also imported using its full resolved commit ID. No historical Git depth is need
 
 ## Validation and publication
 
-The implementation candidate receives one integrated portable regression gate plus
-repository validation. The exact candidate SHA, test totals, raw output and any
-failure are recorded in the acceptance closeout or merge evidence after execution.
-This pre-validation review is not itself a PASS claim.
+PASS on exact implementation candidate
+`8493e5dd39404cf30d7e410029e0d3a1ba6547f3`, tree
+`3a921639ae18156ec0f72ce336661b4a54a00727`.
+
+Python 3.12.14 on Linux; repository requirements PyYAML 6.0.2 and jsonschema
+4.23.0 installed in an isolated agent directory. No JasonPC execution was used.
+`python tools/test_all.py`: 12 portable suites, 149 tests, zero failures,
+12.12 seconds elapsed. K1 has 22 tests; the repository validator adds one malformed
+relation regression to R2's prior 126-test baseline. The unchanged Windows-only
+Python resolver suite was skipped on Linux. Repository validation also PASS.
+The working tree was clean and the reviewed diff passed whitespace validation.
+
+Full output: `evidence/audits/context-k1-python-validation-2026-09-17.txt`.
+SHA-256: `cadd022c5ccdd9ce782917140ac08da76861dbe2526e023d6528e807e1190d71`.
+All suites passed on the first integrated implementation gate. An earlier retrieval
+attempt encountered missing jsonschema in the expired prior temporary dependency
+location; requirements were installed before implementation validation. This was
+not a kernel test failure.
+
+Acceptance closeout changes only this audit, its raw log, current state, active work
+and session continuity. No code/schema/fixtures/contracts change after the integrated
+PASS. Final exact-head repository validation and tree/ref checks are required and
+recorded in the merge commit; the full implementation evidence carries forward.
 
 K2 is the next separate implementation boundary after K1 acceptance. K1 supplies
 no durable receipts, concurrent commit, query-equivalence, complete backup/restore,

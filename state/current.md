@@ -2,25 +2,21 @@
 
 ## Active objective
 
-Context R2 (C07-C08) is accepted on implementation candidate
-`88a6fedeaf7dda8d19620a6adc9c447aa02e85b5`. C07 makes the historical Batch 003
-compiler baseline explicitly subordinate to the current lifecycle/R1 contracts.
-C08 defines and enforces the reciprocal, acyclic structural supersession graph
-across ADRs, memory and obligations. The candidate passed 11 portable suites /
-126 tests. Acceptance evidence is `evidence/audits/context-r2-2026-09-17.md`.
+ContextKernel K1 is accepted on implementation candidate
+`8493e5dd39404cf30d7e410029e0d3a1ba6547f3`: versioned semantic serialization,
+immutable objects, a non-authoritative memory reference store and exact Git-tree
+import. Evidence: `evidence/audits/context-k1-review-2026-09-17.md` and the linked
+149-test raw log. The review also hardened R2 lifecycle diagnostics/long chains
+and corrected R1 source capture to use raw Git blobs without export transforms.
+
+R1 and R2 remain accepted. Revised ADR-0033 is the accepted architecture; K1 proves
+only its first implementation boundary. Imported instances remain quarantined;
+historical authentication and absent revision ancestry remain explicitly unknown.
+GitHub remote remains canonical. No storage product or authority cutover is selected.
 
 Under ADR-0032, jason-brother validates portable Context Python/source-contract
 changes directly in the agent runtime, without duplicate JasonPC validation.
 Machine-specific changes still require evidence from the relevant environment.
-
-Revised ADR-0033 accepts the Context Engine architecture and closes
-`OBL-20260916T125000Z-5A8C31`. It defines ContextKernel semantics, typed provider
-commands and consumer queries, immutable snapshot transactions, ContextView and
-ContextBundle compilation, a capability-based storage port, deterministic export/
-restore, staged Git migration and a separately governed authority cutover. It is
-accepted as architecture only and selects no storage product. GitHub remote remains canonical.
-The re-review corrections and acceptance limits are recorded in
-`evidence/audits/context-engine-architecture-review-2026-09-17.md`.
 
 ## Accepted Context v2 operational checkpoint
 
@@ -49,6 +45,6 @@ Workflow 1 remains active for JasonPC-dependent work. Portable Context Python/so
 
 ## Next boundary
 
-K1: semantic objects, versioned serialization and exact Git import with fixed
-acceptance fixtures. K2-K4 require separate batch evidence. No production storage
-choice, authority cutover or resumed Host work is authorized by this acceptance.
+K2: transaction, authority and idempotency protocol, including concurrent writers,
+ambiguous outcomes and restart-capable receipt evidence under ADR-0033. K2 has not
+started; K3/K4 remain separate batches. No resumed Host work or authority cutover.
