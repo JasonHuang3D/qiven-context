@@ -21,6 +21,9 @@
     },
     "cleanup-v6-temp": {
       "argv": ["python", "tools/cleanup_qiven_v6_temp.py"]
+    },
+    "k4-handoff-producer": {
+      "argv": [".venv/Scripts/python.exe", "tools/k4_handoff_producer.py"]
     }
   },
   "gates": {
@@ -29,6 +32,13 @@
       "full-tests",
       "diff-check",
       "clean-tree"
+    ],
+    "k4-handoff-acceptance": [
+      "bootstrap",
+      "full-tests",
+      "diff-check",
+      "clean-tree",
+      "k4-handoff-producer"
     ]
   },
   "ci": {}

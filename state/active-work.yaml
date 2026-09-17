@@ -2,9 +2,9 @@ schema_version: 2
 program: qiven-context
 status: active
 objective: >-
-  Correct Context continuity semantic drift at the root. K4 must prove a causal
-  Canonical Artifact Handoff with an independent producer and isolated fresh LLM
-  consumer; the earlier remote-cold-boot-shaped challenge is insufficient for K4.
+  Complete corrected ContextKernel K4: causal Canonical Artifact Handoff with an
+  independent JasonPC producer and isolated fresh LLM consumer, then preserve K4 as
+  the correctness reference for deferred K5 token-efficient lossless transport.
 accepted_checkpoint:
   subject: context-engine-k3
   ref: a8c817f3115c29e32ecb7c5a6bf00d03566b1761
@@ -15,21 +15,19 @@ accepted_checkpoint:
 current_candidate:
   subject: context-engine-k4
   ref: refs/heads/jason-brother/context-k4
-  state: contract-corrected-runtime-handoff-implementation-required
+  state: corrected-handoff-runtime-implemented-awaiting-validation-and-acceptance
 blockers:
-- The K4 runtime does not yet emit/consume the corrected self-describing handoff JSON with a digest-bound LLM-readable continuity projection.
-- Qiven Operator does not yet expose the K4 JasonPC producer task required by the current ChatGPT+Jason acceptance topology.
-- The corrected exact K4 candidate still requires the integrated engineering gate, JasonPC producer execution, isolated fresh-consumer Phase A, Phase B live verification, dated audit and final exact-head validation.
+- JasonPC must run the one-shot Qiven Operator gate k4-handoff-acceptance on the exact remote candidate; it supplies the integrated engineering gate plus the independent producer artifact/evidence.
+- An isolated fresh LLM must complete artifact-only Phase A, then Phase B live verification; the dated audit and final exact-head validation remain required before K4 acceptance.
 paused_work:
 - qiven-host/49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
 - qiven-runtime/process-execution
 - qiven-dcr-win/phase-1-batch-001
 - qiven-cad
 next_boundary: >-
-  Implement the corrected K4 handoff runtime, tests and Operator producer task on the
-  feature branch. After K4 acceptance, deferred obligation
-  OBL-20260917T192300Z-A7C4E2 activates K5 lossless token-efficient transport.
-  Do not run or claim K4 cognitive acceptance until an exact candidate can be
-  produced on JasonPC and handed to an isolated fresh LLM under
-  collaboration/context-handoff-contract.md. Keep main at K3.
+  Publish/review the corrected K4 runtime exact head, then run Qiven Operator gate
+  k4-handoff-acceptance in machine-readable JSON mode with --expect-head bound to that
+  exact remote SHA. Transfer the generated handoff JSON to an isolated fresh LLM for
+  Phase A. After K4 acceptance, OBL-20260917T192300Z-A7C4E2 activates K5 lossless
+  token-efficient transport. Keep main at K3 until K4 gates pass.
 updated_at: '2026-09-17T19:23:00Z'

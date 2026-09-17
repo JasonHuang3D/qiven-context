@@ -3,6 +3,7 @@ mandatory:
   - MEMORY-CONSTITUTION.md
   - governance/authority.yaml
   - collaboration/operating-contract.md
+  - collaboration/context-validation.md
   - collaboration/software-engineering-philosophy.md
   - collaboration/context-operating-model.md
   - collaboration/context-handoff-contract.md

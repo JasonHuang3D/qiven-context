@@ -42,6 +42,7 @@ SUITES = (
     SuiteRun("context-kernel-k3", "tools/test_context_reads.py"),
     SuiteRun("context-kernel-k4", "tools/test_context_archive.py"),
     SuiteRun("context-kernel-k4-cli-failure", "tools/test_context_archive_cli_failure.py"),
+    SuiteRun("context-kernel-k4-handoff", "tools/test_context_handoff.py"),
     SuiteRun("hybrid-retrieval", "tools/test_hybrid_retrieval.py"),
     SuiteRun("structural-retrieval", "tools/test_structural_retrieval.py"),
     SuiteRun("rerank-retrieval", "tools/test_rerank_retrieval.py"),
