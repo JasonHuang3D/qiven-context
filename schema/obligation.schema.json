@@ -74,12 +74,26 @@
     "related": {
       "type": "array",
       "items": {"type": "string", "pattern": "^(MEM-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}|OBL-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}|ADR-[0-9]{4})$"}
+    },
+    "supersedes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^(MEM-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}|OBL-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}|ADR-[0-9]{4})$"}
+    },
+    "superseded_by": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^(MEM-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}|OBL-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}|ADR-[0-9]{4})$"}
     }
   },
   "allOf": [
     {
       "if": {"properties": {"status": {"enum": ["open", "deferred", "blocked"]}}, "required": ["status"]},
       "then": {"required": ["trigger"]}
+    },
+    {
+      "if": {"properties": {"status": {"const": "superseded"}}, "required": ["status"]},
+      "then": {"required": ["superseded_by"], "properties": {"superseded_by": {"minItems": 1}}}
     }
   ],
   "additionalProperties": false

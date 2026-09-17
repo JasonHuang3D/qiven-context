@@ -1,4 +1,4 @@
-# Canonical Record Lifecycle Query Contract
+# Canonical Record Lifecycle Contract
 
 This contract defines C01 lifecycle eligibility for the compiler, semantic and
 hybrid retrieval, structural and reranked retrieval, and candidate bundles. It
@@ -39,6 +39,35 @@ These rules determine admissibility, not identical ranking across algorithms.
 Raw ranking hits are identifiers/scores to inspect, not self-contained knowledge.
 Consumers use compiled records, candidate bundles, or the original records for
 lifecycle interpretation.
+
+## Structural supersession graph
+
+`supersedes` and `superseded_by` are the two directions of one canonical
+replacement relation, not independent annotations. The graph is allowed to cross
+record categories when a newer ADR, memory record, or obligation genuinely
+replaces the older record's canonical role. Causal influence, supporting context,
+or a merely related decision belongs in `sources` or `related`, not in the
+supersession graph.
+
+Repository validation enforces these invariants:
+
+- every referenced record exists and a record cannot supersede itself;
+- relation lists contain no duplicates;
+- every `A supersedes B` edge is reciprocal: `B superseded_by A`;
+- a record with `superseded_by` has lifecycle status `superseded`, and every
+  record whose status is `superseded` names at least one successor;
+- every record named by `supersedes` has lifecycle status `superseded`;
+- the directed replacement graph is acyclic.
+
+A successor may later become superseded and therefore participate in the middle
+of a replacement chain. Retraction, archival, rejection, cancellation and
+completion are terminal dispositions with different meanings; they must not be
+encoded as supersession merely to remove a record from current retrieval.
+
+Obligations use the same optional `supersedes` and `superseded_by` fields as ADRs
+and memory. A superseded obligation must identify its successor. Non-superseded
+obligations may omit both fields for compatibility; readers normalize absence to
+empty lists.
 
 ## Output and compatibility
 
