@@ -15,19 +15,23 @@ accepted_checkpoint:
 current_candidate:
   subject: context-engine-k4
   ref: refs/heads/jason-brother/context-k4
-  state: corrected-handoff-runtime-implemented-awaiting-validation-and-acceptance
+  state: corrected-canonical-conflict-requires-second-blind-handoff-trial
 blockers:
-- JasonPC must run the one-shot Qiven Operator gate k4-handoff-acceptance on the exact remote candidate; it supplies the integrated engineering gate plus the independent producer artifact/evidence.
-- An isolated fresh LLM must complete artifact-only Phase A, then Phase B live verification; the dated audit and final exact-head validation remain required before K4 acceptance.
+- The first real K4 artifact handoff trial against 9a59cbb10ff0558a3d3bfc7f4a2b46cecd766ddc proved artifact-only reconstruction and Phase B live verification without cognition repair, but exposed an internal canonical command-mode conflict; that trial is diagnostic evidence, not acceptance.
+- Publish the corrected exact K4 candidate and rerun the one-shot Qiven Operator gate k4-handoff-acceptance on JasonPC in owner-run Human Manual Mode using human view with --verbose and exact --expect-head binding. Preserve the producer summary including artifact path and handoff/package/manifest identities.
+- A new isolated fresh LLM must complete a second artifact-only Phase A, then Phase B live verification from the corrected artifact; the dated acceptance audit and final exact-head validation remain required before K4 acceptance.
 paused_work:
 - qiven-host/49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
 - qiven-runtime/process-execution
 - qiven-dcr-win/phase-1-batch-001
 - qiven-cad
 next_boundary: >-
-  Publish/review the corrected K4 runtime exact head, then run Qiven Operator gate
-  k4-handoff-acceptance in machine-readable JSON mode with --expect-head bound to that
-  exact remote SHA. Transfer the generated handoff JSON to an isolated fresh LLM for
-  Phase A. After K4 acceptance, OBL-20260917T192300Z-A7C4E2 activates K5 lossless
-  token-efficient transport. Keep main at K3 until K4 gates pass.
-updated_at: '2026-09-17T19:23:00Z'
+  Publish/review the corrected K4 exact head, then run Qiven Operator gate
+  k4-handoff-acceptance in owner-run Human Manual Mode using the human view with
+  --verbose and --expect-head bound to that exact remote SHA. Preserve the producer
+  summary including artifact path and handoff/package/manifest identities. Transfer
+  the newly generated handoff JSON to a new isolated fresh LLM for Phase A, followed
+  by Phase B. Do not carry forward the first blind trial because this correction
+  changes mandatory cognition consumed by the artifact. Keep main at K3 until the
+  second blind trial, dated acceptance audit and final exact-head validation pass.
+updated_at: '2026-09-18T04:28:00+08:00'
