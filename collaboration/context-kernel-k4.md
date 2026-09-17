@@ -71,10 +71,12 @@ No write-unlock/promotion API is provided.
 
 Restoration requires an empty adapter and atomically publishes objects, evidence,
 retained committed results, selected head and the read-only block. Failures roll
-back all adapter changes. Imported Git snapshots can be inspected through K3;
-they do not acquire native transaction governance. Historical snapshots can be
-exported explicitly without importing later receipts. Package hashes prove
-integrity, not signer identity or authority.
+back all adapter changes. The CLI claims its database and source-directory targets
+exclusively and removes invocation-owned outputs on ordinary exceptions; it does not
+claim power-loss atomicity across the SQLite file and source directory. Imported Git
+snapshots can be inspected through K3; they do not acquire native transaction
+governance. Historical snapshots can be exported explicitly without importing later
+receipts. Package hashes prove integrity, not signer identity or authority.
 
 ## Acceptance and invocation
 
@@ -83,7 +85,9 @@ availability-independent roots, missing/corrupt/extra objects, omission diagnost
 unknown external references, nonempty-target rejection, retained receipts, persistent
 read-only admission and known-secret rejection. A new Python process receives only
 the package and fixed query corpus, disables Git reads and reconstructs 28 compiler/
-bundle outputs (seven queries, two view selections, two entrypoints).
+bundle outputs (seven queries, two view selections, two entrypoints). CLI failure-path
+coverage also proves ordinary source-materialization failures do not publish a restored
+database artifact.
 
 A separate fresh LLM session must reconstruct the ten points in
 project-continuity-acceptance.md from the restored exact candidate plus admitted live

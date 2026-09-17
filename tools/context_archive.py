@@ -3,6 +3,7 @@ import argparse
 from datetime import datetime, timezone
 import json
 from pathlib import Path
+import shutil
 
 from context_kernel import import_git_snapshot
 from context_kernel.archive import export_snapshot, restore_export, MAX_PACKAGE_BYTES
@@ -42,11 +43,28 @@ def main():
         if not restored.report['complete']:
             print(json.dumps(restored.report));return 2
         read=KernelReadSnapshot.capture(restored.store.get,restored.store.blob,restored.snapshot)
-        restored.to_sqlite(SQLiteReference(args.database))
-        args.sources.mkdir()
-        for path,raw in read.source.files.items():
-            target=args.sources/path;target.parent.mkdir(parents=True,exist_ok=True)
-            with target.open('xb') as stream:stream.write(raw)
+        sources_owned=False
+        database_owned=False
+        try:
+            # Materialize reviewable sources before publishing the runnable reference
+            # adapter. Both targets are claimed exclusively and removed on ordinary
+            # failure; K4 deliberately does not claim power-loss atomicity.
+            args.sources.mkdir()
+            sources_owned=True
+            for path,raw in read.source.files.items():
+                target=args.sources/path;target.parent.mkdir(parents=True,exist_ok=True)
+                with target.open('xb') as stream:stream.write(raw)
+            with args.database.open('xb'):
+                pass
+            database_owned=True
+            restored.to_sqlite(SQLiteReference(args.database))
+        except BaseException:
+            if database_owned:
+                for suffix in ('','-wal','-shm'):
+                    Path(str(args.database)+suffix).unlink(missing_ok=True)
+            if sources_owned:
+                shutil.rmtree(args.sources,ignore_errors=True)
+            raise
         print(json.dumps({'snapshot':restored.snapshot,'manifest_digest':restored.manifest_digest,**restored.report}))
     return 0
 
