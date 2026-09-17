@@ -15,7 +15,7 @@
     "diagnostics"
   ],
   "properties": {
-    "schema_version": {"const": 1},
+    "schema_version": {"const": 2},
     "generated_at": {"type": "string", "format": "date-time"},
     "query": {"$ref": "context-query.schema.json"},
     "mandatory_sources": {
@@ -79,11 +79,18 @@
     "selection": {
       "type": "object",
       "required": ["path", "reasons"],
+      "allOf": [{
+        "if": {"required": ["id"]},
+        "then": {"required": ["status", "current_eligible", "supersedes", "superseded_by"]}
+      }],
       "properties": {
         "id": {"type": "string", "minLength": 1},
         "path": {"type": "string", "minLength": 1},
         "title": {"type": "string", "minLength": 1},
         "status": {"type": "string", "minLength": 1},
+        "current_eligible": {"type": "boolean"},
+        "supersedes": {"type": "array", "items": {"type": "string"}},
+        "superseded_by": {"type": "array", "items": {"type": "string"}},
         "reasons": {
           "type": "array",
           "minItems": 1,
@@ -97,11 +104,11 @@
       "required": ["type", "result", "explanation"],
       "properties": {
         "type": {
-          "enum": ["on_touch", "before", "after", "on_change", "on_date", "condition", "manual"]
+          "enum": ["on_touch", "before", "after", "on_change", "on_date", "condition", "manual", "inactive"]
         },
         "value": {"type": "string", "minLength": 1},
         "result": {
-          "enum": ["due", "applicable", "not_triggered", "manual", "unresolved"]
+          "enum": ["due", "applicable", "not_triggered", "manual", "unresolved", "inactive"]
         },
         "explanation": {"type": "string", "minLength": 1}
       },
@@ -109,12 +116,15 @@
     },
     "obligation_selection": {
       "type": "object",
-      "required": ["id", "path", "status", "reasons", "trigger", "completion"],
+      "required": ["id", "path", "status", "current_eligible", "supersedes", "superseded_by", "reasons", "trigger", "completion"],
       "properties": {
         "id": {"type": "string", "pattern": "^OBL-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}$"},
         "path": {"type": "string", "minLength": 1},
         "title": {"type": "string", "minLength": 1},
-        "status": {"enum": ["open", "deferred", "blocked"]},
+        "status": {"enum": ["open", "deferred", "blocked", "done", "cancelled", "superseded"]},
+        "current_eligible": {"type": "boolean"},
+        "supersedes": {"type": "array", "items": {"type": "string"}},
+        "superseded_by": {"type": "array", "items": {"type": "string"}},
         "reasons": {
           "type": "array",
           "minItems": 1,

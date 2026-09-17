@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from record_lifecycle import record_is_eligible
+
 from context_compiler import CanonicalRecord, compile_context_pack
 from hybrid_retriever import DEFAULT_RRF_K, DEFAULT_TOP_K, HybridRetriever, reciprocal_rank
 from semantic_retriever import DEFAULT_MODEL, eligible_records
@@ -26,8 +28,8 @@ class StructuralHit:
     scope_compatible: bool
 
 
-def canonical_record_map(root: Path = ROOT) -> dict[str, CanonicalRecord]:
-    return {record.id: record for record in eligible_records(root)}
+def canonical_record_map(root: Path = ROOT, query: Mapping[str, Any] | None = None) -> dict[str, CanonicalRecord]:
+    return {record.id: record for record in eligible_records(root, query)}
 
 
 def project_scopes(record: CanonicalRecord) -> set[str]:
@@ -125,7 +127,7 @@ class StructuralRetriever:
         )
         self.semantic_model = str(self.hybrid.semantic_model)
         self.graph_seed_top_k = graph_seed_top_k
-        self.records = canonical_record_map(self.root)
+        self.records = canonical_record_map(self.root, {"record_mode": "history"})
         self.graph = bidirectional_relation_graph(self.records)
 
     def rank(self, query: Mapping[str, Any]) -> list[StructuralHit]:
@@ -137,7 +139,8 @@ class StructuralRetriever:
         compatible_ids = {
             canonical_id
             for canonical_id, record in self.records.items()
-            if is_scope_compatible(record, active_scopes, explicit_ids=explicit_ids)
+            if record_is_eligible(record, query)
+            and is_scope_compatible(record, active_scopes, explicit_ids=explicit_ids)
         }
         compatible_base = [hit for hit in base_hits if hit.id in compatible_ids]
         seed_ids = [hit.id for hit in compatible_base[: self.graph_seed_top_k]]

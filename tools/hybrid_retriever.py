@@ -48,18 +48,12 @@ def deterministic_reason_score(category: str, reasons: Sequence[Mapping[str, str
         elif kind=="related_record": score+=40 if category=="obligations" and len(kinds)>1 else 25
     return score
 
-def _default_current_status(category: str, status: str) -> bool:
-    if category=="decisions": return status=="accepted"
-    if category=="memory": return status=="active"
-    if category=="obligations": return status in {"open","deferred","blocked"}
-    return False
-
 def deterministic_rank(query: Mapping[str, Any], root: Path = ROOT) -> list[DeterministicHit]:
     pack=compile_context_pack(query,root); rows=[]
     for category in ("decisions","memory","obligations"):
         for item in pack.get(category,[]) or []:
-            canonical_id=item.get("id"); status=str(item.get("status",""))
-            if not canonical_id or not _default_current_status(category,status): continue
+            canonical_id=item.get("id")
+            if not canonical_id: continue
             rows.append(DeterministicHit(id=str(canonical_id),category=category,score=deterministic_reason_score(category,item.get("reasons",[]) or [])))
     return sorted(rows,key=lambda hit:(-hit.score,hit.id))
 

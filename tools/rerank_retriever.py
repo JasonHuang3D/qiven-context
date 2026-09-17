@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Protocol, Sequence
 
+from record_lifecycle import record_is_eligible
+
 from context_compiler import CanonicalRecord, prepare_query
 from hybrid_retriever import HybridHit, HybridRetriever
 from semantic_retriever import DEFAULT_MODEL, eligible_records
@@ -69,8 +71,8 @@ class RerankHit:
     explicit: bool
 
 
-def canonical_record_map(root: Path = ROOT) -> dict[str, CanonicalRecord]:
-    return {record.id: record for record in eligible_records(root)}
+def canonical_record_map(root: Path = ROOT, query: Mapping[str, Any] | None = None) -> dict[str, CanonicalRecord]:
+    return {record.id: record for record in eligible_records(root, query)}
 
 
 def query_text(query: Mapping[str, Any], root: Path = ROOT) -> str:
@@ -138,7 +140,7 @@ class RerankedRetriever:
         )
         self.semantic_model = str(self.hybrid.semantic_model)
         self.rerank_model = str(self.reranker.model_name)
-        self.records = canonical_record_map(self.root)
+        self.records = canonical_record_map(self.root, {"record_mode": "history"})
         self.graph = bidirectional_relation_graph(self.records)
 
     def candidate_evidence(self, query: Mapping[str, Any]) -> list[CandidateEvidence]:
@@ -149,6 +151,7 @@ class RerankedRetriever:
             hit
             for hit in base_hits
             if hit.id in self.records
+            and record_is_eligible(self.records[hit.id], query)
             and is_scope_compatible(
                 self.records[hit.id], active_scopes, explicit_ids=explicit_ids
             )

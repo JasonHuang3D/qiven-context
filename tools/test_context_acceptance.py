@@ -32,7 +32,7 @@ class ContextCompilerAcceptanceTests(unittest.TestCase):
         validate_context_pack(pack)
 
         self.assertIn("projects/foundation/README.md", {item["path"] for item in pack["projects"]})
-        self.assertIn("ADR-0007", ids(pack, "decisions"))
+        self.assertIn("ADR-0024", ids(pack, "decisions"))
         self.assertIn("OBL-20260913T181224Z-A3F690", ids(pack, "obligations"))
 
         self.assertNotIn("projects/gas/README.md", {item["path"] for item in pack["projects"]})
@@ -179,7 +179,7 @@ class ContextCompilerAcceptanceTests(unittest.TestCase):
             pack = json.loads(json_path.read_text(encoding="utf-8"))
             validate_context_pack(pack)
             markdown = markdown_path.read_text(encoding="utf-8")
-            self.assertIn("Source: `decisions/ADR-0007.md`", markdown)
+            self.assertIn("Source: `decisions/ADR-0024.md`", markdown)
             self.assertIn("OBL-20260913T181224Z-A3F690", markdown)
             self.assertIn("Selection:", markdown)
             self.assertIn("Trigger:", markdown)
