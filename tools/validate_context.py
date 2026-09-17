@@ -107,7 +107,7 @@ def validate_repository(root=ROOT):
             try: validate_obj(yaml.safe_load((ROOT/rel).read_text(encoding="utf-8")),sch,rel,errors)
             except Exception as e: errors.append(f"{rel}: {e}")
 
-        ids={}; canonical={"memory":{},"obligations":{},"decisions":{}}
+        ids={}; canonical={"memory":{},"obligations":{},"decisions":{}}; record_data={}
         specs=[("memory","memory/records","memory-record"),("obligations","obligations","obligation"),("decisions","decisions","adr")]
         for typ,folder,sch in specs:
             for p in (ROOT/folder).glob("*.md"):
@@ -121,9 +121,11 @@ def validate_repository(root=ROOT):
                     elif p.stem!=rid: errors.append(f"{p.name}: filename/id mismatch")
                     if not re.search(r"^# .+",body,re.M): errors.append(f"{p.name}: missing required body title")
                     if rid in ids: errors.append(f"duplicate canonical ID: {rid}")
-                    ids[rid]=p; canonical[typ][rid]=p
-                    if typ in {"memory","decisions"} and data.get("status")=="superseded" and not (data.get("superseded_by") or []):
+                    ids[rid]=p; canonical[typ][rid]=p; record_data[rid]=data
+                    if data.get("status")=="superseded" and not (data.get("superseded_by") or []):
                         errors.append(f"{p.relative_to(ROOT)}: superseded record requires superseded_by provenance")
+                    if data.get("status")!="superseded" and (data.get("superseded_by") or []):
+                        errors.append(f"{p.relative_to(ROOT)}: only superseded records may declare superseded_by")
                 except Exception as e: errors.append(f"{p.relative_to(ROOT)}: {e}")
 
         event_ids=set()
@@ -164,11 +166,34 @@ def validate_repository(root=ROOT):
         known=set(ids)
         for groups in canonical.values():
             for rid,p in groups.items():
-                try: data,_=front(p)
-                except Exception: continue
+                data=record_data.get(rid)
+                if data is None: continue
                 for field in ("related","supersedes","superseded_by"):
                     for ref in data.get(field,[]) or []:
                         if INTERNAL.match(str(ref)) and str(ref) not in known: errors.append(f"{p.relative_to(ROOT)}: broken internal relation {field} -> {ref}")
+                        if field not in {"supersedes","superseded_by"} or ref not in record_data: continue
+                        if ref==rid:
+                            errors.append(f"{p.relative_to(ROOT)}: self supersession is forbidden")
+                            continue
+                        reciprocal="superseded_by" if field=="supersedes" else "supersedes"
+                        if rid not in (record_data[ref].get(reciprocal) or []):
+                            errors.append(f"{p.relative_to(ROOT)}: non-reciprocal {field} relation {rid} -> {ref}")
+                        if field=="supersedes" and record_data[ref].get("status")!="superseded":
+                            errors.append(f"{p.relative_to(ROOT)}: supersedes target {ref} is not superseded")
+
+        graph={rid:list(data.get("supersedes") or []) for rid,data in record_data.items()}
+        visiting=set(); visited=set(); path=[]
+        def visit(rid):
+            if rid in visiting:
+                start=path.index(rid)
+                errors.append(f"supersession cycle: {' -> '.join(path[start:]+[rid])}")
+                return
+            if rid in visited: return
+            visiting.add(rid); path.append(rid)
+            for ref in graph.get(rid,[]):
+                if ref in graph: visit(ref)
+            path.pop(); visiting.remove(rid); visited.add(rid)
+        for rid in sorted(graph): visit(rid)
 
         _operating_invariants(errors)
         return errors

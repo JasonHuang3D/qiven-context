@@ -45,6 +45,36 @@ class ValidatorTests(unittest.TestCase):
         p.write_text(p.read_text().replace("## Next action","## Later"))
         self.assertIn("missing session heading Next action",self.errors(d))
     def test_superseded_record_requires_successor(self): d=self.copy(); p=d/"decisions/ADR-0001.md"; self.rewrite_front_matter(p,lambda data:data.__setitem__("superseded_by",[])); self.assertIn("requires superseded_by",self.errors(d))
+    def test_supersession_relation_must_be_reciprocal(self):
+        d=self.copy(); p=d/"decisions/ADR-0026.md"
+        self.rewrite_front_matter(p,lambda data:data.__setitem__("supersedes",[rid for rid in data["supersedes"] if rid!="MEM-20260915T092000Z-3C7A41"]))
+        self.assertIn("non-reciprocal superseded_by relation",self.errors(d))
+    def test_only_superseded_records_may_name_successors(self):
+        d=self.copy(); p=d/"decisions/ADR-0003.md"
+        self.rewrite_front_matter(p,lambda data:data.__setitem__("superseded_by",["ADR-0030"]))
+        self.assertIn("only superseded records may declare superseded_by",self.errors(d))
+    def test_supersedes_target_must_be_superseded(self):
+        d=self.copy(); successor=d/"decisions/ADR-0030.md"; target=d/"decisions/ADR-0003.md"
+        self.rewrite_front_matter(successor,lambda data:data.__setitem__("supersedes",data["supersedes"]+["ADR-0003"]))
+        self.rewrite_front_matter(target,lambda data:data.__setitem__("superseded_by",["ADR-0030"]))
+        self.assertIn("supersedes target ADR-0003 is not superseded",self.errors(d))
+    def test_self_supersession_is_forbidden(self):
+        d=self.copy(); p=d/"decisions/ADR-0030.md"
+        self.rewrite_front_matter(p,lambda data:data.__setitem__("supersedes",data["supersedes"]+["ADR-0030"]))
+        self.assertIn("self supersession is forbidden",self.errors(d))
+    def test_supersession_graph_is_acyclic(self):
+        d=self.copy(); older=d/"memory/records/MEM-20260913T183819Z-C2D841.md"; newer=d/"memory/records/MEM-20260915T111500Z-42A7D1.md"
+        self.rewrite_front_matter(older,lambda data:data.__setitem__("supersedes",["MEM-20260915T111500Z-42A7D1"]))
+        self.rewrite_front_matter(newer,lambda data:data.__setitem__("superseded_by",data["superseded_by"]+["MEM-20260913T183819Z-C2D841"]))
+        self.assertIn("supersession cycle",self.errors(d))
+    def test_superseded_obligation_requires_successor(self):
+        d=self.copy(); p=next(p for p in (d/"obligations").glob("OBL-*.md") if "status: done" in p.read_text(encoding="utf-8"))
+        self.rewrite_front_matter(p,lambda data:data.__setitem__("status","superseded"))
+        self.assertIn("superseded_by",self.errors(d))
+    def test_duplicate_supersession_relation_is_forbidden(self):
+        d=self.copy(); p=d/"decisions/ADR-0030.md"
+        self.rewrite_front_matter(p,lambda data:data.__setitem__("supersedes",data["supersedes"]+[data["supersedes"][0]]))
+        self.assertIn("non-unique elements",self.errors(d))
     def test_index_missing_record(self): d=self.copy(); idx=yaml.safe_load((d/"memory/index.yaml").read_text()); idx["records"].append({"id":"MEM-20260913T010203Z-A1B2C3","file":"missing.md","title":"x","status":"active"}); (d/"memory/index.yaml").write_text(yaml.safe_dump(idx)); self.assertIn("index points to missing record",self.errors(d))
     def test_invalid_timestamp(self): d=self.copy(); p=d/"state/active-work.yaml"; p.write_text(re.sub(r"updated_at: .+","updated_at: 'not-a-timestamp'",p.read_text())); self.assertIn("invalid timestamp",self.errors(d))
     def test_broken_internal_relation(self): d=self.copy(); p=self.sample_memory(d); p.write_text(p.read_text().replace("related: []","related: [ADR-9999]")); self.assertIn("broken internal relation",self.errors(d))

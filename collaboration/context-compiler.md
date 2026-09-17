@@ -1,11 +1,20 @@
-# Context Compiler — Deterministic Retrieval Contract
+# Context Compiler — Deterministic Retrieval Baseline
 
-Lifecycle selection is amended by [Canonical Record Lifecycle Query Contract](record-lifecycle.md).
-That contract governs current/history modes, explicit historical inspection,
-terminal obligations, and v2 output qualification. Other Batch 003 mechanisms
-below remain scoped to their stated implementation boundary.
+This document preserves the Batch 003 deterministic baseline. It is not a
+standalone statement of current read semantics. The current contract is the
+composition of this baseline with the later amendments below; when they differ,
+the later amendment governs:
 
-Current R1 read behavior is defined by [Context Read Contract](context-read-contract.md). It governs mandatory-input resolution, constraint coverage, v3 snapshot-bound output, and unknown-condition handling where the historical v1 description below differs.
+- [Canonical Record Lifecycle Query Contract](record-lifecycle.md) governs
+  current/history modes, explicit historical inspection, terminal obligations,
+  v3 lifecycle qualification, and structural supersession invariants.
+- [Context Read Contract](context-read-contract.md) governs mandatory-input
+  resolution, protected constraints, lossless evidence, immutable snapshots,
+  v3 output, budgets, and three-valued unknown-condition handling.
+
+References below to "v1", "the first implementation", or a capability being
+future work describe the historical Batch 003 boundary. They do not undo an
+accepted later contract or implementation.
 
 ## Purpose
 
@@ -13,7 +22,11 @@ Batch 003 turns the canonical cognition captured by `qiven-context` into task-sp
 
 The compiler answers one operational question: given a concrete task, what current state, project knowledge, decisions, memory, and unfinished obligations should a new reasoning session see before acting?
 
-The first implementation is deliberately deterministic, explainable, local, and rebuildable. It does not use embeddings, a vector database, a remote service, or model-native memory as a retrieval authority. This follows ADR-0003; semantic retrieval can be added later as a derived layer if deterministic retrieval proves insufficient.
+The first implementation was deliberately deterministic, explainable, local,
+and rebuildable. It did not use embeddings, a vector database, a remote service,
+or model-native memory as a retrieval authority. Later accepted semantic, hybrid,
+structural, and reranked retrieval remain rebuildable derived layers and do not
+become canonical authority.
 
 ## Non-goals
 
@@ -100,7 +113,14 @@ V1 relevance signals, in descending priority:
 
 The implementation must expose why each record was selected. Numeric weights are implementation details but must be fixed, documented in code, and covered by tests; they must not be learned or model-generated.
 
-Selection is relevance filtering, not truth resolution. If two relevant records conflict, both remain visible with their provenance/status so question-scoped authority can be reasoned about later.
+Selection is relevance filtering, not truth resolution. Evidence of a newly
+discovered conflict must remain visible long enough to prevent silent resolution.
+That does not authorize competing active truth to persist indefinitely: the
+canonicalization rules in `MEMORY-CONSTITUTION.md` and
+`collaboration/context-operating-model.md` require reconciliation when evidence
+permits, or an explicit open question, blocker, risk, or obligation when it does
+not. Historical conflicting records remain inspectable through lifecycle-aware
+history or explicit-ID queries.
 
 ### 5. Retrieve non-terminal obligations
 
@@ -185,7 +205,11 @@ A generated pack must preserve enough metadata for the reasoning layer to distin
 - local-machine incident -> scoped local observation;
 - future work -> non-terminal obligations and their triggers.
 
-When relevant sources disagree, the compiler should surface the disagreement rather than choose a winner based on a single global priority table.
+When relevant sources disagree, the compiler surfaces the disagreement rather
+than choosing a winner from a single global priority table. The caller must then
+apply question-scoped authority and the canonical conflict protocol; surfacing a
+disagreement is detection, not permission to leave resolvable active conflict in
+canonical state.
 
 ## Output contract
 

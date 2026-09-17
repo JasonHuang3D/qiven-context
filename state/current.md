@@ -2,17 +2,18 @@
 
 ## Active objective
 
-Context R1 (C01-C06) is accepted. C01 is accepted by merge
-`6913c903fac9a9222f40943433ab3d9d47712054` after the owner's JasonPC ALL PASS report.
-R1 adds shared mandatory inputs, protected constraint coverage,
-lossless record evidence, immutable read snapshots and explicit unknown semantics.
-Implementation candidate `0ababe93290213afd3167e66efa75300eb1b9672` passed 11 portable suites / 119 tests. Acceptance evidence is `evidence/audits/context-r1-2026-09-17.md`.
+Context R2 (C07-C08) is accepted on implementation candidate
+`88a6fedeaf7dda8d19620a6adc9c447aa02e85b5`. C07 makes the historical Batch 003
+compiler baseline explicitly subordinate to the current lifecycle/R1 contracts.
+C08 defines and enforces the reciprocal, acyclic structural supersession graph
+across ADRs, memory and obligations. The candidate passed 11 portable suites /
+126 tests. Acceptance evidence is `evidence/audits/context-r2-2026-09-17.md`.
 
 Under ADR-0032, jason-brother validates portable Context Python/source-contract
 changes directly in the agent runtime, without duplicate JasonPC validation.
 Machine-specific changes still require evidence from the relevant environment.
 
-Context Engine architecture remains the subsequent design objective under
+Context Engine architecture is now the next design objective under
 `OBL-20260916T125000Z-5A8C31`; it has not acquired an accepted architecture candidate.
 GitHub remote remains canonical until an independently accepted authority migration.
 
@@ -43,7 +44,8 @@ Workflow 1 remains active for JasonPC-dependent work. Portable Context Python/so
 
 ## Next boundary
 
-R1 is complete. The next remediation boundary is review of C07/C08
-(normative-contract cleanup and structural lifecycle invariants) before continuing
-the representation-independent Context Engine architecture. Do not resume Host
-implementation or select canonical storage technology first.
+R2 is complete. Next, design the representation-independent Context Engine
+semantic architecture: kernel object model, provider/consumer commands and
+queries, ContextView compilation, provenance, lifecycle, transactions, migration,
+backup/export/restore and authority cutover. Do not resume Host implementation or
+select canonical storage technology before that architecture is accepted.
