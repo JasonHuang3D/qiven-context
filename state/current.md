@@ -2,11 +2,11 @@
 
 ## Active objective
 
-Complete Context R1 (C01-C06) as one batch. C01 is accepted by merge
+Context R1 (C01-C06) is accepted. C01 is accepted by merge
 `6913c903fac9a9222f40943433ab3d9d47712054` after the owner's JasonPC ALL PASS report.
-The R1 candidate adds shared mandatory inputs, protected constraint coverage,
+R1 adds shared mandatory inputs, protected constraint coverage,
 lossless record evidence, immutable read snapshots and explicit unknown semantics.
-Integrated validation is pending; the candidate is not yet accepted.
+Implementation candidate `0ababe93290213afd3167e66efa75300eb1b9672` passed 11 portable suites / 119 tests. Acceptance evidence is `evidence/audits/context-r1-2026-09-17.md`.
 
 Under ADR-0032, jason-brother validates portable Context Python/source-contract
 changes directly in the agent runtime, without duplicate JasonPC validation.
@@ -32,7 +32,7 @@ GitHub remote remains canonical until an independently accepted authority migrat
 
 ## ContextView<ChatGPT, Jason>
 
-Workflow 1 is active: ChatGPT may develop remotely, then Jason switches to Human Manual Mode and invokes Qiven Operator for machine-local evidence or execution. Workflow 2 remains fail-closed until Host production authority is accepted.
+Workflow 1 remains active for JasonPC-dependent work. Portable Context Python/source-contract changes are implemented and validated directly by jason-brother under ADR-0032. Workflow 2 remains fail-closed until Host production authority is accepted.
 
 ## Safety and mutation guardrails
 
@@ -43,7 +43,7 @@ Workflow 1 is active: ChatGPT may develop remotely, then Jason switches to Human
 
 ## Next boundary
 
-Complete integrated R1 validation and exact remote review. Then review C07/C08
+R1 is complete. The next remediation boundary is review of C07/C08
 (normative-contract cleanup and structural lifecycle invariants) before continuing
 the representation-independent Context Engine architecture. Do not resume Host
 implementation or select canonical storage technology first.

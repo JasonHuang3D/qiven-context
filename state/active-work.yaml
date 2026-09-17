@@ -1,26 +1,26 @@
 schema_version: 2
 program: qiven-context
 status: active
-objective: 'Complete Context R1 (C01-C06): lifecycle consistency, shared mandatory
-  inputs, protected constraints, lossless evidence, immutable read snapshots and explicit
-  unknown-condition semantics.'
+objective: Context R1 C01-C06 is accepted. Next remediation boundary is R2 C07/C08
+  before resuming Context Engine semantic architecture.
 accepted_checkpoint:
-  subject: context-c01-lifecycle
-  ref: 6913c903fac9a9222f40943433ab3d9d47712054
+  subject: context-r1-read-contracts
+  ref: 0ababe93290213afd3167e66efa75300eb1b9672
   evidence:
-  - Owner reported C01 ALL PASS on candidate 151294cffa2b91995b9c814df0a72d64e6312986
+  - 11 portable Python suites / 119 tests PASS in agent runtime
   - evidence/audits/context-r1-2026-09-17.md
+  - evidence/audits/context-r1-python-validation-2026-09-17.txt
 current_candidate:
-  subject: context-r1-c01-c06
-  ref: jason-brother/context-r1
-  state: integrated-validation-pending
+  subject: context-r2-c07-c08
+  ref: not-created
+  state: not-started
 blockers: []
 paused_work:
 - qiven-host/49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
 - qiven-runtime/process-execution
 - qiven-dcr-win/phase-1-batch-001
 - qiven-cad
-next_boundary: Finish one integrated R1 validation and exact remote review. C07/C08
-  remain the next remediation boundary; Context Engine architecture is still unaccepted
-  and follows remediation.
-updated_at: '2026-09-17T06:23:10Z'
+next_boundary: Review C07/C08 normative-contract cleanup and structural lifecycle
+  invariants. Do not resume Host or select Context Engine storage before its semantic
+  architecture is accepted.
+updated_at: '2026-09-17T06:29:54Z'
