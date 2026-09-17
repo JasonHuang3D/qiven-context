@@ -75,6 +75,10 @@ class ValidatorTests(unittest.TestCase):
         d=self.copy(); p=d/"decisions/ADR-0030.md"
         self.rewrite_front_matter(p,lambda data:data.__setitem__("supersedes",data["supersedes"]+[data["supersedes"][0]]))
         self.assertIn("non-unique elements",self.errors(d))
+    def test_malformed_lifecycle_relation_returns_diagnostics(self):
+        d=self.copy(); p=d/"decisions/ADR-0033.md"
+        self.rewrite_front_matter(p,lambda data:data.__setitem__("supersedes",[{}]))
+        self.assertIn("must be a list of record IDs",self.errors(d))
     def test_index_missing_record(self): d=self.copy(); idx=yaml.safe_load((d/"memory/index.yaml").read_text()); idx["records"].append({"id":"MEM-20260913T010203Z-A1B2C3","file":"missing.md","title":"x","status":"active"}); (d/"memory/index.yaml").write_text(yaml.safe_dump(idx)); self.assertIn("index points to missing record",self.errors(d))
     def test_invalid_timestamp(self): d=self.copy(); p=d/"state/active-work.yaml"; p.write_text(re.sub(r"updated_at: .+","updated_at: 'not-a-timestamp'",p.read_text())); self.assertIn("invalid timestamp",self.errors(d))
     def test_broken_internal_relation(self): d=self.copy(); p=self.sample_memory(d); p.write_text(p.read_text().replace("related: []","related: [ADR-9999]")); self.assertIn("broken internal relation",self.errors(d))

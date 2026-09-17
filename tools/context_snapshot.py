@@ -11,7 +11,6 @@ from hashlib import sha256
 import json
 from pathlib import Path, PurePosixPath
 import subprocess
-import tarfile
 import tempfile
 from types import MappingProxyType
 from typing import Mapping
@@ -43,7 +42,7 @@ def digest_files(files: Mapping[str, bytes]) -> dict[str, str]:
 
 
 def _git(root: Path, *args: str) -> bytes:
-    result = subprocess.run(["git", "-C", str(root), *args], stdout=subprocess.PIPE,
+    result = subprocess.run(["git", "--no-replace-objects", "-C", str(root), *args], stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE, check=False)
     if result.returncode:
         raise ValueError(f"Git snapshot failed: {result.stderr.decode('utf-8', errors='replace').strip()}")
@@ -70,6 +69,60 @@ def _directory_files(root: Path) -> dict[str, bytes]:
     return files
 
 
+def git_source_files(root: Path, commit: str) -> dict[str, bytes]:
+    # Read raw blobs: archive export-ignore/export-subst attributes are not source.
+    entries = _git(root, "ls-tree", "-r", "-z", commit).split(b"\0")
+    selected = []
+    for entry in entries:
+        if not entry:
+            continue
+        header, raw_path = entry.split(b"\t", 1)
+        path = raw_path.decode("utf-8")
+        if not source_path(path):
+            continue
+        mode, kind, oid = header.split()
+        if kind != b"blob" or mode not in (b"100644", b"100755"):
+            raise ValueError(f"unsupported snapshot source mode: {path}")
+        selected.append((safe_path(path), oid))
+    if not selected:
+        raise ValueError("Git snapshot has no Context sources")
+    files = {}
+    with tempfile.TemporaryFile() as errors:
+        process = subprocess.Popen(["git", "--no-replace-objects", "-C", str(root),
+                                    "cat-file", "--batch"], stdin=subprocess.PIPE,
+                                   stdout=subprocess.PIPE, stderr=errors)
+        try:
+            total = 0
+            for path, oid in selected:
+                process.stdin.write(oid + b"\n")
+                process.stdin.flush()
+                returned, kind, raw_size = process.stdout.readline().split()
+                size = int(raw_size)
+                total += size
+                if (returned != oid or kind != b"blob" or size < 0
+                        or size > MAX_FILE_BYTES or total > MAX_SOURCE_BYTES):
+                    raise ValueError(f"unsupported or oversized snapshot source: {path}")
+                content = process.stdout.read(size)
+                if len(content) != size or process.stdout.read(1) != b"\n":
+                    raise ValueError("truncated Git blob stream")
+                files[path] = content
+            process.stdin.close()
+            if process.wait(timeout=30):
+                raise ValueError("Git snapshot blob read failed")
+        finally:
+            if not process.stdin.closed:
+                process.stdin.close()
+            process.stdout.close()
+            if process.poll() is None:
+                process.terminate()
+                try:
+                    process.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    process.kill()
+                    process.wait()
+    return files
+
+
 @dataclass(frozen=True)
 class SourceSnapshot:
     origin: str
@@ -91,41 +144,7 @@ class SourceSnapshot:
             tree = _git(root, "rev-parse", commit + "^{tree}").decode().strip()
             if ref is None and _git(root, "status", "--porcelain", "--untracked-files=all", "--", *SOURCE_ROOTS):
                 raise ValueError("Context sources differ from HEAD; commit them or explicitly select a published ref")
-            files = {}
-            top = _git(root, "ls-tree", "--name-only", "-z", commit).decode("utf-8").split("\0")
-            selected = [name for name in top if name in SOURCE_ROOTS]
-            if not selected:
-                raise ValueError("Git snapshot has no Context sources")
-            # Stream only declared source roots; reject a large member before reading
-            # its body instead of buffering a whole repository archive in memory.
-            with tempfile.TemporaryFile() as errors:
-                process = subprocess.Popen(["git", "-C", str(root), "archive", "--format=tar", commit,
-                                            "--", *selected], stdout=subprocess.PIPE, stderr=errors)
-                try:
-                    total = 0
-                    with tarfile.open(fileobj=process.stdout, mode="r|") as tar:
-                        for member in tar:
-                            if member.isdir():
-                                continue
-                            total += member.size
-                            if (not member.isfile() or member.size > MAX_FILE_BYTES
-                                    or total > MAX_SOURCE_BYTES):
-                                raise ValueError(f"unsupported or oversized snapshot source: {member.name}")
-                            files[safe_path(member.name)] = tar.extractfile(member).read()
-                    # Git tar padding may remain after the final member.
-                    while process.stdout.read(65536):
-                        pass
-                    if process.wait(timeout=30):
-                        raise ValueError("Git snapshot archive failed")
-                finally:
-                    process.stdout.close()
-                    if process.poll() is None:
-                        process.terminate()
-                        try:
-                            process.wait(timeout=5)
-                        except subprocess.TimeoutExpired:
-                            process.kill()
-                            process.wait()
+            files = git_source_files(root, commit)
             kind = "git-commit"
         else:
             if ref is not None:

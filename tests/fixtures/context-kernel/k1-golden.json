@@ -1,0 +1,89 @@
+[
+  {
+    "name": "empty",
+    "value": {},
+    "canonical": "{}",
+    "digest": "sha256:a9a917f8e51450c74219b02eade373143f1dffe89dcafb2c47b328e75112f279"
+  },
+  {
+    "name": "scalars",
+    "value": {
+      "a": null,
+      "b": true,
+      "c": false,
+      "i": 9007199254740991,
+      "n": -9007199254740991,
+      "z": 0
+    },
+    "canonical": "{\"a\":null,\"b\":true,\"c\":false,\"i\":9007199254740991,\"n\":-9007199254740991,\"z\":0}",
+    "digest": "sha256:8f23726d17f31f365700d948f342321912cf954bf1c91f6de37ffd5660f967d4"
+  },
+  {
+    "name": "unicode",
+    "value": {
+      "a": "é",
+      "b": "é",
+      "中文": "上下文",
+      "": 1,
+      "😀": 2
+    },
+    "canonical": "{\"a\":\"é\",\"b\":\"é\",\"中文\":\"上下文\",\"\":1,\"😀\":2}",
+    "digest": "sha256:020a7f6a4e70ac3387be900591631484b516c9ce449b12ba0016b245a953912d"
+  },
+  {
+    "name": "escapes",
+    "value": {
+      "s": "\"\\\b\f\n\r\t\u0000/"
+    },
+    "canonical": "{\"s\":\"\\\"\\\\\\b\\f\\n\\r\\t\\u0000/\"}",
+    "digest": "sha256:533350a28b9a8256f4bce7d10c821a2a2ca1fd0646e5aff4e3eaae3b12ff5a5e"
+  },
+  {
+    "name": "absent",
+    "value": {
+      "x": {}
+    },
+    "canonical": "{\"x\":{}}",
+    "digest": "sha256:edbd1a7229756203b6887faabb219895b109467fa727206f0344f3c44c533a1d"
+  },
+  {
+    "name": "null",
+    "value": {
+      "x": {
+        "y": null
+      }
+    },
+    "canonical": "{\"x\":{\"y\":null}}",
+    "digest": "sha256:c66f2b0d98d33cb6533d55439bd045b386f63bd4b8c00040a090bbd893644d55"
+  },
+  {
+    "name": "ordered",
+    "value": {
+      "array": [
+        3,
+        1,
+        2
+      ],
+      "object": {
+        "a": 2,
+        "z": 1
+      }
+    },
+    "canonical": "{\"array\":[3,1,2],\"object\":{\"a\":2,\"z\":1}}",
+    "digest": "sha256:02051cc93cefb4d5813e57400e2f7da357ad06ae19782ddc1179f1833b869059"
+  },
+  {
+    "name": "evidence",
+    "value": {
+      "kind": "EvidenceObject",
+      "payload": {
+        "content_digest": "sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+        "media_type": "application/octet-stream",
+        "size": 3
+      },
+      "serialization_version": 1
+    },
+    "canonical": "{\"kind\":\"EvidenceObject\",\"payload\":{\"content_digest\":\"sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad\",\"media_type\":\"application/octet-stream\",\"size\":3},\"serialization_version\":1}",
+    "digest": "sha256:7b0739b3bec99a1e94d896b529ac35fb6696a54bdc88711915eda8dc95a898a1"
+  }
+]

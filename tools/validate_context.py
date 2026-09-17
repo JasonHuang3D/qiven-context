@@ -163,37 +163,8 @@ def validate_repository(root=ROOT):
                     if rid not in indexed: errors.append(f"{index_rel}: unindexed canonical record {rid}")
             except Exception as e: errors.append(f"{index_rel}: {e}")
 
-        known=set(ids)
-        for groups in canonical.values():
-            for rid,p in groups.items():
-                data=record_data.get(rid)
-                if data is None: continue
-                for field in ("related","supersedes","superseded_by"):
-                    for ref in data.get(field,[]) or []:
-                        if INTERNAL.match(str(ref)) and str(ref) not in known: errors.append(f"{p.relative_to(ROOT)}: broken internal relation {field} -> {ref}")
-                        if field not in {"supersedes","superseded_by"} or ref not in record_data: continue
-                        if ref==rid:
-                            errors.append(f"{p.relative_to(ROOT)}: self supersession is forbidden")
-                            continue
-                        reciprocal="superseded_by" if field=="supersedes" else "supersedes"
-                        if rid not in (record_data[ref].get(reciprocal) or []):
-                            errors.append(f"{p.relative_to(ROOT)}: non-reciprocal {field} relation {rid} -> {ref}")
-                        if field=="supersedes" and record_data[ref].get("status")!="superseded":
-                            errors.append(f"{p.relative_to(ROOT)}: supersedes target {ref} is not superseded")
-
-        graph={rid:list(data.get("supersedes") or []) for rid,data in record_data.items()}
-        visiting=set(); visited=set(); path=[]
-        def visit(rid):
-            if rid in visiting:
-                start=path.index(rid)
-                errors.append(f"supersession cycle: {' -> '.join(path[start:]+[rid])}")
-                return
-            if rid in visited: return
-            visiting.add(rid); path.append(rid)
-            for ref in graph.get(rid,[]):
-                if ref in graph: visit(ref)
-            path.pop(); visiting.remove(rid); visited.add(rid)
-        for rid in sorted(graph): visit(rid)
+        from lifecycle_graph import lifecycle_errors
+        errors.extend(lifecycle_errors(record_data))
 
         _operating_invariants(errors)
         return errors
