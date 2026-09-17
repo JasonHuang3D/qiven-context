@@ -11,7 +11,10 @@ from .registry import REGISTRY
 from .serialization import canonical_bytes, parse_canonical, semantic_digest
 
 _SCHEMA = json.loads((Path(__file__).resolve().parents[2] / "schema/context-kernel-object.schema.json").read_text())
-_VALIDATOR = Draft202012Validator(_SCHEMA)
+_TRANSACTION_SCHEMA = json.loads((Path(__file__).resolve().parents[2] / "schema/context-kernel-transaction.schema.json").read_text())
+_SCHEMA["oneOf"].extend(_TRANSACTION_SCHEMA["oneOf"])
+_SCHEMA["$defs"] = _TRANSACTION_SCHEMA["$defs"]
+_VALIDATOR = Draft202012Validator(_SCHEMA, format_checker=FormatChecker())
 _RECORD_VALIDATORS = {}
 for _kind, (_, _name, _expected) in REGISTRY.items():
     _raw = (Path(__file__).resolve().parents[2] / f"schema/{_name}.schema.json").read_bytes()
@@ -48,7 +51,7 @@ class KernelObject:
         if errors:
             raise ValueError("invalid kernel object: " + errors[0].message)
         p = value["payload"]
-        if value["kind"] == "RecordRevision":
+        if value["kind"] in ("RecordRevision", "NativeRecordRevision"):
             kind = p["record_kind"]
             _RECORD_VALIDATORS[kind].validate(p["metadata"])
             if p["record_schema"] != "sha256:" + REGISTRY[kind][2] or p["record_id"] != p["metadata"]["id"]:
@@ -56,7 +59,7 @@ class KernelObject:
         elif value["kind"] == "SourceDocument":
             if safe_path(p["path"]) != p["path"]:
                 raise ValueError("noncanonical source document path")
-        elif value["kind"] == "ProjectSnapshot":
+        elif value["kind"] in ("ProjectSnapshot", "SandboxSnapshot"):
             for field, key in (("records", "record_id"), ("documents", "path")):
                 keys = [item[key] for item in p[field]]
                 if keys != sorted(set(keys)):

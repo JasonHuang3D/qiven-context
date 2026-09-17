@@ -2,21 +2,21 @@
 
 ## Active objective
 
-ContextKernel K1 is accepted on implementation candidate
-`8493e5dd39404cf30d7e410029e0d3a1ba6547f3`: versioned semantic serialization,
-immutable objects, a non-authoritative memory reference store and exact Git-tree
-import. Evidence: `evidence/audits/context-k1-review-2026-09-17.md` and the linked
-149-test raw log. The review also hardened R2 lifecycle diagnostics/long chains
-and corrected R1 source capture to use raw Git blobs without export transforms.
+ContextKernel K2 is accepted on implementation candidate
+`4e18ffadf6d112539e68fe2ba9e2e0413d6efa03`: immutable request identity, exact revision
+preconditions, old-policy/live admission, atomic receipt/result/head publication,
+idempotent retries and explicit unknown-outcome recovery. Evidence:
+`evidence/audits/context-k2-review-2026-09-17.md` and its 175-test raw log.
 
-R1 and R2 remain accepted. Revised ADR-0033 is the accepted architecture; K1 proves
-only its first implementation boundary. Imported instances remain quarantined;
-historical authentication and absent revision ancestry remain explicitly unknown.
-GitHub remote remains canonical. No storage product or authority cutover is selected.
+The SQLite adapter is a restart-capable conformance mechanism in quarantined
+reference namespaces, not a production storage decision. Child-process crash
+fixtures prove the scoped recovery model. K1 import and historical unknown
+provenance are preserved. GitHub remote remains canonical; no authority cutover.
 
-Under ADR-0032, jason-brother validates portable Context Python/source-contract
-changes directly in the agent runtime, without duplicate JasonPC validation.
-Machine-specific changes still require evidence from the relevant environment.
+R1, R2, K1 and revised ADR-0033 remain accepted. Under ADR-0032, jason-brother
+validates portable Context Python/source-contract work directly in the agent runtime
+without duplicate JasonPC validation. Machine-specific work still needs evidence
+from its relevant environment.
 
 ## Accepted Context v2 operational checkpoint
 
@@ -45,6 +45,6 @@ Workflow 1 remains active for JasonPC-dependent work. Portable Context Python/so
 
 ## Next boundary
 
-K2: transaction, authority and idempotency protocol, including concurrent writers,
-ambiguous outcomes and restart-capable receipt evidence under ADR-0033. K2 has not
-started; K3/K4 remain separate batches. No resumed Host work or authority cutover.
+K3: resolved ContextViews and a compatible query/ContextBundle pipeline with fixed
+old/new semantic equivalence fixtures under ADR-0033. K3 has not started. K4 remains
+a separate export/restore and continuity batch. Host stays paused.
