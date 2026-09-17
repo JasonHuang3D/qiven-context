@@ -1,8 +1,8 @@
 schema_version: 2
 program: qiven-context
 status: active
-objective: ContextKernel K3 is accepted; next boundary is K4 canonical export,
-  restore completeness and continuity proof.
+objective: K4 engineering implementation is a feature candidate; independent fresh-session
+  continuity remains required before acceptance.
 accepted_checkpoint:
   subject: context-engine-k3
   ref: a8c817f3115c29e32ecb7c5a6bf00d03566b1761
@@ -12,15 +12,17 @@ accepted_checkpoint:
   - evidence/audits/context-k3-python-validation-2026-09-17.txt
 current_candidate:
   subject: context-engine-k4
-  ref: not-created
-  state: not-started
-blockers: []
+  ref: refs/heads/jason-brother/context-k4
+  state: implementation-awaiting-engineering-and-fresh-session-gates
+blockers:
+- Formal K4 acceptance requires a fresh LLM/session continuity audit; process replay
+  is insufficient.
 paused_work:
 - qiven-host/49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
 - qiven-runtime/process-execution
 - qiven-dcr-win/phase-1-batch-001
 - qiven-cad
-next_boundary: Implement and independently validate K4 canonical export/restore and
-  continuity under ADR-0033; no production storage decision, authority cutover or
-  resumed Host work.
-updated_at: '2026-09-17T13:55:00Z'
+next_boundary: Validate K4 engineering candidate, then run tests/cold-boot/k4-candidate-prompt.md
+  in a fresh LLM session. Keep main at K3 until acceptance gates pass; no cutover
+  or Host resumption.
+updated_at: '2026-09-17T17:46:41Z'

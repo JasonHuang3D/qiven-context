@@ -51,5 +51,9 @@ Workflow 1 remains active for JasonPC-dependent work. Portable Context Python/so
 
 ## Next boundary
 
-K4: canonical export/restore, completeness diagnostics and continuity proof under
-ADR-0033. Production storage and authority cutover remain separate. Host stays paused.
+K4 engineering implementation is on `jason-brother/context-k4`; it is not accepted.
+Canonical export/restore and new-process reconstruction need their engineering gate,
+followed by the fresh-LLM continuity trial required by ADR-0033 and
+`collaboration/project-continuity-acceptance.md`. The exact challenge is
+`tests/cold-boot/k4-candidate-prompt.md`. Canonical main remains at accepted K3 until
+those gates pass. Restore grants no authority and enables no new writes.
