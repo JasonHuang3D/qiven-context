@@ -2,58 +2,81 @@
 
 ## Active objective
 
-ContextKernel K3 is accepted on implementation candidate
-`a8c817f3115c29e32ecb7c5a6bf00d03566b1761`: immutable kernel read projection,
-resolved views, compatible queries/bundles, replay binding and full-envelope
-protected budgets. Evidence: `evidence/audits/context-k3-review-2026-09-17.md`
-and the 193-test log. No K4 implementation has started.
+ContextKernel K3 remains the latest accepted engineering checkpoint on implementation
+candidate `a8c817f3115c29e32ecb7c5a6bf00d03566b1761`, with 14 portable suites / 193
+tests PASS. K4 is an unaccepted feature candidate on
+`refs/heads/jason-brother/context-k4`.
 
-ContextKernel K2 is accepted on implementation candidate
-`4e18ffadf6d112539e68fe2ba9e2e0413d6efa03`: immutable request identity, exact revision
-preconditions, old-policy/live admission, atomic receipt/result/head publication,
-idempotent retries and explicit unknown-outcome recovery. Evidence:
-`evidence/audits/context-k2-review-2026-09-17.md` and its 175-test raw log.
+A 2026-09-18 review found a semantic acceptance gap: the pre-correction K4 challenge
+reused the older remote cold-boot topology, allowing the fresh agent to fetch the
+original qiven-context candidate and perform export/restore itself. That proves a
+form of remote continuity but does not prove that the exported artifact caused
+continuity. ADR-0034 and `collaboration/context-handoff-contract.md` correct this at
+the contract level. K4 must now prove producer -> artifact -> isolated consumer.
 
-The SQLite adapter is a restart-capable conformance mechanism in quarantined
-reference namespaces, not a production storage decision. Child-process crash
-fixtures prove the scoped recovery model. K1 import and historical unknown
-provenance are preserved. GitHub remote remains canonical; no authority cutover.
+The post-original-candidate commit
+`194fcfdcabc9b5661131e827298f12f02fd747ed` contains a useful failure-clean CLI
+restore correction but is not an accepted K4 checkpoint. It remains part of the
+feature candidate subject to the corrected contract and full gates.
 
-R1, R2, K1 and revised ADR-0033 remain accepted. Under ADR-0032, jason-brother
-validates portable Context Python/source-contract work directly in the agent runtime
-without duplicate JasonPC validation. Machine-specific work still needs evidence
-from its relevant environment.
+## ContextKernel accepted baseline
+
+- K3 implementation: `a8c817f3115c29e32ecb7c5a6bf00d03566b1761`; evidence in `evidence/audits/context-k3-review-2026-09-17.md` and its 193-test log.
+- K2 implementation: `4e18ffadf6d112539e68fe2ba9e2e0413d6efa03`; durable transaction/authority/idempotency semantics accepted.
+- K1 implementation: `8493e5dd39404cf30d7e410029e0d3a1ba6547f3`; representation-independent object/import baseline accepted.
+- Revised ADR-0033 architecture remains accepted and is amended by ADR-0034 for continuity delivery profiles and the K5 boundary.
+- R1/R2 remain accepted.
+
+The SQLite adapter remains a quarantined restart-capable conformance/reference
+mechanism, not a production storage choice. GitHub remote remains canonical; there
+has been no authority cutover.
+
+## Corrected continuity model
+
+Project Continuity defines the reconstruction outcome. Delivery profiles are
+separate properties:
+
+- remote cold boot reads an exact canonical remote Context ref;
+- session checkpoints preserve bounded progress evidence;
+- Canonical Artifact Handoff proves a self-contained artifact can cross an isolation
+  boundary and recover project cognition;
+- Human Succession separately proves replacement of the authorized human operator.
+
+K4 requires Canonical Artifact Handoff. Under the current ChatGPT+Jason ContextView,
+JasonPC through Human Manual Mode/Qiven Operator is the independent acceptance
+producer. This role is not duplicate portable Python validation under ADR-0032. A
+fresh LLM consumes only the handoff artifact during Phase A; live GitHub verification
+is Phase B and cannot repair missing artifact cognition.
+
+## K5
+
+`OBL-20260917T192300Z-A7C4E2` is deferred until K4 handoff acceptance. K5 will reduce
+effective LLM input tokens through a versioned lossless transport representation.
+It must pass deterministic machine round-trip/corruption/resource gates and paired
+isolated fresh-LLM semantic-equivalence trials against the accepted K4 reference.
+Task-specific ContextBundle retrieval remains a different, potentially lossy-by-
+relevance mechanism and does not satisfy K5.
 
 ## Accepted Context v2 operational checkpoint
 
 - Context v2 and its post-v2 operating guardrails are canonical on `main`.
-- The validated ContextView + Operator runtime candidate `a3ee448731ae26cce3cbf4afaa12d4d492769141` was accepted by canonical merge commit `35343c50c6df50d0ffc35664b24d029360787f35`.
-- On 2026-09-16, Jason ran the declared Qiven Operator `cleanup-v6-temp` task from the long-lived `D:\JasonWork\qiven-context` working copy and reported `ALL PASS`.
-- `OBL-20260916T102700Z-7C2A91` is complete. Normal validation uses the long-lived workspace plus Operator-owned scratch/worktrees rather than unmanaged ambient TEMP clones.
+- Accepted ContextView + Operator runtime merge: `35343c50c6df50d0ffc35664b24d029360787f35`.
+- Qiven Operator Human Manual Mode is the current local human-facing execution path.
+- Qiven-v6 unmanaged temporary-clone cleanup is complete.
 
-## Context authority and governance
+## Authority and safety
 
 - Canonical project cognition remains the GitHub remote; local repositories are non-authoritative working materializations.
 - GitHub account-level identity remains the current governance authentication boundary.
-- ContextView adapts interaction, environment, and workflow but cannot override identity-independent ProjectContext truth.
-- Provider and consumer are semantic roles; human, agent, CI, repository, and runtime participants may occupy either role under explicit authority rules.
-
-## ContextView<ChatGPT, Jason>
-
-Workflow 1 remains active for JasonPC-dependent work. Portable Context Python/source-contract changes are implemented and validated directly by jason-brother under ADR-0032. Workflow 2 remains fail-closed until Host production authority is accepted.
-
-## Safety and mutation guardrails
-
+- ContextView adapts interaction/environment/workflow and cannot override ProjectContext truth or governance.
 - `OBL-20260915T163500Z-9D4C72` remains open; mutating DCR/remote-AI execution on JasonPC is suspended.
-- High-level Chat-side GitHub contents mutation remains unaccepted for critical writes. Low-level exact Git object/ref mutation is the admitted Chat-side critical-write path.
-- The generic Operator packaging candidate in qiven-devkit remains unaccepted at `f5945df3c8c85b3fc49e228dcf7f88339567ff24`.
-- The latest formally accepted Host checkpoint remains `8e5b9dec64bf739af84e981df12afc1969599738`, CI run `35060483714`. Corrected Host candidate `49e69c02fe2ded0b9607ccb4090c21cde96b8a1c` remains preserved and paused.
+- Workflow 2 remains fail-closed until Host production authority is accepted and Context explicitly re-enables it.
+- The preserved Host correction and generic Devkit Operator candidate remain paused/unaccepted as previously recorded.
 
 ## Next boundary
 
-K4 engineering implementation is on `jason-brother/context-k4`; it is not accepted.
-Canonical export/restore and new-process reconstruction need their engineering gate,
-followed by the fresh-LLM continuity trial required by ADR-0033 and
-`collaboration/project-continuity-acceptance.md`. The exact challenge is
-`tests/cold-boot/k4-candidate-prompt.md`. Canonical main remains at accepted K3 until
-those gates pass. Restore grants no authority and enables no new writes.
+Implement the corrected K4 handoff JSON/runtime, integrity-bound continuity projection,
+negative tests and Qiven Operator producer task. Then run the integrated portable gate
+on the exact candidate. Only after that may JasonPC produce the exact artifact for the
+fresh-LLM Phase-A/Phase-B handoff trial. Main remains at K3 until those gates and final
+exact-head validation pass.

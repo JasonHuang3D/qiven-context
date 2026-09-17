@@ -1,9 +1,11 @@
-# ContextKernel K4 canonical export and recovery contract
+# ContextKernel K4 canonical export, recovery and artifact-handoff contract
 
-K4's engineering implementation is `context_kernel.archive`. Formal K4 acceptance
-also requires the fresh-session LLM trial in project-continuity-acceptance.md.
-A child process is an engineering isolation proof, not that cognitive trial.
-GitHub remains canonical. Restore does not promote authority.
+K4's engineering implementation is `context_kernel.archive` plus the K4 handoff
+surface. Formal K4 acceptance requires the Canonical Artifact Handoff profile in
+`context-handoff-contract.md` and the Project Continuity reconstruction in
+`project-continuity-acceptance.md`. A child process or remote GitHub cold boot is an
+engineering/continuity proof for a different property, not the K4 handoff trial.
+GitHub remains canonical. Restore and handoff never promote authority.
 
 ## Stable semantic manifest and variable delivery
 
@@ -78,24 +80,71 @@ snapshots can be inspected through K3; they do not acquire native transaction
 governance. Historical snapshots can be exported explicitly without importing later
 receipts. Package hashes prove integrity, not signer identity or authority.
 
-## Acceptance and invocation
+## K4 handoff artifact
 
-The fixed engineering suite covers import and native-history round trips,
+The archival package remains the semantic backup primitive. K4 additionally requires
+one versioned JSON handoff artifact suitable for the declared fresh-LLM consumer.
+The handoff artifact must contain or bind:
+
+- exact repository/commit/tree and ProjectSnapshot identity;
+- canonical manifest and package digests;
+- the complete canonical export needed by the recovery profile;
+- a deterministic continuity/source projection exposing the artifact-contained
+  Project Continuity corpus without requiring a qiven-context repository read;
+- path/content digests for every projected source item and a root projection digest;
+- explicit recovery completeness, unknown/external-reference diagnostics and
+  `authorization: not_granted` / writes-disabled state;
+- a digest covering the complete handoff delivery.
+
+The projection is derived transport, not a second truth. Every projected byte must
+match content already committed by the canonical export. Missing/extra/mismatched
+projection content fails generation or consumption.
+
+K4 is correctness-first. It does not require a compact representation; K5 owns
+lossless token-efficient transport after this reference artifact is accepted.
+
+## Engineering acceptance
+
+The engineering suite covers import and native-history round trips,
 availability-independent roots, missing/corrupt/extra objects, omission diagnostics,
 unknown external references, nonempty-target rejection, retained receipts, persistent
 read-only admission and known-secret rejection. A new Python process receives only
 the package and fixed query corpus, disables Git reads and reconstructs 28 compiler/
-bundle outputs (seven queries, two view selections, two entrypoints). CLI failure-path
-coverage also proves ordinary source-materialization failures do not publish a restored
-database artifact.
+bundle outputs. CLI failure-path coverage proves ordinary source-materialization
+failures do not publish a restored database artifact.
 
-A separate fresh LLM session must reconstruct the ten points in
-project-continuity-acceptance.md from the restored exact candidate plus admitted live
-evidence. Its prompt is `tests/cold-boot/k4-candidate-prompt.md`. Until its dated audit
-passes, K4 is an engineering candidate and main must not advance to K4 acceptance.
+The corrected K4 suite must additionally cover handoff generation/consumption:
 
-`python tools/context_archive.py export-git --commit FULL_SHA --repository
-JasonHuang3D/qiven-context --output NEW_PACKAGE.json` creates a package.
-`python tools/context_archive.py restore --input PACKAGE.json --database NEW.db
---sources NEW_DIRECTORY` restores read-only data and an inspectable source projection.
-Outputs must be new paths. Neither command performs network publication or cutover.
+- exact commit/tree/snapshot binding;
+- projection-to-canonical-source digest equivalence;
+- deterministic handoff digest for fixed semantic/delivery inputs;
+- missing/extra/tampered projected sources;
+- tampered package/manifest identities;
+- incomplete recovery and unknown external references;
+- no write/authority promotion;
+- consumer reconstruction fixtures that do not read Git/original source material.
+
+These automated tests are necessary but cannot themselves supply the fresh-LLM
+cognitive PASS.
+
+## Formal acceptance topology
+
+1. Publish the exact K4 candidate remotely.
+2. Complete the portable engineering gate on the exact candidate.
+3. Under `ContextView<ChatGPT, Jason>`, use JasonPC Human Manual Mode/Qiven Operator
+   as the independent producer. Produce and locally verify one exact handoff JSON and
+   record commit/tree/platform/runtime/manifest/package/handoff identities.
+4. Give that artifact to a fresh capable LLM session with no prior Qiven project
+   memory. Before Phase A is sealed, the fresh consumer must not read qiven-context
+   remotely or receive private reconstruction help.
+5. The consumer reconstructs the ten Project Continuity requirements from the
+   artifact and stops with a sealed Phase-A report.
+6. Only then may the same fresh session perform Phase-B live verification for facts
+   explicitly classified as live. It must not use GitHub to repair missing artifact
+   cognition.
+7. Preserve the dated audit and run final exact-head repository validation. Apply the
+   continuity carry-forward rule only for changes that do not alter tested cognition
+   or handoff inputs.
+
+Until every step passes, K4 remains an engineering candidate and main remains at the
+latest accepted pre-K4 checkpoint.

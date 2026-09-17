@@ -1,32 +1,64 @@
 # ChatGPT + Jason Local Execution Workflow
 
-For qiven-context Python semantics and source-contract work, the project owner's
-2026-09-17 authorization in `collaboration/context-validation.md` (ADR-0032)
-applies: jason-brother validates directly in the agent runtime, without duplicate
-JasonPC validation. Platform-dependent work and Host/DCR restrictions remain scoped
-as described below.
+For ordinary qiven-context Python semantics and source-contract work, the project
+owner's 2026-09-17 authorization in `collaboration/context-validation.md`
+(ADR-0032) applies: jason-brother validates directly in the agent runtime without
+duplicate JasonPC validation. Task-specific acceptance roles and platform-dependent
+properties remain scoped separately.
 
-This workflow belongs to `ContextView<ChatGPT, Jason>`. It adapts Qiven's project truth to Jason's current workstation and collaboration model; it is not a project-global assumption for every future human or agent.
+This workflow belongs to `ContextView<ChatGPT, Jason>`. It adapts Qiven's project
+truth to Jason's current workstation and collaboration model; it is not a
+project-global assumption for every future human or agent.
 
-Qiven uses one local orchestration plane, Qiven Operator, with two authority/trigger workflows.
+Qiven uses one local orchestration plane, Qiven Operator, with two authority/trigger
+workflows.
 
 ## Workflow 1 — Remote AI + Human Manual Mode
 
-ChatGPT may develop remotely against GitHub when local machine authority is unavailable or unnecessary. GitHub remote state remains canonical.
+ChatGPT may develop remotely against GitHub when local machine authority is
+unavailable or unnecessary. GitHub remote state remains canonical.
 
-When local validation, execution, local CI assistance, repository inspection, or another JasonPC action is required, ChatGPT asks Jason to switch to **Human Manual Mode**. Human Manual Mode means:
+When local validation, execution, local CI assistance, repository inspection or
+another JasonPC action is required, ChatGPT asks Jason to switch to **Human Manual
+Mode**. Human Manual Mode means:
 
-1. operate from the long-lived local Qiven workspace (`D:\JasonWork` on JasonPC), not from ad-hoc `%TEMP%` repository clones;
-2. use Qiven Operator as the human-facing engineering interface whenever the required capability exists;
-3. ChatGPT supplies the repository, exact expected candidate identity, the Operator action/profile to run, and the evidence to return;
-4. Operator owns state-oriented output, liveness, color/summary, exact-head checks, validation sequencing, task isolation, and cleanup of Operator-owned scratch/worktrees;
-5. if Operator lacks a necessary capability, use only the minimum bootstrap fallback and treat the missing capability as engineering debt rather than normalizing new shell choreography.
+1. operate from the long-lived local Qiven workspace (`D:\JasonWork` on JasonPC),
+   not from ad-hoc `%TEMP%` repository clones;
+2. use Qiven Operator as the human-facing engineering interface whenever the required
+   capability exists;
+3. ChatGPT supplies the repository, exact expected candidate identity, Operator
+   action/profile and evidence needed back;
+4. Operator owns state-oriented output, liveness, exact-head checks, validation
+   sequencing, task isolation and cleanup of Operator-owned scratch/worktrees;
+5. if Operator lacks a necessary capability, use only the minimum bootstrap fallback
+   and record the missing capability as engineering debt.
 
-Jason is an authority/physical-execution participant, not a substitute automation engine. Human effort should be reduced to a short, legible trigger plus review of a deterministic final summary.
+Jason is an authority/physical-execution participant, not a substitute automation
+engine. Human effort should be reduced to a short, legible trigger plus review of a
+deterministic final summary.
+
+## Artifact-acceptance roles are not duplicate validation
+
+ADR-0032 removes redundant JasonPC execution of portable Python/source tests. It does
+not allow an acceptance topology to collapse producer and consumer into one
+contaminated agent session.
+
+For K4 Canonical Artifact Handoff, JasonPC is the reference **producer** under this
+ContextView. Human Manual Mode/Qiven Operator must materialize the exact remote
+candidate, generate and restore/verify the handoff artifact, and return one
+machine-readable result identifying the artifact. A separate fresh LLM is the
+**consumer**. The consumer performs artifact-only Phase A before any live repository
+verification.
+
+The required Operator task is part of the K4 implementation. Until that task exists,
+use only a minimal explicit bootstrap fallback; do not reinterpret its absence as
+permission to run the producer role inside the authoring LLM.
 
 ## Workflow 2 — AI-controlled JasonPC through Host
 
-Workflow 2 is enabled only after the accepted qiven-host production authority path satisfies the no-bypass safety gate and Context explicitly re-enables broker-mediated remote mutation.
+Workflow 2 is enabled only after the accepted qiven-host production authority path
+satisfies the no-bypass safety gate and Context explicitly re-enables broker-mediated
+remote mutation.
 
 The intended call chain is:
 
@@ -38,20 +70,37 @@ ChatGPT / AI
   -> JasonPC repository / toolchain / OS
 ```
 
-AI may then develop locally for as long as useful and stable. Local repositories under `D:\JasonWork` are working caches/materializations of GitHub state. Push is normally needed when remote durability, cross-platform CI, remote review, or merge-to-main requires it rather than after every local edit.
+AI may then develop locally for as long as useful and stable. Local repositories
+under `D:\JasonWork` are working caches/materializations of GitHub state. Push is
+normally needed when remote durability, cross-platform CI, remote review or
+merge-to-main requires it rather than after every local edit.
 
-After a checkpoint is canonically merged to `main`, the local workflow should reconcile local `main`, delete merged/outdated temporary local and remote branches under the accepted cleanup policy, and remove Operator-owned scratch/worktrees. JasonPC must not accumulate an implicit archive that depends on Jason's memory to clean.
+After a checkpoint is canonically merged to `main`, the local workflow should
+reconcile local `main`, delete merged/outdated temporary local and remote branches
+under the accepted cleanup policy, and remove Operator-owned scratch/worktrees.
+JasonPC must not accumulate an implicit archive that depends on Jason's memory to
+clean.
 
 ## Shared invariant
 
-Workflow 2 accelerates Workflow 1; it does not replace its engineering semantics. Both use the same Operator tasks/gates and the same exact-identity, fail-fast, output, cleanup, and evidence rules. The caller/authority changes; the local engineering operation does not.
+Workflow 2 accelerates Workflow 1; it does not replace its engineering semantics.
+Both use the same Operator tasks/gates and the same exact-identity, fail-fast, output,
+cleanup and evidence rules. The caller/authority changes; the local engineering
+operation does not.
 
-Human Manual Mode remains the fallback when Host transport is unavailable, when explicit human presence is required, or when a local action has not yet been admitted to automated authority.
+Human Manual Mode remains the fallback when Host transport is unavailable, when
+explicit human presence is required, or when a local action has not yet been admitted
+to automated authority.
 
 ## Environment binding
 
-This workflow uses `views/environments/jasonpc.yaml`. Stable workspace/environment roots may be owner-declared there; exact tool versions, executable paths, mutable environment state, and VPN connectivity are live facts and must be verified when a task depends on them.
+This workflow uses `views/environments/jasonpc.yaml`. Stable workspace/environment
+roots may be owner-declared there; exact tool versions, executable paths, mutable
+environment state and VPN connectivity are live facts and must be verified when a
+task depends on them.
 
 ## Current state
 
-Workflow 1 is active now. Workflow 2 remains fail-closed behind `OBL-20260915T163500Z-9D4C72` until Host Batch 001 production authority integration proves there is no mutating bypass and Context explicitly re-enables it.
+Workflow 1 is active now. Workflow 2 remains fail-closed behind
+`OBL-20260915T163500Z-9D4C72` until Host Batch 001 production authority integration
+proves there is no mutating bypass and Context explicitly re-enables it.

@@ -5,6 +5,7 @@ mandatory:
   - collaboration/operating-contract.md
   - collaboration/software-engineering-philosophy.md
   - collaboration/context-operating-model.md
+  - collaboration/context-handoff-contract.md
   - state/current.md
   - state/active-work.yaml
   - state/repositories.yaml

@@ -1,31 +1,46 @@
-# K4 fresh-session continuity challenge
+# K4 Canonical Artifact Handoff — fresh-consumer Phase A
 
-Run this in a fresh capable LLM/agent session with no prior Qiven conversation or
-model-native project memory. Do not use the implementation author's reconstruction
-as an answer key. This is an acceptance test, not authorization to merge or mutate
-GitHub/Host. Keep the tested candidate identity exact throughout.
+Run this only in a fresh capable LLM/agent session with no prior Qiven conversation
+or admitted model-native Qiven project memory.
 
-1. Resolve the remote branch `jason-brother/context-k4` in
-   `https://github.com/JasonHuang3D/qiven-context`. Record its full commit/tree IDs.
-   Fetch its runtime code to execute the existing export/restore CLI; do not read
-   the original source tree as a shortcut for reconstructing project cognition.
-2. Export that full commit with `tools/context_archive.py export-git`. Record source
-   commit, semantic manifest digest and package digest. Restore into a NEW empty
-   SQLite reference file and NEW source directory using the restore subcommand.
-3. Use the restored sources as the cognition input. Read BOOTSTRAP and its mandatory
-   inputs, select the declared view, and perform task-specific retrieval through the
-   restored kernel read port. Do not infer authority from a successful restore.
-4. Independently reconstruct all ten numbered requirements in the restored
-   `collaboration/project-continuity-acceptance.md`. Cite exact restored paths and
-   record IDs; separate imported snapshot facts from live remote facts.
-5. Verify current GitHub main and relevant live evidence only where the contracts
-   require it. A feature candidate is not canonical main. Explicitly identify
-   historical unknowns, paused work, incomplete acceptance and the next valid action.
-6. Preserve a dated audit identifying tested commit/tree, export/package/snapshot
-   IDs, challenge, retrieved sources, ten reconstruction answers, abstentions and
-   PASS/FAIL. Passing Python tests cannot supply the cognitive PASS verdict.
+The project owner will provide exactly one K4 handoff JSON artifact produced by an
+independent producer. This is an acceptance test, not authorization to mutate any
+repository or machine.
 
-Return the audit for exact review. The implementation author may then reconcile
-acceptance state and run the final exact-head gate. If canonical cognition or
-retrieval inputs change before acceptance, apply the continuity contract's
-carry-forward rule rather than claiming this trial tested another snapshot.
+## Isolation rule
+
+Before you submit the Phase-A report, do **not** browse, search, fetch or open
+`JasonHuang3D/qiven-context`, any Qiven repository, prior Qiven chats, local Qiven
+clones, evaluator rubrics or private producer notes. Do not ask the owner to explain
+what the project state should be. If the artifact is insufficient, report failure;
+do not repair it from GitHub.
+
+Generic parsing/decoding needed by the declared self-describing artifact format is
+allowed. Project-specific decoder/dictionary material is allowed only when it is
+contained in or explicitly version-bound by the artifact profile itself.
+
+## Phase A — artifact-only reconstruction
+
+1. Record the artifact format/version, handoff digest, source repository/commit/tree,
+   ProjectSnapshot identity, canonical manifest/package digests and recovery status.
+2. Verify the artifact's internal integrity to the extent supported by the supplied
+   self-describing format. Report any mismatch, unknown or unverifiable element.
+3. Use only artifact-contained continuity/source material to reconstruct all ten
+   numbered requirements in `collaboration/project-continuity-acceptance.md`:
+   what Qiven/qiven-context are; governance/root authority; engineering philosophy;
+   active objective/paused domains; latest accepted checkpoint/evidence; unaccepted
+   candidate and why; active blockers/obligations; accepted/rejected/superseded/legacy
+   cognition; facts requiring later live verification; and the next valid action.
+4. Cite artifact-contained source paths and ADR/MEM/OBL IDs for material claims.
+5. Separate snapshot/artifact facts from facts that are inherently live and therefore
+   cannot yet be verified under Phase-A isolation.
+6. Record unsupported claims and abstentions instead of guessing.
+
+## Seal
+
+Return a clearly marked `K4 HANDOFF PHASE A — SEALED` report with PASS/FAIL for
+artifact-only reconstruction. Include the exact artifact identities above and a list
+of facts deferred to live verification.
+
+Stop after Phase A. Do not perform live GitHub/CI/runtime verification in the same
+answer. Phase B is a later turn after this report is preserved.
