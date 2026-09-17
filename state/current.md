@@ -13,9 +13,14 @@ Under ADR-0032, jason-brother validates portable Context Python/source-contract
 changes directly in the agent runtime, without duplicate JasonPC validation.
 Machine-specific changes still require evidence from the relevant environment.
 
-Context Engine architecture is now the next design objective under
-`OBL-20260916T125000Z-5A8C31`; it has not acquired an accepted architecture candidate.
-GitHub remote remains canonical until an independently accepted authority migration.
+Revised ADR-0033 accepts the Context Engine architecture and closes
+`OBL-20260916T125000Z-5A8C31`. It defines ContextKernel semantics, typed provider
+commands and consumer queries, immutable snapshot transactions, ContextView and
+ContextBundle compilation, a capability-based storage port, deterministic export/
+restore, staged Git migration and a separately governed authority cutover. It is
+accepted as architecture only and selects no storage product. GitHub remote remains canonical.
+The re-review corrections and acceptance limits are recorded in
+`evidence/audits/context-engine-architecture-review-2026-09-17.md`.
 
 ## Accepted Context v2 operational checkpoint
 
@@ -44,8 +49,6 @@ Workflow 1 remains active for JasonPC-dependent work. Portable Context Python/so
 
 ## Next boundary
 
-R2 is complete. Next, design the representation-independent Context Engine
-semantic architecture: kernel object model, provider/consumer commands and
-queries, ContextView compilation, provenance, lifecycle, transactions, migration,
-backup/export/restore and authority cutover. Do not resume Host implementation or
-select canonical storage technology before that architecture is accepted.
+K1: semantic objects, versioned serialization and exact Git import with fixed
+acceptance fixtures. K2-K4 require separate batch evidence. No production storage
+choice, authority cutover or resumed Host work is authorized by this acceptance.
