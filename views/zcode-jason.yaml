@@ -1,0 +1,66 @@
+schema_version: 2
+id: zcode-jason
+status: active
+human:
+  display_name: Jason
+  governance_principal: 'github:JasonHuang3D'
+  principal_note: identical to chatgpt-jason; no authority cutover
+  preferences: views/humans/jason.yaml
+agent:
+  family: ZCode
+  runtime: zcode-desktop
+  runtime_capabilities: verify_live
+  model_resolution: verify_live
+  bindings:
+    - role: jason-brother
+      binding_id: jason-brother-glm5-3
+      model:
+        family: glm
+        version: '5.3'
+        variant: null
+        provider: zai
+        reasoning: high
+      qualification:
+        status: provisional
+        evidence: '2026-09-18 cold boot and two-layer design session (GLM-5.3 turns); standing review path not yet exercised'
+        date: '2026-09-18'
+    - role: jason-worker
+      binding_id: jason-worker-glm5-3-flash
+      model:
+        family: glm
+        version: '5.3'
+        variant: flash
+        provider: zai
+        reasoning: standard
+      qualification:
+        status: untested
+        evidence: 'first materialized execution is the 2026-09-18 context transaction on branch zcode/contextview-two-layer (served by GLM-5.3-Flash after GLM-5.3 provider availability failures; disclosed per ADR-0035 rule 4)'
+        date: '2026-09-18'
+tool:
+  id: zcode-desktop
+  capability_class: local_supervised_agent
+  class_note: foreground owner-launched session on JasonPC with per-action permission surface; scheduled/idle automation is unattended and follows collaboration/human-handoff-boundary.md
+  local_reach:
+    workspace_root: 'D:\JasonWork'
+    gh_auth: 'github:JasonHuang3D keyring credential (account-level)'
+project_context:
+  repository: JasonHuang3D/qiven-context
+  authority: github_remote
+  inheritance: canonical_project_truth
+  override_allowed: false
+environments:
+  - views/environments/jasonpc.yaml
+workflows:
+  local_execution: views/workflows/local-supervised-agent.md
+semantics:
+  interaction: capability_dependent
+  authority: governance_dependent
+  environment: view_dependent
+  workflow: view_dependent
+  session_state: ephemeral
+notes:
+  - Roles remain canonical packages (operating-contract.md); this view only binds model instances and a capability class per ADR-0035.
+  - Foreground supervised execution may perform authorized mutations; unattended (scheduled/idle) automation stays read-only by default per ADR-0036.
+  - Worker discipline applies by default for this view's mutations: no push, PR, or merge without explicit per-task owner authorization.
+  - The chatgpt-jason view remains active for ChatGPT sessions; the two views adapt the same canonical ProjectContext.
+  - Agent/model/tool availability may change between sessions and must be re-evaluated live; serving-model substitution is disclosed, never silent.

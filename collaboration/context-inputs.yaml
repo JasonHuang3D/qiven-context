@@ -7,6 +7,7 @@ mandatory:
   - collaboration/software-engineering-philosophy.md
   - collaboration/context-operating-model.md
   - collaboration/context-handoff-contract.md
+  - collaboration/human-handoff-boundary.md
   - state/current.md
   - state/active-work.yaml
   - state/repositories.yaml
@@ -14,3 +15,4 @@ mandatory:
   - governance/context-constraints.yaml
 views:
   chatgpt-jason: views/chatgpt-jason.yaml
+  zcode-jason: views/zcode-jason.yaml

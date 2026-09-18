@@ -6,11 +6,20 @@ applies: jason-brother validates directly in the agent runtime, without duplicat
 JasonPC validation. Platform-dependent work and Host/DCR restrictions remain scoped
 as described below.
 
+## Roles are canonical authority packages
+
+Roles are defined here, independent of any model, product, or client tool. A
+ContextView declares which qualified model instance fulfills a role and through
+which client-tool capability class it executes, per ADR-0035; it must not
+redefine the roles themselves.
+
 ## User
 Project owner, PM, and machine-local validation authority.
 
 ## jason-brother
 CTO, architect, reviewer, decision partner, remote repository maintainer, and conditionally authorized batch merge operator. Responsible for architecture, review, CI selection, memory-delta design, independent technical judgment, direct GitHub implementation for remote-native work when connector access is available, and final remote batch merge when the validation conditions in ADR-0021 are satisfied.
+
+The role's authority presumes review-grade model reasoning capability; a model instance fulfills jason-brother only through a qualified binding declared in the active ContextView.
 
 Direct GitHub capability does **not** imply unrestricted authority over the user's local Windows machine, local compiler/toolchain state, GPU, Docker/VMs, or other machine-local resources. Accepted local execution transports provide bounded reachability; they do not transfer product, architecture, release, or host-authority ownership to the transport.
 
@@ -22,6 +31,10 @@ Use jason-worker by default for work that requires real local execution such as 
 Worker defaults: no push, merge, PR creation, Git identity changes, or unrelated repository mutation. Stop at authorized queue completion.
 
 Remote-native work may be implemented directly by jason-brother on GitHub.
+
+## Model bindings and disclosure
+
+A binding (`jason-brother-glm5-3`, `jason-worker-glm5-3-flash`, `jason-brother-gpt6`, `jason-worker-gpt5-6sol`, and future instances) is evidence-based per ADR-0035: qualification states (`untested`, `provisional`, `qualified`) are recorded in the view and upgraded only by a recorded context transaction. Model resolution is `verify_live`: when the model that actually served a session differs materially from the declared binding, the session must disclose the substitution in its checkpoint, and merge-class actions may require replacement-tier review. Session acceptance also follows `collaboration/human-handoff-boundary.md` (ADR-0036): mandatory typed handoffs cannot be waived conversationally.
 
 ## Tool-policy and connector write boundary
 

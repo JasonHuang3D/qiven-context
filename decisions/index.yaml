@@ -34,3 +34,5 @@ records:
   - {id: ADR-0032, file: ADR-0032.md, title: Validate Context Python batches directly in the agent runtime, status: accepted}
   - {id: ADR-0033, file: ADR-0033.md, title: Define ContextKernel as the representation-independent semantic authority behind Qiven Context, status: accepted}
   - {id: ADR-0034, file: ADR-0034.md, title: Separate remote cold boot from canonical artifact handoff and require lossless LLM transport compression after K4, status: accepted}
+  - {id: ADR-0035, file: ADR-0035.md, title: Bind participant roles to qualified model instances and client-tool capability classes through ContextView, status: accepted}
+  - {id: ADR-0036, file: ADR-0036.md, title: Require typed human handoffs by objective operation class and make verbal waiver insufficient for mandatory handoffs, status: accepted}

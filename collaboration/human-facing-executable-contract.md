@@ -31,7 +31,7 @@ If Operator genuinely cannot perform a required action yet, use the smallest exp
 
 ## ContextView binding
 
-This contract defines the generic Operator/Human Manual Mode semantics. Concrete workflow choices and environment details belong to the applicable view under `views/`. For the current ChatGPT + Jason collaboration, see `views/chatgpt-jason.yaml` and its referenced workflow/environment profiles.
+This contract defines the generic Operator/Human Manual Mode semantics. Concrete workflow choices and environment details belong to the applicable view under `views/`. For the current ChatGPT + Jason collaboration, see `views/chatgpt-jason.yaml` and its referenced workflow/environment profiles; for desktop-resident local agents (ZCode), see `views/zcode-jason.yaml` and `views/workflows/local-supervised-agent.md`.
 
 ## Historical correction
 

@@ -128,3 +128,13 @@ task depends on them.
 Workflow 1 is active now. Workflow 2 remains fail-closed behind
 `OBL-20260915T163500Z-9D4C72` until Host Batch 001 production authority integration
 proves there is no mutating bypass and Context explicitly re-enables it.
+
+## Capability-class binding
+
+Per ADR-0035, this workflow is the `cloud_terminal`/`cloud_desktop_hybrid`
+instantiation of the shared local-execution contracts: the agent is cloud-side,
+so JasonPC actions require either the Human Manual Mode relay (Workflow 1) or,
+once accepted, the Host broker (Workflow 2). Desktop-resident tools such as
+ZCode use the `local_supervised_agent` class instead
+(`views/workflows/local-supervised-agent.md`); the engineering semantics above
+are shared, only the human-relay topology differs.
