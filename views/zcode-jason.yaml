@@ -22,7 +22,7 @@ agent:
         reasoning: high
       qualification:
         status: provisional
-        evidence: '2026-09-18 cold boot and two-layer design session (GLM-5.3 turns); standing review path not yet exercised'
+        evidence: '2026-09-18 cold boot and two-layer design session (GLM-5.3 turns). Two H2 delegated review rounds recorded: full-delta re-review of the two-layer transaction 717f7a77c044526f16ceddb4d111e192f2ae44b4 (PR #16) and review of the F1 transaction 76d087555880df1644a2161b324374ce4092fabe (PR #17); serving-model identity for review turns is caller-declared, not self-verifiable. Upgrade to qualified is owner-reserved to avoid reviewer self-certification.'
         date: '2026-09-18'
     - role: jason-worker
       binding_id: jason-worker-glm5-3-flash
@@ -33,8 +33,8 @@ agent:
         provider: zai
         reasoning: standard
       qualification:
-        status: untested
-        evidence: 'first materialized execution is the 2026-09-18 context transaction on branch zcode/contextview-two-layer (served by GLM-5.3-Flash after GLM-5.3 provider availability failures; disclosed per ADR-0035 rule 4)'
+        status: qualified
+        evidence: 'Two authorized context transactions executed with gates green and canonically merged: 717f7a77c044526f16ceddb4d111e192f2ae44b4 (PR #16, merge dec3e67eeb8670657c1cd782512f872196ecbc5f) and 76d087555880df1644a2161b324374ce4092fabe (PR #17, merge d134ce6095ca7dc6647ec06ce90d9de7a5f4ac87). Exact-head context-local gates PASS on Windows 11 / Python 3.14.7; brother-class reviews PASS. First execution served by GLM-5.3-Flash after GLM-5.3 provider availability failures, disclosed per ADR-0035 rule 4.'
         date: '2026-09-18'
 tool:
   id: zcode-desktop

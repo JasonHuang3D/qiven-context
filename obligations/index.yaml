@@ -111,7 +111,7 @@ records:
   - id: OBL-20260918T164245Z-5D9B2E
     file: OBL-20260918T164245Z-5D9B2E.md
     title: Execute F2 qualification upgrade for jason-worker-glm5-3-flash
-    status: open
+    status: done
   - id: OBL-20260918T164245Z-8A4C71
     file: OBL-20260918T164245Z-8A4C71.md
     title: Execute bundled cosmetic corrections F3-F5 from the PR #16 review
