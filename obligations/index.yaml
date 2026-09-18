@@ -115,4 +115,4 @@ records:
   - id: OBL-20260918T164245Z-8A4C71
     file: OBL-20260918T164245Z-8A4C71.md
     title: Execute bundled cosmetic corrections F3-F5 from the PR #16 review
-    status: open
+    status: done

@@ -39,7 +39,7 @@ A handoff claim must name its type (H1-H4) and its evidence.
 | Read-only (remote reads, retrieval, analysis, audit) | permitted | not applicable | not applicable |
 | Rebuildable derived artifacts (generated/, indexes, isolated scratch builds/tests) | permitted with bounded resources | not applicable | not applicable |
 | Local commit on an authorized task branch | permitted inside the authorized scope | review may be deferred to publication | scope negotiable, discipline not |
-| Push of a pre-authorized exact task branch (WIP durability) | not unattended-eligible | H2 before merge | branch scope negotiable |
+| Push of a pre-authorized exact task branch (WIP durability) | not unattended-eligible | none for the push itself; H2 before merge-class publication of the pushed branch | branch scope negotiable |
 | PR creation and merge-class publication | prohibited | H2 mandatory | invalid |
 | Acceptance-topology roles (K4/K5 producer, fresh consumer, Human Succession) | impossible by definition | H1/H3 mandatory | invalid |
 | Governance mutation (authority.yaml, constitution, ADR lifecycle) | prohibited | H2 plus root principal | invalid |
