@@ -60,6 +60,10 @@ For owner-run Human Manual Mode acceptance, use the Operator's human view. K4 sp
 - Workflow 2 remains fail-closed until Host production authority is accepted and Context explicitly re-enables it.
 - The preserved Host correction and generic Devkit Operator candidate remain paused/unaccepted as previously recorded.
 
+## Participant views and role bindings
+
+ADR-0035 and ADR-0036 (2026-09-18) separate canonical roles from model instances and client-tool capability classes, and fix the typed human-handoff boundary (H1-H4, no-verbal-waiver, unattended automation read-only by default). `views/zcode-jason.yaml` is registered for ZCode (GLM) + Jason with bindings `jason-brother-glm5-3` (provisional) and `jason-worker-glm5-3-flash` (untested; first materialized execution is the 2026-09-18 two-layer context transaction on `zcode/contextview-two-layer`, served by GLM-5.3-Flash after GLM-5.3 provider availability failures — disclosed per the ADR-0035 disclosure duty). `chatgpt-jason` remains active and semantically unchanged. The governance principal remains `github:JasonHuang3D`; there has been no authority cutover. `collaboration/human-handoff-boundary.md` joins the mandatory cold-boot input set.
+
 ## Next boundary
 
 Implement K5 lossless semantic transport compression against the exact accepted K4 handoff reference. Establish pinned tokenizer measurements, deterministic round-trip/corruption/resource/security gates and paired isolated fresh-LLM semantic-equivalence trials before claiming improvement. Production storage, Host/DCR resumption and authority cutover remain separate.

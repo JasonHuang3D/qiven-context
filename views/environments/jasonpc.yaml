@@ -1,7 +1,7 @@
 schema_version: 1
 id: jasonpc
 status: active
-scope_view: chatgpt-jason
+scope_view: [chatgpt-jason, zcode-jason]
 basis: owner_declared
 platform:
   os_family: windows

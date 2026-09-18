@@ -7,13 +7,13 @@ Do not rely on model-native memory, a prior chat, a local clone, or a remembered
 1. Resolve the canonical GitHub repository `JasonHuang3D/qiven-context` and its remote `main` state.
 2. Read `MEMORY-CONSTITUTION.md`.
 3. Read `governance/authority.yaml`.
-4. Read `collaboration/operating-contract.md`.
+4. Read `collaboration/operating-contract.md` and `collaboration/human-handoff-boundary.md` (typed handoffs H1-H4, unattended-automation limits, and the no-verbal-waiver protocol, per ADR-0036).
 5. Read `collaboration/context-validation.md`; its portable-validation exception does not waive task-specific acceptance roles or delivery-profile isolation.
 6. Read `collaboration/software-engineering-philosophy.md`.
 7. Read `collaboration/context-operating-model.md`.
 8. Read `collaboration/context-handoff-contract.md`.
 9. Read `state/current.md`, `state/active-work.yaml`, `state/repositories.yaml`, and `state/roadmap.yaml`.
-10. Resolve the applicable ContextView for the current human/agent combination. View selection may use authenticated human identity plus current agent family/capabilities, but a view never overrides canonical project truth or governance. For the current ChatGPT + Jason collaboration, load `views/chatgpt-jason.yaml` and its referenced environment/workflow profiles. If no matching view exists, continue with the identity-independent ProjectContext rather than inventing one.
+10. Resolve the applicable ContextView for the current human/agent combination. View selection may use authenticated human identity plus current agent family/capabilities, but a view never overrides canonical project truth or governance. Registered views include `views/chatgpt-jason.yaml` (ChatGPT + Jason) and `views/zcode-jason.yaml` (ZCode + Jason); load the matching view with its referenced human-preference, environment, and workflow profiles. Role-to-model bindings in a view are resolved `verify_live` per ADR-0035; substitution or degradation of the serving model must be disclosed, never silently assumed. If no matching view exists, continue with the identity-independent ProjectContext rather than inventing one.
 11. Read the latest non-legacy session checkpoint when one exists. Treat it as continuity evidence only; never let it override canonical records or live authority.
 12. Determine the current task.
 13. Run task-specific retrieval before using project-history facts. Prefer the accepted derived retrieval path when available. Retrieval results are candidate evidence, not truth.

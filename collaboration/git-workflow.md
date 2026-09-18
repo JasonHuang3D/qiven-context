@@ -7,7 +7,7 @@ JasonPC validation. Platform-dependent work and Host/DCR restrictions remain sco
 as described below.
 
 - Remote-native branches created directly by jason-brother normally use `jason-brother/<name>`.
-- Local-execution branches implemented by jason-worker normally use `jason-worker/<name>`.
+- Local-execution branches implemented by jason-worker normally use `jason-worker/<name>`; desktop local-agent sessions may use `zcode/<name>` (ADR-0035).
 - jason-worker commits locally and does not push by default; the user pushes worker branches for remote review unless a separately accepted authority path explicitly permits the push.
 - jason-brother may create/update remote branches and commits directly for authorized remote-native work when GitHub connector access is available and the selected mutation path is currently accepted.
 - GitHub remote state is authoritative for published repository identity; a local clone is a non-authoritative working copy/cache.
@@ -18,7 +18,7 @@ as described below.
 - CI executes the requested deterministic validation plan; CI does not infer architectural relevance from the diff.
 - CI is acceptance evidence for an exact reviewed candidate, not a remote debugging loop.
 - After CI dispatch, Chat may perform at most one immediate exact-identity status read. If the run remains queued/in-progress, report repository, workflow/run, exact SHA, scope, last status, and the direct GitHub run URL, then return control.
-- Required machine-local validation follows the active ContextView workflow. In the current ChatGPT + Jason view this is `views/workflows/chatgpt-jason-local-execution.md`: Human Manual Mode through Qiven Operator while Host-mediated AI mutation is suspended; later the same Operator task/gate surface is invoked through the accepted Host authority path.
+- Required machine-local validation follows the active ContextView workflow: `views/workflows/chatgpt-jason-local-execution.md` (Human Manual Mode through Qiven Operator) for `chatgpt-jason`, or `views/workflows/local-supervised-agent.md` for `zcode-jason`, while Host-mediated AI mutation is suspended; later the same Operator task/gate surface is invoked through the accepted Host authority path.
 - Do not create unmanaged OS-temporary repository clones as routine validation materialization. Use the view-declared long-lived Qiven workspace plus Operator-owned exact-identity worktree/scratch lifecycle when isolation is needed.
 - After required validation and exact remote review, jason-brother may merge an exact validated batch head under ADR-0021 when all additional gates are satisfied.
 - If any commit is added after the validated head, that changed head requires validation again before merge.

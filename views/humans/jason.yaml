@@ -1,0 +1,17 @@
+schema_version: 1
+id: jason
+display_name: Jason
+governance_principal: 'github:JasonHuang3D'
+preferences:
+  local_relay: operator_first
+  relay_note: when a desktop local agent executes directly, the relay step disappears but acceptance roles and typed handoffs do not
+  merge_confirmation: via_ai_or_github_ui
+  command_style: copyable_deterministic_chains
+scope_note: >
+  Preferences adapt interaction and presentation only. They never alter
+  acceptance topology, typed handoff requirements, authority, or governance
+  (collaboration/human-handoff-boundary.md). Another human (for example a
+  future alice) declares separate preferences here without touching this file.
+used_by:
+  - chatgpt-jason
+  - zcode-jason
