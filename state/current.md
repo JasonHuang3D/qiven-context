@@ -2,7 +2,7 @@
 
 ## Active objective
 
-ContextKernel K3 remains the latest canonical checkpoint on `main`. K4 acceptance evidence is complete for implementation candidate `decc769aceb7043e0e7be48f8ba1c7bfe272e2e3`, tree `5a8491c9b7c2bb45564f381f43535d38dea2cc97`, on `refs/heads/jason-brother/context-k4`; final exact-head closeout validation and canonical merge remain pending.
+ContextKernel K4 Canonical Artifact Handoff is accepted on implementation candidate `decc769aceb7043e0e7be48f8ba1c7bfe272e2e3`, tree `5a8491c9b7c2bb45564f381f43535d38dea2cc97`. The exact-head JasonPC producer, complete artifact identities, isolated fresh-consumer Phase A/B and evidence-closeout validation passed. Canonical publication is the exact validated merge of PR #15 to `main`.
 
 A 2026-09-18 review found a semantic acceptance gap: the pre-correction K4 challenge reused the older remote cold-boot topology, allowing the fresh agent to fetch the original qiven-context candidate and perform export/restore itself. That proves remote continuity but does not prove the exported artifact caused continuity. ADR-0034 and `collaboration/context-handoff-contract.md` correct this at the contract level. K4 must prove producer -> artifact -> isolated consumer.
 
@@ -16,6 +16,7 @@ The earlier post-original-candidate commit `194fcfdcabc9b5661131e827298f12f02fd7
 
 ## ContextKernel accepted baseline
 
+- K4 implementation: `decc769aceb7043e0e7be48f8ba1c7bfe272e2e3`; Canonical Artifact Handoff acceptance evidence in `evidence/audits/context-k4-handoff-acceptance-2026-09-18.md`.
 - K3 implementation: `a8c817f3115c29e32ecb7c5a6bf00d03566b1761`; evidence in `evidence/audits/context-k3-review-2026-09-17.md` and its 193-test log.
 - K2 implementation: `4e18ffadf6d112539e68fe2ba9e2e0413d6efa03`; durable transaction/authority/idempotency semantics accepted.
 - K1 implementation: `8493e5dd39404cf30d7e410029e0d3a1ba6547f3`; representation-independent object/import baseline accepted.
@@ -41,7 +42,7 @@ For owner-run Human Manual Mode acceptance, use the Operator's human view. K4 sp
 
 ## K5
 
-`OBL-20260917T192300Z-A7C4E2` is deferred until K4 handoff acceptance. K5 will reduce effective LLM input tokens through a versioned lossless transport representation. It must pass deterministic machine round-trip/corruption/resource gates and paired isolated fresh-LLM semantic-equivalence trials against the accepted K4 reference. Task-specific ContextBundle retrieval remains a different, potentially lossy-by-relevance mechanism and does not satisfy K5.
+`OBL-20260917T192300Z-A7C4E2` is now open because its K4-acceptance trigger is satisfied. K5 will reduce effective LLM input tokens through a versioned lossless transport representation. It must pass deterministic machine round-trip/corruption/resource gates and paired isolated fresh-LLM semantic-equivalence trials against the accepted K4 reference. Task-specific ContextBundle retrieval remains a different, potentially lossy-by-relevance mechanism and does not satisfy K5.
 
 ## Accepted Context v2 operational checkpoint
 
@@ -61,4 +62,4 @@ For owner-run Human Manual Mode acceptance, use the Operator's human view. K4 sp
 
 ## Next boundary
 
-Publish the K4 acceptance evidence closeout, run the full repository gate on the exact resulting branch head, then record K4 as accepted and merge the exact validated PR head to `main`. The second cognitive trial may carry forward across evidence/state-only closeout commits because they do not alter its tested cognition, handoff runtime or artifact inputs. After canonical K4 acceptance, activate the deferred K5 lossless transport-compression boundary. Production storage, Host/DCR resumption and authority cutover remain separate.
+Implement K5 lossless semantic transport compression against the exact accepted K4 handoff reference. Establish pinned tokenizer measurements, deterministic round-trip/corruption/resource/security gates and paired isolated fresh-LLM semantic-equivalence trials before claiming improvement. Production storage, Host/DCR resumption and authority cutover remain separate.

@@ -103,4 +103,4 @@ records:
   - id: OBL-20260917T192300Z-A7C4E2
     file: OBL-20260917T192300Z-A7C4E2.md
     title: Implement K5 lossless LLM transport compression after K4 artifact handoff acceptance
-    status: deferred
+    status: open

@@ -2,7 +2,7 @@
 
 Date: 2026-09-18
 
-Status: **ACCEPTANCE EVIDENCE PASS; FINAL EXACT-HEAD VALIDATION PENDING**
+Status: **PASS**
 
 This audit closes the corrected K4 producer/artifact/isolated-consumer experiment.
 It does not select production storage, resume Host/DCR mutation, cut over authority,
@@ -129,9 +129,18 @@ exact remote candidate
 K4 acceptance evidence is complete for implementation candidate
 `decc769aceb7043e0e7be48f8ba1c7bfe272e2e3`.
 
-Before canonical merge, publish this evidence-only closeout, run the full repository
-validation on its exact branch head, then record the accepted K4 state. Any final
-state/audit-only commit must itself receive an exact-head validation. Those closeout
-changes may carry this cognitive trial forward because they do not change tested
-cognition or handoff inputs; the rationale and exact validated head must be preserved
-in the final acceptance/merge evidence.
+The evidence-only closeout was published as commit
+`221c173c3f022e83b7dbfa701aa9c20629d62b66`, tree
+`18af6c1e8a510e35a1ad7376ed4c49340c8b9a71`. Its exact tree passed the complete
+portable repository gate in the agent runtime on Linux Python 3.12.14: 17 suites
+PASS, zero failures, 78.57 seconds; the unchanged Windows-only resolver suite was
+skipped by contract. `git diff --check` also passed.
+
+The present accepted-state update changes only audit/state/obligation/session
+cognition. It does not change the tested K4 runtime or the handoff inputs consumed by
+the second trial, so the cognitive result carries forward under the accepted
+evidence-only closeout rule. The final exact PR head must still pass the same gate;
+that exact identity and result are preserved in the canonical merge evidence.
+
+K4 Canonical Artifact Handoff result: **ACCEPTED**, subject only to publication of
+the already-authorized exact validated merge to canonical `main`.

@@ -2,28 +2,27 @@ schema_version: 2
 program: qiven-context
 status: active
 objective: >-
-  Close and canonically merge the validated ContextKernel K4 Canonical Artifact
-  Handoff, then activate K5 lossless token-efficient transport against that reference.
+  Implement K5 lossless token-efficient transport against the accepted K4 Canonical
+  Artifact Handoff reference.
 accepted_checkpoint:
-  subject: context-engine-k3
-  ref: a8c817f3115c29e32ecb7c5a6bf00d03566b1761
-  evidence:
-  - 14 portable Python suites / 193 tests PASS in agent runtime
-  - evidence/audits/context-k3-review-2026-09-17.md
-  - evidence/audits/context-k3-python-validation-2026-09-17.txt
-current_candidate:
   subject: context-engine-k4
   ref: decc769aceb7043e0e7be48f8ba1c7bfe272e2e3
-  state: acceptance-evidence-pass-final-exact-head-validation-pending
-blockers:
-- Publish the evidence-only K4 closeout and run the full repository gate on its exact branch head.
-- Record final accepted state and validate that exact closeout head before merging PR #15 to main.
+  evidence:
+  - Exact-head JasonPC k4-handoff-acceptance producer PASS on Windows 11 / Python 3.14.7
+  - Isolated fresh-LLM artifact-only Phase A and subsequent Phase B PASS
+  - evidence/audits/context-k4-handoff-acceptance-2026-09-18.md
+  - Evidence closeout 221c173c3f022e83b7dbfa701aa9c20629d62b66 / tree 18af6c1e8a510e35a1ad7376ed4c49340c8b9a71 validated with 17 portable suites PASS
+current_candidate:
+  subject: context-engine-k5
+  ref: not-created
+  state: not-started
+blockers: []
 paused_work:
 - qiven-host/49e69c02fe2ded0b9607ccb4090c21cde96b8a1c
 - qiven-runtime/process-execution
 - qiven-dcr-win/phase-1-batch-001
 - qiven-cad
 next_boundary: >-
-  Validate the evidence closeout exact head, finalize K4 accepted state, validate the
-  final PR head, and merge it to main. Then activate K5 lossless transport compression.
-updated_at: '2026-09-18T06:45:00Z'
+  Design and implement K5's versioned lossless codec/profile, prove exact semantic
+  round-trip and measure effective tokens with pinned tokenizers before paired fresh-LLM trials.
+updated_at: '2026-09-18T07:35:00Z'
