@@ -1,12 +1,12 @@
 schema_version: 1
 classification: plan
 immutable_architecture: false
-updated_at: '2026-09-16T12:50:00Z'
+updated_at: '2026-09-17T19:23:00Z'
 items:
   - order: 1
     title: Context v2 — canonical continuity plus operational ContextView / Qiven Operator Human Manual Mode
   - order: 2
-    title: qiven-context.exe / Context Engine — semantic provider-consumer architecture, representation-independent storage, migration and backup/export
+    title: qiven-context.exe / Context Engine — finish K4 causal Canonical Artifact Handoff, then K5 lossless token-efficient LLM transport
   - order: 3
     title: Complete Qiven Host Phase 0 / Batch 000 semantic acceptance from the preserved dispatcher + protected NoOp candidate
   - order: 4

@@ -30,6 +30,29 @@ def checked_yaml(root: Path, path: str, schema: str):
     return data
 
 
+def _declared_constraint_sources(root: Path) -> set[str]:
+    target = root / CONSTRAINT_MANIFEST
+    if not target.is_file():
+        return set()
+    try:
+        data = yaml.safe_load(target.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, yaml.YAMLError):
+        return set()
+    if not isinstance(data, dict) or not isinstance(data.get("rules"), list):
+        return set()
+    result: set[str] = set()
+    for rule in data["rules"]:
+        if not isinstance(rule, dict) or not isinstance(rule.get("sources"), list):
+            continue
+        for value in rule["sources"]:
+            if isinstance(value, str):
+                try:
+                    result.add(safe_path(value))
+                except ValueError:
+                    pass
+    return result
+
+
 def mandatory_paths(root: Path, query: Mapping | None = None) -> tuple[str, ...]:
     query = query or {}
     manifest = checked_yaml(root, INPUT_MANIFEST, "context-inputs.schema.json")
@@ -52,8 +75,11 @@ def mandatory_paths(root: Path, query: Mapping | None = None) -> tuple[str, ...]
         paths.extend(environments)
         paths.extend(workflows.values())
     paths = list(dict.fromkeys(safe_path(path) for path in paths))
+    constraint_sources = _declared_constraint_sources(root)
     for path in paths:
         if not (root / path).is_file():
+            if path in constraint_sources:
+                raise FileNotFoundError(f"missing mandatory Context constraint source: {path}")
             raise FileNotFoundError(f"missing mandatory Context source: {path}")
     return tuple(paths)
 

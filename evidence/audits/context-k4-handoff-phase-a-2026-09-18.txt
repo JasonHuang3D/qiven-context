@@ -1,0 +1,344 @@
+# Artifact sufficiency assessment
+
+The supplied artifact is sufficiently self-describing for a Phase A artifact-only consumption trial.
+
+Evidence:
+
+- The artifact declares a canonical export structure containing Qiven cognition objects, evidence records, obligations, ADRs, checkpoints, and continuity projections.
+- The handoff contract model embedded in the artifact defines the consumer boundary: a fresh consumer reconstructs from one immutable self-describing handoff artifact before any live verification. :chatgpt-content-reference{index="0"}
+- The artifact explicitly distinguishes Canonical Artifact Handoff from remote cold boot, session checkpoints, and Human Succession, preventing those channels from being silently mixed. :chatgpt-content-reference{index="1"}
+
+No external Qiven source was used.
+
+---
+
+# 1. Qiven's purpose
+
+## Artifact-supported facts
+
+Qiven is a project continuity and cognition infrastructure system.
+
+Its purpose is not merely session memory. The artifact defines Qiven Context as infrastructure for preserving canonical project cognition across sessions, models, providers, agents, and authorized human changes.
+
+Core purpose:
+
+- Maintain project truth independently from any single chat session.
+- Preserve accepted decisions, constraints, evidence, obligations, and architecture.
+- Allow a fresh consumer to reconstruct the project state safely.
+
+The artifact distinguishes:
+
+- Project Continuity = reconstruction outcome.
+- Delivery profiles = mechanisms used to achieve continuity.
+
+The relevant delivery profiles are:
+
+1. Remote cold boot.
+2. Session checkpoint continuity.
+3. Canonical Artifact Handoff.
+4. Human Succession.
+
+Passing one profile does not prove another. :chatgpt-content-reference{index="2"}
+
+## Interpretation
+
+Qiven can be understood as a governance-aware project cognition layer rather than a conventional documentation repository.
+
+---
+
+# 2. Governance and root authority
+
+## Artifact-supported facts
+
+Current governance authority:
+
+- Canonical project cognition authority remains the GitHub remote.
+- Local clones are working copies, not authority.
+- Current governance authentication boundary is the GitHub account identity `JasonHuang3D`.
+- Biological human identity verification is explicitly outside the current project scope. :chatgpt-content-reference{index="3"}
+
+The artifact records:
+
+- GitHub remote `JasonHuang3D/qiven-context` remains canonical until separately accepted authority migration.
+- ContextView adapts presentation/workflow but cannot override ProjectContext truth or governance. :chatgpt-content-reference{index="4"}
+
+## Authority model reconstructed
+
+```
+Project truth
+    |
+    v
+Canonical remote repository
+    |
+    v
+Accepted decisions / ADRs / obligations / evidence
+    |
+    v
+Context projections and consumer views
+```
+
+A ContextView is a projection, not an authority source.
+
+---
+
+# 3. Engineering philosophy and binding constraints
+
+## Engineering philosophy
+
+Artifact-supported principles:
+
+### Semantic ownership over local convenience
+
+The engineering posture prioritizes:
+
+- explicit ownership,
+- durable semantics,
+- evidence-backed transitions,
+- avoiding hidden state.
+
+The project requires conflicting active records to be reconciled rather than permanently coexisting as ambiguous truth. :chatgpt-content-reference{index="5"}
+
+### Continuity must be proven causally
+
+K4 specifically rejects a weaker model where a fresh agent can secretly reread canonical repositories and then claim artifact continuity.
+
+The artifact states that an incomplete export could be masked if the consumer retrieves cognition from the original repository. :chatgpt-content-reference{index="6"}
+
+### Validation boundaries
+
+A DCR connection alone is not validation evidence.
+
+Validation must bind to:
+
+- exact candidate identity,
+- declared execution contract,
+- required gates,
+- preserved evidence.
+
+The artifact preserves this distinction in ADR-0021 and related K4 acceptance rules. :chatgpt-content-reference{index="7"}
+
+---
+
+# 4. Current active objective and paused/deferred domains
+
+## Active objective
+
+Current active objective:
+
+> Complete corrected ContextKernel K4: causal Canonical Artifact Handoff with an independent JasonPC producer and isolated fresh LLM consumer, then preserve K4 as the correctness reference for deferred K5 lossless transport.
+
+Evidence from artifact state:
+
+- Program: `qiven-context`
+- Status: active
+- Objective: corrected ContextKernel K4 acceptance. :chatgpt-content-reference{index="8"}
+
+## Paused/deferred domains
+
+Paused:
+
+- `qiven-host/49e69c02fe2ded0b9607ccb4090c21cde96b8a1c`
+- `qiven-runtime/process-execution`
+- `qiven-dcr-win/phase-1-batch-001`
+- `qiven-cad`
+
+:chatgpt-content-reference{index="9"}
+
+Deferred:
+
+- K5 lossless LLM transport compression.
+
+K5 depends on K4 acceptance and must preserve K4 semantic closure. :chatgpt-content-reference{index="10"}
+
+---
+
+# 5. Latest accepted checkpoint and evidence
+
+## Latest accepted checkpoint
+
+Subject:
+
+`context-engine-k3`
+
+Reference:
+
+`a8c817f3115c29e32ecb7c5a6bf00d03566b1761`
+
+Evidence:
+
+- 14 portable Python suites.
+- 193 tests PASS.
+- `evidence/audits/context-k3-review-2026-09-17.md`
+- `evidence/audits/context-k3-python-validation-2026-09-17.txt`
+
+:chatgpt-content-reference{index="11"}
+
+## Accepted baseline chain
+
+Artifact records:
+
+- K1:
+  `8493e5dd39404cf30d7e410029e0d3a1ba6547f3`
+
+- K2:
+  `4e18ffadf6d112539e68fe2ba9e2e0413d6efa03`
+
+- K3:
+  `a8c817f3115c29e32ecb7c5a6bf00d03566b1761`
+
+:chatgpt-content-reference{index="12"}
+
+---
+
+# 6. Current unaccepted candidate and why not accepted
+
+## Candidate
+
+Current candidate:
+
+```
+subject: context-engine-k4
+ref: refs/heads/jason-brother/context-k4
+state:
+corrected-canonical-conflict-requires-second-blind-handoff-trial
+```
+
+:chatgpt-content-reference{index="13"}
+
+## Why not accepted
+
+The first K4 artifact handoff trial demonstrated:
+
+- artifact-only reconstruction worked;
+- Phase B live verification worked.
+
+However, it exposed a canonical wording conflict:
+
+- `state/current.md`
+- `state/active-work.yaml`
+
+still instructed the producer gate to use machine JSON mode, while the more specific Human Manual Mode workflow required human view with `--verbose`.
+
+Because Qiven forbids accepting known resolvable canonical conflicts, that trial remains diagnostic evidence rather than acceptance evidence. :chatgpt-content-reference{index="14"}
+
+---
+
+# 7. Current blockers and obligations
+
+Current blockers:
+
+1. Publish/review corrected K4 exact head.
+2. Run `k4-handoff-acceptance` on JasonPC.
+3. Use Human Manual Mode.
+4. Bind execution with exact `--expect-head`.
+5. Preserve producer summary containing:
+   - artifact path,
+   - handoff identity,
+   - package identity,
+   - manifest identity.
+6. Transfer generated handoff JSON to a fresh LLM.
+7. Complete Phase A artifact-only reconstruction.
+8. Complete Phase B live verification.
+
+:chatgpt-content-reference{index="15"}
+
+---
+
+# 8. Accepted, rejected, superseded, and legacy cognition
+
+## Accepted
+
+- Context v2 operational model.
+- Revised ADR-0033 architecture.
+- ADR-0034 continuity delivery semantics.
+- R1/R2.
+- ContextKernel K1/K2/K3 baseline.
+- ContextView + Operator runtime merge:
+  `35343c50c6df50d0ffc35664b24d029360787f35`.
+
+:chatgpt-content-reference{index="16"}
+
+## Superseded
+
+Examples:
+
+- Earlier overlapping continuity interpretations were replaced by explicit delivery profiles.
+- Pre-v2 session handoff meaning is no longer treated as Canonical Artifact Handoff. :chatgpt-content-reference{index="17"}
+
+## Legacy
+
+Legacy surfaces include:
+
+- old session handoffs under `sessions/legacy/`;
+- historical evidence records.
+
+They are preserved as history, not current authority. :chatgpt-content-reference{index="18"}
+
+---
+
+# 9. Facts that cannot be established from artifact alone
+
+The following cannot be established without later live verification:
+
+1. Whether the current remote GitHub candidate exactly matches the artifact's recorded candidate.
+2. Whether the corrected K4 candidate has passed the final producer gate.
+3. Whether JasonPC producer execution has generated the required final handoff evidence.
+4. Whether the final K4 acceptance audit exists after correction.
+5. Current live repository state.
+6. Current CI/runtime environment state.
+
+The artifact explicitly requires later live verification for mutable facts and does not permit artifact-only reconstruction to repair missing live evidence. :chatgpt-content-reference{index="19"}
+
+---
+
+# 10. Next valid project action
+
+The next valid action is:
+
+> Publish/review the corrected K4 exact head, execute the integrated K4 handoff acceptance gate on JasonPC with exact-head binding, preserve producer identity evidence, then perform a fresh isolated LLM artifact-only Phase A trial followed by Phase B verification.
+
+This is the action required by the current continuity boundary. :chatgpt-content-reference{index="20"}
+
+---
+
+# Phase A Result
+
+## Artifact-only Project Continuity reconstruction assessment
+
+**Result: SUCCESS**
+
+The artifact is sufficiently self-describing and contains enough canonical cognition to reconstruct:
+
+- Qiven purpose.
+- Governance model.
+- Engineering constraints.
+- Current objective.
+- Accepted baseline.
+- Candidate state.
+- Blockers.
+- Next action.
+
+The reconstruction succeeded without requiring:
+
+- GitHub access.
+- External repositories.
+- Prior conversations.
+- Connected applications.
+- Hidden memory.
+
+## Abstentions / missing cognition
+
+Abstained from asserting:
+
+- current live Git state;
+- corrected K4 acceptance status;
+- producer execution completion;
+- final K4 PASS.
+
+Those require Phase B live verification according to the artifact contract.
+
+## Final status
+
+Artifact-only continuity reconstruction is complete and sealed.
+
+K4 HANDOFF PHASE A — SEALED

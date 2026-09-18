@@ -2,17 +2,55 @@
 
 ## Goal
 
-Demonstrate that Qiven can continue after session loss, turn incidents, model/provider replacement, or agent replacement without relying on model-native memory, a particular local clone, or private/oral project recollection.
+Demonstrate that Qiven can continue after session loss, turn incidents,
+model/provider replacement or agent replacement without relying on model-native
+project memory, a particular local clone, or private/oral project recollection.
 
-Project Continuity is the routine Context acceptance gate. Human succession is a separate higher-order property defined in `collaboration/human-succession-acceptance.md`.
+This contract defines the **semantic reconstruction outcome**. It does not by itself
+define how cognition is delivered to the fresh consumer. Every execution must name
+one admitted delivery profile and obey that profile's input/isolation rules.
+
+Human Succession is a separate higher-order property defined in
+`collaboration/human-succession-acceptance.md`.
+
+## Delivery profiles
+
+### Remote cold boot
+
+A fresh capable LLM/agent receives an exact remotely published `qiven-context` ref
+and may read canonical Context plus the project repositories/live evidence that
+Context identifies. This proves that canonical remote Context is sufficient for a
+new reasoning session to continue safely.
+
+The historical `collaboration/cold-boot-acceptance.md` and its preserved audits are
+this profile. A PASS here does **not** prove that an exported backup/handoff artifact
+is sufficient.
+
+### Canonical artifact handoff
+
+A fresh capable LLM/agent receives the handoff artifact produced under
+`collaboration/context-handoff-contract.md`. Before sealing its initial
+reconstruction, it may not reread canonical qiven-context cognition remotely or use
+prior Qiven project memory to fill gaps. This proves portable artifact continuity and
+is the mandatory profile for ContextKernel K4 acceptance.
+
+After the isolated reconstruction is sealed, live verification may be performed only
+for facts whose authority is live by contract. Live verification cannot repair a
+missing canonical cognition input without causing the artifact-handoff phase to fail.
+
+Additional transport profiles require an accepted contract naming their allowed
+inputs and the property they prove. Passing one profile never silently proves another.
 
 ## Test subject
 
-Use a fresh capable LLM/agent in a fresh session with no prior Qiven conversation and no model-native project memory. An authorized human operator may be the existing operator or a fresh operator; the test must not rely on that human supplying private/oral Qiven knowledge to reconstruct project state.
+Use a fresh capable LLM/agent in a fresh session with no prior Qiven conversation and
+no model-native Qiven project memory admitted as evidence. An authorized human operator may be the existing operator or a fresh operator; routine Project Continuity does not require a fresh human.
 
-The test receives the exact remotely published `qiven-context` candidate under evaluation and only the project repositories/live evidence that canonical context identifies. A session checkpoint may be available as continuity evidence, but no canonical fact may exist only there.
+The human must not orally/private-message missing project cognition to the fresh
+agent. The selected delivery profile determines which durable inputs are allowed.
 
-A fresh human is deliberately **not** required for this routine gate. Proving continuity across replacement of the human operator belongs to Human Succession Acceptance.
+A session checkpoint may be present as continuity evidence when the selected profile
+contains it, but no canonical fact may exist only there.
 
 ## Required reconstruction
 
@@ -31,12 +69,41 @@ The candidate must correctly establish, with provenance:
 
 ## Failure conditions
 
-The continuity test fails if the candidate treats model memory, human private recollection, or a local clone as authoritative; requires a missing prior chat to recover canonical project cognition; treats a superseded/legacy record as current; leaves a known resolvable canonical conflict unresolved; invents missing history or repository state; cannot identify project governance authority; confuses green CI with semantic acceptance; or cannot identify the exact next legitimate boundary.
+The continuity test fails if the candidate:
+
+- uses an input forbidden by the declared delivery profile;
+- treats model memory, private human recollection or a local clone as authority;
+- requires a missing prior chat to recover canonical project cognition;
+- treats superseded/legacy material as current;
+- leaves a known resolvable canonical conflict unresolved;
+- invents missing history or repository state;
+- cannot identify governance authority;
+- confuses green CI or successful restore with semantic acceptance;
+- cannot identify the exact next legitimate boundary; or
+- claims a stronger continuity property than the executed profile proves.
 
 ## Acceptance evidence
 
-Preserve each execution as a dated audit under `evidence/audits/`. The audit must state the exact qiven-context remote ref used, the challenge, sources retrieved, reconstruction result, unsupported claims/abstentions, and pass/fail result.
+Preserve each execution as a dated audit under `evidence/audits/`. The audit must
+state:
 
-Continuity evidence is bound to the exact ref that was tested. A later candidate may carry that evidence forward without repeating the blind reconstruction only when the intervening changes are limited to acceptance-specification correction, evidence recording, or tests and do not change the canonical project cognition or retrieval inputs that were reconstructed. The carry-forward rationale must be explicit, and final exact-head repository validation must be rerun.
+- delivery profile;
+- exact candidate/artifact identity;
+- allowed inputs and any attempted/denied inputs;
+- challenge and sources consumed;
+- reconstruction result for all ten requirements;
+- unsupported claims/abstentions;
+- later live verification separately from isolated reconstruction when applicable;
+- PASS/FAIL and the exact property that result establishes.
 
-Context v2 is not fully accepted until at least one fresh-session execution of this contract passes after the migration candidate is remotely published and the final candidate passes exact-head repository validation.
+Continuity evidence is bound to the exact ref/artifact tested. A later candidate may
+carry evidence forward without repeating the blind reconstruction only when the
+intervening changes are limited to acceptance-specification correction, evidence
+recording or tests and do not change the cognition/transport inputs consumed by the
+trial. The carry-forward rationale must be explicit and final exact-head repository
+validation must be rerun.
+
+Context v2's historical remote-cold-boot acceptance remains evidence for remote
+continuity. ContextKernel K4 is not accepted until at least one Canonical Artifact
+Handoff profile execution passes and the final candidate passes exact-head repository
+validation.

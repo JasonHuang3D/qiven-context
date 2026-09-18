@@ -1,17 +1,19 @@
 schema_version: 2
 program: qiven-context
 status: active
-objective: ContextKernel K3 is accepted; next boundary is K4 canonical export,
-  restore completeness and continuity proof.
+objective: >-
+  Implement K5 lossless token-efficient transport against the accepted K4 Canonical
+  Artifact Handoff reference.
 accepted_checkpoint:
-  subject: context-engine-k3
-  ref: a8c817f3115c29e32ecb7c5a6bf00d03566b1761
-  evidence:
-  - 14 portable Python suites / 193 tests PASS in agent runtime
-  - evidence/audits/context-k3-review-2026-09-17.md
-  - evidence/audits/context-k3-python-validation-2026-09-17.txt
-current_candidate:
   subject: context-engine-k4
+  ref: decc769aceb7043e0e7be48f8ba1c7bfe272e2e3
+  evidence:
+  - Exact-head JasonPC k4-handoff-acceptance producer PASS on Windows 11 / Python 3.14.7
+  - Isolated fresh-LLM artifact-only Phase A and subsequent Phase B PASS
+  - evidence/audits/context-k4-handoff-acceptance-2026-09-18.md
+  - Evidence closeout 221c173c3f022e83b7dbfa701aa9c20629d62b66 / tree 18af6c1e8a510e35a1ad7376ed4c49340c8b9a71 validated with 17 portable suites PASS
+current_candidate:
+  subject: context-engine-k5
   ref: not-created
   state: not-started
 blockers: []
@@ -20,7 +22,7 @@ paused_work:
 - qiven-runtime/process-execution
 - qiven-dcr-win/phase-1-batch-001
 - qiven-cad
-next_boundary: Implement and independently validate K4 canonical export/restore and
-  continuity under ADR-0033; no production storage decision, authority cutover or
-  resumed Host work.
-updated_at: '2026-09-17T13:55:00Z'
+next_boundary: >-
+  Design and implement K5's versioned lossless codec/profile, prove exact semantic
+  round-trip and measure effective tokens with pinned tokenizers before paired fresh-LLM trials.
+updated_at: '2026-09-18T07:35:00Z'

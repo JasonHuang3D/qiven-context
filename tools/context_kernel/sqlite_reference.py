@@ -23,6 +23,7 @@ class SQLiteReference:
                 CREATE TABLE IF NOT EXISTS blobs(digest TEXT PRIMARY KEY, body BLOB NOT NULL);
                 CREATE TABLE IF NOT EXISTS projects(project TEXT PRIMARY KEY, head TEXT NOT NULL,
                     mode TEXT NOT NULL CHECK(mode='quarantined'));
+                CREATE TABLE IF NOT EXISTS write_blocks(project TEXT PRIMARY KEY, reason TEXT NOT NULL);
                 CREATE TABLE IF NOT EXISTS attempts(
                     project TEXT NOT NULL, principal TEXT NOT NULL, key TEXT NOT NULL,
                     request TEXT NOT NULL, transaction_id TEXT NOT NULL,
@@ -138,6 +139,9 @@ class SQLiteReference:
         row = self.lookup(db, p['project_id'], p['principal'], p['idempotency_key'])
         if row:
             return 'ok' if row['request'] == request.digest else 'idempotency_conflict'
+        block = db.execute('SELECT reason FROM write_blocks WHERE project=?', (p['project_id'],)).fetchone()
+        if block:
+            return block['reason']
         existing = db.execute('SELECT request FROM attempts WHERE project=? AND transaction_id=?',
                               (p['project_id'], p['transaction_id'])).fetchone()
         if existing:
