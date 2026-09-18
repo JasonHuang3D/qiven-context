@@ -66,4 +66,4 @@ ADR-0035 and ADR-0036 (2026-09-18) separate canonical roles from model instances
 
 ## Next boundary
 
-Implement K5 lossless semantic transport compression against the exact accepted K4 handoff reference. Establish pinned tokenizer measurements, deterministic round-trip/corruption/resource/security gates and paired isolated fresh-LLM semantic-equivalence trials before claiming improvement. Production storage, Host/DCR resumption and authority cutover remain separate.
+Execute the accepted F-series follow-up batches (F2 worker-flash qualification upgrade, then the F3-F5 cosmetic bundle), each as a worker-executed, brother-reviewed, owner-confirmed transaction per its obligation specification. Then implement K5 lossless semantic transport compression against the exact accepted K4 handoff reference. Establish pinned tokenizer measurements, deterministic round-trip/corruption/resource/security gates and paired isolated fresh-LLM semantic-equivalence trials before claiming improvement. Production storage, Host/DCR resumption and authority cutover remain separate.

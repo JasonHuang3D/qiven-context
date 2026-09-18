@@ -23,6 +23,9 @@ paused_work:
 - qiven-dcr-win/phase-1-batch-001
 - qiven-cad
 next_boundary: >-
-  Design and implement K5's versioned lossless codec/profile, prove exact semantic
-  round-trip and measure effective tokens with pinned tokenizers before paired fresh-LLM trials.
-updated_at: '2026-09-18T07:35:00Z'
+  Execute the accepted F-series follow-up batches in order (F2 qualification
+  upgrade per OBL-20260918T164245Z-5D9B2E, then the F3-F5 cosmetic bundle per
+  OBL-20260918T164245Z-8A4C71), then design and implement K5's versioned lossless
+  codec/profile, prove exact semantic round-trip and measure effective tokens with
+  pinned tokenizers before paired fresh-LLM trials.
+updated_at: '2026-09-18T16:42:45Z'

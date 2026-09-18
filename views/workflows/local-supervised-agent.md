@@ -61,6 +61,13 @@ The owner review (H2) is satisfied by an explicit conversation confirmation or
 by the owner merging in the GitHub UI; both are equivalent evidence for the
 same exact delta.
 
+Task batches may be pre-designed as an accepted obligation set: jason-brother
+materializes the specifications (exact edits, acceptance criteria, sequencing
+triggers) as obligation records in one design transaction; jason-worker
+executes per obligation; jason-brother reviews each executed round against its
+specification before owner H2. A specification defect found during execution
+returns to design review rather than silently widening worker scope.
+
 ## Z2 — Host-mediated execution (unchanged, fail-closed)
 
 Workflow 2 semantics from `views/workflows/chatgpt-jason-local-execution.md`
