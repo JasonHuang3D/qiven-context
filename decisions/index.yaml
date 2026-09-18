@@ -36,3 +36,4 @@ records:
   - {id: ADR-0034, file: ADR-0034.md, title: Separate remote cold boot from canonical artifact handoff and require lossless LLM transport compression after K4, status: accepted}
   - {id: ADR-0035, file: ADR-0035.md, title: Bind participant roles to qualified model instances and client-tool capability classes through ContextView, status: accepted}
   - {id: ADR-0036, file: ADR-0036.md, title: Require typed human handoffs by objective operation class and make verbal waiver insufficient for mandatory handoffs, status: accepted}
+  - {id: ADR-0037, file: ADR-0037.md, title: Establish qiven-context-draft as the executable C++ specification of the cognition architecture, status: accepted}

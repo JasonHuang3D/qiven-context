@@ -116,3 +116,11 @@ records:
     file: OBL-20260918T164245Z-8A4C71.md
     title: Execute bundled cosmetic corrections F3-F5 from the PR #16 review
     status: done
+  - id: OBL-20260918T215000Z-B4D6A8
+    file: OBL-20260918T215000Z-B4D6A8.md
+    title: Validate qiven-context-draft as the executable specification of the cognition architecture
+    status: open
+  - id: OBL-20260918T215000Z-C9E3F1
+    file: OBL-20260918T215000Z-C9E3F1.md
+    title: Complete operator coverage of cmd/bat tools across Devkit-managed repositories
+    status: open
