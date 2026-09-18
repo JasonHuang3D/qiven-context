@@ -29,3 +29,8 @@ repositories:
     remote: https://github.com/JasonHuang3D/qiven-host.git
     default_branch: main
     role: host-execution-authority
+  - name: qiven-context-draft
+    remote: https://github.com/JasonHuang3D/qiven-context-draft.git
+    local_path: D:/JasonWork/qiven-context-draft
+    default_branch: main
+    role: executable-cognition-specification-draft
