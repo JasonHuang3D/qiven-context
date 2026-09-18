@@ -50,22 +50,39 @@ The session runs where the owner can see and gate it. Rules:
 
 ```text
 authorize task (owner)
-  -> local branch zcode/<name>
-  -> implement; run gates (bootstrap/full-tests/diff-check/clean-tree)
-  -> one coherent commit; exact head reported to owner
-  -> owner review (H2), push, PR, merge on owner confirmation
+  -> jason-brother: design; create branch if needed; author and commit changes
+  -> jason-worker: run test / gate / push / PR (and merge after accepted review)
+  -> review of the exact delta (owner H2, or delegated reviewer per ADR-0036)
   -> reconcile local main; cleanup per git-workflow.md
 ```
 
-The owner review (H2) is satisfied by an explicit conversation confirmation or
-by the owner merging in the GitHub UI; both are equivalent evidence for the
-same exact delta.
+## Execution-stage granularity (2026-09-18 owner direction)
+
+Within one batch, the brother-side instance authors: it designs, creates the
+branch when necessary, and reads/writes/commits the changes — it does not run
+tests, gates, push, or PR. The worker-side instance validates and publishes: it
+runs the test suite and Operator gates, pushes, opens the PR, and merges after
+the review is accepted. When a gate or test fails after a brother-authored
+commit, the worker hands off to the brother, the brother corrects with a new
+commit (still without running gates itself), and the worker revalidates and
+publishes. Gate failures are handoff triggers, not worker-side fix opportunities.
+
+## Delegated batch review
+
+For a designated batch series, the owner may delegate the per-batch H2 review to
+the brother-class reviewer (ADR-0036 already admits a delegated reviewer as H2
+evidence). The PR record of each batch carries the review statement and exact
+head; escalation to the owner is required when a round is material — a
+specification defect, a decision-semantics question, an unexpected failure
+class, or any gate the owner reserved (notably a qualification upgrade of the
+reviewing instance itself, which stays owner-reserved to avoid reviewer
+self-certification).
 
 Task batches may be pre-designed as an accepted obligation set: jason-brother
 materializes the specifications (exact edits, acceptance criteria, sequencing
 triggers) as obligation records in one design transaction; jason-worker
 executes per obligation; jason-brother reviews each executed round against its
-specification before owner H2. A specification defect found during execution
+specification before publication. A specification defect found during execution
 returns to design review rather than silently widening worker scope.
 
 ## Z2 — Host-mediated execution (unchanged, fail-closed)
