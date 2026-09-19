@@ -123,4 +123,4 @@ records:
   - id: OBL-20260918T215000Z-C9E3F1
     file: OBL-20260918T215000Z-C9E3F1.md
     title: Complete operator coverage of cmd/bat tools across Devkit-managed repositories
-    status: open
+    status: done

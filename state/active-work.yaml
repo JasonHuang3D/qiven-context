@@ -24,8 +24,9 @@ paused_work:
 - qiven-cad
 next_boundary: >-
   Validate qiven-context-draft as the executable cognition specification
-  (OBL-20260918T215000Z-B4D6A8) and complete operator coverage of cmd/bat tools
-  (OBL-20260918T215000Z-C9E3F1), then design and implement K5's versioned lossless
-  codec/profile, prove exact semantic round-trip and measure effective tokens with
-  pinned tokenizers before paired fresh-LLM trials.
-updated_at: '2026-09-18T21:26:25Z'
+  (OBL-20260918T215000Z-B4D6A8; the 0.1.4 roll already surfaced a Release-only
+  assert-side-effect bug, proving the validation obligation's point), then design
+  and implement K5's versioned lossless codec/profile, prove exact semantic
+  round-trip and measure effective tokens with pinned tokenizers before paired
+  fresh-LLM trials.
+updated_at: '2026-09-19T09:24:59Z'
