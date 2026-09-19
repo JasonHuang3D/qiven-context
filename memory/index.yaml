@@ -38,3 +38,4 @@ records:
   - {id: MEM-20260919T113238Z-B2F4D8, file: MEM-20260919T113238Z-B2F4D8.md, title: 'Git account identity does not represent LLM authoring identity; commits carry role and model attribution headers', status: active}
   - {id: MEM-20260919T121032Z-C5D8A1, file: MEM-20260919T121032Z-C5D8A1.md, title: 'Supervised local agents run operator gates through the human view with full-output capture, never piped machine JSON', status: active}
   - {id: MEM-20260919T121032Z-E7B3C2, file: MEM-20260919T121032Z-E7B3C2.md, title: Operator gate odyssey while recording the commit identity convention cost three full-suite cycles, status: active}
+  - {id: MEM-20260919T135930Z-F1C2A9, file: MEM-20260919T135930Z-F1C2A9.md, title: 'Attribution-format rewrite of 2026-09-19 - fourteen published commits re-messaged with trees preserved; old-to-new SHA mapping', status: active}
