@@ -135,12 +135,21 @@ express identity, but they are no longer its sole carrier: identity survives
 merge only inside the commit message.
 
 Every commit authored by an LLM participant therefore carries an attribution
-header as the first block of its message, ahead of the conventional subject:
+trailer block as the LAST block of its message, after the conventional subject
+and body:
 
 ```text
+<conventional subject>
+
+<body ...>
+
 role: <authoring designation>
 LLM: <serving model>  reasoning <level>
 ```
+
+The conventional subject line stays first: `git log --oneline`, Forge commit
+listings and merge notifications render the subject, so attribution must never
+displace the engineering summary.
 
 - `role` is the designation in effect for the authoring turns: a canonical role
   (`jason-brother`, `jason-worker`, `owner`) or an owner-granted session
@@ -149,14 +158,19 @@ LLM: <serving model>  reasoning <level>
   records the serving reasoning effort (for example `max`, `high`,
   `standard`). The ADR-0035 rule-4 disclosure duty applies unchanged: a
   served-model substitution is disclosed here, never silent.
-- The header is attribution provenance, not an authority claim. Authority still
-  flows from the governance principal, the active ContextView binding, and the
-  governing policy gates; a header naming a role does not grant that role's
-  authority and never substitutes for typed handoff evidence (H1-H4).
+- The trailer is attribution provenance, not an authority claim. Authority
+  still flows from the governance principal, the active ContextView binding,
+  and the governing policy gates; a trailer naming a role does not grant that
+  role's authority and never substitutes for typed handoff evidence (H1-H4).
 - Human-authored commits are exempt. When several models contribute to one
-  transaction, each contribution is disclosed in the header or, when the split
-  is material, in the session checkpoint.
+  transaction, each contribution is disclosed in the trailer or, when the
+  split is material, in the session checkpoint.
 
 Accepted 2026-09-19 by the project owner after the
 `jason-extended-cognition/v3-design` commit on `qiven-context-draft`
 demonstrated the format. Recorded as `MEM-20260919T113238Z-B2F4D8`.
+Amended 2026-09-19 (owner direction): the attribution block originally
+preceded the subject, which reduced every commit listing to `role:` instead of
+the engineering summary; the block moved to the trailer position and the
+affected published messages were rewritten the same day with trees preserved
+(old-to-new SHA mapping in `MEM-20260919T135930Z-F1C2A9`).
