@@ -123,3 +123,40 @@ For commands handed to the user or executed through an accepted host-authority p
 If a full local diff is genuinely required for diagnosis, make the non-paged behavior explicit (for example `git --no-pager diff ...`) or capture the output deliberately. Do not silently rely on pager interaction as part of the user's validation workflow.
 
 For batch completion, required machine-local validation may be performed by the project owner through a trusted local path or, after ADR-0026 acceptance, through the broker-enforced local execution path. Under the standing authorization recorded in ADR-0021, jason-brother may merge the exact validated batch head to `main` after exact remote review and any additional required batch gates pass. A separate user relay message is not required when jason-brother directly observes exact-head validation evidence through an accepted authority path. If the branch changes after the validated head, the changed head must be validated again before merge. The user may revoke or narrow this authorization at any time.
+
+## Commit identity attribution
+
+Git author/committer identity on Qiven repositories is the machine's configured
+account (currently `JasonHuang` under the `github:JasonHuang3D` principal). An
+LLM participant cannot self-provision an SSH/GitHub identity, so the account
+identifies the machine and the governance principal — not the authoring
+identity of the turn that produced a commit. Branch namespaces may still
+express identity, but they are no longer its sole carrier: identity survives
+merge only inside the commit message.
+
+Every commit authored by an LLM participant therefore carries an attribution
+header as the first block of its message, ahead of the conventional subject:
+
+```text
+role: <authoring designation>
+LLM: <serving model>  reasoning <level>
+```
+
+- `role` is the designation in effect for the authoring turns: a canonical role
+  (`jason-brother`, `jason-worker`, `owner`) or an owner-granted session
+  designation (for example `jason-extended-cognition`).
+- `LLM` names the model that actually served the authoring turns; `reasoning`
+  records the serving reasoning effort (for example `max`, `high`,
+  `standard`). The ADR-0035 rule-4 disclosure duty applies unchanged: a
+  served-model substitution is disclosed here, never silent.
+- The header is attribution provenance, not an authority claim. Authority still
+  flows from the governance principal, the active ContextView binding, and the
+  governing policy gates; a header naming a role does not grant that role's
+  authority and never substitutes for typed handoff evidence (H1-H4).
+- Human-authored commits are exempt. When several models contribute to one
+  transaction, each contribution is disclosed in the header or, when the split
+  is material, in the session checkpoint.
+
+Accepted 2026-09-19 by the project owner after the
+`jason-extended-cognition/v3-design` commit on `qiven-context-draft`
+demonstrated the format. Recorded as `MEM-20260919T113238Z-B2F4D8`.

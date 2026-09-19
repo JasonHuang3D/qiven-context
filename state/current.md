@@ -50,6 +50,7 @@ For owner-run Human Manual Mode acceptance, use the Operator's human view. K4 sp
 - Accepted ContextView + Operator runtime merge: `35343c50c6df50d0ffc35664b24d029360787f35`.
 - Qiven Operator Human Manual Mode is the current local human-facing execution path.
 - Qiven-v6 unmanaged temporary-clone cleanup is complete.
+- Commit identity attribution (2026-09-19): LLM-authored commits carry `role:` / `LLM:` attribution headers naming the authoring designation, the serving model and its reasoning effort; the git account identity does not represent LLM authoring identity (`collaboration/operating-contract.md` §Commit identity attribution; `MEM-20260919T113238Z-B2F4D8`).
 
 ## Authority and safety
 
