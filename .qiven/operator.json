@@ -24,12 +24,29 @@
     },
     "k4-handoff-producer": {
       "argv": [".venv/Scripts/python.exe", "tools/k4_handoff_producer.py"]
+    },
+    "record-tests": {
+      "argv": [".venv/Scripts/python.exe", "tools/test.py"]
+    },
+    "lifecycle-tests": {
+      "argv": [".venv/Scripts/python.exe", "tools/test_record_lifecycle.py"]
+    },
+    "continuity-tests": {
+      "argv": [".venv/Scripts/python.exe", "tools/test_cold_boot_contract.py"]
     }
   },
   "gates": {
     "context-local": [
       "bootstrap",
       "full-tests",
+      "diff-check",
+      "clean-tree"
+    ],
+    "context-docs": [
+      "bootstrap",
+      "record-tests",
+      "lifecycle-tests",
+      "continuity-tests",
       "diff-check",
       "clean-tree"
     ],

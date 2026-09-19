@@ -46,6 +46,31 @@ The session runs where the owner can see and gate it. Rules:
    status read after dispatch, no sleep/poll loops, bounded-wait default of
    three observations / 60 seconds.
 
+## Gate invocation for supervised agents (2026-09-19)
+
+The operator's human view is also the right view for a supervised local agent:
+`--verbose` staged output (`[ RUN]`/`[ OK ]` markers, heartbeats, buffered-log
+summaries) is legible to the owner and the agent alike. Machine JSON is for
+programmatic consumption only.
+
+1. **Discover before invoking.** `tools\qiven.py --help`, then the
+   subcommand's own `--help`. Global flags (`--json`, `--verbose`) precede the
+   subcommand. Subcommands: `info`, `gate`, `run`, `ci`.
+2. **Gate and task shape.** `gate` runs the repository default gate and takes
+   no name argument; `run <task-name>` executes a single task.
+3. **Never pipe machine JSON through filters in a live session.** `--json`
+   emits one line whose buffered suite logs are lost the moment it passes
+   through `tail`/`head`/text filters. Either run the human view, or capture
+   the complete JSON to a file and parse that file.
+4. **Windows path boundary.** A temp file written by the Git Bash shell must be
+   addressed by its Windows path (`C:/Users/...`) when handed to Windows
+   Python — `/tmp/...` is invisible to it.
+5. **Scoped iteration.** Docs/memory/session/view-only transactions may use the
+   `context-docs` gate (record, lifecycle and continuity suites plus
+   diff/clean checks, ~90s instead of ~186s). The full default gate is
+   required on the final exact head before any merge-class publication and for
+   any tools/kernel change.
+
 ## Typical loop
 
 ```text
