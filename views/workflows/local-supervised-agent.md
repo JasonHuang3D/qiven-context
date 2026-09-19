@@ -54,14 +54,19 @@ summaries) is legible to the owner and the agent alike. Machine JSON is for
 programmatic consumption only.
 
 1. **Discover before invoking.** `tools\qiven.py --help`, then the
-   subcommand's own `--help`. Global flags (`--json`, `--verbose`) precede the
-   subcommand. Subcommands: `info`, `gate`, `run`, `ci`.
-2. **Gate and task shape.** `gate` runs the repository default gate and takes
-   no name argument; `run <task-name>` executes a single task.
-3. **Never pipe machine JSON through filters in a live session.** `--json`
-   emits one line whose buffered suite logs are lost the moment it passes
-   through `tail`/`head`/text filters. Either run the human view, or capture
-   the complete JSON to a file and parse that file.
+   subcommand's own `--help`. Subcommands: `info`, `gate`, `run`, `ci`. Global
+   flags (`--json`, `--verbose`, `--no-color`) work before and after the
+   subcommand.
+2. **Gate and task shape.** `gate [name]` runs the named gate or, unnamed, the
+   repository default gate; `run <task-name>...` executes one or more tasks.
+   Unknown names come back with the available alternatives listed.
+3. **Treat machine JSON as file-and-summary, never a live-stream filter
+   target.** `--json` spills buffered suite logs to a durable file with a
+   compact stdout summary (carrying `log_file`) once output exceeds the spill
+   threshold; smaller outputs stay inline. Either way, parse the captured
+   output or read the log file — piping the live stream through
+   `tail`/``head`/text filters destroys evidence. In live sessions prefer the
+   human view regardless.
 4. **Windows path boundary.** A temp file written by the Git Bash shell must be
    addressed by its Windows path (`C:/Users/...`) when handed to Windows
    Python — `/tmp/...` is invisible to it.
