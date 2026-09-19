@@ -35,3 +35,4 @@ records:
   - {id: MEM-20260916T095200Z-1D6B42, file: MEM-20260916T095200Z-1D6B42.md, title: Human-facing Windows batch entrypoints must preserve terminal outcome on direct launch, status: superseded}
   - {id: MEM-20260916T100000Z-6A2E4C, file: MEM-20260916T100000Z-6A2E4C.md, title: Bind transport-session dispatch and retirement inside one Host lifecycle authority boundary, status: active}
   - {id: MEM-20260916T102500Z-4F7A21, file: MEM-20260916T102500Z-4F7A21.md, title: Qiven Operator is the shared local execution interface for both human manual mode and Host-driven AI execution, status: active}
+  - {id: MEM-20260919T113238Z-B2F4D8, file: MEM-20260919T113238Z-B2F4D8.md, title: 'Git account identity does not represent LLM authoring identity; commits carry role and model attribution headers', status: active}
