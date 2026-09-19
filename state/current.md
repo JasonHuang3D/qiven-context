@@ -71,4 +71,15 @@ ADR-0037 (2026-09-18) establishes `qiven-context-draft` (public, Devkit-adopted)
 
 ## Next boundary
 
-Execute the accepted F-series follow-up batches (F2 worker-flash qualification upgrade, then the F3-F5 cosmetic bundle), each as a worker-executed, brother-reviewed, owner-confirmed transaction per its obligation specification. Then implement K5 lossless semantic transport compression against the exact accepted K4 handoff reference. Establish pinned tokenizer measurements, deterministic round-trip/corruption/resource/security gates and paired isolated fresh-LLM semantic-equivalence trials before claiming improvement. Production storage, Host/DCR resumption and authority cutover remain separate.
+The F-series batches are complete (PR #16-#21) and ADR-0037 records the
+qiven-context-draft workstream; the 2026-09-19 session additionally published
+the commit identity attribution convention, the operator gate-friction fixes
+and the operator ergonomics roll (PR #24, #25 and the ergonomics-roll
+transaction). The current boundary is the draft-validation profile per
+`OBL-20260918T215000Z-B4D6A8` (v3 roadmap Phase 1: typed verdicts, actor/grant
+authority, content-bound H2 evidence, corruption-safe deserialization), then
+implement K5 lossless semantic transport compression against the exact accepted
+K4 handoff reference. Establish pinned tokenizer measurements, deterministic
+round-trip/corruption/resource/security gates and paired isolated fresh-LLM
+semantic-equivalence trials before claiming improvement. Production storage,
+Host/DCR resumption and authority cutover remain separate.
