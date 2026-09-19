@@ -127,4 +127,4 @@ records:
   - id: OBL-20260919T121032Z-A9F4D7
     file: OBL-20260919T121032Z-A9F4D7.md
     title: Improve Qiven Operator CLI ergonomics and machine-output shape for supervised agent callers
-    status: open
+    status: done
