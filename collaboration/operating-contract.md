@@ -169,6 +169,38 @@ displace the engineering summary.
 Accepted 2026-09-19 by the project owner after the
 `jason-extended-cognition/v3-design` commit on `qiven-context-draft`
 demonstrated the format. Recorded as `MEM-20260919T113238Z-B2F4D8`.
+
+## Overnight unattended mode
+
+The owner may open a bounded **overnight window**: an explicitly authorized
+unattended continuation in which an agent keeps working after the owner stops
+supervising (typically several hours, with a batch review at window close).
+Overnight mode narrows to the one operation class ADR-0036 already permits for
+unattended work with an explicit task authorization:
+
+- **Permitted**: implementation, refactoring, documentation, local gate runs,
+  and local commits on authorized task branches. Every commit names its role,
+  serving model and reasoning effort (Commit identity attribution).
+- **Prohibited during the window**: push, PR creation, merge to `main`, and
+  anything in the merge-class or governance rows of the ADR-0036 table. A
+  verbal instruction cannot waive these (no-verbal-waiver protocol); they are
+  not waived by the window — they are DEFERRED: the morning after, the owner
+  reviews every branch commit in one batch and gives per-branch H2 before
+  publication.
+- **Working rules**: a workspace log records what was done, evidence, and any
+  skipped work; every branch lands gate-PASS at its exact head (no gate is
+  weakened to keep the window moving); any process unresponsive for more than
+  five minutes is skipped and logged rather than waited on; no sleep/poll
+  loops for asynchronous work (bounded-wait rules apply unchanged).
+- **Continuity**: the workspace log plus branch commits are the session
+  continuity surface for the window; the canonical checkpoint is refreshed as
+  part of the window's recorded transactions (committed locally, published in
+  the morning batch).
+
+First exercised 2026-09-19/20 (qiven-context-draft v3 phases 2C and 3, plus
+the foundation/math operator rolls). This section codifies that practice; it
+does not widen any other unattended capability (pit P-08: unattended mutation
+refusal is unchanged for everything outside an authorized task scope).
 Amended 2026-09-19 (owner direction): the attribution block originally
 preceded the subject, which reduced every commit listing to `role:` instead of
 the engineering summary; the block moved to the trailer position and the
