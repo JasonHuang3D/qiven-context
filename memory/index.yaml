@@ -36,3 +36,5 @@ records:
   - {id: MEM-20260916T100000Z-6A2E4C, file: MEM-20260916T100000Z-6A2E4C.md, title: Bind transport-session dispatch and retirement inside one Host lifecycle authority boundary, status: active}
   - {id: MEM-20260916T102500Z-4F7A21, file: MEM-20260916T102500Z-4F7A21.md, title: Qiven Operator is the shared local execution interface for both human manual mode and Host-driven AI execution, status: active}
   - {id: MEM-20260919T113238Z-B2F4D8, file: MEM-20260919T113238Z-B2F4D8.md, title: 'Git account identity does not represent LLM authoring identity; commits carry role and model attribution headers', status: active}
+  - {id: MEM-20260919T121032Z-C5D8A1, file: MEM-20260919T121032Z-C5D8A1.md, title: 'Supervised local agents run operator gates through the human view with full-output capture, never piped machine JSON', status: active}
+  - {id: MEM-20260919T121032Z-E7B3C2, file: MEM-20260919T121032Z-E7B3C2.md, title: Operator gate odyssey while recording the commit identity convention cost three full-suite cycles, status: active}

@@ -135,14 +135,18 @@ class ColdBootContractTests(unittest.TestCase):
     def test_current_session_checkpoint_has_required_continuity_fields(self):
         sessions=[p for p in (ROOT/"sessions").glob("*.md") if re.match(r"^\d{4}-\d{2}-\d{2}-qiven-v\d+\.md$",p.name)]
         checkpoint=max(sessions,key=lambda item:(item.name[:10],int(re.search(r"-v(\d+)\.md$",item.name).group(1)))).read_text(encoding="utf-8")
-        for heading in (
+        required_headings=(
             "Session identity","Exact current task","Accepted refs and evidence","Unaccepted candidate refs",
             "Pending asynchronous work","Known inconsistencies and evidence gaps","Next action",
-        ):
-            self.assertRegex(checkpoint,rf"(?m)^## {re.escape(heading)}$")
-        self.assertIn("Qiven-v2 through Qiven-v5",checkpoint)
-        self.assertIn("Do not synthesize them",checkpoint)
-        self.assertIn("ContextView<ChatGPT, Jason>",checkpoint)
+        )
+        required_phrases=("Qiven-v2 through Qiven-v5","Do not synthesize them","ContextView<ChatGPT, Jason>")
+        missing=[f"missing '## {heading}' heading" for heading in required_headings
+                 if not re.search(rf"(?m)^## {re.escape(heading)}$",checkpoint)]
+        missing+=[f"missing literal phrase {phrase!r}" for phrase in required_phrases
+                  if phrase not in checkpoint]
+        # report every gap in ONE failure: a one-assert-at-a-time chain costs a
+        # full gate cycle (~3 minutes) per missing item (2026-09-19 odyssey)
+        self.assertEqual(missing,[],"current session checkpoint continuity gaps")
 
     def test_governance_contract_is_remote_and_account_level(self):
         authority=yaml.safe_load(self.read("governance/authority.yaml"))
