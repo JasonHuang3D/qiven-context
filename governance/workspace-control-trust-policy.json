@@ -18,7 +18,8 @@
     "423082d428602abc7c21fd1af35652242d4e3cbd",
     "f92c40d934f9e5ab1361eee345304ea6d96d6a8d",
     "eb73bf3468cf00133b0fe056bd232303231c96e3",
-    "d7a3200c0672862dacbbb9e55a62f434ced2728c"
+    "d7a3200c0672862dacbbb9e55a62f434ced2728c",
+    "046cbeeef4400c726038cfa67a98f3440978222d"
   ],
   "admissions": [
     {
@@ -68,6 +69,15 @@
       "diff_shape": "workspace.lock.json node advancement only",
       "shadow_receipt": "generation sha256:4cc77122...; receipt .generated-temp/workspace-resolver/2026-09-24T222306Z-lock-update/receipt.json; standing context->devkit SPLIT unchanged",
       "recorded_by": "v29 session (owner long-running mode); closes review finding F1 of the continuation-node round 1 - the branch-head-then-merge pattern is conformant in tree terms, this advance makes it conformant in commit terms; future advances pin merge main HEADs directly (the WR-4/CI pairs above are the disclosed historical exceptions)"
+    },
+    {
+      "revision": "046cbeeef4400c726038cfa67a98f3440978222d",
+      "admitted": "2026-09-25",
+      "class": "routine-advance (merge-head pinning)",
+      "moved_nodes": "runtime 5fe63b8->7b3ce51 (MVP-4 corrective-lane fix; the merge main HEAD - pinned post-merge per the conformance lesson)",
+      "diff_shape": "workspace.lock.json node advancement only",
+      "shadow_receipt": "receipt .generated-temp/workspace-resolver/2026-09-24T225355Z-lock-update/receipt.json; runtime gate:local PASS at 7b3ce51 (the published main head); standing context->devkit SPLIT unchanged",
+      "recorded_by": "v29 session (owner long-running mode)"
     }
   ],
   "routine_advance_rule": {
