@@ -71,7 +71,9 @@ worker's acknowledgment (below).
 6. **Scoped engineering-law reading list** — the task-relevant
    standards ONLY (for example the devkit Python standard for Python
    work). The worker reads ENGINEERING law, never boots PROJECT
-   cognition.
+   cognition. For review briefs, the artifact(s) under review at their
+   named heads are the ONLY additional admissible material (see the
+   Clean-input boundary).
 7. **Bounded report format** — the exact sections the report must
    contain; the report IS the orchestrator's input cost.
 8. **Honesty law** — no hiding known problems; NOT-VERIFIED with
@@ -185,6 +187,59 @@ When so directed:
 Each review round uses the mandatory brief template (§5a) unchanged and
 respects the process topology above (sequential rounds run foreground).
 The canary rule applies before R2-class rounds as usual.
+
+6. **Reset ceiling (owner direction 2026-09-25, turn 2)**: at most
+   THREE consecutive resets. A third consecutive reset proves three
+   full review+fix cycles each still warranting revision: fix the last
+   round's findings ONCE, STOP the loop, record everything, and report
+   the node as an owner-H1 adjudication point. Repeated resets are
+   evidence that the artifact or the process design itself is suspect —
+   that is a design question for the owner, never a fourth loop.
+7. **Positionless rounds (owner direction 2026-09-25, turn 2)**: no
+   round is pre-labeled final/terminal/last/decisive; a reviewer's
+   brief never carries its round's position, the streak state, or
+   whether its round could complete an approval. Pre-labeling a round
+   as decisive biases the verdict toward passing and is orchestrator
+   self-pollution — nobody may declare a subagent task "final".
+
+## Clean-input boundary for worker briefs (owner direction 2026-09-25, turn 2)
+
+The purpose of a fresh worker is UNPOLLUTED ATTENTION on the task
+itself; the orchestrator's own long context is the contamination
+source the worker exists to escape. Governing incident (owner-observed
+2026-09-25, v29 WR-3 loop): a fresh-position reviewer, while
+verifying, discovered the loop's history through fix-round commit
+messages ("round 1' fixes … pass count resets to 0") and process
+records reachable from the checkout, then re-derived the process state
+and its own position in it — the clean-context property was lost
+mid-round. Laws (all delegation classes; review rounds are the
+reference case):
+
+1. **Briefs are self-contained.** Every claim to verify or spec to
+   implement is stated IN the brief verbatim. Reading lists carry
+   engineering law and (for review briefs) the artifact(s) under
+   review at their named heads — NOTHING else. Process records are
+   forbidden inputs to fresh workers: `sessions/`, workflow logs,
+   `state/` narratives, obligation/memory records about the process,
+   and any retrieval whose purpose is learning the loop or project
+   history rather than the artifact itself.
+2. **Revision commits carry no loop-state language.** Subjects and
+   bodies describe the change factually; round numbers, tally/reset
+   narration, streak state, and any final/last-round framing are
+   prohibited. The tally lives in the orchestrator's records (session
+   checkpoint + workflow log), never in artifacts a future reviewer
+   can read.
+3. **Instruction-scoped, honestly labeled.** As with the canary, the
+   harness does not mechanically sandbox filesystem/git reads;
+   adherence is confirmed in the report's ACK — auxiliary context
+   consumed (including incidental exposure via commit messages at
+   named heads) must be named there and the judgment justified on the
+   artifact's merits.
+4. **Open question — router/hook denial text**: a denied command's
+   re-call instruction may itself carry project-law references across
+   the boundary. Whether router messages pollute a clean worker is a
+   LIVE-TEST question (next-session obligation) before relying on
+   them as a worker's only correction source.
 
 ## Delegate-when heuristics
 

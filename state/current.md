@@ -365,6 +365,27 @@ foreground-only; variant/reasoning not introspectable).
 4. WR continuation+WR-4 node and the MVP-4 fix node each passed their
    own 3-consecutive-round self-review (one reset on the former for the
    rule-letter conformance fix; the latter first-try clean).
+5. **Owner turn 2 (same session): clean-input law + positionless
+   rounds landed** after the owner read subagent thinking transcripts
+   and proved pollution live — a fresh-position reviewer reconstructed
+   the loop state from fix-round commit messages and process records,
+   and the orchestrator had coined and propagated "final" round labels
+   into briefs. `views/workflows/subagent-delegation.md` now carries:
+   the Clean-input boundary (self-contained briefs; process records
+   forbidden inputs; revision commits carry NO loop-state language;
+   ACK names any auxiliary exposure), positionless rounds (no
+   final/terminal labels, no round-position in briefs), and the reset
+   ceiling (three consecutive resets → fix the last findings once,
+   stop, record, owner-H1 design question). Lesson:
+   MEM-20260925T090000Z-E2F3A4. **Disclosed caveat**: the v29
+   approval streaks ran under the pre-turn-2 brief regime (their final
+   briefs carried "final" labels) — the approvals stand as delivered
+   within the owner's standing veto window; future loops run under the
+   new law. Next-session program recorded as law:
+   OBL-20260925T090500Z-F1A2B3 (live boundary experiments with
+   transcript provenance FIRST — including the router-message boundary
+   and thinking-log capture questions; then the CI background runner
+   per the owner design; then the LLM-executed CI replacement proof).
 
 ## Accepted engineering checkpoints
 
@@ -531,23 +552,33 @@ repositories follow per
 
 ## Next boundary
 
-1. **Owner hands**: the MVP-4 real H1 rerun (kit
+1. **NEXT SESSION, FIRST ACTION — subagent live boundary experiments**
+   (OBL-20260925T090500Z-F1A2B3): transcript-provenance harvest
+   (mechanical/scripted analysis of the harness subagent transcripts;
+   probe live thinking-log capture), the router-denial boundary probe,
+   and the clean-input A/B; amend the delegation spec on the measured
+   evidence.
+2. **CI background runner** (owner design: run_in_background python
+   watcher, 10s gh polling of a DISPATCHED run, clean output, errors
+   only — observation only, the dispatch-only trigger law stands),
+   then after tests + self-review + live experiments the **LLM-executed
+   CI replacement proof** (the migrated runtime+math CI).
+3. **Owner hands (standing)**: the MVP-4 real H1 rerun (kit
    `h1-kits/qiven-runtime/mvp4-h1/0.1.0-g7b3ce515`, preflight-verified
-   from the owner-live shape) and the CI replacement proof
-   (owner-dispatched runs of the migrated runtime+math CI,
-   explicit-dispatch law); plus the veto window on the v29 disclosed
+   from the owner-live shape); the veto window on the v29 disclosed
    adjudications (materiality line MEM-C1D2E3; routine-advance
-   ratification reading; standing trust-policy exceptions).
-2. **RR-0 implementation batch** (still inside the open CA interval),
+   ratification reading; standing trust-policy exceptions; the v29
+   approval-streak caveat above).
+4. **RR-0 implementation batch** (still inside the open CA interval),
    then **CA-1** (bounded batch, ceilings and stall trigger unchanged
    by ADR-0052). MVP-5 stays FROZEN until CA-2.
-3. **WR-5 Toolchain + third-party migration** when scheduled
+5. **WR-5 Toolchain + third-party migration** when scheduled
    (per-platform CI presets ride this class; the typed CI skips point
    here), then WR-6 (pin reconciliation — the standing BaselineConflict).
-4. Router follow-up candidate (disclosed): path-prefixed `qiven.cmd
+6. Router follow-up candidate (disclosed): path-prefixed `qiven.cmd
    gate` escape AND the `gate-configure`-wraps-build-class gap — one
    bounded devkit router batch.
-5. Standing: operator.json configure-task template consolidation
+7. Standing: operator.json configure-task template consolidation
    DEFERRED in v29 (no template-owned operator.json mechanism exists
    yet; per-repo customs stand); managed template syncs need manual
    customs re-applied per bump; git-network routing remains suspended
