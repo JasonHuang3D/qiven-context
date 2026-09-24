@@ -324,6 +324,40 @@ level not introspectable, reported as such).
    revision `fcfede8` (trust policy law clause 3; paste-ready block in
    the v28 checkpoint).
 
+## v29 session (2026-09-25, in flight)
+
+Owner-marked fresh session, designation jason-extended-cognition,
+**long-running mode from turn 1** ("全程委托你H2，开启long-running模式").
+Live model: GLM-5.3, account `bigmodel-offpeak-idle-plan` (subagents
+foreground-only; variant/reasoning not introspectable).
+
+1. **Views law landed** (main `1881086`): subagent-delegation.md gained
+   the Self-review approval rounds section (worker-review-first loop,
+   3-consecutive-passes approval, reset rule, authority-preserving
+   reading) + the Process topology section (read-only worker tasks MAY
+   multiprocess background; write-bearing tasks single-process
+   foreground only).
+2. **WR-3 ADMISSION EXECUTED via the owner-directed self-review
+   process** (the owner's turn-1 direction = the decision; the 3-pass
+   record = the named evidence vehicle): five fresh-review rounds
+   total; three revision-warranting rounds reset the count (devkit PR
+   #43 `fa5ba0a` report generation label + R21 no-op-overlay test; PR
+   #44 `12dbfce` stale lock SHA + grep-claim scope + CI open row +
+   R22 ControlTreeDirty authoritative guard; PR #45 `945fdd2` test-range
+   cell + devkit-node staleness disclosure); the final three
+   consecutive rounds on the post-PR#45 state each returned ROUND PASS
+   with zero P1/P2. **Trust policy: `fcfede8` ADMITTED; the
+   routine-advance rule RATIFIED (diff-shape qualified: lock node
+   advancement + its declarations cache only; anything else needs
+   explicit admission; recorded per occurrence; no deletion before
+   WR-8).** Deferred hardening items recorded with triggers
+   (OBL-20260925T051500Z-A9B0C1); the materiality line that let the
+   loop converge is disclosed for owner veto (MEM-20260925T053000Z).
+3. In flight (same session): WR-3 continuation batch (authoritative
+   probes + Profile E movement + CI migration + lock-node advances
+   incl. devkit ≥ b98e6c4), WR-4 draft migration, MVP-4 fix — each
+   with its own self-review pass at the key node.
+
 ## Accepted engineering checkpoints
 
 - ContextKernel K1-K4 (Python, sealed ADR-0040): K4 Canonical Artifact
@@ -442,12 +476,12 @@ Succession (operator replacement). A PASS names the profile tested.
   public-accept vs private decision (recorded in the law).
 - Workspace control-repository trust policy ACCEPTED (2026-09-25, owner
   H1/H2 pass in v27 turn 2; `governance/workspace-control-trust-policy.json`):
-  permitted control repository `JasonHuang3D/qiven-workspace`, admitted
-  revision `1743d921…`; authoritative bootstrap additionally requires a
+  permitted control repository `JasonHuang3D/qiven-workspace`; admitted
+  revisions `1743d921…` (v27) and `fcfede8…` (v29, via the owner-directed
+  3-pass self-review process); routine-advance rule RATIFIED (v29,
+  diff-shape qualified); authoritative bootstrap additionally requires a
   compatible selection (the typed BaselineConflict on the context devkit
-  pin is the standing blocker until WR-6/pin reconciliation); routine-
-  advance rule pending owner ratification before routine authoritative
-  lock movement.
+  pin is the standing blocker until WR-6/pin reconciliation).
 
 ## 2026-09-23 deny-118 incident correction wave (v21, owner-directed)
 
@@ -489,30 +523,29 @@ repositories follow per
 
 ## Next boundary
 
-1. **WR-3 owner H2/H1 stop: control-revision admission** (paste-ready
-   block in the v28 checkpoint): admit control revision `fcfede8` (the
-   WR-3 lock-transaction head) into the trust policy — plus, bundled,
-   the routine-advance rule ratification (the standing residual; also
-   gates the deferred F1 bootstrap fix and the CI pin convention).
-   After admission: the authoritative-cutover probes (A1/A2-style) and
-   the Profile E live movement demonstration.
-2. **WR-3 continuation batch**: runtime ci.yml migration to the
-   workspace path (all three platform jobs mechanically; replacement
-   proof = an owner-dispatched CI run, explicit-dispatch law); context
-   lock-node advance (5dadc57+); operator.json template consolidation
-   (the per-repo configure-task customs ride a template bump).
-3. **WR-4 Context Draft migration** (the draft edge — retires
-   runtime's last adjacent pin).
-4. **The MVP-4 corrective lane** (owner-scheduled): rebuild/fix the H1
-   kit, then the real H1 rerun (owner hands). Rows 2-5 of the original
-   exit gate remain locally proven.
-5. **RR-0 implementation batch** (still inside the open CA interval),
+1. **WR-3 continuation batch** (this session): authoritative-cutover
+   probes (A1/A2-class: trust gate lifted, next typed failure =
+   BaselineConflict), Profile E live movement (compatible foundation
+   commit + one lock transaction + zero consumer edits), runtime ci.yml
+   + math ci.yml migration to the workspace path (replacement proof =
+   owner-dispatched CI runs, explicit-dispatch law), lock-node advances
+   (context node to current main; devkit node to ≥ b98e6c4 per the
+   disclosed interlock — routine advances under the ratified rule),
+   operator.json configure-task template consolidation. Self-review at
+   the node.
+2. **WR-4 Context Draft migration** (the draft edge — retires
+   runtime's last adjacent pin) with self-review.
+3. **MVP-4 corrective lane fix** (owner-scheduled this session): fix
+   the CWD-profile default + kit self-containment + preflight labels,
+   rebuild the kit, owner-live-environment preflight verification;
+   rows 2-5 remain locally proven; the real H1 rerun stays owner hands.
+4. **RR-0 implementation batch** (still inside the open CA interval),
    then **CA-1** (bounded batch, ceilings and stall trigger unchanged
    by ADR-0052). MVP-5 stays FROZEN until CA-2.
-6. Router follow-up candidate (disclosed): path-prefixed `qiven.cmd
+5. Router follow-up candidate (disclosed): path-prefixed `qiven.cmd
    gate` escape AND the `gate-configure`-wraps-build-class gap — one
    bounded devkit router batch.
-7. Standing: managed template syncs need manual operator.json customs
+6. Standing: managed template syncs need manual operator.json customs
    re-applied per bump (runtime and context-draft carry customs);
    git-network routing remains suspended at the router per owner
    direction 2026-09-24; qiven-context's devkit pin remains d1d2a3a

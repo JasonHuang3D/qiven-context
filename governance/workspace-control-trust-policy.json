@@ -12,8 +12,28 @@
   ],
   "permitted_control_repository": "https://github.com/JasonHuang3D/qiven-workspace.git",
   "admitted_control_revisions": [
-    "1743d921dabfb58b610a50bd544ca1864e7c9d66"
+    "1743d921dabfb58b610a50bd544ca1864e7c9d66",
+    "fcfede8d44c4f177e79eb32d5f813c4c35652dce"
   ],
+  "admissions": [
+    {
+      "revision": "1743d921dabfb58b610a50bd544ca1864e7c9d66",
+      "accepted": "2026-09-25",
+      "decision": "Owner H1/H2 pass in v27 turn 2 (see the acceptance block)"
+    },
+    {
+      "revision": "fcfede8d44c4f177e79eb32d5f813c4c35652dce",
+      "accepted": "2026-09-25",
+      "decision": "Owner turn-1 direction in v29 delegated the WR-3 admission decision to the 3-consecutive-pass self-review process (owner equation: three consecutive clean review rounds = the owner manually reviewing three times = approved; any WR-3 revision voids the count). Evidence: five fresh-review rounds total; the three revision-warranting rounds each reset the count (devkit PRs #43, #44, #45 carried the fixes); the final three consecutive rounds on the post-PR#45 state (devkit 945fdd2) each returned ROUND PASS with zero P1/P2 findings. Full tally: sessions/2026-09-25-qiven-v29.md + the v29 workflow log."
+    }
+  ],
+  "routine_advance_rule": {
+    "status": "ratified",
+    "ratified": "2026-09-25",
+    "decision": "Owner turn-1 direction in v29 (bundled with the WR-3 admission per the v28 pending-decision block)",
+    "rule": "A control-main commit is a routine advance, auto-admitted without a new owner step, when its diff is limited to node advancement in workspace.lock.json (commit/tree fields and the recomputed generation) plus the declarations/ cache entries that advancement writes, and every advanced node commit is the corresponding canonical repository main HEAD with a passing shadow receipt. Anything else (bootstrap, manifest, census, schema, or any non-advance change) is NOT a routine advance and requires explicit admission.",
+    "recording_duty": "Every routine-advance admission is recorded (commit SHA, moved nodes, shadow receipt) in the executing session's checkpoint; admitted revisions are never deleted before WR-8."
+  },
   "acceptance": {
     "required_evidence": [
       "WR-1 delivered: qiven-workspace repository skeleton + schemas + bootstrap + resolver with receipts (delegated per-batch H2)",
@@ -28,7 +48,7 @@
     "mechanical_verification": "Authoritative mode against the admitted revision no longer raises UntrustedControlRevision; the trust gate lifts and the next typed failure is the recorded BaselineConflict (qiven-context legacy devkit pin d1d2a3a4 vs locked 3c638b5), the WR-6 reconciliation target - the honest state per doc 02 WR-1 exit (no authoritative graph before a compatible selection lands)."
   },
   "residuals": [
-    "Routine-advance rule undefined: an admitted control revision goes stale on the next control commit (e.g. a lock transaction), and this policy admits exact revisions only. Before the first routine authoritative-consuming lock movement (WR-2+), the owner must ratify an advance rule (candidate: admit control-main commits that only advance node commits to canonical main HEADs with passing shadow receipts) or re-admit per movement. Recorded 2026-09-25; shadow operation is unaffected.",
+    "Routine-advance rule RATIFIED 2026-09-25 (see routine_advance_rule; v29 owner direction, diff-shape qualified per the self-review rounds' recommendations). Standing residual: the pre-F3 locked devkit node 06cf75f at admitted revision fcfede8 predates the ControlTreeDirty authoritative guard (devkit b98e6c4+); the continuation batch advances the devkit lock node to an F3-bearing head before any first authoritative consumption, and the baseline conflict below independently backstops any sequencing slip.",
     "The baseline devkit split keeps authoritative bootstrap typed-blocked (BaselineConflict) until WR-6 or an owner-directed pin reconciliation."
   ],
   "consumed_by": "the qiven-devkit workspace resolver (authoritative mode reads this file via --trust-policy; the tool lives in the qiven-devkit repository, tools directory, not here)"
