@@ -324,7 +324,7 @@ level not introspectable, reported as such).
    revision `fcfede8` (trust policy law clause 3; paste-ready block in
    the v28 checkpoint).
 
-## v29 session (2026-09-25, in flight)
+## v29 session (2026-09-25)
 
 Owner-marked fresh session, designation jason-extended-cognition,
 **long-running mode from turn 1** ("全程委托你H2，开启long-running模式").
@@ -338,25 +338,33 @@ foreground-only; variant/reasoning not introspectable).
    multiprocess background; write-bearing tasks single-process
    foreground only).
 2. **WR-3 ADMISSION EXECUTED via the owner-directed self-review
-   process** (the owner's turn-1 direction = the decision; the 3-pass
-   record = the named evidence vehicle): five fresh-review rounds
-   total; three revision-warranting rounds reset the count (devkit PR
-   #43 `fa5ba0a` report generation label + R21 no-op-overlay test; PR
-   #44 `12dbfce` stale lock SHA + grep-claim scope + CI open row +
-   R22 ControlTreeDirty authoritative guard; PR #45 `945fdd2` test-range
-   cell + devkit-node staleness disclosure); the final three
-   consecutive rounds on the post-PR#45 state each returned ROUND PASS
-   with zero P1/P2. **Trust policy: `fcfede8` ADMITTED; the
-   routine-advance rule RATIFIED (diff-shape qualified: lock node
-   advancement + its declarations cache only; anything else needs
-   explicit admission; recorded per occurrence; no deletion before
-   WR-8).** Deferred hardening items recorded with triggers
-   (OBL-20260925T051500Z-A9B0C1); the materiality line that let the
-   loop converge is disclosed for owner veto (MEM-20260925T053000Z).
-3. In flight (same session): WR-3 continuation batch (authoritative
-   probes + Profile E movement + CI migration + lock-node advances
-   incl. devkit ≥ b98e6c4), WR-4 draft migration, MVP-4 fix — each
-   with its own self-review pass at the key node.
+   process** (merge `524da8f`): five fresh-review rounds; three
+   revision-warranting rounds reset the count (devkit PRs #43/#44/#45 —
+   the last landed the ControlTreeDirty authoritative guard + R21/R22
+   self-tests); the final three consecutive rounds passed clean.
+   **Trust policy: `fcfede8` ADMITTED; routine-advance rule RATIFIED**
+   (diff-shape qualified). Convergence materiality line recorded
+   (MEM-20260925T053000Z, disclosed for owner veto); deferred hardening
+   OBL-20260925T051500Z.
+3. **WR-3 continuation + WR-4 + CI migration + MVP-4 fix delivered**
+   (self-review-approved nodes): routine advances culminating at control
+   `046cbee` (foundation Profile E movement with ZERO consumer re-pins;
+   devkit node to the F3-bearing `945fdd2`; nodes conformed to merge
+   main HEADs after review finding F1); probes A1/A2/A3 PASS archived;
+   **WR-4 draft edge migrated** (runtime `ba2a959`/merge `bd5cf73` —
+   QIVEN_DRAFT_ROOT and the last consumer-local C++ SHA pin deleted;
+   adapter materializes the draft; gate PASS); **CI migrated to the
+   workspace path** (runtime `5fe63b8`, math `0eb0aa0` — windows units
+   on a self-consistent admitted control snapshot `423082d`, non-windows
+   honest typed skips; replacement proof = owner-dispatched run);
+   **MVP-4 corrective-lane fix LANDED** (runtime `7b3ce51`: root-derived
+   profile default, self-contained kit, honest [COLD] label; regressions
+   green; the deploy-grade kit `0.1.0-g7b3ce515` passed preflight from
+   the kit directory — the exact owner-live incident scenario). The real
+   MVP-4 H1 rerun remains owner hands (kit ready).
+4. WR continuation+WR-4 node and the MVP-4 fix node each passed their
+   own 3-consecutive-round self-review (one reset on the former for the
+   rule-letter conformance fix; the latter first-try clean).
 
 ## Accepted engineering checkpoints
 
@@ -523,32 +531,27 @@ repositories follow per
 
 ## Next boundary
 
-1. **WR-3 continuation batch** (this session): authoritative-cutover
-   probes (A1/A2-class: trust gate lifted, next typed failure =
-   BaselineConflict), Profile E live movement (compatible foundation
-   commit + one lock transaction + zero consumer edits), runtime ci.yml
-   + math ci.yml migration to the workspace path (replacement proof =
-   owner-dispatched CI runs, explicit-dispatch law), lock-node advances
-   (context node to current main; devkit node to ≥ b98e6c4 per the
-   disclosed interlock — routine advances under the ratified rule),
-   operator.json configure-task template consolidation. Self-review at
-   the node.
-2. **WR-4 Context Draft migration** (the draft edge — retires
-   runtime's last adjacent pin) with self-review.
-3. **MVP-4 corrective lane fix** (owner-scheduled this session): fix
-   the CWD-profile default + kit self-containment + preflight labels,
-   rebuild the kit, owner-live-environment preflight verification;
-   rows 2-5 remain locally proven; the real H1 rerun stays owner hands.
-4. **RR-0 implementation batch** (still inside the open CA interval),
+1. **Owner hands**: the MVP-4 real H1 rerun (kit
+   `h1-kits/qiven-runtime/mvp4-h1/0.1.0-g7b3ce515`, preflight-verified
+   from the owner-live shape) and the CI replacement proof
+   (owner-dispatched runs of the migrated runtime+math CI,
+   explicit-dispatch law); plus the veto window on the v29 disclosed
+   adjudications (materiality line MEM-C1D2E3; routine-advance
+   ratification reading; standing trust-policy exceptions).
+2. **RR-0 implementation batch** (still inside the open CA interval),
    then **CA-1** (bounded batch, ceilings and stall trigger unchanged
    by ADR-0052). MVP-5 stays FROZEN until CA-2.
-5. Router follow-up candidate (disclosed): path-prefixed `qiven.cmd
+3. **WR-5 Toolchain + third-party migration** when scheduled
+   (per-platform CI presets ride this class; the typed CI skips point
+   here), then WR-6 (pin reconciliation — the standing BaselineConflict).
+4. Router follow-up candidate (disclosed): path-prefixed `qiven.cmd
    gate` escape AND the `gate-configure`-wraps-build-class gap — one
    bounded devkit router batch.
-6. Standing: managed template syncs need manual operator.json customs
-   re-applied per bump (runtime and context-draft carry customs);
-   git-network routing remains suspended at the router per owner
-   direction 2026-09-24; qiven-context's devkit pin remains d1d2a3a
-   (WR-6 reconciliation target; now ALSO the standing typed
-   BaselineConflict against lock devkit node 06cf75f); the P4 probe
-   lineage is TERMINALLY closed (topology §3).
+5. Standing: operator.json configure-task template consolidation
+   DEFERRED in v29 (no template-owned operator.json mechanism exists
+   yet; per-repo customs stand); managed template syncs need manual
+   customs re-applied per bump; git-network routing remains suspended
+   at the router per owner direction 2026-09-24; qiven-context's devkit
+   pin remains d1d2a3a (WR-6 reconciliation target; the standing typed
+   BaselineConflict against lock devkit node 945fdd2); the context lock
+   node (8914cef) rides the same WR-6 reconciliation.
