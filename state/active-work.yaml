@@ -27,48 +27,34 @@ objective: >-
   MVP-4 H1 pass, RR-0, and CA-2 pass. Active batches: CA-0 + MVP-4
   corrective lane + RR-0 in one bounded interval (OBL-20260923T190500Z-D6E7F8).
 accepted_checkpoint:
-  subject: v28-closeout-adr0053-audit-wr3batch1
-  ref: 'this transaction (ADR-0053 accepted + landed main c4c4983; governance audit remediation main 5dadc57; WR-3 batch 1 shadow transition published across devkit 4c23a2d / foundation ae414d1 / math bfea3bd / draft 50288c2 / runtime 55379c7 / control fcfede8 with all gates PASS; v28 checkpoint)'
+  subject: v29-wr3-admission-selfreview
+  ref: 'the v29 admission transaction (trust policy fcfede8 admitted + routine-advance rule ratified via the owner-directed 3-pass self-review process; obligations/memory records; state surfaces; v29 checkpoint)'
   evidence:
-    - 'v28 (2026-09-25, designation jason-extended-cognition, long-running
-      mode turn 1, delegated per-batch H2): (1) ADR-0053 ACCEPTED by
-      owner verbatim "ADR-0053批准并且完整落地" and landed the same
-      transaction (zcode-jason roles section + extended-cognition
-      recall pointer + subagent-delegation.md; gate PASS aeda32e;
-      merge c4c4983). (2) Periodic governance audit EXECUTED per
-      OBL-C8D4E2 (evidence/audits/governance-audit-2026-09-25.md):
-      canary PASS, fresh-review worker 11 genuine findings / 0 false
-      positives, fresh-fix worker 12/12, all remediated (gate PASS
-      146c529; merge 5dadc57); the audit doubled as the first live
-      ADR-0053 delegation exercise. (3) WR-3 batch 1 DELIVERED in
-      shadow transition (owner "WR3启动"): devkit PR #42 merge 4c23a2d
-      (overlays/adapter/lock-update + declaration cache + R16-R20),
-      control bootstrap gate-configure + lock transaction (generation
-      sha256:9d7cc02d..., HEAD fcfede8), four C++ repos migrated with
-      gates PASS at exact heads (math bfea3bd = the pilot, first
-      workspace-resolved build; runtime 55379c7 = nested proof);
-      Profile J pilot measured in devkit wr3-report.md; 4 live defects
-      found+fixed; OPEN rows: CI migration + Profile E movement +
-      authoritative cutover, all bundled with the owner admission step.'
-    - 'Standing H2 stop prepared (NOT executed): admit control revision
-      fcfede8 + ratify the routine-advance rule - paste-ready block in
-      the v28 checkpoint session record.'
+    - 'v29 (2026-09-25, designation jason-extended-cognition, long-running
+      mode turn 1, delegated per-batch H2; owner turn-1 direction = the
+      admission decision, the 3-pass record = the named evidence vehicle):
+      five fresh-review rounds; three revision-warranting rounds reset
+      the count (devkit PR #43 fa5ba0a, #44 12dbfce, #45 945fdd2 - the
+      last also carries R21/R22 self-tests + the ControlTreeDirty
+      authoritative guard); the final three consecutive rounds on the
+      post-PR#45 state each returned ROUND PASS with zero P1/P2.
+      Admissions recorded in the trust policy (fcfede8 + the ratified
+      routine-advance rule, diff-shape qualified); deferred hardening
+      OBL-20260925T051500Z-A9B0C1; materiality line MEM-20260925T053000Z.'
 current_candidate:
-  subject: none-open
-  ref: 'no unaccepted engineering candidate; the WR-3 admission block is an owner decision, not a candidate'
-  state: none-open
+  subject: wr3-continuation-in-flight
+  ref: 'WR-3 continuation batch (authoritative probes, Profile E movement, CI migration, lock-node advances, operator.json consolidation) then WR-4 then the MVP-4 fix - each with its own self-review node'
+  state: in-flight
 blockers: []
 paused_work:
 - qiven-runtime/process-execution
 - qiven-cad
 next_boundary: >-
-  Owner H2 stop FIRST: admit control revision fcfede8 (WR-3 lock
-  transaction head) + ratify the routine-advance rule (bundled; also
-  gates F1 and the CI pin convention); paste-ready block in the v28
-  checkpoint. Then: authoritative-cutover probes + Profile E live
-  movement; WR-3 continuation (ci.yml migration + owner-dispatched CI
-  proof + context lock-node advance + operator.json template
-  consolidation); WR-4 draft migration; MVP-4 kit fix owner-scheduled;
-  RR-0 then CA-1; MVP-5 frozen until CA-2; router batch candidate
-  (path-prefix escape + gate-configure classification).
-updated_at: '2026-09-25T00:00:00Z'
+  WR-3 continuation batch (authoritative probes + Profile E movement +
+  ci.yml migration runtime+math + lock-node advances incl. devkit >=
+  b98e6c4 + operator.json consolidation; self-review node), then WR-4
+  draft migration (self-review node), then the MVP-4 fix (CWD-profile +
+  kit self-containment + preflight labels + owner-live verification;
+  self-review node; the real H1 rerun stays owner hands); then RR-0 ->
+  CA-1; MVP-5 frozen until CA-2; router batch candidate standing.
+updated_at: '2026-09-25T05:45:00Z'
