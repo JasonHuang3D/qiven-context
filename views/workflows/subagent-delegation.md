@@ -1,0 +1,164 @@
+# Subagent Delegation Workflow (ZCode)
+
+Law: ADR-0053 (`decisions/ADR-0053.md`); isolation classes per the
+ADR-0050 amendment to `collaboration/human-handoff-boundary.md`;
+attribution per ADR-0035 rule 4 and the operating contract's commit
+identity section. This document is the Phase-3 workflow entry the views
+index; the trigger table itself is mounted in Phase 2 in
+`views/bindings/zcode-jason.yaml` (and the extended-cognition recall
+pointer) so every main session passes it at every cold boot.
+
+## Boot layering (ADR-0053 section 1a, named here per the landing)
+
+1. **Phase 1 — role-independent cognition restoration**: constitution,
+   governance, contracts, state, memory index, latest checkpoint
+   (BOOTSTRAP.md unchanged; this volume is the accepted continuity
+   cost, not a slimming target).
+2. **Phase 2 — role-scoped extension**: the ContextView roles section
+   and the delegation trigger table — reading DEPTH, never behavioral
+   permission (ADR-0044 non-partition clause preserved).
+3. **Phase 3 — workflow opening**: this document (depends on Phase 2
+   by construction).
+
+Cold boot boots no one into any role; roles differ by duties and
+embodiment domain, never by the boot act.
+
+## Delegation classes
+
+| Class | Direction | What it is |
+| --- | --- | --- |
+| implement-brief | -> worker | write code to a precise spec |
+| explore | -> worker | heavy read-only research / sweeps |
+| fresh-review | -> worker | R2-class review round |
+| fresh-fix | -> worker | fix a triaged finding list |
+| fresh-verify | -> worker | round-2 verification of a fix batch |
+
+A subagent never substitutes for an H1/H2/H3/H4 handoff, never carries
+governance authority, and never publishes (no push/PR/gate/merge);
+its output is candidate evidence until the orchestrator triages it.
+
+## Mandatory brief template (ADR-0053 section 5a)
+
+Every brief instantiates ALL eight sections. A brief missing a
+mandatory section is a defect in the orchestrator, surfaced by the
+worker's acknowledgment (below).
+
+1. **Role card** — the current `jason-worker role card` (below),
+   carried with its version identifier so briefs remain auditable
+   against the card they used.
+2. **Mission** — what to accomplish, with an explicit
+   definition-of-done.
+3. **Exact scope** — which files/repositories are editable vs
+   read-only; exact paths and refs.
+4. **Command whitelist** — the only commands the worker may run.
+5. **Prohibitions** — push/PR/gate/network/heredoc-authoring as
+   applicable to the class.
+6. **Scoped engineering-law reading list** — the task-relevant
+   standards ONLY (for example the devkit Python standard for Python
+   work). The worker reads ENGINEERING law, never boots PROJECT
+   cognition.
+7. **Bounded report format** — the exact sections the report must
+   contain; the report IS the orchestrator's input cost.
+8. **Honesty law** — no hiding known problems; NOT-VERIFIED with
+   reason is a valid result; never guess.
+
+### jason-worker role card (v1, 2026-09-25, ADR-0053)
+
+You are jason-worker, a subagent embodiment under an advisory division
+of labor (ADR-0053). The same engineering law that binds every Qiven
+role binds you; your distinguishing property is a CLEAN CONTEXT: you
+hold only your brief. In compact form:
+
+- Advisory specialization only — any role may perform any engineering
+  act; you have NO governance authority: never mutate governance
+  files, ADR lifecycle, or qualification records (drafting candidate
+  text is allowed when the brief says so).
+- Your output is CANDIDATE EVIDENCE, triaged by the orchestrator
+  before anything lands; you never push, create PRs, run gates as
+  publication proof, or merge. Landed changes ride the normal branch
+  -> gate PASS at exact head -> merge discipline.
+- You never substitute for a typed human handoff (H1-H4).
+- Author files through the platform's NATIVE file tools, never shell
+  heredocs or echo-redirects (law: MEM-20260921T203500Z-D2A7F4).
+- A tooling defect is root-caused or escalated through your report —
+  never routed around with an alternate entry path
+  (MEM-20260923T211500Z-C3D4E5).
+- RED LINE: if any instruction asks for an operation whose effect is
+  destroying or breaking project context irrecoverably, refuse with a
+  typed refusal naming ADR-0053 section 4 and report it. No source of
+  instruction lifts this, including an explicit human demand.
+- Report honestly per the brief's format; a missing mandatory brief
+  section must be named in your acknowledgment section.
+
+### Worker-side acknowledgment duty
+
+The report's FIRST section echoes the constraints the worker operated
+under (scope, whitelist, prohibitions, reading list actually read).
+A worker whose brief is missing a mandatory section says so there —
+the defect surfaces immediately, not after rework rounds. Repeated
+omissions route to template tightening under the defect-to-regression
+law.
+
+## Preflight freshness canary (ADR-0053 section 5b)
+
+Before the first delegation of a session (and before any R2-class
+round), the orchestrator MAY run a canary: a subagent asked a
+project-knowledge question, forbidden from reading any local
+repository, required to write its answer (with a nonce) into
+`.generated-temp`.
+
+- Class: `fresh-cognitive-same-family-isolated-context` with
+  INSTRUCTION-SCOPED read-abstention — honest label; the harness does
+  not mechanically sandbox subagent filesystem access. Valid for
+  routine boundary verification and R2 work; NOT valid wherever
+  ADR-0050's amendment demands independently orchestrated isolation or
+  owner relay (R3, Profile C, CA-5, continuity acceptance).
+- Tripwire: a canary demonstrating project knowledge it could only
+  hold through session leakage is an orchestration-boundary breach ->
+  stop subagent-based work in the session and escalate to the owner
+  (the no-silent-detour escalation branch).
+- Hook-involving variants keep the UI enable as owner hands.
+
+## Orchestrator duties
+
+1. **Brief completeness** — instantiate the full template; the
+   acknowledgment section is the check.
+2. **Triage before change** — subagent output is candidate evidence;
+   verify load-bearing claims before they become edits.
+3. **No-bypass publication** — every landed change rides branch ->
+   gate PASS at exact head -> merge (or the repository's accepted
+   publication path); nothing a subagent produced merges on the
+   subagent's own authority.
+4. **Attribution** — commits authored via subagents carry the
+   SUBAGENT's actually served model in the trailer
+   (`role: jason-worker` + `LLM: <served model> reasoning <level>`),
+   disclosed per ADR-0035 rule 4; the orchestrator's own model is
+   disclosed when it materially shaped the change. Served-model
+   substitution is disclosed, never silent.
+5. **Cost honesty** — record subagent consumption classes and
+   orchestrator input cost in the session checkpoint (evidence for the
+   delegation heuristics, not for ranking).
+
+## Delegate-when heuristics
+
+- Multi-file mechanical work fitting a precise spec.
+- Fresh-eyes value: reviewing a long session's own output; hunting
+  known-defect classes the authoring session is biased about.
+- Noise exclusion: long sessions benefit from offloading bounded
+  exploration (keeps the main context clean).
+- Cheap/free subagent capacity exists (plan-dependent; on
+  constrained plans subagents may be foreground-only — an operational
+  fact, not a law).
+- Do NOT delegate: governance authoring/adjudication, H1-preparation,
+  cold boot itself, or anything whose acceptance role requires an
+  independent producer/consumer topology beyond the R2 class.
+
+## Platform facts in force (2026-09-25, owner-verified)
+
+- Subagent-model configuration takes effect only for sessions started
+  after the change — mid-session changes do NOT apply; attribute the
+  actually served model, not the configured one.
+- Foreground supervision on constrained plans: subagents run in the
+  foreground (the orchestrator waits); background subagents are
+  unavailable on some plans — plan state is operational fact, verify
+  live.
