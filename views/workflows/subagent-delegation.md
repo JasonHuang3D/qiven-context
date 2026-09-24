@@ -37,6 +37,21 @@ A subagent never substitutes for an H1/H2/H3/H4 handoff, never carries
 governance authority, and never publishes (no push/PR/gate/merge);
 its output is candidate evidence until the orchestrator triages it.
 
+## Process topology (owner direction 2026-09-25)
+
+- **Read-only worker tasks** (explore, fresh-review, fresh-verify) MAY
+  run as multiple concurrent subagents when the tasks are independent —
+  background subagents are permitted for read-only parallelism (plan
+  support is an operational fact, verified live; on foreground-only
+  plans the permission simply goes unused — it is permission, never an
+  obligation).
+- **Any write-bearing worker task** (implement-brief, fresh-fix) runs as
+  a SINGLE foreground subagent — one writer at a time; never concurrent
+  write-bearing subagents.
+- Sequences with inter-round dependencies (a review loop whose fix feeds
+  the next review) run foreground by construction — background execution
+  adds nothing where every step consumes the previous step's output.
+
 ## Mandatory brief template (ADR-0053 section 5a)
 
 Every brief instantiates ALL eight sections. A brief missing a
@@ -138,6 +153,38 @@ repository, required to write its answer (with a nonce) into
 5. **Cost honesty** — record subagent consumption classes and
    orchestrator input cost in the session checkpoint (evidence for the
    delegation heuristics, not for ranking).
+
+## Self-review approval rounds (owner direction 2026-09-25)
+
+The owner may direct that a specific pending approval normally reserved
+for owner hands (a control-revision admission, a landing acceptance, a
+"done" claim at a key node) be adjudicated through a self-review loop.
+When so directed:
+
+1. **Round structure**: each round is jason-worker fresh-review ->
+   orchestrator triage and review -> (only if genuine findings)
+   jason-worker revision -> orchestrator re-review. The loop STARTS at
+   the worker review; the orchestrator never reviews first.
+2. **Pass condition**: a round PASSES when the worker review reports
+   zero unresolved findings AND the orchestrator's own review concurs
+   (nothing the worker missed that the orchestrator must fix).
+3. **Approval condition**: THREE CONSECUTIVE passing rounds approve the
+   target (owner equation 2026-09-25: three clean consecutive rounds =
+   the owner manually reviewing three times = pass).
+4. **Reset rule**: ANY revision to the approval target during the loop
+   voids the pass count; counting restarts from zero. Honest tally only.
+5. **What this substitutes**: the owner's verification labor for the
+   named decision, per explicit owner direction recorded verbatim in the
+   session checkpoint. It never transfers governance authority — the
+   decision remains the owner's (the direction itself is the decision;
+   the 3-pass record is the named evidence vehicle, same pattern as the
+   ADR-0050 orchestrated-evidence amendment). Escalation duty unchanged:
+   any material, semantic or unexpected-failure round returns to the
+   owner as a stop, exactly as delegated H2 requires.
+
+Each review round uses the mandatory brief template (§5a) unchanged and
+respects the process topology above (sequential rounds run foreground).
+The canary rule applies before R2-class rounds as usual.
 
 ## Delegate-when heuristics
 
