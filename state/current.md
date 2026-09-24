@@ -208,6 +208,25 @@ reconciliation) and the admission list enforced (A3 negative control →
 routine-advance rule is undefined and must be owner-ratified before the
 first routine authoritative-consuming lock movement (WR-2+).
 
+**Turn 3 (same session, owner verbatim "好的WR2 启动")**: **WR-2 DELIVERED
+and closed** at exactly the sealed budget (2 devkit PRs / 1 session):
+PR #39 (`d36ffb6` — shadow preflight + legacy-pin comparator with
+per-class typed verdicts; unknown pin variables are typed
+PinExtractionAmbiguous, never silently dropped) and PR #40 (`47c49a2` —
+the sealed Profile B fixture wired as the PERMANENT regression with
+outcomes 1-5 + K complement; the minimal candidate-declaration
+validation for the architecture §5.1 overlay; the live wr2-report.md).
+Live per-class verdicts on the real workspace: **Foundation / Draft /
+ThirdParty classes at equality (cutover-eligible at WR-3/WR-4/WR-5)**;
+the Devkit class is an explicit shadow discrepancy with a WR-6
+disposition (context pin `d1d2a3a4` vs lock snapshot `3c638b5`, managed
+snapshots non-comparable); census temporary records carry replacement
+stages + the hard WR-8 gate; the CA-1 clause recorded N/A. Fresh
+corroborating `qiven-math` gate PASS (legacy root+pin CMake path green
+alongside the shadow layer). **Next owner decision point (the sealed
+budget's): authorize the first class cutover — WR-3 Foundation — as the
+Profile J pilot.**
+
 ## Accepted engineering checkpoints
 
 - ContextKernel K1-K4 (Python, sealed ADR-0040): K4 Canonical Artifact
@@ -364,14 +383,14 @@ repositories follow per
 
 ## Next boundary
 
-1. **WR-2 authorization** (owner instruction; review precondition
-   cleared by the turn-2 acceptance): shadow resolution against the
-   existing build; sealed budget 2 devkit PRs / 1 session. Includes
-   wiring the Profile B fixture as the permanent regression.
+1. **WR-3 Foundation cutover decision** (the sealed budget's owner
+   decision point 2; equality proven by the live WR-2 report): the
+   first class cutover, doubling as the Profile J pilot measurement.
 2. **Routine-advance rule** (owner decision before the first routine
-   authoritative-consuming lock movement at WR-2+): ratify an
-   admission-advance rule for control revisions or re-admit per
-   movement — the standing residual recorded in the trust policy.
+   authoritative-consuming lock movement — now concretely needed by any
+   WR-3 lock movement): ratify an admission-advance rule for control
+   revisions or re-admit per movement — the standing residual recorded
+   in the trust policy.
 3. **Periodic governance audit DUE** (SIX ADRs accepted since the
    2026-09-22 pass: 0047/0048/0049/0050/0051/0052).
 4. **The MVP-4 corrective lane** (owner-scheduled): rebuild/fix the H1
@@ -391,7 +410,9 @@ repositories follow per
    suspended at the router per owner direction 2026-09-24; qiven-context's
    devkit pin remains d1d2a3a (bump optional at next touching batch;
    census-recorded split, WR-6 reconciliation target; the standing
-   typed BaselineConflict);
+   typed BaselineConflict); the lock's devkit node records the WR-1
+   snapshot while devkit main advanced during WR-2 (shadow comparison
+   is snapshot-based and unaffected);
    the P4 probe lineage is TERMINALLY closed (see
    collaboration/agent-execution-topology.md §3 — no next-session probe
    duty exists).

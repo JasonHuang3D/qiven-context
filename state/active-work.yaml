@@ -27,44 +27,42 @@ objective: >-
   MVP-4 H1 pass, RR-0, and CA-2 pass. Active batches: CA-0 + MVP-4
   corrective lane + RR-0 in one bounded interval (OBL-20260923T190500Z-D6E7F8).
 accepted_checkpoint:
-  subject: v27-turn2-trust-policy-accepted
-  ref: 'this transaction (owner H1 pass "H1通过，接受会话": trust policy ACCEPTED with admitted control revision 1743d921...; probes A1/A2/A3 recorded; residuals: routine-advance rule + BaselineConflict standing; v27 checkpoint turn-2)'
+  subject: v27-turn3-wr2-delivered
+  ref: 'this transaction (owner WR-2 start "好的WR2 启动": WR-2 delivered at exactly the sealed budget - devkit PR #39 d36ffb6 comparator + PR #40 47c49a2 Profile B permanent regression + candidate validation + live wr2-report; equality classes Foundation/Draft/ThirdParty; math gate corroborating PASS; v27 checkpoint turn-3)'
   evidence:
-    - 'v27 turn 2 (2026-09-25, same session, designation
-      jason-extended-cognition, long-running mode still active): the owner
-      passed the H1 stop and accepted the session closeout / WR-1 outputs
-      (verbatim "H1通过，接受会话"). The session executed the acceptance:
-      governance/workspace-control-trust-policy.json status -> accepted,
-      admitted_control_revisions [1743d921dabfb58b610a50bd544ca1864e7c9d66].
-      Mechanical verification on the real workspace: A1/A2 authoritative
-      mode no longer raises UntrustedControlRevision - the trust gate
-      lifts and the path fails at the typed BaselineConflict on the
-      recorded devkit split (honest state; WR-6 target); A3 negative
-      control proves the admission list is enforced. Residuals recorded
-      in the policy: routine-advance rule undefined (owner ratification
-      needed before routine authoritative-consuming lock movement,
-      WR-2+); authoritative bootstrap stays typed-blocked until WR-6 or
-      pin reconciliation. WR-2 itself awaits an explicit owner
-      instruction (new batch, outside this window scope).'
-    - 'Carried from v27 turn 1 (published): devkit PRs #35 1a54d59 /
-      #36 672694c / #37 e4000ff / #38 3c638b5; qiven-workspace 4b68079
-      -> 038493b -> 1743d92 (generation sha256:0a9047be...); context
-      8914cef; probes P1-P5 PASS.'
+    - 'v27 turn 3 (2026-09-25, same session, long-running mode,
+      delegated per-batch H2): WR-2 delivered in exactly 2 devkit PRs /
+      1 session. PR #39: shadow preflight + legacy-pin comparator -
+      variable-keyed CMake pin extraction (QIVEN_*_PINNED_SHA), context
+      devkit_pin, managed snapshots as non-comparable; per-class typed
+      verdicts where a mismatch fails only its own class migration
+      gate; unknown pin variables typed PinExtractionAmbiguous; self-
+      test SH1-SH7. PR #40: the sealed Profile B fixture wired as the
+      PERMANENT regression (outcomes 1-5 + K complement; gate task
+      workspace-profile-b-tests); resolver candidate subcommand (the
+      minimal architecture 5.1 overlay form); live wr2-report.md. Live
+      verdicts: Foundation/Draft/ThirdParty equality (cutover-eligible
+      WR-3/4/5); Devkit class explicit WR-6 discrepancy; census
+      temporary records carry replacement stages + WR-8 gate; CA-1
+      clause recorded N/A. Fresh qiven-math gate PASS corroborates the
+      legacy path coexistence. Next owner decision: WR-3 Foundation
+      cutover (Profile J pilot).'
+    - 'Carried from turns 1-2 (published): devkit PRs #35-#38;
+      qiven-workspace main 1743d92 (trust-admitted); context f8c8975
+      (trust policy accepted).'
 current_candidate:
   subject: none-staged
-  ref: 'no unaccepted engineering candidate remains; the trust-policy acceptance is the owner decision recorded at turn 2'
+  ref: 'no unaccepted engineering candidate remains; WR-2 closed at its sealed budget'
   state: none
 blockers: []
 paused_work:
 - qiven-runtime/process-execution
 - qiven-cad
 next_boundary: >-
-  WR-2 authorization (owner instruction; review precondition cleared):
-  shadow resolution vs the existing build, 2 devkit PRs / 1 session,
-  Profile B fixture wired as the permanent regression. Routine-advance
-  rule for control-revision admission needs owner ratification before
-  routine authoritative-consuming lock movement. Governance audit DUE
-  (six ADRs). MVP-4 kit fix owner-scheduled; RR-0 then CA-1; MVP-5
-  frozen until CA-2. Router follow-up candidate: path-prefixed
-  qiven.cmd gate spellings escape gate-class (v4.1; disclosed).
-updated_at: '2026-09-25T12:00:00Z'
+  Owner decision point: WR-3 Foundation cutover as the Profile J pilot
+  (equality proven by the live WR-2 report). Routine-advance rule for
+  control-revision admission needed before the first lock movement.
+  Governance audit DUE (six ADRs). MVP-4 kit fix owner-scheduled;
+  RR-0 then CA-1; MVP-5 frozen until CA-2. Router follow-up candidate:
+  path-prefixed qiven.cmd gate spellings escape gate-class (v4.1).
+updated_at: '2026-09-25T18:00:00Z'
