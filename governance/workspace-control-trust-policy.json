@@ -17,7 +17,8 @@
     "69cfaa5fecc105659794268c8020247f305fac90",
     "423082d428602abc7c21fd1af35652242d4e3cbd",
     "f92c40d934f9e5ab1361eee345304ea6d96d6a8d",
-    "eb73bf3468cf00133b0fe056bd232303231c96e3"
+    "eb73bf3468cf00133b0fe056bd232303231c96e3",
+    "d7a3200c0672862dacbbb9e55a62f434ced2728c"
   ],
   "admissions": [
     {
@@ -58,6 +59,15 @@
       "diff_shape": "workspace.lock.json node advancement only",
       "shadow_receipt": "receipts .generated-temp/workspace-resolver/2026-09-24T221131Z-lock-update and ...T221143Z-lock-update; standing context->devkit SPLIT unchanged. NOTE: the CI job files pin control revision 423082d - a self-consistent admitted snapshot whose lock matches every node checkout the jobs pin; later advances do not invalidate the snapshot",
       "recorded_by": "v29 session (owner long-running mode)"
+    },
+    {
+      "revision": "d7a3200c0672862dacbbb9e55a62f434ced2728c",
+      "admitted": "2026-09-25",
+      "class": "routine-advance (rule-letter conformance)",
+      "moved_nodes": "runtime ba2a959->5fe63b8, math 6e4c943->0eb0aa0 (canonical merge main HEADs; trees unchanged); draft already at its main HEAD 50288c2 (no-op overlay)",
+      "diff_shape": "workspace.lock.json node advancement only",
+      "shadow_receipt": "generation sha256:4cc77122...; receipt .generated-temp/workspace-resolver/2026-09-24T222306Z-lock-update/receipt.json; standing context->devkit SPLIT unchanged",
+      "recorded_by": "v29 session (owner long-running mode); closes review finding F1 of the continuation-node round 1 - the branch-head-then-merge pattern is conformant in tree terms, this advance makes it conformant in commit terms; future advances pin merge main HEADs directly (the WR-4/CI pairs above are the disclosed historical exceptions)"
     }
   ],
   "routine_advance_rule": {
