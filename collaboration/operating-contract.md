@@ -91,7 +91,7 @@ Human-visible tasks that may remain silent long enough to be mistaken for a hang
 
 Progress output must report only observable state. Do not invent percentages, ETAs, completed stages, or progress merely to reassure the operator. Heartbeat cadence should scale with expected duration; for interactive local tasks that normally run for tens of seconds, roughly five seconds of otherwise silent execution is a useful default interval. See `MEM-20260913T194500Z-8F2C41`.
 
-## Long-command routing (2026-09-23 owner direction; amended 2026-09-24 by ADR-0051, PROPOSED — mechanically effective, ratification pending owner H2)
+## Long-command routing (2026-09-23 owner direction; amended 2026-09-24 by ADR-0051, ACCEPTED — owner H2 2026-09-24 in v26)
 
 The canonical registry of long/measured/interactive command classes is
 `collaboration/long-command-registry.md` (classes, members, thresholds,
@@ -222,7 +222,7 @@ Rules:
 5. **Custody-class commands route through the Qiven Operator; ordinary
    in-session long work routes through the harness's background
    mechanism** (2026-09-21 owner direction, rescoped 2026-09-24 by
-   ADR-0051, PROPOSED). LLM sessions running builds, test suites,
+   ADR-0051, ACCEPTED). LLM sessions running builds, test suites,
    compiler/linker invocations or any command whose duration class is
    unknown re-call it with `run_in_background: true` after the hook's
    denial (build/gate classes with the node-reuse guard) — the harness

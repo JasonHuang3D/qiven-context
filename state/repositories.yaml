@@ -49,4 +49,4 @@ repositories:
     remote: https://github.com/JasonHuang3D/qiven-workspace.git
     local_path: <workspace-root>/qiven-workspace
     default_branch: main
-    role: workspace-control-plane-shadow (WR-1, ADR-0052; authority pending the owner-accepted trust policy)
+    role: workspace-control-plane (ADR-0052; trust policy ACCEPTED 2026-09-25 with admitted revision; authoritative use typed-blocked by the recorded devkit BaselineConflict until WR-6/pin reconciliation and the pending routine-advance rule)

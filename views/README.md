@@ -18,7 +18,8 @@ views/
 └── workflows/                         # Execution workflow profiles
     ├── chatgpt-jason-local-execution.md  # ChatGPT cloud/hybrid execution
     ├── supervised-agent.md               # local supervised agent (Z1)
-    └── long-running.md                   # long-running development window
+    ├── long-running.md                   # long-running development window
+    └── subagent-delegation.md            # worker-subagent delegation (ADR-0053)
 ```
 
 ## The v3 architecture model

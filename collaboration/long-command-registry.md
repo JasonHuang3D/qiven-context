@@ -12,8 +12,8 @@ operator task records a duration
 (`.generated-temp/operator/task-durations.jsonl` + gate receipts) so
 class membership is decided from measured evidence, not guesswork.
 
-**ADR-0051 amendment (2026-09-24, PROPOSED — mechanically effective
-since 2026-09-24; ratification pending owner H2):** the default reroute
+**ADR-0051 amendment (2026-09-24, ACCEPTED — owner H2 2026-09-24 in
+v26):** the default reroute
 for in-session long work is the harness's `run_in_background` (one
 re-call, one completion notification, ZERO polling). exec-detour +
 status-poll loops and foreground `sleep && tail` loops are retired
