@@ -286,10 +286,20 @@ now begins at boundary commit `c6bf3e3` (tree identical to the archived
 head `8d6c929`, 682 commits); the complete pre-boundary history plus
 every preserved sealed-era work branch lives in the private archive
 `JasonHuang3D/qiven-context-back-up-9-24-2026`. SHA references in
-records dated before the boundary resolve against that archive.
-Disclosed residuals: one stale third-party fork (created 2026-09-17)
-and GitHub PR-ref caches (full purge = owner support request, optional).
-The remaining repositories follow per
+records dated before the boundary resolve against that archive; **PR
+numbers in old records resolve to the archive's merge commits**
+("Merge pull request #N" message-bound), because the PR objects died
+with the owner's deletion of the old public repository. The owner then
+resolved both disclosed residuals root-cure style: the third-party fork
+(a family account) was deleted by the owner, and the old public
+repository itself was deleted and RECREATED fresh (public, same name)
+— `refs/pull/*` caches died with it. The new public repository carries
+only the boundary line. **PR objects are RETIRED for qiven-context**
+(owner direction 2026-09-24): publication = branch → gate PASS at exact
+head → local merge to main → push; receipts ride the gate result +
+merge commit + session checkpoint (human-handoff-boundary.md amendment).
+qiven-docs keeps its PR-based cross-LLM deliberation law. The remaining
+repositories follow per
 `collaboration/repository-history-archival.md`
 (OBL-20260924T140500Z-F0A1B2; code repos require the re-pin ripple).
 
