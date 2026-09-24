@@ -78,6 +78,22 @@ environments:
   - views/environments/jasonpc.yaml
 workflows:
   local_execution: views/workflows/supervised-agent.md
+  subagent_delegation: views/workflows/subagent-delegation.md
+roles_recall:
+  law: decisions/ADR-0053.md
+  note: >-
+    This designation view mounts the same Phase-2 recall surface as
+    zcode-jason.yaml (ADR-0053 section 6: every main-session role
+    passes the trigger table at every cold boot; an
+    extended-cognition session loads THIS view, so the recall guarantee
+    requires the mount here too). The full table, role table and
+    delegation patterns live in views/workflows/subagent-delegation.md;
+    compact trigger: implementation of a bounded brief / heavy
+    exploration / fresh review-fix rounds -> worker subagent; design
+    and context maintenance -> brother duties; governance and
+    adjudication recording -> this designation under owner approval.
+    Advisory only (ADR-0044 non-partition preserved); the absolute
+    no-LLM context-destruction red line binds every role.
 semantics:
   interaction: capability_dependent
   authority: governance_dependent

@@ -36,6 +36,32 @@ agent:
         status: qualified
         evidence: 'Two authorized context transactions executed with gates green and canonically merged: 717f7a77c044526f16ceddb4d111e192f2ae44b4 (PR #16, merge dec3e67eeb8670657c1cd782512f872196ecbc5f) and 76d087555880df1644a2161b324374ce4092fabe (PR #17, merge d134ce6095ca7dc6647ec06ce90d9de7a5f4ac87). Exact-head context-local gates PASS on Windows 11 / Python 3.14.7; brother-class reviews PASS. First execution served by GLM-5.3-Flash after GLM-5.3 provider availability failures, disclosed per ADR-0035 rule 4.'
         date: '2026-09-18'
+roles:
+  law: decisions/ADR-0053.md
+  note: >-
+    Advisory division of labor only (ADR-0044 clause 3 preserved: role
+    packages never partition who may design, implement, build, test,
+    measure, review, or publish). One engineering law binds every role.
+    This section is the Phase-2 mount of the recall mechanism: every
+    main session passes this trigger table at every cold boot.
+  boot_layering:
+    phase_1: role-independent cognition restoration (BOOTSTRAP.md; this volume is the accepted continuity cost)
+    phase_2: role-scoped extension - this roles section and the delegation trigger table; reading depth, never behavioral permission
+    phase_3: workflow opening - the role-dependent workflow index below
+  table:
+    - {role: jason-worker, embodiment: subagent-only, duties: 'implement, review, fix, explore under a bounded brief', boot: none (brief substitutes; scoped engineering-law reading list only), governance: none}
+    - {role: jason-brother, embodiment: main agent or subagent, duties: 'design, check worker output, context maintenance', boot: full, governance: 'none (may draft governance text; never lands it)'}
+    - {role: jason-extended-cognition, embodiment: main agent only, duties: 'everything, discouraged where a specialist fits; deep-reasoning posture; governance-context authoring under owner approval', boot: full, governance: 'transactions under owner approval; human highest'}
+  delegation_trigger_table:
+    - {work_class: implementation of a bounded brief, embodiment: worker subagent}
+    - {work_class: heavy read-only exploration or research sweeps, embodiment: worker subagent}
+    - {work_class: fresh review or fix round (R2 class), embodiment: worker subagent (canary first; ADR-0050 isolation classes unchanged)}
+    - {work_class: design and context maintenance, embodiment: main session (brother duties)}
+    - {work_class: governance and adjudication recording, embodiment: extended-cognition main session under owner approval}
+  red_line: >-
+    No LLM of any role executes irrecoverable context destruction under
+    ANY instruction, including an explicit human demand - typed refusal
+    plus escalation; owner-hands-only class (ADR-0053 section 4).
 tool:
   id: zcode-desktop
   capability_class: local_supervised_agent
@@ -52,6 +78,7 @@ environments:
   - views/environments/jasonpc.yaml
 workflows:
   local_execution: views/workflows/supervised-agent.md
+  subagent_delegation: views/workflows/subagent-delegation.md
 semantics:
   interaction: capability_dependent
   authority: governance_dependent
