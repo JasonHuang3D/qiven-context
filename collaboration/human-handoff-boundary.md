@@ -58,9 +58,18 @@ alone is not coherent with this contract and is implemented as follows):
 1. **Per-batch H2 is standing-delegated, not waived.** For ordinary
    engineering batches in the mode (implementation, tests, docs, state
    transactions), the session's reviewer satisfies H2 through exact-head
-   full-gate PASS plus a merge-proof receipt recorded in each PR, per the
-   delegated-review rule this contract already admits. Delegated H2 carries
+   full-gate PASS plus a merge-proof receipt, per the delegated-review
+   rule this contract already admits. Delegated H2 carries
    the same escalation duty: a material round returns to the owner.
+   Amendment (owner direction 2026-09-24, qiven-context only): the
+   receipt vehicle is the gate PASS at the exact branch head plus the
+   local branch-to-main merge commit, both recorded in the session
+   checkpoint — GitHub PR objects are RETIRED for qiven-context
+   (rationale: ADR-0044 single-session engineering has no second-party
+   reviewer; the PR surface adds no LLM-consumable evidence beyond the
+   SHAs and receipts, and PR refs retain history against the
+   public-hygiene program). qiven-docs keeps PRs — its README defines
+   them as the cross-LLM deliberation surface.
 2. **Non-delegable review classes remain owner H2 regardless of mode**:
    governance mutation (authority.yaml, constitution, ADR lifecycle —
    "H2 plus root principal"), acceptance/ratification of an ADR, and
@@ -108,7 +117,7 @@ the owner's part convenient and improvisation-free:
 | Rebuildable derived artifacts (generated/, indexes, isolated scratch builds/tests) | permitted with bounded resources | not applicable | not applicable |
 | Local commit on an authorized task branch | permitted inside the authorized scope | review may be deferred to publication | scope negotiable, discipline not |
 | Push of a pre-authorized exact task branch (WIP durability) | not unattended-eligible | none for the push itself; H2 before merge-class publication of the pushed branch | branch scope negotiable |
-| PR creation and merge-class publication | prohibited | H2 mandatory | invalid |
+| PR creation and merge-class publication | prohibited | H2 mandatory (for qiven-context, publication is branch-to-main merge after gate PASS at the exact head — PRs retired 2026-09-24; qiven-docs keeps its PR-based deliberation law) | invalid |
 | Acceptance-topology roles (K4/K5 producer, fresh consumer, Human Succession) | impossible by definition | H1/H3 mandatory | invalid |
 | Governance mutation (authority.yaml, constitution, ADR lifecycle) | prohibited | H2 plus root principal | invalid |
 
