@@ -196,6 +196,18 @@ repository is shadow-only. Router FINDING (pre-existing, disclosed):
 path-prefixed `qiven.cmd gate` spellings escape gate-class (v4.1
 prefix-anchored matcher) — follow-up devkit batch candidate.
 
+**Turn 2 (same session, owner verbatim "H1通过，接受会话")**: the H1 stop
+is PASSED and the session closeout / WR-1 outputs are ACCEPTED. The
+trust policy is now ACCEPTED with admitted control revision
+`1743d921…` (qiven-workspace main at window close); probes on the real
+workspace prove the trust gate mechanically lifted (A1/A2: authoritative
+mode now reaches the typed `BaselineConflict` on the recorded devkit
+split — the honest state; no authoritative graph until WR-6/pin
+reconciliation) and the admission list enforced (A3 negative control →
+`UntrustedControlRevision`). Residuals recorded in the policy file: the
+routine-advance rule is undefined and must be owner-ratified before the
+first routine authoritative-consuming lock movement (WR-2+).
+
 ## Accepted engineering checkpoints
 
 - ContextKernel K1-K4 (Python, sealed ADR-0040): K4 Canonical Artifact
@@ -303,6 +315,14 @@ Succession (operator replacement). A PASS names the profile tested.
   machine-identity literals; secrets scan clean; active surfaces
   redacted 2026-09-24; the git-history residual is an owner
   public-accept vs private decision (recorded in the law).
+- Workspace control-repository trust policy ACCEPTED (2026-09-25, owner
+  H1/H2 pass in v27 turn 2; `governance/workspace-control-trust-policy.json`):
+  permitted control repository `JasonHuang3D/qiven-workspace`, admitted
+  revision `1743d921…`; authoritative bootstrap additionally requires a
+  compatible selection (the typed BaselineConflict on the context devkit
+  pin is the standing blocker until WR-6/pin reconciliation); routine-
+  advance rule pending owner ratification before routine authoritative
+  lock movement.
 
 ## 2026-09-23 deny-118 incident correction wave (v21, owner-directed)
 
@@ -344,15 +364,14 @@ repositories follow per
 
 ## Next boundary
 
-1. **Owner H1/H2: control-repository trust policy** — accept
-   `governance/workspace-control-trust-policy.json` (proposed) and admit
-   the first exact qiven-workspace revision, OR direct rework. This is
-   the H1 stop the v27 long-running window ran to; authoritative
-   bootstrap is impossible before it.
-2. **Owner review of the WR-1 outputs** (qiven-workspace `4b68079`+,
-   devkit PRs #35-#37 + fix, probes P1-P5, the 247-line skeleton
-   deviation) gates **WR-2** (shadow resolution against the existing
-   build; sealed budget 2 devkit PRs / 1 session).
+1. **WR-2 authorization** (owner instruction; review precondition
+   cleared by the turn-2 acceptance): shadow resolution against the
+   existing build; sealed budget 2 devkit PRs / 1 session. Includes
+   wiring the Profile B fixture as the permanent regression.
+2. **Routine-advance rule** (owner decision before the first routine
+   authoritative-consuming lock movement at WR-2+): ratify an
+   admission-advance rule for control revisions or re-admit per
+   movement — the standing residual recorded in the trust policy.
 3. **Periodic governance audit DUE** (SIX ADRs accepted since the
    2026-09-22 pass: 0047/0048/0049/0050/0051/0052).
 4. **The MVP-4 corrective lane** (owner-scheduled): rebuild/fix the H1
@@ -371,7 +390,8 @@ repositories follow per
    started after 2026-09-24T11:43Z); git-network routing remains
    suspended at the router per owner direction 2026-09-24; qiven-context's
    devkit pin remains d1d2a3a (bump optional at next touching batch;
-   census-recorded split, WR-6 reconciliation target);
+   census-recorded split, WR-6 reconciliation target; the standing
+   typed BaselineConflict);
    the P4 probe lineage is TERMINALLY closed (see
    collaboration/agent-execution-topology.md §3 — no next-session probe
    duty exists).
