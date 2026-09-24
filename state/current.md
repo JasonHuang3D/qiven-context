@@ -279,6 +279,20 @@ workspace config was written directly by the session (ZCode UI review
 is the enable gate); the regenerated kit package is at
 <workspace-root>/h1-kits/qiven-runtime/mvp4-h1/0.1.0-ge0614b82.
 
+## Public history boundary (2026-09-24)
+
+qiven-context's public history was truncated at owner direction: main
+now begins at boundary commit `c6bf3e3` (tree identical to the archived
+head `8d6c929`, 682 commits); the complete pre-boundary history plus
+every preserved sealed-era work branch lives in the private archive
+`JasonHuang3D/qiven-context-back-up-9-24-2026`. SHA references in
+records dated before the boundary resolve against that archive.
+Disclosed residuals: one stale third-party fork (created 2026-09-17)
+and GitHub PR-ref caches (full purge = owner support request, optional).
+The remaining repositories follow per
+`collaboration/repository-history-archival.md`
+(OBL-20260924T140500Z-F0A1B2; code repos require the re-pin ripple).
+
 ## Next boundary
 
 1. **Owner review of the WR-0 sealed outputs** (devkit PR #34: census,
