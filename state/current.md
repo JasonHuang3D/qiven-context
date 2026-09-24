@@ -274,6 +274,56 @@ owner-hands in the UI. First live canary PASS (knows_qiven=no, sealed
 artifact verified, ~28K tokens) — retroactively corroborating the
 turn-4 boundary.
 
+## v28 session (2026-09-25)
+
+Owner-marked fresh session, designation jason-extended-cognition,
+**long-running mode from turn 1** (opening instruction: cold boot;
+"全程委托你H2，开启long-running模式"; ADR-0053 accepted + landed; the
+DUE governance audit executed; WR-3 started). Live-model switch report:
+GLM-5.3, provider account `bigmodel-offpeak-idle-plan` (offpeak free
+plan; subagents foreground-only per owner note; variant and reasoning
+level not introspectable, reported as such).
+
+1. **ADR-0053 ACCEPTED and LANDED** (owner H2 verbatim "ADR-0053批准
+   并且完整落地", batched with the audit as planned): status accepted;
+   landing = zcode-jason.yaml roles section (advisory table, boot
+   layering phases, delegation trigger table = the Phase-2 recall
+   mount, red line), extended-cognition-jason.yaml recall pointer
+   (mount-gap found and closed during landing: an extended-cognition
+   session loads THAT view), views/workflows/subagent-delegation.md
+   (8-section brief template, jason-worker role card v1, acknowledgment
+   duty, canary procedure, orchestrator duties, heuristics, platform
+   facts). Context main `c4c4983`.
+2. **Periodic governance audit EXECUTED** (OBL-C8D4E2, seven-ADR
+   trigger; evidence/audits/governance-audit-2026-09-25.md): the first
+   live exercise of the ADR-0053 delegation workflow — canary PASS
+   (knows_qiven=no, nonce V28-CANARY-T1), fresh-review worker (11
+   genuine findings, 0 false positives, ~3.85M tokens), fresh-fix
+   worker (12/12 edits), orchestrator triage + programmatic sweep. All
+   11 remediated in-session (ADR-0051 stale PROPOSED in both law
+   carriers; PR-retirement drift in 2 workflow files; 4 P3 staleness
+   items; ADR-0049 duplicate sources: key merged — record-integrity
+   repair, lifecycle untouched, disclosed for owner veto). Zero
+   contradictions, zero semantic duplications. Context main `5dadc57`.
+3. **WR-3 Foundation cutover batch 1 DELIVERED in shadow transition**
+   (owner start instruction "WR3启动"; sealed decision point 2; the
+   Profile J pilot): devkit PR #42 (merge `4c23a2d`) — resolver
+   overlays/adapter/lock-update + declaration cache + self-tests
+   R16-R20; control repo bootstrap `gate-configure` + the lock
+   transaction (4 nodes → repository-manifest declarations, generation
+   `sha256:9d7cc02d…`, control HEAD `fcfede8`); foundation `ae414d1` /
+   math `bfea3bd` (PILOT — first workspace-resolved C++ build) / draft
+   `50288c2` / runtime `55379c7` (nested build: foundation via adapter
+   + draft/third-party legacy) — all gates PASS at exact heads; the
+   `if(NOT TARGET)` suppression class mechanically dead; Profile J
+   pilot measured (wr3-report.md: 7→4 resolver surfaces, foundation
+   ripple 4-edit→0, remaining draft ripple 1 edit honestly counted);
+   4 live pilot defects found+fixed. OPEN rows honestly declared: CI
+   migration + Profile E live movement (both bundled with the owner
+   admission step), authoritative cutover pending admission of control
+   revision `fcfede8` (trust policy law clause 3; paste-ready block in
+   the v28 checkpoint).
+
 ## Accepted engineering checkpoints
 
 - ContextKernel K1-K4 (Python, sealed ADR-0040): K4 Canonical Artifact
@@ -374,6 +424,15 @@ Succession (operator replacement). A PASS names the profile tested.
   model retained with its dependency-resolution endpoint superseded;
   WR-0 sealed outputs gate every authority-touching step
   (OBL-20260924T113000Z-E7F8A9).
+- ADR-0053 (ACCEPTED 2026-09-25, owner H2 in v28, verbatim "ADR-0053批准
+  并且完整落地"): the three ZCode roles concretized as a view-level
+  advisory division of labor with subagent delegation as the worker
+  mechanism; one engineering law for every role; the absolute no-LLM
+  context-destruction red line (owner-hands-only class); the recall
+  mechanism mounted in both ZCode views (Phase 2). Canonical homes:
+  decisions/ADR-0053.md, views/bindings/zcode-jason.yaml (roles),
+  views/bindings/extended-cognition-jason.yaml (recall pointer),
+  views/workflows/subagent-delegation.md.
 - Public-repo information hygiene is LAW (2026-09-24, owner direction,
   v26 turn 6; `collaboration/public-repo-information-hygiene.md`): all
   nine qiven repositories are public; canonical records carry
@@ -430,36 +489,33 @@ repositories follow per
 
 ## Next boundary
 
-1. **WR-3 Foundation cutover decision** (the sealed budget's owner
-   decision point 2; equality proven by the live WR-2 report): the
-   first class cutover, doubling as the Profile J pilot measurement.
-2. **Routine-advance rule** (owner decision before the first routine
-   authoritative-consuming lock movement — now concretely needed by any
-   WR-3 lock movement): ratify an admission-advance rule for control
-   revisions or re-admit per movement — the standing residual recorded
-   in the trust policy.
-3. **Periodic governance audit DUE** (SIX ADRs accepted since the
-   2026-09-22 pass: 0047/0048/0049/0050/0051/0052).
+1. **WR-3 owner H2/H1 stop: control-revision admission** (paste-ready
+   block in the v28 checkpoint): admit control revision `fcfede8` (the
+   WR-3 lock-transaction head) into the trust policy — plus, bundled,
+   the routine-advance rule ratification (the standing residual; also
+   gates the deferred F1 bootstrap fix and the CI pin convention).
+   After admission: the authoritative-cutover probes (A1/A2-style) and
+   the Profile E live movement demonstration.
+2. **WR-3 continuation batch**: runtime ci.yml migration to the
+   workspace path (all three platform jobs mechanically; replacement
+   proof = an owner-dispatched CI run, explicit-dispatch law); context
+   lock-node advance (5dadc57+); operator.json template consolidation
+   (the per-repo configure-task customs ride a template bump).
+3. **WR-4 Context Draft migration** (the draft edge — retires
+   runtime's last adjacent pin).
 4. **The MVP-4 corrective lane** (owner-scheduled): rebuild/fix the H1
-   kit (profile packaging or CWD-independent resolution; the sealed
-   incident record names both defects), then the real H1 rerun (owner
-   hands). Rows 2-5 of the original exit gate remain locally proven.
+   kit, then the real H1 rerun (owner hands). Rows 2-5 of the original
+   exit gate remain locally proven.
 5. **RR-0 implementation batch** (still inside the open CA interval),
-   then **CA-1** (its bounded batch, ceilings and stall trigger are
-   unchanged by ADR-0052). MVP-5 stays FROZEN until CA-2.
-6. Router follow-up candidate (disclosed finding): path-prefixed
-   `qiven.cmd gate` spellings escape gate-class under the v4.1
-   prefix-anchored matcher — a bounded devkit router batch.
+   then **CA-1** (bounded batch, ceilings and stall trigger unchanged
+   by ADR-0052). MVP-5 stays FROZEN until CA-2.
+6. Router follow-up candidate (disclosed): path-prefixed `qiven.cmd
+   gate` escape AND the `gate-configure`-wraps-build-class gap — one
+   bounded devkit router batch.
 7. Standing: managed template syncs need manual operator.json customs
-   re-applied per bump (runtime and context-draft carry customs); the
-   workspace router registration is enabled (effective for sessions
-   started after 2026-09-24T11:43Z); git-network routing remains
-   suspended at the router per owner direction 2026-09-24; qiven-context's
-   devkit pin remains d1d2a3a (bump optional at next touching batch;
-   census-recorded split, WR-6 reconciliation target; the standing
-   typed BaselineConflict); the lock's devkit node records the WR-1
-   snapshot while devkit main advanced during WR-2 (shadow comparison
-   is snapshot-based and unaffected);
-   the P4 probe lineage is TERMINALLY closed (see
-   collaboration/agent-execution-topology.md §3 — no next-session probe
-   duty exists).
+   re-applied per bump (runtime and context-draft carry customs);
+   git-network routing remains suspended at the router per owner
+   direction 2026-09-24; qiven-context's devkit pin remains d1d2a3a
+   (WR-6 reconciliation target; now ALSO the standing typed
+   BaselineConflict against lock devkit node 06cf75f); the P4 probe
+   lineage is TERMINALLY closed (topology §3).
