@@ -1,0 +1,25 @@
+{
+  "schema": "qiven-workspace-control-trust-v1",
+  "status": "proposed",
+  "title": "Control-repository trust policy for qiven-workspace",
+  "created": "2026-09-25",
+  "law": [
+    "ADR-0052 decision 4 and accepted architecture doc 01 section 2.3: an exact SHA proves identity, not authorization; authoritative bootstrap requires this independently held policy (held in qiven-context governance, outside the control repository it governs) to name the permitted control repository and admit exact control revisions.",
+    "Until this policy is owner-accepted (owner H2, governance class, non-delegable under long-running mode) AND admits an exact revision, every qiven-workspace revision is a labeled shadow/local input: it cannot publish, satisfy an authoritative gate, authorize a class cutover, or serve WR-7.",
+    "Admission advance: an owner-accepted decision (ADR or recorded owner adjudication in qiven-context) adds the exact control revision(s) to admitted_control_revisions; routine lock movement inside an already-admitted control-revision state does not require a new owner step (doc 02 section 7.7).",
+    "Revocation: owner decision; removing a revision or the whole policy returns the workspace to shadow-only and fails authoritative bootstrap with UntrustedControlRevision.",
+    "This policy never grants execution authority (ADR-0043 RuntimeHost remains the machine-local mutation path) and never overrides qiven-context canonical Git authority."
+  ],
+  "permitted_control_repository": "https://github.com/JasonHuang3D/qiven-workspace.git",
+  "admitted_control_revisions": [],
+  "acceptance": {
+    "required_evidence": [
+      "WR-1 delivered: qiven-workspace repository skeleton + schemas + bootstrap + resolver with receipts (this session, delegated per-batch H2)",
+      "WR-1 exit criteria demonstrated in shadow mode (typed failures, path-independent generation, golden vectors, census blob+digest binding)",
+      "The baseline devkit implementation split reported as a typed baseline conflict, not resolved"
+    ],
+    "acceptance_act": "Owner H2 statement in an owner-visible session, recorded into decisions/state by the accepting session; this file's status becomes accepted and the exact admitted revision(s) are listed.",
+    "owner_decision_pending": true
+  },
+  "consumed_by": "the qiven-devkit workspace resolver (authoritative mode reads this file via --trust-policy; the tool lives in the qiven-devkit repository, tools directory, not here)"
+}
