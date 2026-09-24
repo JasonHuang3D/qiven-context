@@ -227,6 +227,21 @@ alongside the shadow layer). **Next owner decision point (the sealed
 budget's): authorize the first class cutover — WR-3 Foundation — as the
 Profile J pilot.**
 
+**Turn 4 (same session, owner-directed orchestrated fresh-review round)**:
+first exercise of the subagent workflow (fresh review → fresh fix →
+fresh round-2 verification; R2 class per the ADR-0050 amendment; no
+authority transfer; normal gate discipline). Round 1 found **8 genuine
+issues (3×P2 + 5×P3, zero false positives)** incl. a shadow-extractor
+hardcoding that could fake the WR-3 equality evidence; 7 fixed in devkit
+PR #41 (`ef4ea30`, gate PASS at `405d0a8`, regressions R12-R15/SH8/S14,
+authored by the fix subagent as `LLM: GLM-5.3-flash`); round 2 verified
+7/7 RESOLVED, no regressions. F1 (bootstrap timeout typing) DEFERRED to
+the routine-advance decision (fixing it would move the trust-admitted
+control HEAD). Two new P3 observations recorded (managed-snapshot list
+residue; census path coupling). Consumption: ~6M subagent tokens free
+under the event; orchestrator cost = three compact reports — the
+workflow is repeatable pre-H1 at negligible cost.
+
 ## Accepted engineering checkpoints
 
 - ContextKernel K1-K4 (Python, sealed ADR-0040): K4 Canonical Artifact
