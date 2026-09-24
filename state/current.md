@@ -157,6 +157,45 @@ owner-deferred; owner restored the workspace hook config to a minimal
 safe state with the router disabled). v25 timestamp noise (+24h on
 several Z-stamps) is corrected in the v26 checkpoint notes.
 
+The v27 session (2026-09-25, designation jason-extended-cognition,
+**long-running mode from turn 1** with standing-delegated per-batch H2
+per the owner's opening instruction "全程委托你H2…完整执行和落地这一个
+边界直到下一次H1，其中WR0获批同意WR1") executed the directed boundary:
+**WR-0 sealed outputs owner-ACCEPTED and WR-1 AUTHORIZED; WR-1 DELIVERED
+end-to-end in shadow mode.** Landed: devkit PR #35 (`1a54d59` — the
+three workspace schemas + stdlib strict validator with duplicate-key
+rejection, self-test S1-S13), PR #36 (`672694c` — the resolver: RFC 8785-
+subset canonicalization with UTF-16 key ordering, domain-separated
+sha256 WorkspaceGeneration, census blob+digest binding, WG-4 edge
+validation, Profile B conflict detection order-independent, §11 typed
+failure taxonomy incl. UntrustedControlRevision/BootstrapDevkitMismatch/
+BaselineConflict, golden vectors with two independent implementations +
+certutil three-way agreement, self-test R1-R11), PR #37 (`e4000ff` —
+the REAL-bootstrap contract test B1-B7 with identity-before-import and
+visible-SKIP self-containment; schema note fields; router
+re-classification of the new launcher forms), plus a typed-
+WorkspaceNotFound fix (P5 probe finding). **qiven-workspace control
+repository PUBLISHED** (`JasonHuang3D/qiven-workspace`, public, `4b68079`):
+manifest, sealed WR-0 census declarations bound to live main HEADs,
+generation-bound lock (`sha256:687673bc…`, path-independence proven by
+clone probe), stdlib bootstrap + thin qiven.cmd. Real-workspace probes
+P1-P5 PASS (authoritative-without-policy → UntrustedControlRevision;
+real bootstrap release with 12 validated edges; wrong devkit →
+BootstrapDevkitMismatch BEFORE import; clone → identical generation;
+absent control → typed WorkspaceNotFound after the fix). The baseline
+devkit implementation split (context d1d2a3a4 vs managed snapshots vs
+main) is reported as a typed baseline conflict — recorded, not resolved.
+**Disclosed deviation**: control-repo skeleton 247 lines vs the sealed
+≤200 row bound (47 over; bootstrap contract accounts for it; no product
+semantics) — for the owner's WR-1 review; no authority cutover was
+requested or made. Budget: 4 of 6 devkit PRs, 1 of 2 sessions. **The
+control-repository trust policy is DRAFTED as proposed**
+(governance/workspace-control-trust-policy.json): its owner-H2 acceptance
++ first admitted revision is THE next H1 stop; until then the control
+repository is shadow-only. Router FINDING (pre-existing, disclosed):
+path-prefixed `qiven.cmd gate` spellings escape gate-class (v4.1
+prefix-anchored matcher) — follow-up devkit batch candidate.
+
 ## Accepted engineering checkpoints
 
 - ContextKernel K1-K4 (Python, sealed ADR-0040): K4 Canonical Artifact
@@ -305,25 +344,34 @@ repositories follow per
 
 ## Next boundary
 
-1. **Owner review of the WR-0 sealed outputs** (devkit PR #34: census,
-   Profile B fixture, Profile J baseline, effort budget) gates WR-1
-   (qiven-workspace creation); the cheaper no-repository subset remains
-   compatible.
-2. **Periodic governance audit DUE** (SIX ADRs accepted since the
+1. **Owner H1/H2: control-repository trust policy** — accept
+   `governance/workspace-control-trust-policy.json` (proposed) and admit
+   the first exact qiven-workspace revision, OR direct rework. This is
+   the H1 stop the v27 long-running window ran to; authoritative
+   bootstrap is impossible before it.
+2. **Owner review of the WR-1 outputs** (qiven-workspace `4b68079`+,
+   devkit PRs #35-#37 + fix, probes P1-P5, the 247-line skeleton
+   deviation) gates **WR-2** (shadow resolution against the existing
+   build; sealed budget 2 devkit PRs / 1 session).
+3. **Periodic governance audit DUE** (SIX ADRs accepted since the
    2026-09-22 pass: 0047/0048/0049/0050/0051/0052).
-3. **The MVP-4 corrective lane** (owner-scheduled): rebuild/fix the H1
+4. **The MVP-4 corrective lane** (owner-scheduled): rebuild/fix the H1
    kit (profile packaging or CWD-independent resolution; the sealed
    incident record names both defects), then the real H1 rerun (owner
    hands). Rows 2-5 of the original exit gate remain locally proven.
-4. **RR-0 implementation batch** (still inside the open CA interval),
+5. **RR-0 implementation batch** (still inside the open CA interval),
    then **CA-1** (its bounded batch, ceilings and stall trigger are
    unchanged by ADR-0052). MVP-5 stays FROZEN until CA-2.
-5. Standing: managed template syncs need manual operator.json customs
+6. Router follow-up candidate (disclosed finding): path-prefixed
+   `qiven.cmd gate` spellings escape gate-class under the v4.1
+   prefix-anchored matcher — a bounded devkit router batch.
+7. Standing: managed template syncs need manual operator.json customs
    re-applied per bump (runtime and context-draft carry customs); the
    workspace router registration is enabled (effective for sessions
    started after 2026-09-24T11:43Z); git-network routing remains
    suspended at the router per owner direction 2026-09-24; qiven-context's
-   devkit pin remains d1d2a3a (bump optional at next touching batch);
+   devkit pin remains d1d2a3a (bump optional at next touching batch;
+   census-recorded split, WR-6 reconciliation target);
    the P4 probe lineage is TERMINALLY closed (see
    collaboration/agent-execution-topology.md §3 — no next-session probe
    duty exists).

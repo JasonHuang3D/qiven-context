@@ -45,3 +45,8 @@ repositories:
     local_path: <workspace-root>/qiven-docs
     default_branch: main
     role: cross-llm-proposal-deliberation-repository
+  - name: qiven-workspace
+    remote: https://github.com/JasonHuang3D/qiven-workspace.git
+    local_path: <workspace-root>/qiven-workspace
+    default_branch: main
+    role: workspace-control-plane-shadow (WR-1, ADR-0052; authority pending the owner-accepted trust policy)
