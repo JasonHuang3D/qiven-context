@@ -1,6 +1,6 @@
 {
   "schema": "qiven-workspace-control-trust-v1",
-  "status": "proposed",
+  "status": "accepted",
   "title": "Control-repository trust policy for qiven-workspace",
   "created": "2026-09-25",
   "law": [
@@ -11,15 +11,25 @@
     "This policy never grants execution authority (ADR-0043 RuntimeHost remains the machine-local mutation path) and never overrides qiven-context canonical Git authority."
   ],
   "permitted_control_repository": "https://github.com/JasonHuang3D/qiven-workspace.git",
-  "admitted_control_revisions": [],
+  "admitted_control_revisions": [
+    "1743d921dabfb58b610a50bd544ca1864e7c9d66"
+  ],
   "acceptance": {
     "required_evidence": [
-      "WR-1 delivered: qiven-workspace repository skeleton + schemas + bootstrap + resolver with receipts (this session, delegated per-batch H2)",
+      "WR-1 delivered: qiven-workspace repository skeleton + schemas + bootstrap + resolver with receipts (delegated per-batch H2)",
       "WR-1 exit criteria demonstrated in shadow mode (typed failures, path-independent generation, golden vectors, census blob+digest binding)",
       "The baseline devkit implementation split reported as a typed baseline conflict, not resolved"
     ],
     "acceptance_act": "Owner H2 statement in an owner-visible session, recorded into decisions/state by the accepting session; this file's status becomes accepted and the exact admitted revision(s) are listed.",
-    "owner_decision_pending": true
+    "accepted": true,
+    "accepted_at": "2026-09-25",
+    "owner_statement_verbatim": "H1通过，接受会话",
+    "owner_statement_reading": "The owner passed the v27 H1 stop (this policy's acceptance) and accepted the session closeout; the WR-1 outputs are accepted as delivered.",
+    "mechanical_verification": "Authoritative mode against the admitted revision no longer raises UntrustedControlRevision; the trust gate lifts and the next typed failure is the recorded BaselineConflict (qiven-context legacy devkit pin d1d2a3a4 vs locked 3c638b5), the WR-6 reconciliation target - the honest state per doc 02 WR-1 exit (no authoritative graph before a compatible selection lands)."
   },
+  "residuals": [
+    "Routine-advance rule undefined: an admitted control revision goes stale on the next control commit (e.g. a lock transaction), and this policy admits exact revisions only. Before the first routine authoritative-consuming lock movement (WR-2+), the owner must ratify an advance rule (candidate: admit control-main commits that only advance node commits to canonical main HEADs with passing shadow receipts) or re-admit per movement. Recorded 2026-09-25; shadow operation is unaffected.",
+    "The baseline devkit split keeps authoritative bootstrap typed-blocked (BaselineConflict) until WR-6 or an owner-directed pin reconciliation."
+  ],
   "consumed_by": "the qiven-devkit workspace resolver (authoritative mode reads this file via --trust-policy; the tool lives in the qiven-devkit repository, tools directory, not here)"
 }
