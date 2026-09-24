@@ -23,8 +23,10 @@ the mode. The mode is recorded in the session checkpoint.
 - **Proceeds**: implementation, refactoring, documentation, local gate
   runs, local commits on authorized task branches, and publication
   (push/PR/merge) with per-batch delegated-H2 receipts at exact heads
-  (full-gate PASS + receipt recorded in each PR per the supervised-agent
-  workflow). H2 presentation is asynchronous notification, never a stop:
+  (full-gate PASS at the exact head plus the publication receipt — for
+  qiven-context the branch-to-main merge commit and session checkpoint
+  per the 2026-09-24 PR retirement; qiven-docs keeps its PR-based
+  deliberation record). H2 presentation is asynchronous notification, never a stop:
   when a batch is ready, present it and immediately continue with the
   next work item.
 - **Escalates to the owner** (a material round returns): governance

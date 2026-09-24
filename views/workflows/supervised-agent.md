@@ -44,8 +44,10 @@ The session runs where the owner can see and gate it. Rules:
    broker exists. The 2026-09-16 split-brain incident is the governing evidence.
 6. **Exact-head and precise-path discipline.** Validation and review bind to
    exact SHAs; a changed head revalidates. Publication uses precise low-level
-   paths (`git push` of a named branch, `gh pr create`) — never ad-hoc
-   contents-API writes as merge surrogates. Before any merge-class
+   paths (`git push` of a named branch; `gh pr create` only where the
+   repository's law keeps PRs, e.g. qiven-docs — qiven-context retired
+   PR objects 2026-09-24) — never ad-hoc contents-API writes as merge
+   surrogates. Before any merge-class
    publication, run the Operator `merge-proof` task: a full-gate PASS
    receipt for the exact head is required (P-53; the A3 masking class —
    a scoped gate is not the gate), and a missing receipt is a stop
@@ -103,7 +105,9 @@ authorize task (owner)
   -> session: design; create branch if needed; author and commit changes
   -> session: run tests / gates at the exact head
   -> review of the exact delta (owner H2, or delegated reviewer per ADR-0036)
-  -> session: publish (push / PR / merge) and reconcile local main;
+  -> session: publish (push; PR where the repository's law keeps them,
+     otherwise branch merge per the 2026-09-24 qiven-context PR
+     retirement) and reconcile local main;
      cleanup per git-workflow.md
 ```
 
@@ -124,8 +128,10 @@ self-adjudicated.
 
 For a designated batch series, the owner may delegate the per-batch H2 review
 to a delegated reviewer (ADR-0036 already admits a delegated reviewer as H2
-evidence; long-running mode standing-delegates it). The PR record of each
-batch carries the review statement and exact head; escalation to the owner is
+evidence; long-running mode standing-delegates it). The batch's review receipt
+(PR record where PRs remain; for qiven-context the gate PASS at the
+exact head plus the branch-to-main merge commit and session checkpoint)
+carries the review statement and exact head; escalation to the owner is
 required when a round is material — a specification defect, a
 decision-semantics question, an unexpected failure class, or any gate the
 owner reserved (notably a qualification upgrade of the reviewing instance
