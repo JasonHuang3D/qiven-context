@@ -13,7 +13,8 @@
   "permitted_control_repository": "https://github.com/JasonHuang3D/qiven-workspace.git",
   "admitted_control_revisions": [
     "1743d921dabfb58b610a50bd544ca1864e7c9d66",
-    "fcfede8d44c4f177e79eb32d5f813c4c35652dce"
+    "fcfede8d44c4f177e79eb32d5f813c4c35652dce",
+    "69cfaa5fecc105659794268c8020247f305fac90"
   ],
   "admissions": [
     {
@@ -25,6 +26,17 @@
       "revision": "fcfede8d44c4f177e79eb32d5f813c4c35652dce",
       "accepted": "2026-09-25",
       "decision": "Owner turn-1 direction in v29 delegated the WR-3 admission decision to the 3-consecutive-pass self-review process (owner equation: three consecutive clean review rounds = the owner manually reviewing three times = approved; any WR-3 revision voids the count). Evidence: five fresh-review rounds total; the three revision-warranting rounds each reset the count (devkit PRs #43, #44, #45 carried the fixes); the final three consecutive rounds on the post-PR#45 state (devkit 945fdd2) each returned ROUND PASS with zero P1/P2 findings. Full tally: sessions/2026-09-25-qiven-v29.md + the v29 workflow log."
+    }
+  ],
+  "routine_advances": [
+    {
+      "revision": "69cfaa5fecc105659794268c8020247f305fac90",
+      "admitted": "2026-09-25",
+      "class": "routine-advance (first exercise of the ratified rule)",
+      "moved_nodes": "qiven-foundation 4b66acc->9045fee (Profile E live-movement target, docs-only compatible revision, zero consumer re-pin commits); qiven-math b00db8c->bfea3bd; qiven-context-draft a007837->50288c2; qiven-runtime 0b65600->55379c7 (merge-commit heads, trees identical); qiven-devkit 06cf75f->945fdd2 (F3-bearing: ControlTreeDirty guard)",
+      "diff_shape": "workspace.lock.json node advancement only; declarations/ caches unchanged (no content change)",
+      "shadow_receipt": "generation sha256:97d5ac31... validated; 5 checkouts verified; standing context->devkit SPLIT honestly reported (pin d1d2a3a vs locked 945fdd2); receipt .generated-temp/workspace-resolver/2026-09-24T215804Z-validate/receipt.json",
+      "recorded_by": "v29 session (owner long-running mode; routine-advance rule ratified the same session)"
     }
   ],
   "routine_advance_rule": {
