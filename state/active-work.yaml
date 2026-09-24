@@ -27,34 +27,29 @@ objective: >-
   MVP-4 H1 pass, RR-0, and CA-2 pass. Active batches: CA-0 + MVP-4
   corrective lane + RR-0 in one bounded interval (OBL-20260923T190500Z-D6E7F8).
 accepted_checkpoint:
-  subject: v27-turn6-adr0053-refined-brief-law-and-canary
-  ref: 'this transaction (ADR-0053 pre-acceptance refinement: 5a brief completeness law with the no-worker-cold-boot ruling, 5b preflight freshness canary with honest evidence-class labeling; first live canary PASS (knows_qiven=no, sealed artifact verified); v27 checkpoint turn-6)'
+  subject: v27-turn8-adr0053-final-draft
+  ref: 'this transaction (ADR-0053 final pre-adjudication draft: 1a boot layering made explicit with the Phase-2 trigger-table mount, 5a rationale reworded to embodiment economics, provenance turns 7-8; all ten repos verified clean; v27 checkpoint turn-8)'
   evidence:
-    - 'v27 turn 6 (2026-09-25, same session, long-running mode,
-      delegated per-batch H2): owner raised the orchestrator-
-      forgetfulness concern (brief omissions -> rework rounds ->
-      mechanism loses value) and proposed either a standing handoff
-      spec or worker cold boot; session ruling folded into ADR-0053
-      5a: standing spec (mandatory template: role card w/ version,
-      mission+DoD, scope, whitelist, prohibitions, scoped engineering-
-      law reading list, report format, honesty law; worker-side
-      acknowledgment duty) and worker cold boot REJECTED (destroys the
-      clean/noise-free/bounded-cost property; engineering law is read,
-      project cognition is never booted). Owner also proposed preflight
-      fresh-session probes replacing owner-H1 relays; ruling folded
-      into 5b: routine boundary tripwire under the ADR-0050 carve-out,
-      labeled same-family + instruction-scoped read-abstention (not
-      acceptance-grade), leakage => stop + owner escalation, hook
-      variants owner-hands in the UI. First live canary run this turn:
-      knows_qiven=no, sealed artifact .generated-temp/canary/v27-turn6.md
-      verified, ~28K tokens / 5.7 s - retroactive corroboration of the
-      turn-4 boundary. ADR-0053 stays PROPOSED.'
-    - 'Carried from turns 1-5 (published): WR-1 + trust accepted; WR-2
-      at budget; review-fix round (PR #41); ADR-0053 draft + turn-4
-      attribution correction (context main f4f71aa).'
+    - 'v27 turn 8 (2026-09-25/26, same session, long-running mode,
+      delegated per-batch H2): owner authorized folding the turn-7
+      refinements. Section 1a added (three-phase session opening;
+      delegation trigger table mounts in Phase 2; BOOTSTRAP already
+      implements the shape at step 10, post-acceptance landing only
+      names the phases; main-session boot volume is the accepted
+      continuity cost). 5a rationale reworded (boot is role-
+      independent; the rejection rests on embodiment economics).
+      Provenance extended. All ten repositories verified clean on main
+      before commit (the owner-observed uncommitted writes are the
+      .generated-temp workflow log + canary artifact, outside git by
+      convention). ADR-0053 is the final draft awaiting owner H2
+      adjudication in the next fresh session, batched with the DUE
+      governance audit.'
+    - 'Carried (published): turns 1-7 - WR-1 + trust accepted; WR-2 at
+      budget; review-fix round (PR #41); ADR-0053 drafting/refinement
+      chain (context main 742971b).'
 current_candidate:
   subject: adr-0053-proposed
-  ref: 'decisions/ADR-0053.md (proposed, refined turn 6) + index entry; awaits owner H2 adjudication batched with the governance audit'
+  ref: 'decisions/ADR-0053.md (proposed, final pre-adjudication draft) + index entry; awaits owner H2 batched with the governance audit'
   state: proposed-awaiting-owner-h2
 blockers: []
 paused_work:
@@ -63,11 +58,11 @@ paused_work:
 next_boundary: >-
   Fresh session FIRST (owner-stated): cold boot; flash subagent config
   becomes effective; long-running mode NOT inherited. Then: governance
-  audit DUE + ADR-0053 adjudication (same batch; the post-acceptance
-  landing = zcode-jason.yaml roles section + the delegation workflow
-  document with the 5a template/role card); WR-3 Foundation cutover
-  decision (Profile J pilot); routine-advance rule (gates deferred
-  F1); follow-up candidates (two P3 shadow-tool observations, router
-  path-prefix escape); MVP-4 kit fix owner-scheduled; RR-0 then CA-1;
-  MVP-5 frozen until CA-2.
-updated_at: '2026-09-26T00:30:00Z'
+  audit DUE + ADR-0053 adjudication (same batch; post-acceptance
+  landing = zcode-jason.yaml roles section + delegation workflow doc
+  with the 5a template/role card + phase naming); WR-3 Foundation
+  cutover decision (Profile J pilot); routine-advance rule (gates
+  deferred F1); follow-up candidates (two P3 shadow-tool observations,
+  router path-prefix escape); MVP-4 kit fix owner-scheduled; RR-0 then
+  CA-1; MVP-5 frozen until CA-2.
+updated_at: '2026-09-26T01:00:00Z'
