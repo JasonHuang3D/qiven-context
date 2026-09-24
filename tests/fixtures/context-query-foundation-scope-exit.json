@@ -1,0 +1,7 @@
+{
+  "task": "Add ScopeExit to Foundation",
+  "scopes": [
+    "qiven-foundation"
+  ],
+  "now": "2026-09-14T00:00:00Z"
+}

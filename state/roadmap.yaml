@@ -1,0 +1,17 @@
+schema_version: 1
+classification: plan
+immutable_architecture: false
+updated_at: '2026-09-22T15:58:00Z'
+items:
+  - order: 1
+    title: Runtime Production MVP program (ADR-0047, OBL-9A7B41) - one enforced vertical slice under zcode-jason-context-record-mvp; MVP-0 contracts, SQLite RuntimeJournal, cognition bundle/profile, RuntimeHost+IPC+hook, typed records + Git CAS, real execution authority, dogfood release gate; LLM-emits-intent, mechanism-emits-bytes
+  - order: 2
+    title: Lossless token-efficient canonical-cognition delivery (K5 goal) on the Runtime CanonicalCognitionPort path; uncompressed reference arrives with MVP-2, compression follows MVP real-use evidence
+  - order: 3
+    title: CAD / floor-plan to semantic 3D
+  - order: 4
+    title: Industrial-gas enterprise management / operating system
+  - order: 5
+    title: Robotics / simulation
+  - order: 6
+    title: Deeper Qiven-native physics

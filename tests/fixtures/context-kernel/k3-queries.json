@@ -1,0 +1,9 @@
+[
+  {"task":"Review Context architecture","scopes":["qiven-context"]},
+  {"task":"Review execution constraints","operation":{"action":"execute","target":"jasonpc","channel":"remote-ai"}},
+  {"task":"Inspect history","record_mode":"history","include_ids":["ADR-0001"]},
+  {"task":"Inspect explicit historical record","include_ids":["ADR-0001","ADR-9999"]},
+  {"task":"Check unknown obligations","conditions":[],"changed":[],"touches":[]},
+  {"task":"Check complete conditions","conditions":[],"complete_inputs":["conditions"],"input_evidence":{"conditions":["fixture:complete-observation"]}},
+  {"task":"Check contradictory conditions","conditions":["release ready"],"negative_conditions":["release ready"]}
+]

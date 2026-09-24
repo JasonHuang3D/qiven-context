@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "repository_name": "qiven-context",
+  "default_gate": "context-local",
+  "tasks": {
+    "exact-head": {
+      "builtin": "exact_head"
+    },
+    "bootstrap": {
+      "argv": [
+        "tools/bootstrap.cmd"
+      ]
+    },
+    "repo-tests": {
+      "argv": [
+        ".venv/Scripts/python.exe",
+        "tools/test_all.py",
+        "--group",
+        "repo"
+      ]
+    },
+    "diff-check": {
+      "builtin": "git_diff_check",
+      "base": "origin/main"
+    },
+    "clean-tree": {
+      "builtin": "git_clean_tree"
+    },
+    "cleanup-v6-temp": {
+      "argv": [
+        "python",
+        "tools/cleanup_qiven_v6_temp.py"
+      ]
+    },
+    "record-tests": {
+      "argv": [
+        ".venv/Scripts/python.exe",
+        "tools/test.py"
+      ]
+    },
+    "continuity-tests": {
+      "argv": [
+        ".venv/Scripts/python.exe",
+        "tools/test_cold_boot_contract.py"
+      ]
+    },
+    "check-references": {
+      "argv": [
+        "{python}",
+        "tools/check_references.py"
+      ]
+    },
+    "merge-proof": {
+      "builtin": "gate_proof",
+      "gate": "context-local"
+    },
+    "tools-tests": {
+      "argv": [
+        ".venv/Scripts/python.exe",
+        "tools/test_all.py",
+        "--group",
+        "tools"
+      ]
+    }
+  },
+  "gates": {
+    "context-local": [
+      "bootstrap",
+      "check-references",
+      "diff-check",
+      "clean-tree",
+      "repo-tests"
+    ],
+    "context-docs": [
+      "bootstrap",
+      "check-references",
+      "diff-check",
+      "clean-tree",
+      "repo-tests"
+    ],
+    "context-tools": [
+      "bootstrap",
+      "check-references",
+      "diff-check",
+      "clean-tree",
+      "repo-tests",
+      "tools-tests"
+    ]
+  },
+  "ci": {},
+  "devkit_pin": "d1d2a3a47678c4e8aa866d7e59ba1f5aa5f0a738"
+}

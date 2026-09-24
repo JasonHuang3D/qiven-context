@@ -1,0 +1,142 @@
+schema_version: 1
+records:
+  - id: OBL-20260913T152950Z-A1B2C3
+    file: OBL-20260913T152950Z-A1B2C3.md
+    title: Genesis historical import
+    status: done
+  - id: OBL-20260913T152950Z-D4E5F6
+    file: OBL-20260913T152950Z-D4E5F6.md
+    title: Cold-boot acceptance before resuming paused long-running product work
+    status: done
+  - id: OBL-20260913T152950Z-0A1B2C
+    file: OBL-20260913T152950Z-0A1B2C.md
+    title: Context compiler + obligation retrieval implementation
+    status: done
+  - id: OBL-20260913T180134Z-C1A771
+    file: OBL-20260913T180134Z-C1A771.md
+    title: Verify real GitHub Actions concurrency cancellation
+    status: deferred
+  - id: OBL-20260913T180134Z-D2B882
+    file: legacy/OBL-20260913T180134Z-D2B882.md
+    title: Improve skipped matrix job naming when CI presentation is next touched
+    status: cancelled
+  - id: OBL-20260913T181224Z-9E27A4
+    file: OBL-20260913T181224Z-9E27A4.md
+    title: Design one common result/status abstraction before Foundation APIs need structured recoverable status
+    status: done
+  - id: OBL-20260913T181224Z-A3F690
+    file: OBL-20260913T181224Z-A3F690.md
+    title: Reconsider a Foundation scope-exit/defer primitive only when concrete downstream cleanup patterns justify it
+    status: deferred
+  - id: OBL-20260913T182338Z-4F7C19
+    file: OBL-20260913T182338Z-4F7C19.md
+    title: Reconcile Foundation managed-file drift semantically before Devkit adoption
+    status: done
+  - id: OBL-20260913T182338Z-8A21D6
+    file: OBL-20260913T182338Z-8A21D6.md
+    title: Add a dedicated immediate post-adoption sync no-op check for the MISSING adoption path
+    status: done
+  - id: OBL-20260913T182338Z-B37E54
+    file: OBL-20260913T182338Z-B37E54.md
+    title: Revisit crash-consistent Devkit updates if managed scope or operational criticality grows
+    status: deferred
+  - id: OBL-20260913T182954Z-7B4E20
+    file: OBL-20260913T182954Z-7B4E20.md
+    title: Resume Math Batch 008 vector algorithms after qiven-context cold-boot acceptance
+    status: done
+  - id: OBL-20260913T182954Z-C91A5D
+    file: OBL-20260913T182954Z-C91A5D.md
+    title: Revisit Math scalar vocabulary only when concrete units or numeric integration requires it
+    status: deferred
+  - id: OBL-20260913T183819Z-2C7A11
+    file: OBL-20260913T183819Z-2C7A11.md
+    title: Introduce qiven-workspace only when multi-repository composition becomes a recurring operational problem
+    status: deferred
+  - id: OBL-20260913T183819Z-5D8E32
+    file: OBL-20260913T183819Z-5D8E32.md
+    title: Establish the CAD provider and headless semantic pipeline before editor-first implementation
+    status: deferred
+  - id: OBL-20260913T183819Z-9A4F21
+    file: OBL-20260913T183819Z-9A4F21.md
+    title: Reconfirm robotics versus native-physics ownership before creating qiven-physics
+    status: deferred
+  - id: OBL-20260913T185050Z-2CAF31
+    file: OBL-20260913T185050Z-2CAF31.md
+    title: Standardize collision-resistant canonical ID issuance before automating record creation
+    status: deferred
+  - id: OBL-20260913T185050Z-A020B1
+    file: OBL-20260913T185050Z-A020B1.md
+    title: Make the old-Python resolver test fail specifically on version rather than interpreter validity
+    status: deferred
+  - id: OBL-20260913T185050Z-21DCBC
+    file: OBL-20260913T185050Z-21DCBC.md
+    title: Import source-grounded industrial-gas discovery evidence before detailed gas domain modeling
+    status: deferred
+  - id: OBL-20260914T081146Z-6D2F31
+    file: OBL-20260914T081146Z-6D2F31.md
+    title: Improve human-facing Devkit adoption plan output
+    status: deferred
+  - id: OBL-20260914T091555Z-C4D8A2
+    file: OBL-20260914T091555Z-C4D8A2.md
+    title: Refresh qiven-math CI Foundation checkout pin
+    status: done
+  - id: OBL-20260914T105500Z-7F31B2
+    file: OBL-20260914T105500Z-7F31B2.md
+    title: Resume Qiven Operator Phase 1 after Qiven-v1 session rollover
+    status: done
+  - id: OBL-20260914T124259Z-7A4D13
+    file: OBL-20260914T124259Z-7A4D13.md
+    title: Reassess qiven-context retrieval reliability before resuming Operator merge
+    status: done
+  - id: OBL-20260915T163500Z-9D4C72
+    file: legacy/OBL-20260915T163500Z-9D4C72.md
+    title: Do not resume mutating DCR execution before qiven-host split-brain acceptance
+    status: cancelled
+  - id: OBL-20260916T102700Z-7C2A91
+    file: OBL-20260916T102700Z-7C2A91.md
+    title: Reconcile and remove Qiven-v6 unmanaged temporary repository clones
+    status: done
+  - id: OBL-20260916T125000Z-5A8C31
+    file: OBL-20260916T125000Z-5A8C31.md
+    title: Design qiven-context.exe as a semantic Context Engine with representation-independent storage
+    status: done
+  - id: OBL-20260917T192300Z-A7C4E2
+    file: legacy/OBL-20260917T192300Z-A7C4E2.md
+    title: Implement K5 lossless LLM transport compression after K4 artifact handoff acceptance
+    status: superseded
+  - id: OBL-20260918T161352Z-C7E1A9
+    file: OBL-20260918T161352Z-C7E1A9.md
+    title: Upgrade chatgpt-jason view to schema v2 with historical role-model bindings
+    status: cancelled
+  - id: OBL-20260918T164245Z-5D9B2E
+    file: OBL-20260918T164245Z-5D9B2E.md
+    title: Execute F2 qualification upgrade for jason-worker-glm5-3-flash
+    status: done
+  - id: OBL-20260918T164245Z-8A4C71
+    file: OBL-20260918T164245Z-8A4C71.md
+    title: Execute bundled cosmetic corrections F3-F5 from the PR #16 review
+    status: done
+  - id: OBL-20260918T215000Z-B4D6A8
+    file: OBL-20260918T215000Z-B4D6A8.md
+    title: Validate qiven-context-draft as the executable specification of the cognition architecture
+    status: done
+  - id: OBL-20260918T215000Z-C9E3F1
+    file: OBL-20260918T215000Z-C9E3F1.md
+    title: Complete operator coverage of cmd/bat tools across Devkit-managed repositories
+    status: done
+  - id: OBL-20260919T121032Z-A9F4D7
+    file: OBL-20260919T121032Z-A9F4D7.md
+    title: Improve Qiven Operator CLI ergonomics and machine-output shape for supervised agent callers
+    status: done
+  - {id: OBL-20260920T205211Z-D3F7B2, file: OBL-20260920T205211Z-D3F7B2.md, title: Land the common result/status vocabulary in Foundation at its defined trigger (first recoverable-failure API or Runtime K1 work), status: done}
+  - {id: OBL-20260920T211500Z-E6B9D4, file: OBL-20260920T211500Z-E6B9D4.md, title: 'Extend Devkit sync/template support to the cpp-app family (qiven-host) or migrate qiven-host onto the supported template path', status: done}
+  - {id: OBL-20260920T235500Z-B6C1D8, file: OBL-20260920T235500Z-B6C1D8.md, title: 'Lossless token-efficient canonical-cognition delivery (the K5 goal) on the Runtime CanonicalCognitionPort path', status: open}
+  - {id: OBL-20260922T131500Z-B7E2A9, file: OBL-20260922T131500Z-B7E2A9.md, title: Rewrite devkit engineering templates role-free per ADR-0044 and roll to the four carrying repositories, status: done}
+  - {id: OBL-20260922T160000Z-C8D4E2, file: OBL-20260922T160000Z-C8D4E2.md, title: 'Run the periodic canonical governance audit (semantic drift, contradictions, duplicate definitions)', status: open}
+  - {id: OBL-20260922T155800Z-9A7B41, file: OBL-20260922T155800Z-9A7B41.md, title: 'Execute the Runtime Production MVP program (MVP-0..MVP-7) to its release gate per ADR-0047', status: open}
+  - {id: OBL-20260923T224500Z-A7B8C9, file: OBL-20260923T224500Z-A7B8C9.md, title: 'Fix the hook-router segment anchor to tolerate leading whitespace (chained exec invocations currently deny)', status: done}
+  - {id: OBL-20260923T234500Z-B9C1D3, file: OBL-20260923T234500Z-B9C1D3.md, title: 'Roll the exec v2 operator snapshot into the remaining sibling repositories (v25 inventory correction: foundation, math, context-draft; runtime done 2026-09-24; toolchain-win/third-party-win carried no snapshot)', status: done}
+  - {id: OBL-20260923T190500Z-D6E7F8, file: OBL-20260923T190500Z-D6E7F8.md, title: 'Execute the Task Cognition Activation program (CA-0..CA-5) with RR-0 and the bounded MVP-4 corrective lane per ADR-0050', status: open}
+  - {id: OBL-20260923T215500Z-D5E6F7, file: OBL-20260923T215500Z-D5E6F7.md, title: 'Characterize ZCode background-task lifetime - RESOLVED BY REFRAMING 2026-09-24 (owner direction): operational session end kills nothing; lifetime boundaries are physical lifecycle events (app quit, OS power, owner kill) that are owner-controlled, not harness-intrinsic; sweeps terminally exec-leased; probe chain terminated at owner direction', status: done}
+  - {id: OBL-20260924T113000Z-E7F8A9, file: OBL-20260924T113000Z-E7F8A9.md, title: 'Execute the Workspace Dependency Resolution migration (WR-0..WR-8) per ADR-0052 - WR-0 sealed outputs first; control-repository creation and every authority-touching step are owner-gated on measured evidence', status: open}
+  - {id: OBL-20260924T140500Z-F0A1B2, file: OBL-20260924T140500Z-F0A1B2.md, title: 'Execute the repository history archival + public truncation wave for the remaining qiven repositories (qiven-docs and the code repositories), each per collaboration/repository-history-archival.md with the code-repo consumer re-pin ripple in the same transaction', status: open}

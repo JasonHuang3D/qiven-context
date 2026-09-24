@@ -1,0 +1,57 @@
+schema_version: 1
+landing: adr-0050-acceptance
+landed_at: '2026-09-23T19:05:00Z'
+note: >-
+  Companion activation metadata for the four documents landed by the
+  ADR-0050 acceptance transaction (selector metadata from birth; the
+  Context gate begins enforcing selectors on protected records only after
+  the CA-0 schema/bootstrap transaction). Section-level anchors; full
+  bodies are canonical at the named homes.
+documents:
+  - id: TCA-GOV
+    home: collaboration/cognitive-governance-program.md
+    deliberation: 'qiven-docs accepted/2026-09-23/00-...md @ PR #1 merge 5fd639b'
+    category: governance
+    sections:
+      - {anchor: '§3 CG-1..CG-12', phases: [all], risk: [R0, R1, R2, R3], note: 'constitutional laws'}
+      - {anchor: '§5 scar lifecycle', phases: [all], risk: [R0, R1, R2, R3]}
+      - {anchor: '§6 rule placement', phases: [specify, design], risk: [R1, R2, R3]}
+      - {anchor: '§7 risk classes', phases: [specify], risk: [R0, R1, R2, R3]}
+      - {anchor: '§8 phase gates', phases: [specify, design, implementation, review], risk: [R2, R3]}
+      - {anchor: '§9 write-path governance', phases: [implementation], risk: [R1, R2, R3]}
+      - {anchor: '§10 independent falsification', phases: [review], risk: [R2, R3]}
+      - {anchor: '§11 metrics', phases: [all], risk: [R0, R1, R2, R3]}
+  - id: TCA-ARCH
+    home: 'qiven-runtime docs/architecture/task-cognition-activation.md'
+    bound_revision: f0ca5b75a39e1a18ed0ec8c6c182365b7bb3e297
+    deliberation: 'qiven-docs accepted/2026-09-23/01-...md @ PR #1 merge 5fd639b'
+    category: architecture
+    sections:
+      - {anchor: '§0/§10 activation pipeline', phases: [design, implementation], risk: [R2, R3]}
+      - {anchor: '§7 activation policy + priority classes', phases: [specify, design], risk: [R2, R3]}
+      - {anchor: '§9 index/source lock/ActivationGeneration', phases: [design, implementation], risk: [R2, R3]}
+      - {anchor: '§11/§12 bundle + receipt semantics', phases: [design, review], risk: [R2, R3]}
+      - {anchor: '§13.4 gate behavior incl. before-phase delivery', phases: [review], risk: [R2, R3]}
+      - {anchor: '§17 publication/crash/cache', phases: [implementation], risk: [R2, R3]}
+  - id: TCA-ACCEPT
+    home: collaboration/cognitive-effectiveness-acceptance.md
+    deliberation: 'qiven-docs accepted/2026-09-23/02-...md @ PR #1 merge 5fd639b'
+    category: acceptance
+    sections:
+      - {anchor: '§2 profiles A-E', phases: [review], risk: [R2, R3]}
+      - {anchor: '§4 fixtures F-01..F-08', phases: [design, implementation, review], risk: [R2, R3], note: 'scar-backed corpus'}
+      - {anchor: '§5-§6 conformance + protected applicability', phases: [implementation], risk: [R2, R3]}
+      - {anchor: '§7 fresh-consumer utility (sealed statistics)', phases: [review], risk: [R2, R3]}
+      - {anchor: '§8 independent falsification + transport classes', phases: [review], risk: [R2, R3]}
+      - {anchor: '§10 latency/objectives', phases: [implementation], risk: [R1, R2, R3]}
+  - id: TCA-ROADMAP
+    home: 'qiven-runtime docs/architecture/runtime-mvp-roadmap-amendment.md'
+    bound_revision: f0ca5b75a39e1a18ed0ec8c6c182365b7bb3e297
+    deliberation: 'qiven-docs accepted/2026-09-23/03-...md @ PR #1 merge 5fd639b'
+    category: roadmap
+    sections:
+      - {anchor: '§0 sequencing decision (MVP-5 freeze)', phases: [specify], risk: [R1, R2, R3]}
+      - {anchor: '§4 CA-0..CA-5 + RR-0', phases: [specify, design], risk: [R2, R3]}
+      - {anchor: '§5.1 MVP-4 corrective lane', phases: [design, implementation], risk: [R2, R3]}
+      - {anchor: '§8.5 transition discipline', phases: [all], risk: [R1, R2, R3]}
+      - {anchor: '§10 governance artifacts + landing', phases: [all], risk: [R3]}

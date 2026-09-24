@@ -1,0 +1,54 @@
+schema_version: 1
+records:
+  - {id: ADR-0001, file: ADR-0001.md, title: Externalize Qiven project cognition from LLM sessions, status: superseded}
+  - {id: ADR-0002, file: ADR-0002.md, title: Use question-scoped authority instead of a global source-precedence chain, status: superseded}
+  - {id: ADR-0003, file: ADR-0003.md, title: Keep semantic source data simple and derived retrieval replaceable, status: accepted}
+  - {id: ADR-0004, file: ADR-0004.md, title: Separate architecture and release authority from local implementation execution, status: superseded}
+  - {id: ADR-0005, file: ADR-0005.md, title: Select GitHub CI validation explicitly after remote review, status: accepted}
+  - {id: ADR-0006, file: ADR-0006.md, title: Default local validation to FULL and allow FOCUSED only by explicit CTO scope, status: accepted}
+  - {id: ADR-0007, file: ADR-0007.md, title: 'Keep Qiven Foundation small, foundational, and downstream-demand-driven', status: superseded}
+  - {id: ADR-0008, file: ADR-0008.md, title: 'Make ownership, failure behavior, and allocation semantics explicit in Foundation', status: accepted}
+  - {id: ADR-0009, file: ADR-0009.md, title: 'Treat C++ object layout, ABI, IPC, wire, and persistent representation as separate boundaries', status: accepted}
+  - {id: ADR-0010, file: ADR-0010.md, title: Materialize Devkit conventions as independent repository snapshots, status: accepted}
+  - {id: ADR-0011, file: ADR-0011.md, title: Separate Devkit-managed shared conventions from bootstrap-only repository-owned files, status: accepted}
+  - {id: ADR-0012, file: ADR-0012.md, title: Preserve consumer edits with hash-tracked all-conflicts-first Devkit lifecycle operations, status: accepted}
+  - {id: ADR-0013, file: ADR-0013.md, title: Keep qiven-math a small deterministic external-semantics-free spatial vocabulary, status: accepted}
+  - {id: ADR-0014, file: ADR-0014.md, title: Keep canonical vector values compact and scalar-aligned instead of encoding SIMD ABI, status: accepted}
+  - {id: ADR-0015, file: ADR-0015.md, title: Keep coordinate conventions and approximate tolerance explicit at higher semantic boundaries, status: accepted}
+  - {id: ADR-0016, file: ADR-0016.md, title: Resolve qiven-foundation as an existing local source dependency without network CMake fetching, status: accepted}
+  - {id: ADR-0017, file: ADR-0017.md, title: Layer the shared native core by semantic responsibility instead of forcing product verticals into one stack, status: accepted}
+  - {id: ADR-0018, file: ADR-0018.md, title: Delay repository splits and workspace orchestration until coordination or reuse is real, status: accepted}
+  - {id: ADR-0019, file: ADR-0019.md, title: Make CAD a building-semantic pipeline behind provider boundaries rather than an arbitrary DWG interpreter, status: accepted}
+  - {id: ADR-0020, file: ADR-0020.md, title: Keep the industrial-gas product stack independent from the native C++ core unless domain needs justify coupling, status: accepted}
+  - {id: ADR-0021, file: ADR-0021.md, title: Permit jason-brother to merge exact validated batch heads after local validation evidence, status: accepted}
+  - {id: ADR-0022, file: legacy/ADR-0022.md, title: Treat cognition retrieval adequacy as a measured layered reliability property, status: superseded}
+  - {id: ADR-0023, file: legacy/ADR-0023.md, title: Prioritize Qiven DCR Windows transport before CAD and stage native transport behind supervisor acceptance, status: superseded}
+  - {id: ADR-0024, file: ADR-0024.md, title: Prefer correct downward semantic ownership over local duplication or staged refactoring, status: accepted}
+  - {id: ADR-0025, file: legacy/ADR-0025.md, title: Establish qiven-runtime as the shared native owner of process and execution-runtime semantics, status: superseded}
+  - {id: ADR-0026, file: legacy/ADR-0026.md, title: Enforce a host-side single-writer execution authority with leases and fencing before further mutating DCR use, status: superseded}
+  - {id: ADR-0027, file: legacy/ADR-0027.md, title: Separate Host authority-kernel acceptance from production integration, status: superseded}
+  - {id: ADR-0028, file: ADR-0028.md, title: Devkit owns Qiven native build-system mechanism while repositories own declarative build graphs, status: accepted}
+  - {id: ADR-0029, file: ADR-0029.md, title: Require cryptographic local user presence for Host recovery authority, status: accepted}
+  - {id: ADR-0030, file: ADR-0030.md, title: Make qiven-context a participant-independent project continuity system, status: accepted}
+  - {id: ADR-0031, file: ADR-0031.md, title: Trust GitHub account identity and remote state for current qiven-context governance, status: accepted}
+  - {id: ADR-0032, file: ADR-0032.md, title: Validate Context Python batches directly in the agent runtime, status: accepted}
+  - {id: ADR-0033, file: ADR-0033.md, title: Define ContextKernel as the representation-independent semantic authority behind Qiven Context, status: superseded}
+  - {id: ADR-0034, file: ADR-0034.md, title: Separate remote cold boot from canonical artifact handoff and require lossless LLM transport compression after K4, status: accepted}
+  - {id: ADR-0035, file: ADR-0035.md, title: Bind participant roles to qualified model instances and client-tool capability classes through ContextView, status: accepted}
+  - {id: ADR-0036, file: ADR-0036.md, title: Require typed human handoffs by objective operation class and make verbal waiver insufficient for mandatory handoffs, status: accepted}
+  - {id: ADR-0037, file: ADR-0037.md, title: Establish qiven-context-draft as the executable C++ specification of the cognition architecture, status: accepted}
+  - {id: ADR-0038, file: ADR-0038.md, title: Place Runtime Cognitive Control at harness-observed boundaries and require complete mediation for governed actions, status: accepted}
+  - {id: ADR-0039, file: ADR-0039.md, title: 'Establish the three-plane C++ repository topology, re-home the process-execution layer as qiven-process, and confirm qiven-runtime as the Cognitive Control Runtime home', status: accepted}
+  - {id: ADR-0040, file: ADR-0040.md, title: 'Seal the Python ContextKernel reference implementation permanently - suites never registered, gates never run, code never modified', status: accepted}
+  - {id: ADR-0041, file: ADR-0041.md, title: 'Museum seal - kernel-semantic tests, retrieval and compiler tooling, and record-lifecycle suite become non-executable legacy text', status: accepted}
+  - {id: ADR-0042, file: ADR-0042.md, title: 'Consolidate all legacy surfaces into the legacy/ museum; .generated-temp is the only permitted generated-artifact location', status: accepted}
+  - {id: ADR-0043, file: ADR-0043.md, title: 'Seal qiven-host and qiven-dcr-win; RuntimeHost absorbs the execution-authority role; DCR transport is retired', status: accepted}
+  - {id: ADR-0044, file: ADR-0044.md, title: 'Adopt single-session unified engineering: role packages become attribution and qualification labels, not behavioral staging', status: accepted}
+  - {id: ADR-0045, file: ADR-0045.md, title: 'Owner-invoked session designations carry no model binding; a switch-time live-model report replaces qualification and substitution disclosure', status: accepted}
+  - {id: ADR-0046, file: ADR-0046.md, title: 'Establish the infrastructure layer model - all repositories consume qiven-devkit, qiven-devkit consumes qiven-toolchain-win; engineering standards are Devkit-canonical; consumption moves from copies toward shim-plus-pin', status: accepted}
+  - {id: ADR-0047, file: ADR-0047.md, title: 'Adopt the Runtime Production MVP architecture - one enforced vertical slice under profile zcode-jason-context-record-mvp, a SQLite control journal (never domain truth), and the MVP-0..MVP-7 delivery order; the RPA proposal delivery order is superseded', status: accepted}
+  - {id: ADR-0048, file: ADR-0048.md, title: 'Adopt bounded process custody as the law for every Qiven tool that spawns processes - kernel-enforced tree lifetime (watchdog + KILL_ON_JOB_CLOSE Job Object + lease), completion reap, and sweep insurance; exec v1 survival semantics are superseded', status: accepted}
+  - {id: ADR-0049, file: ADR-0049.md, title: 'Adopt the executable-H1-kit law: H1 acceptance artifacts are tool-built packages (complete, rollback-able, UI-review-gated), and owner-facing tooling obeys the human-facing output law with template-trust identity', status: accepted}
+  - {id: ADR-0050, file: ADR-0050.md, title: 'Adopt the Task Cognition Activation (TCA) program and independent falsification: task-time governed cognition delivery with protected applicability, a multi-repository source closure, an explicitly amended owner-relay handoff reading, the RR-0 representation batch, and the CA-0..CA-5 / dual-gate MVP-7 sequencing', status: accepted}
+  - {id: ADR-0051, file: ADR-0051.md, title: 'Adopt harness-native background execution as the default session path for long commands (hook deny -> run_in_background re-call), scope the Qiven Operator exec to survival/durable/custody classes, and rely on harness-native output persistence for oversized tool output - replacing the deny -> exec -> poll detour', status: accepted}
+  - {id: ADR-0052, file: ADR-0052.md, title: 'Adopt the Qiven Workspace Dependency Resolution Program - one generation-bound workspace resolver replaces shim-plus-pin as the dependency endpoint (revision selection once in a WorkspaceGeneration lock, resolve-before-configure, entrypoint integration checks); ADR-0046 layer model retained, its dependency-resolution endpoint superseded; TCA CA-1 source lock remains authoritative until WR-7 equivalence', status: accepted}

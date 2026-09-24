@@ -1,0 +1,29 @@
+schema_version: 1
+corpus: cognition-gold-corpus-v1
+sealed_at: '2026-09-24T04:00:00Z'
+sealed_by: v23 session (designation jason-extended-cognition) — fixture curator
+authority: 'ADR-0050; acceptance protocol §4 (first accepted corpus: six or more materially different fixtures covering all R2/R3 boundary classes used before MVP-7)'
+sealing_rules:
+  - 'task, hidden hazards, required sources, critical findings and rubric are committed and digested at this revision (protocol §3.3)'
+  - 'the activation implementation and policy revisions are pinned at EVALUATION time, never at sealing'
+  - 'condition assignment and run order are generated independently of the implementer at trial time'
+  - 'any rubric correction applies to all paired outputs; post-seal edits require re-sealing and a protocol correction record'
+fixtures:
+  - {id: F-01, file: f-01-borrowed-payload-lifetime.md, class: borrowed payload lifetime across execution, risk: R2, digest: '9c0ff093bd9bbc24123a9605ceed98b57a1444658dc786b3e08f345ad58a84c4'}
+  - {id: F-02, file: f-02-assumed-external-payload.md, class: assumed external payload field, risk: R2, digest: 'f8054088dd0696a87876a4b551e443b3882b0aeedd029444072b4bcb34a8b74a'}
+  - {id: F-03, file: f-03-pipe-lifecycle-multi-segment.md, class: windows named-pipe multi-segment lifecycle, risk: R2-R3, digest: '5297b5209335bb2e3688af0049a28322d2a0e9ac5a315fbc441252a8539fc4fc'}
+  - {id: F-04, file: f-04-heredoc-active-memory.md, class: shell heredoc and active-memory recurrence, risk: R1-R2, digest: '03a92866b83ba6ee1dc58a8390686e0caddf76f52f73d7c55e31fd8ae950a934'}
+  - {id: F-05, file: f-05-result-void-first-instantiation.md, class: Result<void> first-instantiation boundary, risk: R2, digest: '56bcf70ba4a8a2e92717afe940ff014ccf2074c3e58659e238fdabbf2cb7eee3'}
+  - {id: F-06, file: f-06-process-custody-recovery.md, class: process custody and recovery, risk: R2-R3, digest: '1759a17eb1093a9ef207b9b9ef19496d9c4941921bd0e75166c244a4b9989d30'}
+  - {id: F-07, file: f-07-concurrent-fixture-roots.md, class: concurrent fixture-root and representation collision, risk: R2, digest: '65e9f9a0ee0bf38d45c68dc0b11baac35af350684dc171c42c5c29526b8b8bd9'}
+  - {id: F-08, file: f-08-fail-closed-mediator.md, class: fail-closed mediator availability, risk: R3, digest: '540f80a97f8d2a6ac029df4b8b30618d892651f5710b5cf23d5572af96b69d6e'}
+rubric: {file: rubric.md, digest: '909c645a882a73b56ac2ebf4f1f4c5fe3cffbebe088ec6f8ca9cc6b27088a4dc'}
+coverage_note: >-
+  Eight materially different fixtures (protocol minimum six) spanning the
+  R2/R3 boundary classes in program use before MVP-7: ownership/lifetime
+  (F-01), external contract (F-02, F-08), platform/IPC lifecycle (F-03),
+  filesystem/tooling recurrence (F-04), generic-contract instantiation
+  (F-05), process custody/recovery (F-06), concurrency/representation
+  (F-07), governance/acceptance rollout (F-08). Every fixture carries a
+  realistic task descriptor in ALTERNATIVE vocabulary (not incident wording)
+  per protocol §4.3 anti-overfitting law.

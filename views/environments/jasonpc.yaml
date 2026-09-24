@@ -1,0 +1,42 @@
+schema_version: 1
+id: jasonpc
+status: active
+scope_view: [chatgpt-jason, zcode-jason, extended-cognition-jason]
+basis: owner_declared
+platform:
+  os_family: windows
+workspace:
+  qiven_root: <workspace-root>
+  semantics: long_lived_working_materialization
+  remote_authority: github
+managed_environment:
+  root: <tool-install-root>
+  known_tool_families:
+    - git
+    - python
+  completeness: non_exhaustive
+engineering_stack:
+  expectation: >-
+    An MSVC-family native toolchain is expected on this machine; the
+    exact installed compiler/IDE and any additional engines resolve
+    LIVE and are not serialized here (public-repo information hygiene;
+    the build system's toolchain verification discovers what a build
+    actually needs).
+  exact_versions: verify_live
+network:
+  posture: >-
+    A split-routing VPN is configured for external reachability; its
+    client identity, routing policy and live state resolve LIVE from
+    the local machine and are never serialized into this repository.
+  operational_state: verify_live
+verification_policy:
+  - Verify exact executable paths and versions before a task depends on them.
+  - Verify mutable environment/PATH state rather than treating this profile as a live snapshot.
+  - Verify VPN/routing behavior before diagnosing or changing connectivity-sensitive workflows.
+  - Do not use ambient OS temporary directories as unmanaged repository clone storage for normal Qiven validation.
+notes:
+  - This profile is ContextView material, not identity-independent ProjectContext truth.
+  - Machine-identity literals are intentionally absent per
+    collaboration/public-repo-information-hygiene.md (2026-09-24);
+    placeholders resolve live on the local machine.
+  - Additional tools may exist beyond the explicitly listed families; absence from this file does not prove absence from the machine.

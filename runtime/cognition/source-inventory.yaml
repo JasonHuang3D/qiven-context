@@ -1,0 +1,145 @@
+schema_version: 1
+inventory: ca0-canonical-source-inventory
+declared_at: '2026-09-24T03:30:00Z'
+note: >-
+  CA-0 canonical source inventory (ADR-0050 / roadmap amendment CA-0 work:
+  "inventory canonical source categories and ownership by repository").
+  Categories follow the TCA architecture canonical source model (§5).
+  Priority classes: P0-core always delivered; P1-protected cannot be silently
+  truncated; P2-required before ranked evidence; P3-supporting ranked in
+  budget; P4-on-demand referenced only. Default class per category; the
+  activation policy instance assigns per-record classes at CA-1.
+sources:
+  - repository: qiven-context
+    entries:
+      - category: core-governance
+        home: ['MEMORY-CONSTITUTION.md', 'governance/authority.yaml', 'BOOTSTRAP.md', 'AGENTS.md']
+        default_priority: P0-core
+        owner: root-governance (GitHub JasonHuang3D principal)
+        note: identity, authority, boot protocol
+      - category: collaboration-contract
+        home: ['collaboration/*.md']
+        default_priority: P1-protected
+        owner: qiven-context (ADR-governed)
+        note: >-
+          operating contract, handoff boundary (H1-H4 + long-running mode),
+          validation authority, philosophy, operating model, handoff/continuity
+          contracts, cognitive governance program, cognitive effectiveness
+          acceptance
+      - category: decision
+        home: ['decisions/ADR-*.md']
+        default_priority: P2-required
+        owner: qiven-context decisions (owner-H2 accepted)
+        selector_note: lifecycle-aware; superseded ADRs never present as current
+      - category: scar
+        home: ['memory/records/MEM-*.md (kind: scar or lesson-bearing)']
+        default_priority: P1-protected
+        owner: qiven-context memory
+        selector_note: selector-driven (boundary_kinds/phase/risk); active only
+      - category: obligation
+        home: ['obligations/OBL-*.md']
+        default_priority: P1-protected
+        owner: qiven-context obligations
+        selector_note: trigger-condition evaluation; before-relations
+      - category: current-state
+        home: ['state/current.md', 'state/active-work.yaml', 'state/repositories.yaml', 'state/roadmap.yaml']
+        default_priority: P0-core
+        owner: qiven-context state
+        note: compact present tense; single current truth
+      - category: policy-instance
+        home: ['runtime/*.yaml', 'runtime/cognition/*.yaml', 'runtime/cognition/*.md']
+        default_priority: P1-protected
+        owner: qiven-context runtime surface
+        note: >-
+          invocation-policy, cognition-landing-manifest, this inventory, the
+          selector schema, declared program packs; machine-readable policy
+          instances consumed by Runtime
+      - category: evidence
+        home: ['evidence/audits/*.md', 'evidence/cognition/**']
+        default_priority: P4-on-demand
+        owner: qiven-context evidence
+        note: incident records, acceptance audits, gold fixture corpus (sealed)
+      - category: session-record
+        home: ['sessions/*.md']
+        default_priority: P4-on-demand
+        owner: per-session
+        note: continuity evidence only; excluded from default activation
+      - category: view-profile
+        home: ['views/**']
+        default_priority: P3-supporting
+        owner: qiven-context views
+        note: participant/environment/workflow adaptation; never project truth
+  - repository: qiven-devkit
+    entries:
+      - category: engineering-law
+        home: ['docs/engineering/*.md']
+        default_priority: P1-protected
+        owner: devkit engineering standards
+        note: >-
+          implementation/python/testing standards, execution protocol,
+          design-first workflow, h1-kit standard, (CA-0 draft) task taxonomy +
+          cognition acceptance workflow
+      - category: convention
+        home: ['docs/conventions/*.md']
+        default_priority: P2-required
+        owner: devkit conventions
+        note: naming/filesystem/cmake/agent-entry/operator usage
+      - category: task-schema
+        home: ['docs/schemas/engineering-task-v1.schema.json (CA-0 draft)']
+        default_priority: P1-protected
+        owner: devkit schemas
+        note: phase/risk/boundary vocabularies
+      - category: tool-mechanism
+        home: ['tools/*.py']
+        default_priority: P4-on-demand
+        owner: devkit operator
+        note: mechanism, not cognition; referenced by exact revision
+  - repository: qiven-foundation
+    entries:
+      - category: capability-surface
+        home: ['include/qiven/*.hpp']
+        default_priority: P2-required
+        owner: foundation public headers
+        note: >-
+          surfaced during semantic-owner discovery; CA-0 adds the
+          machine-readable capability inventory (docs/architecture/capability-surface.yaml)
+      - category: admission-law
+        home: ['docs/architecture/foundation.md (§ change rule)', 'docs/architecture/cpp-architecture.md']
+        default_priority: P1-protected
+        owner: foundation architecture
+        note: ADR-0024 semantic-ownership admission criteria restated
+  - repository: qiven-runtime
+    entries:
+      - category: architecture-contract
+        home: ['docs/architecture/*.md']
+        default_priority: P1-protected
+        owner: runtime architecture
+        note: >-
+          MVP architecture, cpp design, component ADL, TCA architecture,
+          roadmap amendment; revision-bound for TCA docs per landing manifest
+      - category: capability-surface
+        home: ['include/qiven/runtime/**/*.hpp']
+        default_priority: P2-required
+        owner: runtime public headers
+      - category: design-record
+        home: ['docs/design/*.md']
+        default_priority: P3-supporting
+        owner: runtime design records
+  - repository: qiven-docs
+    entries:
+      - category: deliberation-record
+        home: ['accepted/**', 'proposal/**']
+        default_priority: P4-on-demand
+        owner: qiven-docs
+        note: cross-LLM deliberation evidence; never normative bodies
+excluded_from_activation:
+  - 'legacy/** (museum; historical input only)'
+  - 'generated derivatives: .qiven/runtime/bundles/** (rebuildable; referenced by digest)'
+  - 'sessions checkpoints as rule bodies (continuity evidence only)'
+multi_repository_lock:
+  note: >-
+    CA-1 source-lock scope (see CA-0 exit report for the bounded batch
+    declaration): qiven-context + qiven-devkit + qiven-foundation +
+    qiven-runtime categories above, locked per repository by commit SHA +
+    path filter + per-file content digest; qiven-docs deliberation records
+    enter only when explicitly referenced by policy.

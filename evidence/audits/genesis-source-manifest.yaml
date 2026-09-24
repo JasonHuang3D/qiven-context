@@ -1,0 +1,163 @@
+schema_version: 1
+purpose: 'Genesis Import source inventory and evidence limitations'
+status: 'complete'
+completed_at: '2026-09-13T18:58:55Z'
+completion_note: 'All six planned review domains received normal extraction and reasoning-residue passes to the extent available; remaining evidence gaps are explicitly recorded in the slice audits and obligations.'
+
+sources:
+  - id: 'SRC-LIVE-GIT'
+    category: 'live_git'
+    role: 'Primary evidence for current repository state and historical committed implementation.'
+    access: 'GitHub connector plus local read-only verification where required.'
+    strengths:
+      - 'Machine-verifiable commit identity, file content, history, and diffs.'
+      - 'Best evidence for what code or repository configuration actually existed.'
+    limitations:
+      - 'Code alone usually cannot prove why a design was chosen.'
+      - 'Uncommitted local history and deleted external artifacts may be absent.'
+    promotion_guidance:
+      - 'May support facts, implementation constraints, incidents, and current-state records.'
+      - 'Must not by itself manufacture architectural intent.'
+
+  - id: 'SRC-REPO-DOCS'
+    category: 'repository_file'
+    role: 'Committed architecture, engineering protocol, README, and specification evidence.'
+    access: 'GitHub repository files at stable refs.'
+    strengths:
+      - 'Contemporaneous committed documentation can directly express intended contracts.'
+      - 'Often stronger for rationale and process than code alone.'
+    limitations:
+      - 'Documentation may lag implementation.'
+      - 'A document can describe a proposal rather than an accepted decision; status must be checked.'
+    promotion_guidance:
+      - 'May support protocols, constraints, decisions, rejected options, and project models when wording is explicit.'
+
+  - id: 'SRC-CI'
+    category: 'ci_run'
+    role: 'Evidence for remote validation actually executed and its result.'
+    access: 'GitHub Actions run metadata, jobs, steps, and logs when available.'
+    strengths:
+      - 'Machine-verifiable evidence that specific validation ran against a specific ref or SHA.'
+    limitations:
+      - 'Passing CI proves only the checks that actually ran.'
+      - 'Absence of a failing check is not evidence that an untested behavior is correct.'
+    promotion_guidance:
+      - 'May support validation facts, incidents, lessons, and validation-gap closure.'
+
+  - id: 'SRC-WORKER-HANDOFF'
+    category: 'worker_handoff'
+    role: 'Structured execution evidence from jason-worker.'
+    access: 'Current conversation, preserved handoffs, or later imported evidence files.'
+    strengths:
+      - 'Captures local-machine actions and validation not visible from GitHub alone.'
+      - 'Often includes branch, SHA, test, environment, and stop-reason details.'
+    limitations:
+      - 'A handoff is evidence, not proof of exact committed state.'
+      - 'Historical summaries may omit details unless independently preserved.'
+    promotion_guidance:
+      - 'Cross-check committed claims against Git and CI when possible.'
+      - 'May support local-validation facts and incidents with appropriate confidence.'
+
+  - id: 'SRC-CURRENT-SESSION'
+    category: 'chat_session'
+    role: 'Primary conversational evidence for decisions, rationale, deferrals, and collaboration changes made in the current long-running Qiven session.'
+    access: 'Current conversation context.'
+    strengths:
+      - 'Direct access to discussion context and explicit user approvals or objections.'
+      - 'Best available source for reasoning residue not represented in code.'
+    limitations:
+      - 'Long-session visibility can be partial or summarized by the product runtime.'
+      - 'Conversational proposals must not be mistaken for accepted decisions.'
+    promotion_guidance:
+      - 'Explicit user choices can support decisions and preferences.'
+      - 'Assistant proposals require evidence of acceptance before promotion to decision.'
+
+  - id: 'SRC-PRIOR-SESSION-SUMMARIES'
+    category: 'chat_session'
+    role: 'Retrospective recovery source for earlier Qiven conversations when full raw transcript is not available in the active context.'
+    access: 'Conversation summaries and retrievable prior-context mechanisms available to the model.'
+    strengths:
+      - 'Can recover high-value decisions, constraints, milestones, and deferred items from prior sessions.'
+    limitations:
+      - 'Retrospective and compressed; exact wording and omitted reasoning may be unavailable.'
+      - 'Must not be represented as verbatim or contemporaneous evidence.'
+    promotion_guidance:
+      - 'Use conservative epistemic typing.'
+      - 'Cross-check with Git, repository docs, handoffs, or CI whenever possible.'
+
+  - id: 'SRC-USER-STATEMENTS'
+    category: 'user_statement'
+    role: 'Direct project-owner statements about intent, approval, operating preference, constraints, or observed local-machine facts.'
+    access: 'Current or recoverable conversation evidence.'
+    strengths:
+      - 'Primary evidence for project-owner decisions and collaboration intent.'
+    limitations:
+      - 'A user observation about external technical behavior can still need machine verification.'
+      - 'Later user statements may supersede earlier preferences.'
+    promotion_guidance:
+      - 'May directly support accepted process decisions, priorities, preferences, and locally observed incidents.'
+
+  - id: 'SRC-QIVEN-CONTEXT-LEDGER'
+    category: 'repository_file'
+    role: 'Post-Batch-001 append-oriented cognition events already captured by qiven-context.'
+    access: 'qiven-context ledger and canonical records.'
+    strengths:
+      - 'Structured provenance-aware records created near the events they describe.'
+    limitations:
+      - 'Covers only cognition captured after qiven-context was introduced.'
+      - 'Canonical records remain interpretations and can be corrected.'
+    promotion_guidance:
+      - 'Use as a consistency and continuity source, not as a substitute for underlying evidence when that evidence is available.'
+
+  - id: 'SRC-LOCAL-VALIDATION'
+    category: 'audit'
+    role: 'Evidence for commands executed on the user Windows machine outside remote CI.'
+    access: 'Worker handoffs, user-provided terminal output, screenshots, and future preserved audit artifacts.'
+    strengths:
+      - 'Can verify Windows-specific behavior, local toolchain state, and machine-local incidents unavailable to GitHub.'
+    limitations:
+      - 'May be non-reproducible later if environment state changes.'
+      - 'Screenshots and summaries can omit command context.'
+    promotion_guidance:
+      - 'May support observations, incidents, lessons, and validation facts with precise scope to the observed host.'
+
+  - id: 'SRC-EXTERNAL-RESEARCH'
+    category: 'research'
+    role: 'External technical or product evidence used to evaluate engineering choices.'
+    access: 'Web or other research sources when explicitly gathered.'
+    strengths:
+      - 'Can establish third-party behavior, standards, tool capabilities, or ecosystem alternatives.'
+    limitations:
+      - 'Freshness, authority, and vendor behavior can change.'
+      - 'External information does not itself establish that Qiven adopted a decision.'
+    promotion_guidance:
+      - 'May support rationale, alternatives, risks, and technical facts.'
+      - 'Adoption still requires internal decision evidence.'
+
+review_plan:
+  - order: 1
+    domain: 'collaboration-git-ci-worker-protocol'
+    status: 'complete'
+    required_sources: ['SRC-CURRENT-SESSION', 'SRC-PRIOR-SESSION-SUMMARIES', 'SRC-LIVE-GIT', 'SRC-REPO-DOCS', 'SRC-WORKER-HANDOFF', 'SRC-CI']
+  - order: 2
+    domain: 'foundation'
+    status: 'complete'
+    required_sources: ['SRC-PRIOR-SESSION-SUMMARIES', 'SRC-LIVE-GIT', 'SRC-REPO-DOCS', 'SRC-WORKER-HANDOFF', 'SRC-CI']
+  - order: 3
+    domain: 'devkit'
+    status: 'complete'
+    required_sources: ['SRC-CURRENT-SESSION', 'SRC-PRIOR-SESSION-SUMMARIES', 'SRC-LIVE-GIT', 'SRC-REPO-DOCS', 'SRC-WORKER-HANDOFF', 'SRC-CI']
+  - order: 4
+    domain: 'math'
+    status: 'complete'
+    required_sources: ['SRC-CURRENT-SESSION', 'SRC-PRIOR-SESSION-SUMMARIES', 'SRC-LIVE-GIT', 'SRC-REPO-DOCS', 'SRC-WORKER-HANDOFF', 'SRC-CI']
+  - order: 5
+    domain: 'ecosystem-roadmap-cad-robotics-gas'
+    status: 'complete'
+    required_sources: ['SRC-CURRENT-SESSION', 'SRC-PRIOR-SESSION-SUMMARIES', 'SRC-USER-STATEMENTS']
+  - order: 6
+    domain: 'cross-domain-residue'
+    status: 'complete'
+    required_sources: ['SRC-CURRENT-SESSION', 'SRC-PRIOR-SESSION-SUMMARIES', 'SRC-QIVEN-CONTEXT-LEDGER']
+
+completion_rule: 'Genesis Import is not complete until every review_plan domain has received both a normal extraction pass and a reasoning-residue pass, or a documented evidence-access limitation explains why it could not.'

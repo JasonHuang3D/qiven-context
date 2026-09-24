@@ -1,0 +1,264 @@
+# K4 Canonical Artifact Handoff Phase B — live verification
+
+Phase A reconstruction is preserved as sealed. The following verification uses only live GitHub evidence to check mutable facts identified during Phase A.
+
+I did not rewrite any Phase A conclusions. Live evidence was treated as verification input only.
+
+---
+
+# 1. Live facts checked
+
+## 1.1 Canonical repository identity
+
+Checked:
+
+- Repository: `JasonHuang3D/qiven-context`
+- Default branch: `main`
+- Repository exists and is accessible.
+- GitHub remote remains the repository identity anchor.
+
+Live confirmation:
+
+- GitHub repository metadata identifies `JasonHuang3D/qiven-context` with default branch `main`.  
+- The repository README states that `qiven-context` is the durable Git-versioned project cognition and continuity repository, and that GitHub remote state is the current trust anchor. 
+
+Result:
+
+✅ Confirmed.
+
+---
+
+## 1.2 Current canonical main state
+
+Checked:
+
+`main/state/current.md`
+
+Live result:
+
+Main still reports:
+
+- K3 as latest accepted implementation checkpoint.
+- K3 reference:
+  `a8c817f3115c29e32ecb7c5a6bf00d03566b1761`
+- K4 not merged into main.
+
+The live main state says:
+
+> “ContextKernel K3 is accepted … No K4 implementation has started.”
+
+
+
+Result:
+
+✅ Confirmed that `main` remains pre-K4 acceptance.
+
+No discrepancy with Phase A.
+
+---
+
+## 1.3 K4 candidate branch existence
+
+Checked:
+
+`refs/heads/jason-brother/context-k4`
+
+Live result:
+
+Branch exists.
+
+The candidate branch is present in GitHub.
+
+Result:
+
+✅ Confirmed.
+
+Branch existence alone was not treated as acceptance authority.
+
+---
+
+## 1.4 K4 candidate state
+
+Checked:
+
+`jason-brother/context-k4/state/current.md`
+
+Live candidate state reports:
+
+- K4 remains an unaccepted feature candidate.
+- Corrected K4 uses Canonical Artifact Handoff topology.
+- Producer → artifact → isolated consumer is the required model.
+
+The branch state records:
+
+> “K4 is an unaccepted feature candidate on `refs/heads/jason-brother/context-k4`.”
+
+
+
+It also records the corrected K4 topology and requirements:
+
+- versioned `qiven-context-handoff` JSON envelope;
+- digest-bound continuity projection;
+- verification restores canonical package and regenerates projection;
+- Qiven Operator exposes `k4-handoff-acceptance`. 
+
+Result:
+
+✅ Confirmed.
+
+---
+
+## 1.5 Relevant PR state
+
+Checked:
+
+Pull Request #15:
+
+`K4: canonical artifact handoff and recovery candidate`
+
+Live PR information:
+
+- PR exists.
+- It remains draft.
+- It explicitly states:
+  - K4 remains unaccepted.
+  - Main remains K3.
+  - Candidate head:
+    `decc769aceb7043e0e7be48f8ba1c7bfe272e2e3`.
+
+
+
+Result:
+
+✅ Confirmed.
+
+---
+
+# 2. Confirmed / changed / contradicted / unknown
+
+## Confirmed
+
+### Phase A artifact statements confirmed:
+
+| Item | Result |
+|---|---|
+| GitHub remote remains canonical | Confirmed |
+| main remains K3 | Confirmed |
+| K4 branch exists | Confirmed |
+| K4 is not accepted | Confirmed |
+| K4 requires artifact handoff rather than remote cold boot | Confirmed |
+| K5 remains after K4 acceptance | Confirmed |
+
+---
+
+## Changed
+
+No Phase A cognition was changed.
+
+The live branch provides more current mutable detail:
+
+- Candidate PR head is now explicitly recorded as:
+  `decc769aceb7043e0e7be48f8ba1c7bfe272e2e3`. 
+
+This refines live candidate identity but does not alter the sealed reconstruction.
+
+---
+
+## Contradicted
+
+No contradiction found between Phase A reconstruction and live GitHub evidence.
+
+---
+
+## Unknown after verification
+
+Still not established:
+
+1. Whether JasonPC producer acceptance gate has been rerun after correction.
+2. Whether a new handoff artifact has been generated from `decc769aceb7043e0e7be48f8ba1c7bfe272e2e3`.
+3. Whether a second isolated fresh LLM Phase A trial passed.
+4. Whether final K4 acceptance audit exists.
+5. Whether K4 has been merged into main.
+
+The live PR explicitly lists these as remaining acceptance gates. 
+
+---
+
+# 3. Did Phase A cognition require repair from live sources?
+
+## Result: No.
+
+The Phase A artifact contained sufficient cognition to determine:
+
+- Qiven purpose.
+- Authority model.
+- K4 topology.
+- Current blockers.
+- Required next action.
+
+Live GitHub only verified mutable facts:
+
+- branch state;
+- main state;
+- PR state;
+- candidate identity.
+
+No missing mandatory Phase A cognition was supplied by GitHub.
+
+Therefore:
+
+**Phase A handoff did not fail.**
+
+---
+
+# 4. Final K4 handoff acceptance assessment
+
+## Current assessment
+
+**K4 Canonical Artifact Handoff acceptance: NOT YET ACCEPTED**
+
+Reason:
+
+The live state confirms that the acceptance process remains incomplete.
+
+Required final evidence is still pending:
+
+1. Owner-run JasonPC `k4-handoff-acceptance`.
+2. Exact-head binding.
+3. Producer summary containing:
+   - artifact path,
+   - handoff digest,
+   - package digest,
+   - manifest digest.
+4. New isolated fresh LLM artifact-only Phase A.
+5. Phase B verification from that same handoff.
+6. Final dated K4 acceptance audit.
+
+The PR's remaining acceptance gates explicitly require those steps before merge to `main`. 
+
+---
+
+# Supporting evidence summary
+
+| Evidence source | Finding |
+|---|---|
+| `main/state/current.md` | Main remains K3; K4 not accepted.  |
+| `jason-brother/context-k4/state/current.md` | Corrected K4 candidate model and diagnostic history.  |
+| PR #15 | K4 draft candidate, remaining acceptance gates.  |
+| Repository README | Canonical repository/governance model.  |
+
+---
+
+# Final K4 Phase B Result
+
+**Phase B live verification completed.**
+
+Assessment:
+
+- Phase A reconstruction: valid.
+- Live identity verification: passed.
+- Main/candidate distinction: confirmed.
+- Phase A cognition repair: none required.
+- K4 acceptance: pending final producer + isolated consumer acceptance evidence.
+
+K4 HANDOFF PHASE B — SEALED

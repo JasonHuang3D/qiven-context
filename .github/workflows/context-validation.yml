@@ -1,0 +1,36 @@
+name: Context Validation
+
+on:
+  workflow_dispatch:
+    inputs:
+      expected_sha:
+        description: Exact candidate SHA that this validation must prove
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Bind validation to exact candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${GITHUB_SHA}" != "${{ inputs.expected_sha }}" ]]; then
+            echo "ERROR: workflow SHA ${GITHUB_SHA} != expected candidate ${{ inputs.expected_sha }}" >&2
+            exit 2
+          fi
+          echo "[ OK ] exact candidate ${GITHUB_SHA}"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install validation dependencies
+        run: python -m pip install -r tools/requirements.txt
+      - name: Run full context validation
+        env:
+          QIVEN_TEST_NO_COLOR: '1'
+        run: python tools/test_all.py

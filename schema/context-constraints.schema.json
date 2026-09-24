@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "rules"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "when",
+          "effect",
+          "sources"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "when": {
+            "type": "object",
+            "properties": {
+              "action": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "read",
+                    "write",
+                    "execute",
+                    "validate",
+                    "merge",
+                    "publish"
+                  ]
+                }
+              },
+              "target": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "context",
+                    "repository",
+                    "jasonpc",
+                    "other"
+                  ]
+                }
+              },
+              "channel": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "remote-ai",
+                    "owner",
+                    "agent-runtime",
+                    "other"
+                  ]
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "effect": {
+            "enum": [
+              "require",
+              "prohibit"
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

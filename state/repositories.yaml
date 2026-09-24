@@ -1,0 +1,47 @@
+# Stable repository inventory only. Resolve live refs, visibility, CI, and branch state from GitHub at use time.
+schema_version: 2
+repositories:
+  - name: qiven-context
+    remote: https://github.com/JasonHuang3D/qiven-context.git
+    default_branch: main
+    role: canonical-project-cognition
+  - name: qiven-foundation
+    remote: https://github.com/JasonHuang3D/qiven-foundation.git
+    local_path: <workspace-root>/qiven-foundation
+    default_branch: main
+    role: foundational-native-library
+  - name: qiven-devkit
+    remote: https://github.com/JasonHuang3D/qiven-devkit.git
+    local_path: <workspace-root>/qiven-devkit
+    default_branch: main
+    role: shared-native-development-kit
+  - name: qiven-math
+    remote: https://github.com/JasonHuang3D/qiven-math.git
+    local_path: <workspace-root>/qiven-math
+    default_branch: main
+    role: deterministic-native-math
+  - name: qiven-toolchain-win
+    remote: https://github.com/JasonHuang3D/qiven-toolchain-win.git
+    local_path: <workspace-root>/qiven-toolchain-win
+    default_branch: main
+    role: pinned-windows-build-tools
+  - name: qiven-context-draft
+    remote: https://github.com/JasonHuang3D/qiven-context-draft.git
+    local_path: <workspace-root>/qiven-context-draft
+    default_branch: main
+    role: executable-cognition-specification-draft
+  - name: qiven-runtime
+    remote: https://github.com/JasonHuang3D/qiven-runtime.git
+    local_path: <workspace-root>/qiven-runtime
+    default_branch: main
+    role: cognitive-control-runtime
+  - name: qiven-third-party-win
+    remote: https://github.com/JasonHuang3D/qiven-third-party-win.git
+    local_path: <workspace-root>/qiven-third-party-win
+    default_branch: main
+    role: workspace-third-party-singleton
+  - name: qiven-docs
+    remote: https://github.com/JasonHuang3D/qiven-docs.git
+    local_path: <workspace-root>/qiven-docs
+    default_branch: main
+    role: cross-llm-proposal-deliberation-repository

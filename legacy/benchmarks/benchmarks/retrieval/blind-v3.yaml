@@ -1,0 +1,195 @@
+schema_version: 1
+name: blind-retrieval-v3
+purpose: >-
+  Blind acceptance frozen after the cross-encoder/adaptive candidate was fixed at
+  be3f0545ef39f96736442735fae3ab1f4a3a0ff5. Positive cases target canonical records that were not
+  used as v1/v2 tuning targets. Negative cases require true abstention and test whether mandatory
+  retrieval can return no canonical IDs when Qiven history has no relevant answer.
+frozen_candidate: be3f0545ef39f96736442735fae3ab1f4a3a0ff5
+thresholds:
+  critical_case_success_min: 1.0
+  positive_required_id_recall_min: 1.0
+  forbidden_hits_max: 0
+  mean_positive_extra_ids_max: 1.0
+  negative_abstention_rate_min: 1.0
+cases:
+  - id: foundation-ownership-must-stay-explicit
+    kind: positive
+    critical: true
+    query:
+      task: >-
+        A low-level Foundation owner wants to hide allocator provenance behind a process-global default
+        and use exceptions for ordinary allocation failure. Does prior Qiven architecture allow that?
+      topics: [ownership, allocator, failure, lifetime]
+      scopes: [qiven-foundation]
+      now: '2026-09-14T14:25:00Z'
+    required_ids: [ADR-0008]
+    forbidden_ids: [ADR-0009]
+    allowed_extra_ids: []
+    rationale: Tests low-level ownership/failure doctrine without reusing its title.
+
+  - id: devkit-must-not-overwrite-consumer-edits
+    kind: positive
+    critical: true
+    query:
+      task: >-
+        A managed repository changed one of Devkit's shared convention files locally. During the next
+        template sync, may Devkit simply overwrite the consumer change because the new template is newer?
+      topics: [devkit, sync, consumer-edits, conflict]
+      scopes: [qiven-devkit]
+      now: '2026-09-14T14:25:00Z'
+    required_ids: [ADR-0012]
+    forbidden_ids: [ADR-0010]
+    allowed_extra_ids: [ADR-0011]
+    rationale: Tests lifecycle conflict safety rather than repository snapshot independence.
+
+  - id: math-must-not-hide-global-epsilon
+    kind: positive
+    critical: true
+    query:
+      task: >-
+        Should qiven-math make vector equality approximate by default using one global epsilon and also
+        bake a single world handedness/up-axis into the core vector types?
+      topics: [math, tolerance, equality, coordinates]
+      scopes: [qiven-math]
+      now: '2026-09-14T14:25:00Z'
+    required_ids: [ADR-0015]
+    forbidden_ids: [ADR-0014]
+    allowed_extra_ids: []
+    rationale: Separates semantic tolerance/coordinate policy from SIMD/storage layout.
+
+  - id: recurring-ambiguity-should-be-codified
+    kind: positive
+    critical: true
+    query:
+      task: >-
+        The same collaboration rule has now been explained manually in several chats. Should we continue
+        relying on whichever model session happens to remember it, or does Qiven have a durable lesson
+        about repeated workflow ambiguity?
+      topics: [workflow, protocol, automation, memory]
+      now: '2026-09-14T14:25:00Z'
+    required_ids: [MEM-20260913T180134Z-E3C993]
+    forbidden_ids: [MEM-20260913T194500Z-8F2C41]
+    allowed_extra_ids: []
+    rationale: Tests protocol codification independently from command liveness guidance.
+
+  - id: foundation-support-is-ci-evidence
+    kind: positive
+    critical: true
+    query:
+      task: >-
+        Can we claim that an arbitrary new operating-system/architecture/compiler combination is a
+        supported Foundation platform merely because the C++ is intended to be portable, even though CI
+        never exercises that combination?
+      topics: [portability, support, ci, platform]
+      scopes: [qiven-foundation]
+      now: '2026-09-14T14:25:00Z'
+    required_ids: [MEM-20260913T181224Z-5BA4E1]
+    forbidden_ids: [MEM-20260913T170803Z-A61F2C]
+    allowed_extra_ids: [ADR-0005]
+    rationale: Tests the distinction between portability intent and continuously verified support.
+
+  - id: toolchain-name-does-not-imply-every-host-tool
+    kind: positive
+    critical: true
+    query:
+      task: >-
+        Because the repository is named qiven-toolchain-win, may we assume it already pins Python, CUDA,
+        MSVC, the Windows SDK, and every other Windows dependency in addition to the build tools actually
+        declared in its manifest?
+      topics: [toolchain, ownership, windows, build-tools]
+      scopes: [qiven-toolchain-win]
+      now: '2026-09-14T14:25:00Z'
+    required_ids: [MEM-20260913T185050Z-18E61C]
+    forbidden_ids: [ADR-0010]
+    allowed_extra_ids: []
+    rationale: Tests exact toolchain ownership instead of inferring capability from repository naming.
+
+  - id: automated-record-writer-needs-id-issuance
+    kind: positive
+    critical: true
+    query:
+      task: >-
+        We are about to automate creation of many new MEM and OBL records. Is the current habit of humans
+        inventing suffixes sufficient, or is there a deferred Qiven obligation that must trigger before
+        automated writers mint IDs at scale?
+      topics: [identifiers, ingestion, automation, uniqueness]
+      scopes: [qiven-context]
+      now: '2026-09-14T14:25:00Z'
+    required_ids: [OBL-20260913T185050Z-2CAF31]
+    forbidden_ids: [MEM-20260913T185050Z-2D4721]
+    allowed_extra_ids: []
+    rationale: Tests a deferred trigger that was not part of earlier retrieval tuning.
+
+  - id: old-python-fixture-must-test-version-path
+    kind: positive
+    critical: true
+    query:
+      task: >-
+        The Windows resolver suite has a test described as rejecting an old Python. When those tests are
+        next changed, is there any known validation gap about proving rejection specifically because a
+        runnable interpreter reports version 3.10 rather than because the mock is unusable?
+      topics: [windows, python, tests, validation-gap]
+      scopes: [qiven-context]
+      now: '2026-09-14T14:25:00Z'
+    required_ids: [OBL-20260913T185050Z-A020B1]
+    forbidden_ids: [MEM-20260913T172118Z-4A9C11]
+    allowed_extra_ids: [MEM-20260913T170803Z-A61F2C]
+    rationale: Tests a narrow deferred test-quality obligation and permits its directly related resolver lesson.
+
+  - id: negative-generic-cpp-vector-growth
+    kind: negative
+    critical: true
+    query:
+      task: >-
+        Explain, from ordinary ISO C++ concepts, the difference between std::vector size and capacity and
+        what typically happens when growth requires reallocation. This is not asking about any Qiven policy.
+      topics: [cplusplus, vector, containers]
+      now: '2026-09-14T14:25:00Z'
+    required_ids: []
+    forbidden_ids: []
+    allowed_extra_ids: []
+    rationale: General technical knowledge should not cause unrelated Qiven cognition to be injected.
+
+  - id: negative-generic-database-normalization
+    kind: negative
+    critical: true
+    query:
+      task: >-
+        Explain third normal form in relational database design with a small generic example. No Qiven
+        project decision or historical fact is needed for this question.
+      topics: [database, normalization, sql]
+      now: '2026-09-14T14:25:00Z'
+    required_ids: []
+    forbidden_ids: []
+    allowed_extra_ids: []
+    rationale: Tests abstention on a non-Qiven engineering question.
+
+  - id: negative-unknown-workstation-temperature
+    kind: negative
+    critical: true
+    query:
+      task: >-
+        What exact CPU temperature did the local Qiven development workstation reach during yesterday's
+        build? Answer only if canonical Qiven cognition actually recorded that measurement.
+      topics: [workstation, temperature, build, telemetry]
+      now: '2026-09-14T14:25:00Z'
+    required_ids: []
+    forbidden_ids: []
+    allowed_extra_ids: []
+    rationale: Tests absence handling for a project-related fact that canonical cognition never recorded.
+
+  - id: negative-unknown-gas-cloud-region
+    kind: negative
+    critical: true
+    query:
+      task: >-
+        Which exact cloud region is the industrial-gas product required to use for production deployment?
+        Answer only if Qiven has already made and recorded that deployment-region decision.
+      topics: [gas, deployment, cloud, region]
+      scopes: [qiven-gas]
+      now: '2026-09-14T14:25:00Z'
+    required_ids: []
+    forbidden_ids: []
+    allowed_extra_ids: []
+    rationale: Tests abstention inside a known Qiven product scope when the requested decision does not exist.

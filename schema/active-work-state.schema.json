@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version", "program", "status", "objective", "accepted_checkpoint", "current_candidate", "blockers", "paused_work", "next_boundary", "updated_at"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "program": {"type": "string", "minLength": 1},
+    "status": {"enum": ["active", "paused", "blocked"]},
+    "objective": {"type": "string", "minLength": 1},
+    "accepted_checkpoint": {
+      "type": "object",
+      "required": ["subject", "ref", "evidence"],
+      "properties": {
+        "subject": {"type": "string", "minLength": 1},
+        "ref": {"type": "string", "minLength": 1},
+        "evidence": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      },
+      "additionalProperties": false
+    },
+    "current_candidate": {
+      "type": "object",
+      "required": ["subject", "ref", "state"],
+      "properties": {
+        "subject": {"type": "string", "minLength": 1},
+        "ref": {"type": "string", "minLength": 1},
+        "state": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "paused_work": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "next_boundary": {"type": "string", "minLength": 1},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "additionalProperties": false
+}

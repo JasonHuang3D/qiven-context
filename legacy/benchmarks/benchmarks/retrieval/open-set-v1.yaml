@@ -1,0 +1,117 @@
+schema_version: 1
+name: open-set-retrieval-v1
+purpose: >-
+  Frozen paraphrase and cross-domain benchmark for retrieval reliability. Cases are intentionally
+  phrased differently from canonical titles and include distractors. This file is frozen before
+  semantic or hybrid retrieval implementation is tuned.
+thresholds:
+  critical_case_recall_min: 1.0
+  required_id_recall_min: 0.95
+  forbidden_hits_max: 0
+  mean_extra_ids_max: 8.0
+cases:
+  - id: windows-interpreter-trust
+    critical: true
+    query:
+      task: >-
+        On a Windows machine, commands named python or py can exist while pointing at an app alias,
+        stale launcher, or unusable interpreter. Before repository tooling creates its environment,
+        what prior Qiven knowledge should govern how an interpreter is trusted?
+      topics: [windows, interpreter, bootstrap]
+      now: '2026-09-14T13:30:00Z'
+    required_ids: [MEM-20260913T170803Z-A61F2C]
+    forbidden_ids: [ADR-0014, ADR-0020]
+    allowed_extra_ids: [OBL-20260913T185050Z-A020B1]
+    rationale: Replays the production-like retrieval miss without copying the canonical memory title.
+
+  - id: silent-cli-liveness
+    critical: true
+    query:
+      task: >-
+        A local validation command is still doing real work but prints nothing for several seconds,
+        leaving the human unsure whether it hung. Which durable Qiven lesson governs this interface?
+      topics: [cli, progress, operator]
+      now: '2026-09-14T13:30:00Z'
+    required_ids: [MEM-20260913T194500Z-8F2C41]
+    forbidden_ids: [ADR-0020, ADR-0014]
+    allowed_extra_ids: [OBL-20260914T081146Z-6D2F31, OBL-20260914T105500Z-7F31B2]
+    rationale: Tests semantic recall for a human-observability lesson from paraphrased symptoms.
+
+  - id: exact-head-after-new-commit
+    critical: true
+    query:
+      task: >-
+        The owner validated a branch locally, but another commit was pushed afterward. Is the remote
+        maintainer allowed to merge the changed head using the earlier PASS?
+      topics: [merge, validation, git]
+      now: '2026-09-14T13:30:00Z'
+    required_ids: [ADR-0021]
+    forbidden_ids: [ADR-0014, ADR-0020]
+    allowed_extra_ids: [MEM-20260913T162546Z-E73124]
+    rationale: Tests exact-head authorization without using the ADR title wording.
+
+  - id: gas-native-stack-boundary
+    critical: true
+    query:
+      task: >-
+        A backend for the industrial gas business is about to be designed. Should it automatically be
+        built on the shared native C++ stack just because other Qiven components are native?
+      topics: [industrial-gas, backend, architecture]
+      now: '2026-09-14T13:30:00Z'
+    required_ids: [ADR-0020]
+    forbidden_ids: [ADR-0014, OBL-20260913T183819Z-9A4F21]
+    allowed_extra_ids: [OBL-20260913T185050Z-21DCBC]
+    rationale: Tests a product-boundary decision through a concrete architecture question.
+
+  - id: premature-native-physics
+    critical: true
+    query:
+      task: >-
+        Robotics simulation may eventually need capabilities beyond an existing engine. Should we
+        create a dedicated qiven-physics repository now before concrete unmet simulator requirements exist?
+      topics: [robotics, simulation, physics]
+      now: '2026-09-14T13:30:00Z'
+    required_ids: [OBL-20260913T183819Z-9A4F21]
+    forbidden_ids: [ADR-0020, ADR-0014]
+    allowed_extra_ids: [ADR-0017, ADR-0018]
+    rationale: Tests negative knowledge and future-work resurfacing across the robotics boundary.
+
+  - id: vector-canonical-layout
+    critical: false
+    query:
+      task: >-
+        We want faster SIMD work. Should the canonical Vec3 value itself be padded or forced to a
+        sixteen-byte ABI layout to match a particular execution representation?
+      topics: [vector, simd, abi, layout]
+      now: '2026-09-14T13:30:00Z'
+    required_ids: [ADR-0014]
+    forbidden_ids: [ADR-0020, OBL-20260913T183819Z-9A4F21]
+    allowed_extra_ids: [ADR-0013, ADR-0015]
+    rationale: Tests math representation retrieval without naming alignas or the ADR title.
+
+  - id: devkit-crash-consistency
+    critical: false
+    query:
+      task: >-
+        Devkit preflights all conflicts before writing managed files. Does that also mean an unexpected
+        process or machine crash cannot leave a partially updated filesystem state?
+      topics: [devkit, crash, transaction, filesystem]
+      now: '2026-09-14T13:30:00Z'
+    required_ids: [MEM-20260913T182338Z-D5E8A2]
+    forbidden_ids: [ADR-0020, ADR-0014]
+    allowed_extra_ids: [OBL-20260913T182338Z-B37E54, ADR-0012]
+    rationale: Distinguishes conflict atomicity from crash consistency.
+
+  - id: retrieval-miss-architecture
+    critical: true
+    query:
+      task: >-
+        A long conversation changed engineering topics and reasoning continued even though a relevant
+        durable memory already existed. What current Qiven architecture decision says retrieval must be
+        measured and invoked rather than trusted to model recollection?
+      topics: [retrieval, cognition, reliability]
+      now: '2026-09-14T13:30:00Z'
+    required_ids: [ADR-0022, MEM-20260914T124259Z-5C8E21]
+    forbidden_ids: [ADR-0014, ADR-0020]
+    allowed_extra_ids: [ADR-0003, MEM-20260913T170803Z-A61F2C, OBL-20260914T124259Z-7A4D13]
+    rationale: Self-test for the incident that triggered this reassessment.

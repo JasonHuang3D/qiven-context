@@ -1,0 +1,893 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "k2policy": {
+      "type": "object",
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9.-]{0,127}$"
+        },
+        "grants": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "create_record",
+                "revise_record",
+                "transition_record",
+                "relate",
+                "add_evidence",
+                "add_external_evidence",
+                "put_document",
+                "set_governance",
+                "read_result"
+              ]
+            },
+            "uniqueItems": true
+          }
+        },
+        "authority_scope": {
+          "const": "reference-sandbox"
+        }
+      },
+      "required": [
+        "project_id",
+        "grants",
+        "authority_scope"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "serialization_version": {
+          "const": 1
+        },
+        "kind": {
+          "const": "ReferenceGovernance"
+        },
+        "payload": {
+          "$ref": "#/$defs/k2policy"
+        }
+      },
+      "required": [
+        "serialization_version",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "serialization_version": {
+          "const": 1
+        },
+        "kind": {
+          "const": "ExternalEvidenceReference"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "reference": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            "media_type": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            "expected_content_digest": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "availability": {
+              "const": "unverified"
+            }
+          },
+          "required": [
+            "reference",
+            "media_type",
+            "expected_content_digest",
+            "availability"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "serialization_version",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "serialization_version": {
+          "const": 1
+        },
+        "kind": {
+          "const": "TransactionRequest"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "project_id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9.-]{0,127}$"
+            },
+            "transaction_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            "idempotency_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            "principal": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            "base_snapshot": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "governance_version": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "semantic_time": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "operations": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "op": {
+                        "const": "create_record"
+                      },
+                      "record_kind": {
+                        "enum": [
+                          "adr",
+                          "memory",
+                          "obligation"
+                        ]
+                      },
+                      "metadata": {
+                        "type": "object"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rationale": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1024
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "record_kind",
+                      "metadata",
+                      "body",
+                      "rationale"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "op": {
+                        "const": "revise_record"
+                      },
+                      "record_kind": {
+                        "enum": [
+                          "adr",
+                          "memory",
+                          "obligation"
+                        ]
+                      },
+                      "metadata": {
+                        "type": "object"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rationale": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1024
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "record_kind",
+                      "metadata",
+                      "body",
+                      "rationale"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "op": {
+                        "const": "transition_record"
+                      },
+                      "record_kind": {
+                        "enum": [
+                          "adr",
+                          "memory",
+                          "obligation"
+                        ]
+                      },
+                      "metadata": {
+                        "type": "object"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rationale": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1024
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "record_kind",
+                      "metadata",
+                      "body",
+                      "rationale"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "op": {
+                        "const": "relate"
+                      },
+                      "relation": {
+                        "enum": [
+                          "related",
+                          "supersedes"
+                        ]
+                      },
+                      "source": {
+                        "type": "string",
+                        "pattern": "^(ADR-[0-9]{4}|(MEM|OBL)-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6})$"
+                      },
+                      "target": {
+                        "type": "string",
+                        "pattern": "^(ADR-[0-9]{4}|(MEM|OBL)-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6})$"
+                      },
+                      "mode": {
+                        "enum": [
+                          "add",
+                          "remove"
+                        ]
+                      },
+                      "rationale": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1024
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "relation",
+                      "source",
+                      "target",
+                      "mode",
+                      "rationale"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "op": {
+                        "const": "add_evidence"
+                      },
+                      "media_type": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1024
+                      },
+                      "content_base64": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "media_type",
+                      "content_base64"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "op": {
+                        "const": "add_external_evidence"
+                      },
+                      "reference": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1024
+                      },
+                      "media_type": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1024
+                      },
+                      "expected_content_digest": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^sha256:[0-9a-f]{64}$"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "reference",
+                      "media_type",
+                      "expected_content_digest"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "op": {
+                        "const": "put_document"
+                      },
+                      "path": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1024
+                      },
+                      "content_base64": {
+                        "type": "string"
+                      },
+                      "expected_document": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^sha256:[0-9a-f]{64}$"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "rationale": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1024
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "path",
+                      "content_base64",
+                      "expected_document",
+                      "rationale"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "op": {
+                        "const": "set_governance"
+                      },
+                      "policy": {
+                        "$ref": "#/$defs/k2policy"
+                      },
+                      "rationale": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1024
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "policy",
+                      "rationale"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "minItems": 1,
+              "maxItems": 256
+            },
+            "expected_revisions": {
+              "type": "object",
+              "propertyNames": {
+                "type": "string",
+                "pattern": "^(ADR-[0-9]{4}|(MEM|OBL)-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6})$"
+              },
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^sha256:[0-9a-f]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              },
+              "uniqueItems": true,
+              "maxItems": 256
+            },
+            "depends_on": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1024
+              },
+              "uniqueItems": true,
+              "maxItems": 256
+            }
+          },
+          "required": [
+            "project_id",
+            "transaction_id",
+            "idempotency_key",
+            "principal",
+            "base_snapshot",
+            "governance_version",
+            "semantic_time",
+            "operations",
+            "expected_revisions",
+            "evidence",
+            "depends_on"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "serialization_version",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "serialization_version": {
+          "const": 1
+        },
+        "kind": {
+          "const": "AuthorityDecision"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "project_id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9.-]{0,127}$"
+            },
+            "principal": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            "request_digest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "base_snapshot": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "governance_version": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "operation_scope": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1024
+                  },
+                  "target": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1024
+                  }
+                },
+                "required": [
+                  "action",
+                  "target"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "checked_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "authentication_evidence": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            "decision": {
+              "const": "allow"
+            },
+            "authority_scope": {
+              "const": "reference-sandbox"
+            }
+          },
+          "required": [
+            "project_id",
+            "principal",
+            "request_digest",
+            "base_snapshot",
+            "governance_version",
+            "operation_scope",
+            "checked_at",
+            "authentication_evidence",
+            "decision",
+            "authority_scope"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "serialization_version",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "serialization_version": {
+          "const": 1
+        },
+        "kind": {
+          "const": "NativeRecordRevision"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "project_id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9.-]{0,127}$"
+            },
+            "record_id": {
+              "type": "string",
+              "pattern": "^(ADR-[0-9]{4}|(MEM|OBL)-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6})$"
+            },
+            "record_kind": {
+              "enum": [
+                "adr",
+                "memory",
+                "obligation"
+              ]
+            },
+            "record_schema": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "metadata": {
+              "type": "object"
+            },
+            "body": {
+              "type": "string"
+            },
+            "creating_transaction": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            "predecessor_revision": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "principal": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            "authority_decision": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              }
+            },
+            "rationale": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1024
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "project_id",
+            "record_id",
+            "record_kind",
+            "record_schema",
+            "metadata",
+            "body",
+            "creating_transaction",
+            "predecessor_revision",
+            "principal",
+            "authority_decision",
+            "evidence",
+            "rationale"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "serialization_version",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "serialization_version": {
+          "const": 1
+        },
+        "kind": {
+          "const": "SandboxSnapshot"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "project_id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9.-]{0,127}$"
+            },
+            "base_snapshot": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "import_origin": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "governance": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "creating_transaction": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1024
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "records": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "record_id": {
+                    "type": "string",
+                    "pattern": "^(ADR-[0-9]{4}|(MEM|OBL)-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6})$"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^sha256:[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "record_id",
+                  "revision"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "documents": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1024
+                  },
+                  "document": {
+                    "type": "string",
+                    "pattern": "^sha256:[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "path",
+                  "document"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              },
+              "uniqueItems": true
+            },
+            "instance_state": {
+              "const": "quarantined"
+            }
+          },
+          "required": [
+            "project_id",
+            "base_snapshot",
+            "import_origin",
+            "governance",
+            "creating_transaction",
+            "records",
+            "documents",
+            "evidence",
+            "instance_state"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "serialization_version",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "serialization_version": {
+          "const": 1
+        },
+        "kind": {
+          "const": "TransactionReceipt"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "project_id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9.-]{0,127}$"
+            },
+            "transaction_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            "principal": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            "idempotency_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            "request_digest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "base_snapshot": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "successor_snapshot": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "revision_digests": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              }
+            },
+            "authority_decision": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "outcome": {
+              "const": "committed"
+            },
+            "authority_scope": {
+              "const": "reference-sandbox"
+            }
+          },
+          "required": [
+            "project_id",
+            "transaction_id",
+            "principal",
+            "idempotency_key",
+            "request_digest",
+            "base_snapshot",
+            "successor_snapshot",
+            "revision_digests",
+            "authority_decision",
+            "outcome",
+            "authority_scope"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "serialization_version",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

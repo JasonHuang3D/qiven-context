@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qiven-context/context-query.schema.json",
+  "title": "Qiven Context Compiler Query",
+  "type": "object",
+  "required": [
+    "task"
+  ],
+  "properties": {
+    "task": {
+      "type": "string",
+      "minLength": 1
+    },
+    "record_mode": {
+      "enum": [
+        "current",
+        "history"
+      ],
+      "default": "current",
+      "description": "History includes all lifecycle states at the supplied snapshot, not as-of-time reconstruction. Explicit IDs are inspectable in either mode."
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "scopes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "touches": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "signals": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "changed": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "include_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(MEM-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}|OBL-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6}|ADR-[0-9]{4})$"
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "now": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "view": {
+      "type": "string",
+      "minLength": 1
+    },
+    "operation": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "enum": [
+            "read",
+            "write",
+            "execute",
+            "validate",
+            "merge",
+            "publish"
+          ]
+        },
+        "target": {
+          "enum": [
+            "context",
+            "repository",
+            "jasonpc",
+            "other"
+          ]
+        },
+        "channel": {
+          "enum": [
+            "remote-ai",
+            "owner",
+            "agent-runtime",
+            "other"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "negative_conditions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "complete_inputs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "conditions",
+          "touches",
+          "changed",
+          "signals"
+        ]
+      }
+    },
+    "input_evidence": {
+      "type": "object",
+      "properties": {
+        "conditions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "touches": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "changed": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "signals": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "max_context_bytes": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.coverage
+.DS_Store
+Thumbs.db
+
+.generated-temp/
+
+# RuntimeHost installation state (journal, bundles, secrets, install
+# identity - GR-5 workspace-bounded, never canonical content)
+.qiven/runtime/

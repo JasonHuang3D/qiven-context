@@ -1,0 +1,74 @@
+schema_version: 2
+program: qiven-context
+status: active
+objective: >-
+  Runtime Production MVP program executing (owner direction 2026-09-22
+  v17; v18 landed MVP-1; v19 landed MVP-2 AND MVP-3 end-to-end under
+  long-running mode with delegated per-batch H2; v20 emergency
+  stabilization landed exec v2 bounded process custody — devkit PR #27
+  d1d2a3a + context pin PR #120 132b420 — with ADR-0048 then ACCEPTED
+  by owner H2 in v21): ADR-0047 accepted - one enforced vertical slice
+  under zcode-jason-context-record-mvp, SQLite control journal (never
+  domain truth), delivery order MVP-0..MVP-7; program obligation
+  front-loaded (OBL-20260922T155800Z-9A7B41). MVP-0 PASSED (PR #37
+  eba554a). MVP-1 PASSED (v18: PR #43 763ff26). MVP-2 PASSED (v19:
+  qiven-context PR #118 662d563 canonical runtime/invocation-policy.yaml
+  + validator reference-check; runtime PR #46 e22462b cognition
+  publisher + DeploymentProfile + generation stale-marking, all five
+  exit-gate rows proven on real-git fixtures). MVP-3 PASSED (v19:
+  runtime PR #47 59ea55c RuntimeHost + owner-only authenticated IPC +
+  hardened process boundary; bootstrap app retired; anchor refresh PR
+  #48 0044fe1). v22 (2026-09-23/24, designation jason-extended-cognition,
+  per-action owner H2s): ADR-0050 ACCEPTED (owner H2 2026-09-23T18:56Z) -
+  the Task Cognition Activation program and independent falsification are
+  law; MVP-4 reclassified NOT ACCEPTED (implementation exists; three
+  real-H1 trial failures are program-level incident evidence; bounded
+  corrective lane defined); substantive MVP-5 FROZEN until CA-0, real
+  MVP-4 H1 pass, RR-0, and CA-2 pass. Active batches: CA-0 + MVP-4
+  corrective lane + RR-0 in one bounded interval (OBL-20260923T190500Z-D6E7F8).
+accepted_checkpoint:
+  subject: v26-workspace-resolution-accepted-and-landing
+  ref: 'this transaction (ADR-0052 accepted; OBL-20260924T113000Z-E7F8A9 WR migration; qiven-docs PR #2 merge 4423635 + migration 7fe0df7; P4 re-adjudication + P4B armed; mvp4 pre-flight incident sealed; v26 checkpoint)'
+  evidence:
+    - 'v26 (2026-09-24, designation jason-extended-cognition, LONG-RUNNING
+      MODE entered turn 3 per owner verbatim "现在开始这个会话委托你H2，直到我明确驳回授权"):
+      owner adjudicated qiven-docs PR #2 ACCEPTED ("PR2 accepted") and
+      directed docs landing ("不急着落地代码层"); the session executed the
+      qiven-docs README acceptance flow (merge + proposal->accepted/2026-09-24
+      migration), recorded ADR-0052 (accepted; ADR-0046 partial supersession
+      with status note; TCA/CA-1 boundary preserved; WR-0 owner-gated entry),
+      created the WR migration obligation, sealed the mvp4 kit pre-flight
+      incident (evidence/audits/2026-09-24-mvp4-h1-kit-preflight-incident.md)
+      with two scar memories, re-adjudicated P4 after owner-challenged power
+      forensics (Modern-Standby suspend found; awake-window death proven;
+      strongly-supportive-but-confounded; P4B re-armed with mandatory
+      power-timeline read-out), and corrected the v25 timestamp noise in the
+      v26 checkpoint notes. Cross-LLM deliberation: PR #2 five signed rounds
+      (GPT-5.6 Sol; GPT-6 Codex x3; GLM-5.3 x2 convergence).'
+    - 'Carried from v25 (unchanged): custody rollout complete (foundation
+      #20 f28b86b, math #12 518e511, draft #40 ea9af72, runtime #59, devkit
+      #32 router v4.1); CA-0 complete (PR #128 5a3e9a3); MVP-4 corrective
+      lane locally complete at the code level but the g6ebf6ff6 kit FAILED
+      its owner-run pre-flight 2026-09-24 (sealed incident; fix deferred);
+      RR-0 decision core (PR #57 0b72e30).'
+current_candidate:
+  subject: none-staged
+  ref: 'ADR-0051 ACCEPTED 2026-09-24T~11:50Z (owner H2 in v26, verbatim "ADR0051批准") - no staged candidate remains'
+  state: none
+blockers: []
+paused_work:
+- qiven-runtime/process-execution
+- qiven-cad
+next_boundary: >-
+  ADR-0051 ACCEPTED (owner H2 2026-09-24T~11:50Z, v26 turn 4); ADR-0052
+  accepted the same session. Next session FIRST ACTION: the P4C/P4D
+  read-out (power-timeline protocol; closes/re-scopes OBL-D5E6F7).
+  WR-0 STARTED in v26 turn 4 (census + Profile B fixture + Profile J
+  baseline + sealed effort budget; owner review gates qiven-workspace
+  creation). Periodic governance audit DUE (six ADRs accepted since
+  2026-09-22). MVP-4 kit fix owner-scheduled; RR-0, then CA-1; MVP-5
+  frozen until CA-2. Workspace router re-enabled 2026-09-24T11:43Z
+  (effective for sessions started after). Long-running mode ACTIVE in
+  this v26 session (exit is by explicit owner direction or window
+  close).
+updated_at: '2026-09-24T11:58:00Z'

@@ -1,0 +1,322 @@
+=== TEST SUMMARY ===
+[ OK ] repository-validator          14.73s
+[ OK ] context-compiler               4.94s
+[ OK ] record-lifecycle               6.04s
+[ OK ] context-r1                    11.16s
+[ OK ] context-kernel-k1             14.12s
+[ OK ] context-kernel-k2             10.41s
+[ OK ] context-kernel-k3             37.04s
+[ OK ] hybrid-retrieval               0.58s
+[ OK ] structural-retrieval           1.39s
+[ OK ] rerank-retrieval               3.12s
+[ OK ] candidate-bundle               3.16s
+[ OK ] candidate-acceptance           1.85s
+[ OK ] context-acceptance             5.12s
+[ OK ] cold-boot-contract             0.26s
+[SKIP] windows-python-resolution: non-Windows host
+
+=== VERBOSE SUITE LOGS ===
+
+[ OK ] repository-validator detailed output
+------------------------------------------------------------------------
+test_bad_jsonl_event (__main__.ValidatorTests.test_bad_jsonl_event) ... ok
+test_broken_internal_relation (__main__.ValidatorTests.test_broken_internal_relation) ... ok
+test_collaboration_handoff_is_forbidden (__main__.ValidatorTests.test_collaboration_handoff_is_forbidden) ... ok
+test_default_retrieval_corpus_excludes_superseded_records (__main__.ValidatorTests.test_default_retrieval_corpus_excludes_superseded_records) ... ok
+test_deprecated_evidence_bucket_rejects_new_record (__main__.ValidatorTests.test_deprecated_evidence_bucket_rejects_new_record) ... ok
+test_duplicate_canonical_id (__main__.ValidatorTests.test_duplicate_canonical_id) ... ok
+test_duplicate_ledger_event_id (__main__.ValidatorTests.test_duplicate_ledger_event_id) ... ok
+test_duplicate_supersession_relation_is_forbidden (__main__.ValidatorTests.test_duplicate_supersession_relation_is_forbidden) ... ok
+test_filename_id_mismatch (__main__.ValidatorTests.test_filename_id_mismatch) ... ok
+test_generated_context_is_allowed (__main__.ValidatorTests.test_generated_context_is_allowed) ... ok
+test_governance_provider_is_enforced (__main__.ValidatorTests.test_governance_provider_is_enforced) ... ok
+test_index_missing_record (__main__.ValidatorTests.test_index_missing_record) ... ok
+test_invalid_adr_status (__main__.ValidatorTests.test_invalid_adr_status) ... ok
+test_invalid_kind (__main__.ValidatorTests.test_invalid_kind) ... ok
+test_invalid_timestamp (__main__.ValidatorTests.test_invalid_timestamp) ... ok
+test_malformed_lifecycle_relation_returns_diagnostics (__main__.ValidatorTests.test_malformed_lifecycle_relation_returns_diagnostics) ... ok
+test_missing_adr_heading (__main__.ValidatorTests.test_missing_adr_heading) ... ok
+test_missing_front_matter (__main__.ValidatorTests.test_missing_front_matter) ... ok
+test_missing_session_next_action (__main__.ValidatorTests.test_missing_session_next_action) ... ok
+test_new_ledger_file_is_forbidden (__main__.ValidatorTests.test_new_ledger_file_is_forbidden) ... ok
+test_nonmanual_trigger_without_value (__main__.ValidatorTests.test_nonmanual_trigger_without_value) ... ok
+test_obligation_without_trigger (__main__.ValidatorTests.test_obligation_without_trigger) ... ok
+test_only_superseded_records_may_name_successors (__main__.ValidatorTests.test_only_superseded_records_may_name_successors) ... ok
+test_repository_inventory_rejects_live_sha (__main__.ValidatorTests.test_repository_inventory_rejects_live_sha) ... ok
+test_repository_is_valid (__main__.ValidatorTests.test_repository_is_valid) ... ok
+test_self_supersession_is_forbidden (__main__.ValidatorTests.test_self_supersession_is_forbidden) ... ok
+test_superseded_obligation_requires_successor (__main__.ValidatorTests.test_superseded_obligation_requires_successor) ... ok
+test_superseded_record_requires_successor (__main__.ValidatorTests.test_superseded_record_requires_successor) ... ok
+test_supersedes_target_must_be_superseded (__main__.ValidatorTests.test_supersedes_target_must_be_superseded) ... ok
+test_supersession_graph_is_acyclic (__main__.ValidatorTests.test_supersession_graph_is_acyclic) ... ok
+test_supersession_relation_must_be_reciprocal (__main__.ValidatorTests.test_supersession_relation_must_be_reciprocal) ... ok
+test_valid_record (__main__.ValidatorTests.test_valid_record) ... ok
+
+----------------------------------------------------------------------
+Ran 32 tests in 14.190s
+
+OK
+Unit tests and repository validation PASS
+------------------------------------------------------------------------
+
+[ OK ] context-compiler detailed output
+------------------------------------------------------------------------
+test_after_accepts_explicit_completion_signal (__main__.ContextCompilerCoreTests.test_after_accepts_explicit_completion_signal) ... ok
+test_after_uses_closed_ledger_without_inferring_absence (__main__.ContextCompilerCoreTests.test_after_uses_closed_ledger_without_inferring_absence) ... ok
+test_before_requires_named_boundary (__main__.ContextCompilerCoreTests.test_before_requires_named_boundary) ... ok
+test_canonical_store_loads_indexes_and_nonterminal_obligations (__main__.ContextCompilerCoreTests.test_canonical_store_loads_indexes_and_nonterminal_obligations) ... ok
+test_condition_requires_explicit_true_condition (__main__.ContextCompilerCoreTests.test_condition_requires_explicit_true_condition) ... ok
+test_explicit_id_selects_unrelated_adr (__main__.ContextCompilerCoreTests.test_explicit_id_selects_unrelated_adr) ... ok
+test_fixed_now_produces_identical_pack (__main__.ContextCompilerCoreTests.test_fixed_now_produces_identical_pack) ... ok
+test_foundation_scope_exit_pack_surfaces_boundary_and_deferred_obligation (__main__.ContextCompilerCoreTests.test_foundation_scope_exit_pack_surfaces_boundary_and_deferred_obligation) ... ok
+test_gas_implementation_boundary_makes_discovery_obligation_due (__main__.ContextCompilerCoreTests.test_gas_implementation_boundary_makes_discovery_obligation_due) ... ok
+test_generated_pack_validates_against_output_schema (__main__.ContextCompilerCoreTests.test_generated_pack_validates_against_output_schema) ... ok
+test_mandatory_sources_load_in_contract_order (__main__.ContextCompilerCoreTests.test_mandatory_sources_load_in_contract_order) ... ok
+test_manual_trigger_never_auto_fires (__main__.ContextCompilerCoreTests.test_manual_trigger_never_auto_fires) ... ok
+test_markdown_render_contains_canonical_sources_and_trigger_state (__main__.ContextCompilerCoreTests.test_markdown_render_contains_canonical_sources_and_trigger_state) ... ok
+test_math_vec3f_pack_surfaces_representation_adr (__main__.ContextCompilerCoreTests.test_math_vec3f_pack_surfaces_representation_adr) ... ok
+test_normalize_preserves_hyphenated_repository_name_and_components (__main__.ContextCompilerCoreTests.test_normalize_preserves_hyphenated_repository_name_and_components) ... ok
+test_on_change_only_uses_changed_set (__main__.ContextCompilerCoreTests.test_on_change_only_uses_changed_set) ... ok
+test_on_date_invalid_value_is_unresolved (__main__.ContextCompilerCoreTests.test_on_date_invalid_value_is_unresolved) ... ok
+test_on_date_is_reproducible_with_explicit_now (__main__.ContextCompilerCoreTests.test_on_date_is_reproducible_with_explicit_now) ... ok
+test_on_touch_does_not_guess_from_weak_overlap (__main__.ContextCompilerCoreTests.test_on_touch_does_not_guess_from_weak_overlap) ... ok
+test_on_touch_matches_explicit_touch (__main__.ContextCompilerCoreTests.test_on_touch_matches_explicit_touch) ... ok
+test_prepare_query_fills_optional_lists_without_mutating_input (__main__.ContextCompilerCoreTests.test_prepare_query_fills_optional_lists_without_mutating_input) ... ok
+test_prepare_query_rejects_unknown_fields (__main__.ContextCompilerCoreTests.test_prepare_query_rejects_unknown_fields) ... ok
+test_project_documents_are_stably_sorted (__main__.ContextCompilerCoreTests.test_project_documents_are_stably_sorted) ... ok
+test_query_terms_are_deterministic_and_do_not_use_signals (__main__.ContextCompilerCoreTests.test_query_terms_are_deterministic_and_do_not_use_signals) ... ok
+test_unknown_explicit_id_is_reported (__main__.ContextCompilerCoreTests.test_unknown_explicit_id_is_reported) ... ok
+test_write_context_pack_is_deterministic_for_fixed_pack (__main__.ContextCompilerCoreTests.test_write_context_pack_is_deterministic_for_fixed_pack) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 4.587s
+
+OK
+------------------------------------------------------------------------
+
+[ OK ] record-lifecycle detailed output
+------------------------------------------------------------------------
+test_default_current_filters_every_noncurrent_state_and_relation_expansion (__main__.LifecycleTests.test_default_current_filters_every_noncurrent_state_and_relation_expansion) ... ok
+test_every_explicit_noncurrent_id_is_inspectable_without_broadening_other_history (__main__.LifecycleTests.test_every_explicit_noncurrent_id_is_inspectable_without_broadening_other_history) ... ok
+test_explicit_low_rank_record_survives_candidate_ceiling (__main__.LifecycleTests.test_explicit_low_rank_record_survives_candidate_ceiling) ... ok
+test_history_is_inclusive_without_promoting_records (__main__.LifecycleTests.test_history_is_inclusive_without_promoting_records) ... ok
+test_history_query_does_not_contaminate_reused_current_retriever (__main__.LifecycleTests.test_history_query_does_not_contaminate_reused_current_retriever) ... ok
+test_repository_default_pack_no_longer_includes_superseded_foundation_adr (__main__.LifecycleTests.test_repository_default_pack_no_longer_includes_superseded_foundation_adr) ... ok
+test_status_policy_matches_schema_and_independent_current_contract (__main__.LifecycleTests.test_status_policy_matches_schema_and_independent_current_contract) ... ok
+test_supersession_links_survive_pack_and_candidate_serialization (__main__.LifecycleTests.test_supersession_links_survive_pack_and_candidate_serialization) ... ok
+test_unknown_explicit_id_is_reported_without_substitution (__main__.LifecycleTests.test_unknown_explicit_id_is_reported_without_substitution) ... ok
+test_unknown_mode_or_status_is_rejected (__main__.LifecycleTests.test_unknown_mode_or_status_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 5.754s
+
+OK
+------------------------------------------------------------------------
+
+[ OK ] context-r1 detailed output
+------------------------------------------------------------------------
+test_closed_world_requires_explicit_completeness_and_evidence (__main__.R1Tests.test_closed_world_requires_explicit_completeness_and_evidence) ... ok
+test_constraint_survives_top1_and_is_not_permission (__main__.R1Tests.test_constraint_survives_top1_and_is_not_permission) ... ok
+test_evidence_preserves_all_metadata_and_original_source (__main__.R1Tests.test_evidence_preserves_all_metadata_and_original_source) ... ok
+test_fixed_snapshot_query_and_clock_reproduce_identical_payload (__main__.R1Tests.test_fixed_snapshot_query_and_clock_reproduce_identical_payload) ... ok
+test_git_capture_uses_one_commit_and_rejects_dirty_default (__main__.R1Tests.test_git_capture_uses_one_commit_and_rejects_dirty_default) ... ok
+test_mandatory_view_closure_is_shared_with_candidate_bundle (__main__.R1Tests.test_mandatory_view_closure_is_shared_with_candidate_bundle) ... ok
+test_missing_constraint_evidence_fails_closed (__main__.R1Tests.test_missing_constraint_evidence_fails_closed) ... ok
+test_missing_false_and_conflicting_conditions_remain_distinct (__main__.R1Tests.test_missing_false_and_conflicting_conditions_remain_distinct) ... ok
+test_missing_mandatory_source_fails_even_for_unrelated_task (__main__.R1Tests.test_missing_mandatory_source_fails_even_for_unrelated_task) ... ok
+test_payload_tampering_is_detected (__main__.R1Tests.test_payload_tampering_is_detected) ... ok
+test_render_uses_selected_snapshot_after_working_source_changes (__main__.R1Tests.test_render_uses_selected_snapshot_after_working_source_changes) ... ok
+test_reused_retriever_remains_bound_to_old_snapshot (__main__.R1Tests.test_reused_retriever_remains_bound_to_old_snapshot) ... ok
+test_tiny_budget_fails_without_truncating_protected_material (__main__.R1Tests.test_tiny_budget_fails_without_truncating_protected_material) ... ok
+test_unknown_operation_retains_unresolved_constraint (__main__.R1Tests.test_unknown_operation_retains_unresolved_constraint) ... ok
+test_unknown_view_and_broken_view_reference_fail (__main__.R1Tests.test_unknown_view_and_broken_view_reference_fail) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 10.774s
+
+OK
+------------------------------------------------------------------------
+
+[ OK ] context-kernel-k1 detailed output
+------------------------------------------------------------------------
+test_blob_corruption_is_detected (__main__.ImportTests.test_blob_corruption_is_detected) ... ok
+test_clone_location_does_not_change_identity (__main__.ImportTests.test_clone_location_does_not_change_identity) ... ok
+test_dirty_working_tree_does_not_change_explicit_import (__main__.ImportTests.test_dirty_working_tree_does_not_change_explicit_import) ... ok
+test_duplicate_metadata_cannot_be_silently_overwritten (__main__.ImportTests.test_duplicate_metadata_cannot_be_silently_overwritten) ... ok
+test_exact_candidate_git_snapshot_import (__main__.ImportTests.test_exact_candidate_git_snapshot_import) ... ok
+test_export_attributes_do_not_drop_or_transform_raw_source (__main__.ImportTests.test_export_attributes_do_not_drop_or_transform_raw_source) ... ok
+test_git_replace_refs_cannot_change_exact_import (__main__.ImportTests.test_git_replace_refs_cannot_change_exact_import) ... ok
+test_index_disagreement_is_not_silently_imported (__main__.ImportTests.test_index_disagreement_is_not_silently_imported) ... ok
+test_missing_mandatory_source_fails (__main__.ImportTests.test_missing_mandatory_source_fails) ... ok
+test_nonreciprocal_lifecycle_fails (__main__.ImportTests.test_nonreciprocal_lifecycle_fails) ... ok
+test_object_round_trip_and_acyclic_digest_dependencies (__main__.ImportTests.test_object_round_trip_and_acyclic_digest_dependencies) ... ok
+test_raw_round_trip_all_source_bytes (__main__.ImportTests.test_raw_round_trip_all_source_bytes) ... ok
+test_receipt_never_authenticates_caller_or_promotes_authority (__main__.ImportTests.test_receipt_never_authenticates_caller_or_promotes_authority) ... ok
+test_records_preserve_all_metadata_and_body (__main__.ImportTests.test_records_preserve_all_metadata_and_body) ... ok
+test_repeat_import_and_actor_independence (__main__.ImportTests.test_repeat_import_and_actor_independence) ... ok
+test_symlink_in_source_closure_fails (__main__.ImportTests.test_symlink_in_source_closure_fails) ... ok
+test_unknown_record_status_fails (__main__.ImportTests.test_unknown_record_status_fails) ... ok
+test_unsupported_schema_fails_without_using_supplied_definition (__main__.ImportTests.test_unsupported_schema_fails_without_using_supplied_definition) ... ok
+test_fixed_golden_vectors (__main__.SerializationTests.test_fixed_golden_vectors) ... ok
+test_iterative_lifecycle_long_chain_and_malformed_inputs (__main__.SerializationTests.test_iterative_lifecycle_long_chain_and_malformed_inputs) ... ok
+test_object_domain_version_and_immutability (__main__.SerializationTests.test_object_domain_version_and_immutability) ... ok
+test_reject_unsupported_values_and_encodings (__main__.SerializationTests.test_reject_unsupported_values_and_encodings) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 13.908s
+
+OK
+------------------------------------------------------------------------
+
+[ OK ] context-kernel-k2 detailed output
+------------------------------------------------------------------------
+test_abort_is_durable_and_cannot_undo_committed (__main__.TransactionTests.test_abort_is_durable_and_cannot_undo_committed) ... ok
+test_abort_races_commit_without_undoing_winner (__main__.TransactionTests.test_abort_races_commit_without_undoing_winner) ... ok
+test_commit_binds_all_evidence_and_retains_predecessor (__main__.TransactionTests.test_commit_binds_all_evidence_and_retains_predecessor) ... ok
+test_conflicting_request_cannot_steal_pending_key (__main__.TransactionTests.test_conflicting_request_cannot_steal_pending_key) ... ok
+test_different_writers_on_same_base_only_one_commits (__main__.TransactionTests.test_different_writers_on_same_base_only_one_commits) ... ok
+test_expired_identity_mismatched_principal_and_grant_rejected (__main__.TransactionTests.test_expired_identity_mismatched_principal_and_grant_rejected) ... ok
+test_governance_cannot_authorize_its_own_installation (__main__.TransactionTests.test_governance_cannot_authorize_its_own_installation) ... ok
+test_invalid_lifecycle_is_atomic (__main__.TransactionTests.test_invalid_lifecycle_is_atomic) ... ok
+test_invalid_namespace_cannot_bypass_governance (__main__.TransactionTests.test_invalid_namespace_cannot_bypass_governance) ... ok
+test_known_precommit_failure_rolls_back_successor_objects (__main__.TransactionTests.test_known_precommit_failure_rolls_back_successor_objects) ... ok
+test_lost_acknowledgement_returns_unknown_then_exact_receipt (__main__.TransactionTests.test_lost_acknowledgement_returns_unknown_then_exact_receipt) ... ok
+test_new_evidence_and_external_unknown_are_preserved (__main__.TransactionTests.test_new_evidence_and_external_unknown_are_preserved) ... ok
+test_old_policy_authorizes_governance_change_and_new_policy_applies (__main__.TransactionTests.test_old_policy_authorizes_governance_change_and_new_policy_applies) ... ok
+test_preconditions_and_missing_evidence_reject_without_head_change (__main__.TransactionTests.test_preconditions_and_missing_evidence_reject_without_head_change) ... ok
+test_process_crash_recovery_at_three_atomic_boundaries (__main__.TransactionTests.test_process_crash_recovery_at_three_atomic_boundaries) ... ok
+test_reciprocal_supersession_transaction (__main__.TransactionTests.test_reciprocal_supersession_transaction) ... ok
+test_record_time_cannot_move_backward (__main__.TransactionTests.test_record_time_cannot_move_backward) ... ok
+test_result_access_is_principal_scoped_and_revocable (__main__.TransactionTests.test_result_access_is_principal_scoped_and_revocable) ... ok
+test_revocation_between_preparation_and_publication (__main__.TransactionTests.test_revocation_between_preparation_and_publication) ... ok
+test_same_key_changed_payload_and_reused_transaction_id_rejected (__main__.TransactionTests.test_same_key_changed_payload_and_reused_transaction_id_rejected) ... ok
+test_same_key_concurrent_retries_publish_once (__main__.TransactionTests.test_same_key_concurrent_retries_publish_once) ... ok
+test_same_key_is_scoped_by_authenticated_principal (__main__.TransactionTests.test_same_key_is_scoped_by_authenticated_principal) ... ok
+test_same_key_replay_after_head_advance_returns_original (__main__.TransactionTests.test_same_key_replay_after_head_advance_returns_original) ... ok
+test_unknown_dependency_and_absent_result_do_not_claim_rollback (__main__.TransactionTests.test_unknown_dependency_and_absent_result_do_not_claim_rollback) ... ok
+test_unknown_operation_and_malformed_view_are_definite_rejections (__main__.TransactionTests.test_unknown_operation_and_malformed_view_are_definite_rejections) ... ok
+test_validation_is_advisory_and_revocation_is_rechecked (__main__.TransactionTests.test_validation_is_advisory_and_revocation_is_rechecked) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 10.184s
+
+OK
+------------------------------------------------------------------------
+
+[ OK ] context-kernel-k3 detailed output
+------------------------------------------------------------------------
+..................
+----------------------------------------------------------------------
+Ran 18 tests in 36.605s
+
+OK
+------------------------------------------------------------------------
+
+[ OK ] hybrid-retrieval detailed output
+------------------------------------------------------------------------
+test_explicit_id_is_preserved (__main__.HybridRetrievalTests.test_explicit_id_is_preserved) ... ok
+test_frozen_constants (__main__.HybridRetrievalTests.test_frozen_constants) ... ok
+test_reciprocal_rank_is_monotonic (__main__.HybridRetrievalTests.test_reciprocal_rank_is_monotonic) ... ok
+test_rrf_rewards_agreement_across_channels (__main__.HybridRetrievalTests.test_rrf_rewards_agreement_across_channels) ... ok
+test_semantic_only_candidate_can_enter_fused_ranking (__main__.HybridRetrievalTests.test_semantic_only_candidate_can_enter_fused_ranking) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.210s
+
+OK
+------------------------------------------------------------------------
+
+[ OK ] structural-retrieval detailed output
+------------------------------------------------------------------------
+test_explicit_id_overrides_scope_filter (__main__.StructuralRetrievalTests.test_explicit_id_overrides_scope_filter) ... ok
+test_frozen_structural_constants (__main__.StructuralRetrievalTests.test_frozen_structural_constants) ... ok
+test_gas_query_infers_qiven_gas_project_scope (__main__.StructuralRetrievalTests.test_gas_query_infers_qiven_gas_project_scope) ... ok
+test_graph_channel_only_expands_one_hop_from_frozen_seeds (__main__.StructuralRetrievalTests.test_graph_channel_only_expands_one_hop_from_frozen_seeds) ... ok
+test_graph_evidence_can_promote_incoming_related_lesson (__main__.StructuralRetrievalTests.test_graph_evidence_can_promote_incoming_related_lesson) ... ok
+test_project_scope_rejects_cross_domain_physics_record (__main__.StructuralRetrievalTests.test_project_scope_rejects_cross_domain_physics_record) ... ok
+test_relation_graph_is_bidirectional_for_incoming_memory_edge (__main__.StructuralRetrievalTests.test_relation_graph_is_bidirectional_for_incoming_memory_edge) ... ok
+test_structural_rank_filters_physics_distractor_from_gas_query (__main__.StructuralRetrievalTests.test_structural_rank_filters_physics_distractor_from_gas_query) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.154s
+
+OK
+------------------------------------------------------------------------
+
+[ OK ] rerank-retrieval detailed output
+------------------------------------------------------------------------
+test_deterministic_candidate_is_preserved_beyond_semantic_pool (__main__.RerankRetrievalTests.test_deterministic_candidate_is_preserved_beyond_semantic_pool) ... ok
+test_frozen_candidate_constants (__main__.RerankRetrievalTests.test_frozen_candidate_constants) ... ok
+test_graph_expands_only_from_strongest_base_anchor (__main__.RerankRetrievalTests.test_graph_expands_only_from_strongest_base_anchor) ... ok
+test_project_scope_filter_removes_cross_domain_physics_candidate (__main__.RerankRetrievalTests.test_project_scope_filter_removes_cross_domain_physics_candidate) ... ok
+test_rank_orders_candidates_by_cross_encoder_score (__main__.RerankRetrievalTests.test_rank_orders_candidates_by_cross_encoder_score) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 2.690s
+
+OK
+------------------------------------------------------------------------
+
+[ OK ] candidate-bundle detailed output
+------------------------------------------------------------------------
+test_bundle_is_explicitly_untrusted_and_answerability_is_unresolved (__main__.RetrievalCandidateBundleTests.test_bundle_is_explicitly_untrusted_and_answerability_is_unresolved) ... ok
+test_bundle_preserves_canonical_content_and_ranking_provenance (__main__.RetrievalCandidateBundleTests.test_bundle_preserves_canonical_content_and_ranking_provenance) ... ok
+test_bundle_preserves_rank_order_and_caps_candidates (__main__.RetrievalCandidateBundleTests.test_bundle_preserves_rank_order_and_caps_candidates) ... ok
+test_invalid_candidate_ceiling_is_rejected (__main__.RetrievalCandidateBundleTests.test_invalid_candidate_ceiling_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 2.804s
+
+OK
+------------------------------------------------------------------------
+
+[ OK ] candidate-acceptance detailed output
+------------------------------------------------------------------------
+test_loader_rejects_wrong_cognition_expectation (__main__.CandidateRetrievalAcceptanceTests.test_loader_rejects_wrong_cognition_expectation) ... ok
+test_metrics_measure_candidate_recall_top1_and_forbidden_top1 (__main__.CandidateRetrievalAcceptanceTests.test_metrics_measure_candidate_recall_top1_and_forbidden_top1) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.405s
+
+OK
+------------------------------------------------------------------------
+
+[ OK ] context-acceptance detailed output
+------------------------------------------------------------------------
+test_cli_emits_schema_valid_json_and_source_grounded_markdown (__main__.ContextCompilerAcceptanceTests.test_cli_emits_schema_valid_json_and_source_grounded_markdown) ... ok
+test_devkit_adoption_pack_preserves_closed_drift_guardrail_without_reopening_work (__main__.ContextCompilerAcceptanceTests.test_devkit_adoption_pack_preserves_closed_drift_guardrail_without_reopening_work) ... ok
+test_fixed_fixture_is_reproducible_as_manifest_and_markdown (__main__.ContextCompilerAcceptanceTests.test_fixed_fixture_is_reproducible_as_manifest_and_markdown) ... ok
+test_foundation_pack_is_selective_and_explainable (__main__.ContextCompilerAcceptanceTests.test_foundation_pack_is_selective_and_explainable) ... ok
+test_gas_pack_makes_source_recovery_boundary_due_without_native_noise (__main__.ContextCompilerAcceptanceTests.test_gas_pack_makes_source_recovery_boundary_due_without_native_noise) ... ok
+test_math_pack_recalls_representation_contract_without_cross_domain_dump (__main__.ContextCompilerAcceptanceTests.test_math_pack_recalls_representation_contract_without_cross_domain_dump) ... ok
+test_math_resume_pack_preserves_closed_batch_history_without_reopening_work (__main__.ContextCompilerAcceptanceTests.test_math_resume_pack_preserves_closed_batch_history_without_reopening_work) ... ok
+test_specific_on_touch_trigger_does_not_fire_from_broad_project_scope (__main__.ContextCompilerAcceptanceTests.test_specific_on_touch_trigger_does_not_fire_from_broad_project_scope) ... ok
+test_workspace_condition_remains_explicit (__main__.ContextCompilerAcceptanceTests.test_workspace_condition_remains_explicit) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 4.762s
+
+OK
+------------------------------------------------------------------------
+
+[ OK ] cold-boot-contract detailed output
+------------------------------------------------------------------------
+test_batch004_historical_completion_survives_v2_without_current_state_duplication (__main__.ColdBootContractTests.test_batch004_historical_completion_survives_v2_without_current_state_duplication) ... ok
+test_bootstrap_uses_v2_remote_authority_material_order_and_context_view (__main__.ColdBootContractTests.test_bootstrap_uses_v2_remote_authority_material_order_and_context_view) ... ok
+test_context_view_separates_project_truth_from_jasonpc_workflow (__main__.ColdBootContractTests.test_context_view_separates_project_truth_from_jasonpc_workflow) ... ok
+test_current_session_checkpoint_has_required_continuity_fields (__main__.ColdBootContractTests.test_current_session_checkpoint_has_required_continuity_fields) ... ok
+test_github_mutation_incident_guardrail_is_active (__main__.ColdBootContractTests.test_github_mutation_incident_guardrail_is_active) ... ok
+test_governance_contract_is_remote_and_account_level (__main__.ColdBootContractTests.test_governance_contract_is_remote_and_account_level) ... ok
+test_historical_batch004_challenge_remains_reproducible (__main__.ColdBootContractTests.test_historical_batch004_challenge_remains_reproducible) ... ok
+test_historical_rubric_still_references_existing_canonical_ids (__main__.ColdBootContractTests.test_historical_rubric_still_references_existing_canonical_ids) ... ok
+test_human_succession_is_separate_higher_order_contract (__main__.ColdBootContractTests.test_human_succession_is_separate_higher_order_contract) ... ok
+test_operator_human_contract_is_cross_platform_and_view_bound (__main__.ColdBootContractTests.test_operator_human_contract_is_cross_platform_and_view_bound) ... ok
+test_project_continuity_contract_covers_v2_reconstruction_without_fresh_human_gate (__main__.ColdBootContractTests.test_project_continuity_contract_covers_v2_reconstruction_without_fresh_human_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.072s
+
+OK
+------------------------------------------------------------------------
+
+[ OK ] Test suites complete: mode=parallel, wall=37.05s, failures=0

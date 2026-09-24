@@ -1,0 +1,68 @@
+schema_version: 1
+kind: declared-program-pack
+pack_id: mvp4-corrective-lane-2026-09-24
+created_at: '2026-09-24T03:35:00Z'
+created_by: v23 session (designation jason-extended-cognition, long-running mode)
+authority: 'ADR-0050 / roadmap amendment §8.5.2 (declared program packs)'
+purpose: >-
+  Working cognition for the bounded MVP-4 corrective lane only. Recorded,
+  revision-pinned, expiry-dated. Evidence toward CA-0 activation metadata;
+  NEVER a competing activation architecture and never a permanent substitute.
+expiry:
+  condition: the MVP-4 real-H1 exit gate passes (or the lane is re-scoped by owner direction)
+  on_expiry: >-
+    close the corrective-lane obligation item, remove this pack from default
+    delivery, retain as historical evidence.
+pinned_sources:
+  - repository: qiven-context
+    revision: '90266a2c8c7b9793c5d0ae1762cce2b9c576a397 (plus the CA-0 transaction landing this pack)'
+  - repository: qiven-runtime
+    revision: 'f0ca5b75a39e1a18ed0ec8c6c182365b7bb3e297'
+  - repository: qiven-devkit
+    revision: '71f1c62 (main)'
+  - repository: qiven-foundation
+    revision: '79e6789 (main)'
+rules:
+  - id: SCAR-BORROWED-LIFETIME
+    source: {repository: qiven-context, path: memory/records/MEM-20260924T032100Z-D4E5F6.md, anchor: body}
+    applies_when: 'implementation or review touches storage crossing a delayed/async boundary (boundary_kinds: [lifetime, ownership])'
+    expected: owning storage at the Runtime/domain type; delayed path is the tested path; ASan or adversarial reuse construction for the stored path
+  - id: SCAR-WIRE-CONTRACT
+    source: {repository: qiven-context, path: memory/records/MEM-20260924T032000Z-C1D2E3.md, anchor: body}
+    applies_when: 'any IPC/protocol change (boundary_kinds: [ipc, external-contract])'
+    expected: >-
+      real-transport test exercising the REAL client frame sequence; disjoint
+      diagnosable denial classes per failure cause; no dead guards; no
+      comments claiming unimplemented behavior
+  - id: SCAR-ASSUMED-FIELD
+    source: {repository: qiven-context, path: memory/records/MEM-20260923T115500Z-A1B2C3.md, anchor: body}
+    applies_when: 'parsing external payloads (boundary_kinds: [external-contract])'
+    expected: no assumed field REQUIRED in owner-live paths; --dump-stdin-class producer evidence before contract claims
+  - id: H1-KIT-STANDARD
+    source: {repository: qiven-devkit, path: docs/engineering/h1-kit.md, anchor: body}
+    applies_when: 'any owner-live kit work'
+    expected: tool-built package, enable-gated pre-flight, rollback, paste-ready single-block instructions
+  - id: TESTING-STANDARD
+    source: {repository: qiven-devkit, path: docs/engineering/testing-standard.md, anchor: body}
+    applies_when: all lane implementation
+    expected: regressions fail under prior defective models; per-configuration fixture workroots
+  - id: WINDOW-SPAWN-LAW
+    source: {repository: qiven-context, path: memory/records/MEM-20260923T212000Z-D4E5F6.md, anchor: body}
+    applies_when: 'any process spawn in tools/tests (boundary_kinds: [process-custody, platform])'
+    expected: CREATE_NO_WINDOW children; _winapi/dict-env lessons applied in Python tooling
+  - id: OPERATOR-EXEC-LAW
+    source: {repository: qiven-devkit, path: docs/conventions/operator-usage.md, anchor: '§exec'}
+    applies_when: 'session shell usage during the lane'
+    expected: long-class commands via qiven exec; bounded custody
+independent_falsification_plan:
+  - property: connection model (multi-frame per connection over real pipe)
+    class: environmental (real-pipe multi-frame contract test in the runtime suite)
+  - property: denial taxonomy disjointness
+    class: mechanical (typed-code mapping tests; unknown-cause keeps 116)
+  - property: kit pre-flight honesty (fails when host unreachable; passes round-trip when healthy)
+    class: environmental (kit self-check exercised against real host + against absent host)
+  - property: no regression in prior fixed defects (deny-118 class, payload ownership)
+    class: mechanical (existing regressions kept green)
+  - note: >-
+      The real H1 rerun (owner hands) is the authoritative boundary evidence
+      and remains H1 - it is NOT delegated by long-running mode.

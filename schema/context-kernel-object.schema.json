@@ -1,0 +1,373 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "serialization_version": {
+          "const": 1
+        },
+        "kind": {
+          "const": "EvidenceObject"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "media_type": {
+              "type": "string",
+              "minLength": 1
+            },
+            "content_digest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "size": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "media_type",
+            "content_digest",
+            "size"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "serialization_version",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "serialization_version": {
+          "const": 1
+        },
+        "kind": {
+          "const": "SourceDocument"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "project_id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9.-]{0,127}$"
+            },
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "project_id",
+            "path",
+            "evidence"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "serialization_version",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "serialization_version": {
+          "const": 1
+        },
+        "kind": {
+          "const": "RecordRevision"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "project_id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9.-]{0,127}$"
+            },
+            "record_id": {
+              "type": "string",
+              "pattern": "^(ADR-[0-9]{4}|(MEM|OBL)-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6})$"
+            },
+            "record_kind": {
+              "enum": [
+                "adr",
+                "memory",
+                "obligation"
+              ]
+            },
+            "record_schema": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "metadata": {
+              "type": "object"
+            },
+            "body": {
+              "type": "string"
+            },
+            "source_document": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "creating_transaction": {
+              "type": "null"
+            },
+            "predecessor_revision": {
+              "type": "null"
+            },
+            "historical_authentication": {
+              "const": "unknown"
+            },
+            "historical_principal": {
+              "type": "null"
+            },
+            "historical_authority_decision": {
+              "type": "null"
+            },
+            "revision_history": {
+              "const": "not-imported"
+            }
+          },
+          "required": [
+            "project_id",
+            "record_id",
+            "record_kind",
+            "record_schema",
+            "metadata",
+            "body",
+            "source_document",
+            "creating_transaction",
+            "predecessor_revision",
+            "historical_authentication",
+            "historical_principal",
+            "historical_authority_decision",
+            "revision_history"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "serialization_version",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "serialization_version": {
+          "const": 1
+        },
+        "kind": {
+          "const": "ProjectSnapshot"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "project_id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9.-]{0,127}$"
+            },
+            "base_snapshot": {
+              "type": "null"
+            },
+            "history_scope": {
+              "const": "selected-git-tree-only"
+            },
+            "source": {
+              "type": "object",
+              "properties": {
+                "repository": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "commit": {
+                  "type": "string",
+                  "pattern": "^([0-9a-f]{40}|[0-9a-f]{64})$"
+                },
+                "tree": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "commit_evidence": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                "authentication": {
+                  "const": "unknown"
+                }
+              },
+              "required": [
+                "repository",
+                "commit",
+                "tree",
+                "commit_evidence",
+                "authentication"
+              ],
+              "additionalProperties": false
+            },
+            "records": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "record_id": {
+                    "type": "string",
+                    "pattern": "^(ADR-[0-9]{4}|(MEM|OBL)-[0-9]{8}T[0-9]{6}Z-[A-F0-9]{6})$"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^sha256:[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "record_id",
+                  "revision"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "documents": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "document": {
+                    "type": "string",
+                    "pattern": "^sha256:[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "path",
+                  "document"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "project_id",
+            "base_snapshot",
+            "history_scope",
+            "source",
+            "records",
+            "documents"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "serialization_version",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "serialization_version": {
+          "const": 1
+        },
+        "kind": {
+          "const": "ImportReceipt"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "snapshot": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "import_actor_assertion": {
+              "type": "string",
+              "minLength": 1
+            },
+            "actor_authentication": {
+              "const": "unknown"
+            },
+            "authorization": {
+              "const": "not_granted"
+            },
+            "instance_state": {
+              "const": "quarantined"
+            },
+            "source": {
+              "type": "object",
+              "properties": {
+                "repository": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "commit": {
+                  "type": "string",
+                  "pattern": "^([0-9a-f]{40}|[0-9a-f]{64})$"
+                },
+                "tree": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "commit_evidence": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                "authentication": {
+                  "const": "unknown"
+                }
+              },
+              "required": [
+                "repository",
+                "commit",
+                "tree",
+                "commit_evidence",
+                "authentication"
+              ],
+              "additionalProperties": false
+            },
+            "diagnostics": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "required": [
+            "snapshot",
+            "import_actor_assertion",
+            "actor_authentication",
+            "authorization",
+            "instance_state",
+            "source",
+            "diagnostics"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "serialization_version",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}
