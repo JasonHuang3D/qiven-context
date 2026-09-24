@@ -238,9 +238,27 @@ authored by the fix subagent as `LLM: GLM-5.3-flash`); round 2 verified
 7/7 RESOLVED, no regressions. F1 (bootstrap timeout typing) DEFERRED to
 the routine-advance decision (fixing it would move the trust-admitted
 control HEAD). Two new P3 observations recorded (managed-snapshot list
-residue; census path coupling). Consumption: ~6M subagent tokens free
-under the event; orchestrator cost = three compact reports — the
-workflow is repeatable pre-H1 at negligible cost.
+residue; census path coupling). Consumption CORRECTED (turn 5): the subagents
+actually served GLM-5.3 — paid, modest — because a mid-session
+subagent-model config change does not take effect (owner-verified
+platform fact; the PR #41 flash trailer is corrected by record, history
+untouched); orchestrator cost = three compact reports — the workflow
+remains repeatable at negligible orchestrator cost.
+
+**Turn 5 (same session)**: platform-fact correction recorded (above);
+**ADR-0053 DRAFTED (proposed)** per owner direction — the three ZCode
+roles concretized as a view-level advisory division of labor
+(worker=subagent embodiment, briefed not booted, no governance;
+brother=design/check/context-maintenance, cold boot, no governance;
+extended-cognition=main-only, governance-context authority under owner
+approval, human highest), ADR-0044's non-partition clause preserved,
+one engineering law for all roles, no AGENTS.md role text, the
+absolute no-LLM context-destruction red line (owner-hands-only class),
+delegation law extending the ADR-0050 orchestration boundary to
+implementation, and the recall mechanism (view trigger table + workflow
+patterns; router nudge as a revisit candidate). No view/workflow files
+land before owner acceptance; adjudication is batched with the DUE
+governance audit in the owner's next fresh session.
 
 ## Accepted engineering checkpoints
 
