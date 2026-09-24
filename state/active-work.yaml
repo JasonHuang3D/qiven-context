@@ -27,32 +27,32 @@ objective: >-
   MVP-4 H1 pass, RR-0, and CA-2 pass. Active batches: CA-0 + MVP-4
   corrective lane + RR-0 in one bounded interval (OBL-20260923T190500Z-D6E7F8).
 accepted_checkpoint:
-  subject: v27-turn3-wr2-delivered
-  ref: 'this transaction (owner WR-2 start "好的WR2 启动": WR-2 delivered at exactly the sealed budget - devkit PR #39 d36ffb6 comparator + PR #40 47c49a2 Profile B permanent regression + candidate validation + live wr2-report; equality classes Foundation/Draft/ThirdParty; math gate corroborating PASS; v27 checkpoint turn-3)'
+  subject: v27-turn4-r2-review-round-landed
+  ref: 'this transaction (orchestrated fresh-review round: 8 genuine findings, 7 fixed in devkit PR #41 ef4ea30, round-2 verified; F1 deferred to routine-advance; consumption observed; v27 checkpoint turn-4)'
   evidence:
-    - 'v27 turn 3 (2026-09-25, same session, long-running mode,
-      delegated per-batch H2): WR-2 delivered in exactly 2 devkit PRs /
-      1 session. PR #39: shadow preflight + legacy-pin comparator -
-      variable-keyed CMake pin extraction (QIVEN_*_PINNED_SHA), context
-      devkit_pin, managed snapshots as non-comparable; per-class typed
-      verdicts where a mismatch fails only its own class migration
-      gate; unknown pin variables typed PinExtractionAmbiguous; self-
-      test SH1-SH7. PR #40: the sealed Profile B fixture wired as the
-      PERMANENT regression (outcomes 1-5 + K complement; gate task
-      workspace-profile-b-tests); resolver candidate subcommand (the
-      minimal architecture 5.1 overlay form); live wr2-report.md. Live
-      verdicts: Foundation/Draft/ThirdParty equality (cutover-eligible
-      WR-3/4/5); Devkit class explicit WR-6 discrepancy; census
-      temporary records carry replacement stages + WR-8 gate; CA-1
-      clause recorded N/A. Fresh qiven-math gate PASS corroborates the
-      legacy path coexistence. Next owner decision: WR-3 Foundation
-      cutover (Profile J pilot).'
-    - 'Carried from turns 1-2 (published): devkit PRs #35-#38;
-      qiven-workspace main 1743d92 (trust-admitted); context f8c8975
-      (trust policy accepted).'
+    - 'v27 turn 4 (2026-09-25, same session, long-running mode,
+      delegated per-batch H2): first exercise of the owner-directed
+      subagent workflow (fresh review -> fresh fix -> fresh round-2
+      verification; R2 class per the ADR-0050 amendment; findings were
+      orchestrator-triaged candidate evidence; fixes rode normal gate
+      discipline). Round 1: 8 genuine findings (3xP2 + 5xP3, zero
+      false positives), disclosed items verified accurate, live shadow
+      report reproduced byte-identically. Fix: devkit PR #41 merge
+      ef4ea30 (gate:local PASS at 405d0a8 13/13; regressions R12-R15/
+      SH8/S14; fix-subagent authorship attributed GLM-5.3-flash).
+      Round 2: 7/7 RESOLVED, no regressions, whitelist green. F1
+      (bootstrap preflight timeout typing) DEFERRED - fixing it would
+      move the trust-admitted control revision before the
+      routine-advance rule is ratified. Two new P3 observations
+      recorded. Consumption: ~6.05M subagent tokens (free under the
+      bigmodel event); orchestrator input = three compact structured
+      reports (~260 lines).'
+    - 'Carried from turns 1-3 (published): WR-1 delivered + trust
+      policy accepted (admitted 1743d921); WR-2 delivered at the
+      sealed budget (PRs #39/#40); context main 9dea2f1.'
 current_candidate:
   subject: none-staged
-  ref: 'no unaccepted engineering candidate remains; WR-2 closed at its sealed budget'
+  ref: 'no unaccepted engineering candidate remains; the review round closed with the fix batch published'
   state: none
 blockers: []
 paused_work:
@@ -60,9 +60,10 @@ paused_work:
 - qiven-cad
 next_boundary: >-
   Owner decision point: WR-3 Foundation cutover as the Profile J pilot
-  (equality proven by the live WR-2 report). Routine-advance rule for
-  control-revision admission needed before the first lock movement.
+  (equality proven and hardened by the F3 fix). Routine-advance rule
+  needed before the first lock movement (also gates deferred F1).
   Governance audit DUE (six ADRs). MVP-4 kit fix owner-scheduled;
-  RR-0 then CA-1; MVP-5 frozen until CA-2. Router follow-up candidate:
-  path-prefixed qiven.cmd gate spellings escape gate-class (v4.1).
-updated_at: '2026-09-25T18:00:00Z'
+  RR-0 then CA-1; MVP-5 frozen until CA-2. Follow-up candidates:
+  F1, the two P3 shadow-tool observations, the router path-prefix
+  escape.
+updated_at: '2026-09-25T22:30:00Z'
