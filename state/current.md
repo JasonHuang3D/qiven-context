@@ -260,6 +260,20 @@ patterns; router nudge as a revisit candidate). No view/workflow files
 land before owner acceptance; adjudication is batched with the DUE
 governance audit in the owner's next fresh session.
 
+**Turn 6 (same session)**: two rulings folded into the still-proposed
+ADR-0053 — (1) the brief completeness law (§5a): mandatory brief
+template with role card + scoped engineering-law reading list +
+worker-side acknowledgment duty; worker cold boot REJECTED (would
+destroy the clean-context/noise-exclusion property; worker reads
+engineering law, never boots project cognition); (2) the preflight
+freshness canary (§5b): routine boundary tripwire under the ADR-0050
+orchestrated-boundary carve-out, honestly labeled (same-family,
+instruction-scoped read-abstention; invalid for acceptance-grade
+isolation classes), leakage ⇒ stop + owner escalation; hook variants
+owner-hands in the UI. First live canary PASS (knows_qiven=no, sealed
+artifact verified, ~28K tokens) — retroactively corroborating the
+turn-4 boundary.
+
 ## Accepted engineering checkpoints
 
 - ContextKernel K1-K4 (Python, sealed ADR-0040): K4 Canonical Artifact
