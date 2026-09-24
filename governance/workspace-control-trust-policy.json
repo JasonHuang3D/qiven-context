@@ -14,7 +14,10 @@
   "admitted_control_revisions": [
     "1743d921dabfb58b610a50bd544ca1864e7c9d66",
     "fcfede8d44c4f177e79eb32d5f813c4c35652dce",
-    "69cfaa5fecc105659794268c8020247f305fac90"
+    "69cfaa5fecc105659794268c8020247f305fac90",
+    "423082d428602abc7c21fd1af35652242d4e3cbd",
+    "f92c40d934f9e5ab1361eee345304ea6d96d6a8d",
+    "eb73bf3468cf00133b0fe056bd232303231c96e3"
   ],
   "admissions": [
     {
@@ -37,6 +40,24 @@
       "diff_shape": "workspace.lock.json node advancement only; declarations/ caches unchanged (no content change)",
       "shadow_receipt": "generation sha256:97d5ac31... validated; 5 checkouts verified; standing context->devkit SPLIT honestly reported (pin d1d2a3a vs locked 945fdd2); receipt .generated-temp/workspace-resolver/2026-09-24T215804Z-validate/receipt.json",
       "recorded_by": "v29 session (owner long-running mode; routine-advance rule ratified the same session)"
+    },
+    {
+      "revision": "423082d428602abc7c21fd1af35652242d4e3cbd",
+      "admitted": "2026-09-25",
+      "class": "routine-advance",
+      "moved_nodes": "qiven-runtime 55379c7->ba2a959 (WR-4 draft-edge migration; the declarations/qiven-runtime.json cache updated by the advance - the new manifest declares qiven-context-draft-v1)",
+      "diff_shape": "workspace.lock.json node advancement + the declarations cache entry the advancement wrote",
+      "shadow_receipt": "generation sha256:52697319... validated; runtime+foundation+draft+devkit checkouts verified; standing context->devkit SPLIT unchanged; receipt .generated-temp/workspace-resolver/2026-09-24T220615Z-lock-update/receipt.json; runtime gate:local PASS at ba2a959 (bootstrap configure materializes the draft via the adapter - WR-4 exit criterion c) then merged to runtime main bd5cf73 (tree-identical)",
+      "recorded_by": "v29 session (owner long-running mode)"
+    },
+    {
+      "revision": "f92c40d934f9e5ab1361eee345304ea6d96d6a8d, eb73bf3468cf00133b0fe056bd232303231c96e3",
+      "admitted": "2026-09-25",
+      "class": "routine-advance pair (CI workspace-path migration)",
+      "moved_nodes": "runtime ba2a959->c7fa0bb then math bfea3bd->6e4c943 (CI windows-unit migration commits; declarations caches unchanged - manifests unchanged); both merged to main (5fe63b8 / 0eb0aa0, tree-identical) after gate:local PASS at the exact branch heads (runtime configure/build/test debug+release green through the bootstrap; math same)",
+      "diff_shape": "workspace.lock.json node advancement only",
+      "shadow_receipt": "receipts .generated-temp/workspace-resolver/2026-09-24T221131Z-lock-update and ...T221143Z-lock-update; standing context->devkit SPLIT unchanged. NOTE: the CI job files pin control revision 423082d - a self-consistent admitted snapshot whose lock matches every node checkout the jobs pin; later advances do not invalidate the snapshot",
+      "recorded_by": "v29 session (owner long-running mode)"
     }
   ],
   "routine_advance_rule": {
