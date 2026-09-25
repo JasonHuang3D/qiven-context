@@ -102,7 +102,8 @@
   },
   "residuals": [
     "Routine-advance rule RATIFIED 2026-09-25 (see routine_advance_rule; v29 owner direction, diff-shape qualified per the self-review rounds' recommendations). Standing residual: the pre-F3 locked devkit node 06cf75f at admitted revision fcfede8 predates the ControlTreeDirty authoritative guard (devkit b98e6c4+); the continuation batch advances the devkit lock node to an F3-bearing head before any first authoritative consumption, and the baseline conflict below independently backstops any sequencing slip.",
-    "The baseline devkit split keeps authoritative bootstrap typed-blocked (BaselineConflict) until WR-6 or an owner-directed pin reconciliation."
+    "The baseline devkit split keeps authoritative bootstrap typed-blocked (BaselineConflict) until WR-6 or an owner-directed pin reconciliation.",
+    "Owner adjudication 2026-09-26 (v31 turn 3, owner verbatim 全批): all four v29-disclosed veto items ACCEPTED - the self-review materiality line (MEM-20260925T053000Z-C1D2E3); the routine-advance ratification reading (the v29 turn-1 delegation covered it; the six executed routine advances stand); these standing exceptions on the WR-6 schedule; and the pre-turn-2 approval streaks stand as delivered with no re-run required. The v29 veto window is CLOSED."
   ],
   "consumed_by": "the qiven-devkit workspace resolver (authoritative mode reads this file via --trust-policy; the tool lives in the qiven-devkit repository, tools directory, not here)"
 }

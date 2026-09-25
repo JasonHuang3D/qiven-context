@@ -470,6 +470,26 @@ end to end:
    observation via the landed runner's explicit-identity mode as two
    background tasks — notification-once, zero polling, one JSON
    receipt each (v31 checkpoint carries both).
+4. **Turn 2 (owner questions)**: router adjudicated for ci watch
+   (gate-class by pattern; background is the designed shape; exec NOT
+   the path) — the regression test exposed a real defect:
+   env-before-python-launcher prefixes escaped classification (the
+   TAUGHT guard re-call form for python-launcher gate/run/ci), fixed
+   as router v4.2 (devkit main `58df1bd`; registry note landed).
+   Write-bearing delegation default landed as law (implementation by
+   the MAIN session at hook-free revisions; delegation owner-gated;
+   both view trigger tables updated; context main `670bc96`).
+5. **Turn 3 (owner verbatim "全批")**: the v29 veto window is CLOSED —
+   all four disclosed items ACCEPTED (the self-review materiality line
+   MEM-C1D2E3, now standing law; the routine-advance ratification
+   reading — the v29 turn-1 delegation covered it, the six executed
+   routine advances stand; the two trust-policy standing exceptions
+   stay on the WR-6 schedule; the pre-turn-2 approval streaks stand as
+   delivered, no re-run). Recorded in the trust-policy residuals array
+   and the MEM. Owner direction for the next session recorded: the
+   owner completes the MVP-4 real H1 BEFORE opening it; the proposed
+   long-session program lives in the v31 checkpoint (Next-session
+   program section).
 
 ## Accepted engineering checkpoints
 
@@ -638,31 +658,33 @@ repositories follow per
 
 1. **Owner hands (standing)**: the MVP-4 real H1 rerun (kit
    `h1-kits/qiven-runtime/mvp4-h1/0.1.0-g7b3ce515`, preflight-verified
-   from the owner-live shape); the veto window on the v29 disclosed
-   adjudications (materiality line MEM-C1D2E3; routine-advance
-   ratification reading; standing trust-policy exceptions; the v29
-   approval-streak caveat) and on the v31 outputs (experiments evidence
-   + delegation spec amendments + ci-watch runner + CI proofs; disclosed
-   residual: the runner's stuck-old-non-terminal preference trade-off,
-   documented at the devkit matcher).
-2. **RR-0 implementation batch** (still inside the open CA interval),
+   from the owner-live shape) — the owner stated 2026-09-26 it happens
+   BEFORE the next long session. The v29 and v31 veto windows are
+   CLOSED (owner 全批, turn 3).
+2. **Next long session program (owner direction 2026-09-26, full text
+   in the v31 checkpoint)**: opening transaction records the MVP-4 H1
+   result (pass closes the exit gate's owner row; fail reopens the
+   corrective lane); then the proposed lanes — (a) devkit
+   template/tool pre-wave (router v4.3: path-prefix escape +
+   gate-configure wrap gap; operator.json configure-task template
+   mechanism, the v29 deferred debt) so ONE WR-6 re-pin ripple carries
+   everything; (b) WR-5 toolchain+third-party cutover (one owner
+   opening grant; per-platform CI presets ride it; admission nodes via
+   3-pass self-review under the confirmed routine-advance rule);
+   (c) WR-6 pin reconciliation (closes the standing BaselineConflict;
+   re-pin ripple to all sibling repos); (d) RR-0 mechanical batch →
+   CA-1 (both inside the open CA interval) → CA-2 if executable
+   in-session → MVP-5 unfreeze; (e) archival-wave preparation for the
+   remaining repositories (OBL-F0A1B2) with owner UI actions
+   consolidated into one moment.
+3. **RR-0 implementation batch** (still inside the open CA interval),
    then **CA-1** (bounded batch, ceilings and stall trigger unchanged
    by ADR-0052). MVP-5 stays FROZEN until CA-2.
-3. **WR-5 Toolchain + third-party migration** when scheduled
-   (per-platform CI presets ride this class; the typed CI skips point
-   here), then WR-6 (pin reconciliation — the standing BaselineConflict).
-   The devkit ci-watch template re-pin ripple to sibling repos rides
-   WR-6 or the next managed-sync wave (repos keep the working v1
-   `ci start`; the explicit-identity `ci watch` covers cross-repo use
-   meanwhile).
-4. Router follow-up candidate (disclosed): path-prefixed `qiven.cmd
-   gate` escape AND the `gate-configure`-wraps-build-class gap — one
-   bounded devkit router batch.
-5. Standing: operator.json configure-task template consolidation
-   DEFERRED in v29 (no template-owned operator.json mechanism exists
-   yet; per-repo customs stand); managed template syncs need manual
-   customs re-applied per bump; git-network routing remains suspended
-   at the router per owner direction 2026-09-24; qiven-context's devkit
-   pin remains d1d2a3a (WR-6 reconciliation target; the standing typed
-   BaselineConflict against lock devkit node 945fdd2); the context lock
-   node (8914cef) rides the same WR-6 reconciliation.
+4. Standing: operator.json configure-task template consolidation
+   DEFERRED in v29 (now proposed as lane (a) of the next session);
+   managed template syncs need manual customs re-applied per bump;
+   git-network routing remains suspended at the router per owner
+   direction 2026-09-24; qiven-context's devkit pin remains d1d2a3a
+   (WR-6 reconciliation target; the standing typed BaselineConflict
+   against lock devkit node 945fdd2); the context lock node (8914cef)
+   rides the same WR-6 reconciliation.
