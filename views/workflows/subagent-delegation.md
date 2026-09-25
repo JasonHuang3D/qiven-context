@@ -202,6 +202,44 @@ The canary rule applies before R2-class rounds as usual.
    as decisive biases the verdict toward passing and is orchestrator
    self-pollution — nobody may declare a subagent task "final".
 
+## Transcript-provenance audit (mechanical, F1A2B3 law 2026-09-26)
+
+Worker behavior is verified against the harness transcript record
+(`~/.zcode/cli/db/db.sqlite`, `part.data`: tool calls carry exact
+`state.input`/`state.output`/`state.error`; a live router denial
+signature is `status:"error"` + error prefixed `[qiven-hook]`; reasoning
+parts carry thinking; `session.parent_id` links subagents; parts persist
+INCREMENTALLY during a run, so live capture by a bounded DB sampler is
+feasible — measured 2026-09-26).
+
+1. **Mechanical, never eyeballs**: the tool is
+   `qiven-context/tools/scan_subagent_transcripts.py` (curated pollution
+   taxonomy: loop-state, round-position, process-record paths; exact
+   seed markers for detection trials; exit codes gate-compatible).
+2. **When it runs**: after every approval-loop round, after every
+   boundary-sensitive delegation (R2-class review/fix/verify, bait-class
+   or compliance-sensitive work), and whenever a worker's honesty claim
+   is load-bearing. Routine read-only exploration does not require a
+   scan.
+3. **What it proves**: actual files read and commands run (ground truth
+   for bait/scope scoring), pollution markers per channel (brief text,
+   tool I/O, reasoning), live hook denials (must be 0 inside workers),
+   and seed-marker detection when pre-registered.
+4. **ACK verification is mechanical**: the worker's ACK disclosure is
+   compared against the transcript tool-input list — an ACK that omits
+   an actually-opened file is a finding, not a style issue. Measured:
+   8/8 honest ACKs in the F1A2B3 trials (including declined-temptation
+   disclosure); the duty is auditable, take it as measured, not trusted.
+5. **Provenance**: record worker session ids + scan JSON paths with the
+   results; experiment-grade scans and pre-registrations live under
+   workspace `.generated-temp`, load-bearing numbers land in
+   `evidence/audits/`.
+
+Measured evidence (2026-09-26 trials, k=3 A/B pairs + canary + b2, all
+clean-brief workers resisted answer-key/process-record/fake-law/shortcut
+baits 6/6 with zero unlisted reads; polluted-brief workers showed the
+verdict-drift class below): `evidence/audits/subagent-boundary-experiments-2026-09-26.md`.
+
 ## Clean-input boundary for worker briefs (owner direction 2026-09-25, turn 2)
 
 The purpose of a fresh worker is UNPOLLUTED ATTENTION on the task
@@ -235,11 +273,36 @@ reference case):
    consumed (including incidental exposure via commit messages at
    named heads) must be named there and the judgment justified on the
    artifact's merits.
-4. **Open question — router/hook denial text**: a denied command's
-   re-call instruction may itself carry project-law references across
-   the boundary. Whether router messages pollute a clean worker is a
-   LIVE-TEST question (next-session obligation) before relying on
-   them as a worker's only correction source.
+4. **Router/hook denial text — measured moot (F1A2B3, 2026-09-26)**: at
+   this harness revision no hook fires inside subagent runtimes
+   (MEM-20260926T195500Z-F1E2D3), so router denial text CANNOT reach a
+   worker at all — 0 live denials across all 49 recorded subagent
+   sessions (historical corpus + 8 experiment runs; every `[qiven-hook]`
+   string in worker transcripts is file content or a test subject's
+   stderr, never a router event). The spawn call itself is also unhooked
+   (workspace PreToolUse matches Bash only; background spawn fails closed
+   on plans without background agents). Consequence: **the brief is the
+   only channel into a worker**; measured live, a clean self-contained
+   brief held as the only correction channel with honest NOT-VERIFIED
+   reporting under four classes of declined temptation (b2 trial). If a
+   future harness revision wires hooks into child runtimes, re-open the
+   denial-text-pollution question before treating router messages as a
+   worker correction channel.
+
+Measured drift evidence (F1A2B3 A/B trials, 2026-09-26): the same
+artifact reviewed under a self-contained brief (k=3) produced zero
+loop-state markers and 3/3 artifact-only verdicts; under a
+process-record-laden brief (k=3, same artifact, same ambient files) all
+three transcripts carried loop-state material, 2/3 VERDICTS themselves
+contained round-position language ("does not pass round 2 as-is";
+"per the loop rules ... the consecutive-pass count does not advance"),
+and 3/3 spent report budget reconciling loop history instead of the
+artifact. Ambient unlisted files were NOT the channel (6/6 workers
+resisted answer-key/fake-law/shortcut baits under clean briefs) — **the
+brief itself is the pollution channel**: loop framing, round positions,
+and process records in a reading list leak into verdicts even when the
+stated rules are identical. "Context on what changed" is not a lawful
+reading-list entry; state the delta inline in the brief or not at all.
 
 ## Delegate-when heuristics
 
@@ -255,12 +318,20 @@ reference case):
   cold boot itself, or anything whose acceptance role requires an
   independent producer/consumer topology beyond the R2 class.
 
-## Platform facts in force (2026-09-25, owner-verified)
+## Platform facts in force (2026-09-25 owner-verified; 2026-09-26 live-reverified)
 
 - Subagent-model configuration takes effect only for sessions started
   after the change — mid-session changes do NOT apply; attribute the
   actually served model, not the configured one.
 - Foreground supervision on constrained plans: subagents run in the
-  foreground (the orchestrator waits); background subagents are
-  unavailable on some plans — plan state is operational fact, verify
-  live.
+  foreground (the orchestrator waits). Live-reverified 2026-09-26
+  (offpeak idle plan): background agents fail closed with a typed error
+  ("Idle-time tasks do not support background agents") — the read-only
+  multiprocess permission above stays unused on such plans.
+- No hook reaches subagent tool calls at this revision
+  (MEM-20260926T195500Z-F1E2D3); the spawn call itself is unhooked where
+  PreToolUse matchers cover Bash only — worker-side compliance rides the
+  brief + ACK duty, verified by the mechanical transcript audit above.
+- Transcript parts persist incrementally during subagent runs (session
+  DB), so in-flight mechanical supervision via a bounded DB sampler is
+  feasible when a round warrants it.

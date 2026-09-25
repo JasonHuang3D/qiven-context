@@ -428,6 +428,49 @@ the owner-approved harness-mediation feasibility PoC:
    qiven-toolchain-win; any future pin is a general-purpose entry on
    concrete need).
 
+## v31 session (2026-09-26)
+
+Owner-marked fresh session, designation jason-extended-cognition,
+**long-running mode from turn 1** ("全程委托H2…完整落地OBL-F1A2B3的所有
+内容"). Live-model report: GLM-5.3, account `bigmodel-offpeak-idle-plan`
+(variant/reasoning not introspectable). The OBL-F1A2B3 program landed
+end to end:
+
+1. **Subagent live boundary experiments COMPLETE** (pre-registered,
+   mechanically scored; audit `evidence/audits/subagent-boundary-
+   experiments-2026-09-26.md`; scanner `tools/scan_subagent_transcripts.py`
+   landed): historical corpus 41 sessions/1750 calls — v29 loop
+   pollution confirmed channel-by-channel, 0 live hook denials
+   corpus-wide, 0 false positives on 24 clean transcripts; live trials
+   (canary + A/B k=3 + b2 + b1) — baits B1-B4 6/6 clean, B5 8/8, seeds
+   100%, ACK honesty 8/8; **verdict drift measured**: process-record-
+   laden briefs put loop-state into 2/3 verdict lines and 3/3 report
+   budgets while clean briefs stayed 3/3 artifact-only — the brief
+   itself is the pollution channel; the brief is the ONLY correction
+   channel (no hook reaches a worker; spawn unhooked; background spawn
+   fails closed on this plan); live thinking capture FEASIBLE
+   (incremental persistence). Delegation spec amended (transcript-
+   provenance audit law, clean-input law-4 rewrite, drift evidence,
+   platform facts); MEM-20260926T210000Z-A3B4C5.
+2. **CI background runner LANDED** (devkit main `90c675a`; branch
+   heads `22c9999`→`bb98dd4`): `qiven ci watch` — observation-only,
+   identity-bound (exact head SHA; same-head decoy guard with 3-poll
+   stabilization), 10s internal gh polling, clean output, JSON receipt,
+   inherently terminating, explicit cross-repo identity mode. Gate
+   local PASS at `cc7e769` AND `bb98dd4` (operator suite 122 checks);
+   self-review = fresh-review (1×P2+6×P3, all fixed) + fresh-verify
+   (F1-F6 resolved; F7 closed; one documented deliberate trade-off:
+   stuck-old-non-terminal preference).
+3. **LLM-executed CI replacement proof: BOTH SUCCESS with receipts**:
+   qiven-math run `36185940592` (main `0eb0aa0`, conclusion=success,
+   terminal-stabilization path — the run completed before watch
+   lock-on, accepted as designed) and qiven-runtime run `36185938457`
+   (main `7b3ce51`, conclusion=success, 88.9s observed). Dispatch via
+   each repo's pinned operator `ci start` (origin==local verified);
+   observation via the landed runner's explicit-identity mode as two
+   background tasks — notification-once, zero polling, one JSON
+   receipt each (v31 checkpoint carries both).
+
 ## Accepted engineering checkpoints
 
 - ContextKernel K1-K4 (Python, sealed ADR-0040): K4 Canonical Artifact
@@ -593,33 +636,29 @@ repositories follow per
 
 ## Next boundary
 
-1. **NEXT SESSION, FIRST ACTION — subagent live boundary experiments**
-   (OBL-20260925T090500Z-F1A2B3): transcript-provenance harvest
-   (mechanical/scripted analysis of the harness subagent transcripts;
-   probe live thinking-log capture), the router-denial boundary probe,
-   and the clean-input A/B; amend the delegation spec on the measured
-   evidence.
-2. **CI background runner** (owner design: run_in_background python
-   watcher, 10s gh polling of a DISPATCHED run, clean output, errors
-   only — observation only, the dispatch-only trigger law stands),
-   then after tests + self-review + live experiments the **LLM-executed
-   CI replacement proof** (the migrated runtime+math CI).
-3. **Owner hands (standing)**: the MVP-4 real H1 rerun (kit
+1. **Owner hands (standing)**: the MVP-4 real H1 rerun (kit
    `h1-kits/qiven-runtime/mvp4-h1/0.1.0-g7b3ce515`, preflight-verified
    from the owner-live shape); the veto window on the v29 disclosed
    adjudications (materiality line MEM-C1D2E3; routine-advance
    ratification reading; standing trust-policy exceptions; the v29
-   approval-streak caveat above).
-4. **RR-0 implementation batch** (still inside the open CA interval),
+   approval-streak caveat) and on the v31 outputs (experiments evidence
+   + delegation spec amendments + ci-watch runner + CI proofs; disclosed
+   residual: the runner's stuck-old-non-terminal preference trade-off,
+   documented at the devkit matcher).
+2. **RR-0 implementation batch** (still inside the open CA interval),
    then **CA-1** (bounded batch, ceilings and stall trigger unchanged
    by ADR-0052). MVP-5 stays FROZEN until CA-2.
-5. **WR-5 Toolchain + third-party migration** when scheduled
+3. **WR-5 Toolchain + third-party migration** when scheduled
    (per-platform CI presets ride this class; the typed CI skips point
    here), then WR-6 (pin reconciliation — the standing BaselineConflict).
-6. Router follow-up candidate (disclosed): path-prefixed `qiven.cmd
+   The devkit ci-watch template re-pin ripple to sibling repos rides
+   WR-6 or the next managed-sync wave (repos keep the working v1
+   `ci start`; the explicit-identity `ci watch` covers cross-repo use
+   meanwhile).
+4. Router follow-up candidate (disclosed): path-prefixed `qiven.cmd
    gate` escape AND the `gate-configure`-wraps-build-class gap — one
    bounded devkit router batch.
-7. Standing: operator.json configure-task template consolidation
+5. Standing: operator.json configure-task template consolidation
    DEFERRED in v29 (no template-owned operator.json mechanism exists
    yet; per-repo customs stand); managed template syncs need manual
    customs re-applied per bump; git-network routing remains suspended
