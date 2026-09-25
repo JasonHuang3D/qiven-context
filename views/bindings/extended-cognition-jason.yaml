@@ -88,8 +88,10 @@ roles_recall:
     extended-cognition session loads THIS view, so the recall guarantee
     requires the mount here too). The full table, role table and
     delegation patterns live in views/workflows/subagent-delegation.md;
-    compact trigger: implementation of a bounded brief / heavy
-    exploration / fresh review-fix rounds -> worker subagent; design
+    compact trigger: heavy read-only exploration / fresh review-verify
+    rounds -> worker subagent; implementation and write-bearing work ->
+    main session by default at hook-free revisions (2026-09-26 owner
+    direction; delegation only by explicit owner direction); design
     and context maintenance -> brother duties; governance and
     adjudication recording -> this designation under owner approval.
     Advisory only (ADR-0044 non-partition preserved); the absolute

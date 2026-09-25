@@ -49,13 +49,13 @@ roles:
     phase_2: role-scoped extension - this roles section and the delegation trigger table; reading depth, never behavioral permission
     phase_3: workflow opening - the role-dependent workflow index below
   table:
-    - {role: jason-worker, embodiment: subagent-only, duties: 'implement, review, fix, explore under a bounded brief', boot: none (brief substitutes; scoped engineering-law reading list only), governance: none}
+    - {role: jason-worker, embodiment: subagent-only, duties: 'review, verify, explore under a bounded brief; implement/fix classes owner-gated at hook-free revisions (delegation workflow)', boot: none (brief substitutes; scoped engineering-law reading list only), governance: none}
     - {role: jason-brother, embodiment: main agent or subagent, duties: 'design, check worker output, context maintenance', boot: full, governance: 'none (may draft governance text; never lands it)'}
     - {role: jason-extended-cognition, embodiment: main agent only, duties: 'everything, discouraged where a specialist fits; deep-reasoning posture; governance-context authoring under owner approval', boot: full, governance: 'transactions under owner approval; human highest'}
   delegation_trigger_table:
-    - {work_class: implementation of a bounded brief, embodiment: worker subagent}
+    - {work_class: 'implementation / write-bearing work', embodiment: 'main session by default at hook-free revisions (2026-09-26 owner direction); worker delegation only by explicit owner direction - see the Write-bearing default in views/workflows/subagent-delegation.md'}
     - {work_class: heavy read-only exploration or research sweeps, embodiment: worker subagent}
-    - {work_class: fresh review or fix round (R2 class), embodiment: worker subagent (canary first; ADR-0050 isolation classes unchanged)}
+    - {work_class: 'fresh review or verify round (R2 class)', embodiment: 'worker subagent (canary first; ADR-0050 isolation classes unchanged); fix rounds follow the write-bearing default'}
     - {work_class: design and context maintenance, embodiment: main session (brother duties)}
     - {work_class: governance and adjudication recording, embodiment: extended-cognition main session under owner approval}
   red_line: >-

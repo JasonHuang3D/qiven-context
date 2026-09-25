@@ -25,17 +25,58 @@ embodiment domain, never by the boot act.
 
 ## Delegation classes
 
-| Class | Direction | What it is |
-| --- | --- | --- |
-| implement-brief | -> worker | write code to a precise spec |
-| explore | -> worker | heavy read-only research / sweeps |
-| fresh-review | -> worker | R2-class review round |
-| fresh-fix | -> worker | fix a triaged finding list |
-| fresh-verify | -> worker | round-2 verification of a fix batch |
+| Class | Direction | What it is | Default at hook-free revisions |
+| --- | --- | --- | --- |
+| implement-brief | -> worker | write code to a precise spec | main session (owner-gated delegation) |
+| explore | -> worker | heavy read-only research / sweeps | worker (routine) |
+| fresh-review | -> worker | R2-class review round | worker (routine) |
+| fresh-fix | -> worker | fix a triaged finding list | main session (owner-gated delegation) |
+| fresh-verify | -> worker | round-2 verification of a fix batch | worker (routine) |
 
 A subagent never substitutes for an H1/H2/H3/H4 handoff, never carries
 governance authority, and never publishes (no push/PR/gate/merge);
 its output is candidate evidence until the orchestrator triages it.
+
+## Write-bearing default at hook-free revisions (owner direction 2026-09-26)
+
+**Implementation and other write-bearing work is done by the MAIN
+session by default; delegating it to a worker requires explicit owner
+direction for that bounded case.** Read-only classes (explore,
+fresh-review, fresh-verify, canary) remain routine delegations.
+
+Rationale (measured, F1A2B3 + the platform fact MEM-20260926T195500Z-F1E2D3):
+
+1. **The mechanical law layer is main-session-only.** No hook reaches a
+   subagent: the heredoc-authoring absolute deny, long-class background
+   routing, the build/gate node-reuse guard, sweep exec-lease custody —
+   none of them fire inside a worker. A write-bearing worker operates
+   with NO mechanical backstop; everything rides the brief and the ACK.
+2. **The heredoc class is the proven recurrence.** Main sessions violated
+   the file-authoring law twice under a behavioral rule before the hook
+   made it mechanical (2026-09-21/23). Assuming workers behave better
+   than the main agent did, without enforcement, is not evidence-based;
+   and a worker's heredoc-corrupted file costs a full gate cycle to
+   catch (post-hoc), where the main session's violation is prevented
+   (pre-emptive).
+3. **The risk asymmetry matches the value.** A review worker's worst
+   failure is a wrong report — cheap to triage, nothing lands. A write
+   worker's failure modes (corrupted files, foreground long builds
+   burning the worker, unleased sweeps/network) hit the repository and
+   the machine. Meanwhile the clean-context property that makes workers
+   valuable is strongest for REVIEW (unbiased attention), and for
+   implementation the complete spec must live in the brief anyway
+   (clean-input law) — the main session, which authored the spec, loses
+   little by implementing it.
+4. **Revisit trigger:** when a harness revision wires hooks into child
+   runtimes (the ZCode fork lane / PR #3 census input), this default is
+   re-adjudicated on measured evidence — the constraint is the missing
+   enforcement layer, not delegation itself.
+
+Historical note: fresh-fix workers were used successfully before this
+default (v27/v29), with orchestrator-run gates catching everything
+before publish — the class stays lawful UNDER EXPLICIT OWNER DIRECTION;
+it is the routine default that changed, because the enforcement gap is
+now measured rather than assumed away.
 
 ## Process topology (owner direction 2026-09-25)
 
@@ -45,8 +86,9 @@ its output is candidate evidence until the orchestrator triages it.
   support is an operational fact, verified live; on foreground-only
   plans the permission simply goes unused — it is permission, never an
   obligation).
-- **Any write-bearing worker task** (implement-brief, fresh-fix) runs as
-  a SINGLE foreground subagent — one writer at a time; never concurrent
+- **Any write-bearing worker task** (implement-brief, fresh-fix — both
+  owner-gated by the Write-bearing default above) runs as a
+  SINGLE foreground subagent — one writer at a time; never concurrent
   write-bearing subagents.
 - Sequences with inter-round dependencies (a review loop whose fix feeds
   the next review) run foreground by construction — background execution
@@ -306,14 +348,16 @@ reading-list entry; state the delta inline in the brief or not at all.
 
 ## Delegate-when heuristics
 
-- Multi-file mechanical work fitting a precise spec.
 - Fresh-eyes value: reviewing a long session's own output; hunting
   known-defect classes the authoring session is biased about.
 - Noise exclusion: long sessions benefit from offloading bounded
-  exploration (keeps the main context clean).
+  read-only exploration (keeps the main context clean).
 - Cheap/free subagent capacity exists (plan-dependent; on
   constrained plans subagents may be foreground-only — an operational
   fact, not a law).
+- Write-bearing implementation: NOT a delegate-when — main session by
+  default (the Write-bearing default above); owner direction required
+  to delegate a bounded case.
 - Do NOT delegate: governance authoring/adjudication, H1-preparation,
   cold boot itself, or anything whose acceptance role requires an
   independent producer/consumer topology beyond the R2 class.

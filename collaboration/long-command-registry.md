@@ -35,6 +35,17 @@ session end. Router v4.1 (2026-09-24, devkit PR #32): leading
 `NAME=value` assignments no longer escape gate-class classification —
 the taught guard re-call form now passes via the REAL guard check, and
 an arbitrary env prefix can no longer bypass the class raw.
+Router v4.2 (2026-09-26, F1A2B3 follow-up): the env assignment may also
+precede the `python` launcher (`MSBUILDDISABLENODEREUSE=1 python
+tools/qiven.py gate|run|ci ...` is the TAUGHT re-call form for
+python-launcher invocations and previously escaped the class entirely,
+so the guard check never fired for it). `qiven ci watch` (2026-09-26)
+is a member of this class by the same pattern: raw foreground calls are
+denied with the background+guard teaching, and the guarded background
+re-call passes; the guard is class-mandated but semantically inert for
+watch (it never builds), and backgrounding is the designed shape — the
+watch is inherently terminating (internal budget) and observes a
+REMOTE run, so it needs neither the session shell nor exec custody.
 
 ## Classes
 
