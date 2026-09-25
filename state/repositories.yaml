@@ -50,3 +50,8 @@ repositories:
     local_path: <workspace-root>/qiven-workspace
     default_branch: main
     role: workspace-control-plane (ADR-0052; trust policy ACCEPTED 2026-09-25 with admitted revision; authoritative use typed-blocked by the recorded devkit BaselineConflict until WR-6/pin reconciliation and the pending routine-advance rule)
+  - name: ZCode-fork
+    remote: https://github.com/JasonHuang3D/ZCode.git
+    local_path: <workspace-root>/ZCode
+    default_branch: main
+    role: third-party-source-fork (upstream zai-org/ZCode; carries the harness-mediation PoC branch poc/seam-events with QIVEN-POC-NOTES.md; evidence artifact only - not a qiven write surface, never workspace-resolver-managed; promotion to any governed input requires its own owner decision)
