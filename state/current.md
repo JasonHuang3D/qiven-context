@@ -490,10 +490,10 @@ end to end:
    owner completes the MVP-4 real H1 BEFORE opening it; the proposed
    long-session program lives in the v31 checkpoint (Next-session
    program section).
-6. **Turn 5 (same session): MVP-4 H1 trial 4 FAILED on a root-caused
-   one-line protocol split — and the owner issued two law-level
-   directions that reshape the program.** The trial (kit
-   `0.1.0-g7b3ce515`, 2026-09-26 05:19-05:26 +0800): every probe
+6. **Turn 5: MVP-4 H1 trial 4 FAILED on a root-caused one-line protocol
+   split — and the owner issued two law-level directions that reshape
+   the program.** The trial (kit `0.1.0-g7b3ce515`, 2026-09-26 05:19-05:26
+   +0800): every probe
    denied 114 "no registered runtime session" (including P4, which
    must ALLOW). Root cause (reproduced byte-exact in a scratch root;
    `evidence/audits/2026-09-26-mvp4-h1-trial4-deadline-incident.md`):
@@ -518,6 +518,19 @@ end to end:
    coverage fold into that wave. WR-5/WR-6 are NOT blocked
    (infrastructure, disjoint from the defect class) but sequence after
    the wave.
+7. **Turn 6 (true final): the ADR drafts are PUBLISHED as qiven-docs
+   PR #4** (owner direction: deliberate through the cross-LLM review
+   flow, not qiven-context): branch
+   `GLM-5.3/typed-identity-and-simulated-acceptance`, documents
+   `proposal/2026-09-25/` 00-ADR-0054 (typed-identity law, TI-1..TI-7),
+   01-ADR-0055 (simulated-loop acceptance, SA-1..SA-5), 02 (evidence
+   appendix: four-trial history, trial-4 root cause, stringly-typed
+   census); https://github.com/JasonHuang3D/qiven-docs/pull/4. The
+   owner now runs the multi-session cross-LLM review over PR #4; no
+   engineering session starts the ADR-0054/0055 waves before that
+   review concludes and the owner accepts. On acceptance the canonical
+   ADRs land in qiven-context through its authority process and the
+   v31 checkpoint program (Lanes A/B) executes.
 
 ## Accepted engineering checkpoints
 
@@ -684,18 +697,17 @@ repositories follow per
 
 ## Next boundary
 
-1. **NEXT SESSION, FIRST PROGRAM — Foundation typed-primitives wave +
-   simulated-loop H1 rig** (OBL-20260926T234500Z-B4C5D6, owner
-   directions 2026-09-26): opening transaction = draft the two ADRs
-   (typed-identity law; simulated-loop acceptance) for owner
-   acceptance; then (a) `qiven::fs::Path` in Foundation + property
-   tests, (b) runtime sweep (normalize_hook_path, image_allowed,
-   governed-scope checks → the type; Deadline/wire scalars typed with
-   ONE ceiling table — the hello-deadline fix rides here), (c) the
-   mechanical ban gate, (d) the rig: Layer 1 payload-level 100+
-   scenarios + Layer 2 real-ZCode (local clone `D:\JasonWork\ZCode`,
-   pinned) + mock LLM provider full loop; MVP-4 exit re-adjudicated on
-   the rig. Full program in the v31 checkpoint turn-5 section.
+1. **OWNER REVIEW MARATHON (live): qiven-docs PR #4** — the ADR-0054/
+   0055 drafts with the evidence appendix await the owner's
+   multi-session cross-LLM review
+   (https://github.com/JasonHuang3D/qiven-docs/pull/4). No engineering
+   session starts the typed-identity wave or the simulated-rig wave
+   before that review concludes and the owner accepts; on acceptance,
+   the canonical ADRs land in qiven-context through its authority
+   process and the v31 checkpoint program (Lane 0 done; Lanes A/B:
+   Path primitive + sweep + ban gate; two-layer rig incl. the folded
+   hello-deadline fix and preflight session_start coverage) executes.
+   OBL-20260926T234500Z-B4C5D6 is the carrier.
 2. **Workspace migration is NOT blocked** (WR-5/WR-6 are
    infrastructure, disjoint from the defect class) but sequences after
    the wave: devkit template/tool pre-wave (router v4.3 path-prefix +
