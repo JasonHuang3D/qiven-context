@@ -490,6 +490,34 @@ end to end:
    owner completes the MVP-4 real H1 BEFORE opening it; the proposed
    long-session program lives in the v31 checkpoint (Next-session
    program section).
+6. **Turn 5 (same session): MVP-4 H1 trial 4 FAILED on a root-caused
+   one-line protocol split — and the owner issued two law-level
+   directions that reshape the program.** The trial (kit
+   `0.1.0-g7b3ce515`, 2026-09-26 05:19-05:26 +0800): every probe
+   denied 114 "no registered runtime session" (including P4, which
+   must ALLOW). Root cause (reproduced byte-exact in a scratch root;
+   `evidence/audits/2026-09-26-mvp4-h1-trial4-deadline-incident.md`):
+   the hook client puts the session_start event's refresh-grade
+   deadline (9750 ms) into the HELLO frame, but the host's deadline
+   ceiling for non-event frames (hello included) is 5000 — the hello is
+   rejected, session_start fails as an invisible advisory, the session
+   never registers, and the unknown-session deny (114) fires before
+   every scope classification. The kit preflight is blind to it (it
+   never drives session_start). Owner directions recorded as
+   law-pending-ADR (OBL-20260926T234500Z-B4C5D6): **(a) "land first,
+   revisit later" is REVOKED for qiven C++** — Foundation lands the
+   typed primitives downstream needs (first `qiven::fs::Path`), the
+   runtime sweeps every raw path-string comparison and types its wire
+   scalars (the deadline split is the same defect class), and a
+   mechanical gate bans the pattern class; **(b) the owner-live GUI H1
+   trial is RETIRED** — MVP-4 acceptance becomes a deterministic
+   simulated full-loop rig (real ZCode CLI pinned at the local clone +
+   local mock LLM provider + real host + real hook binary; Layer 1 =
+   100+ payload-level scenarios in the gate, Layer 2 = the real-ZCode
+   full loop). The hello-deadline fix + preflight session_start
+   coverage fold into that wave. WR-5/WR-6 are NOT blocked
+   (infrastructure, disjoint from the defect class) but sequence after
+   the wave.
 
 ## Accepted engineering checkpoints
 
@@ -656,35 +684,29 @@ repositories follow per
 
 ## Next boundary
 
-1. **Owner hands (standing)**: the MVP-4 real H1 rerun (kit
-   `h1-kits/qiven-runtime/mvp4-h1/0.1.0-g7b3ce515`, preflight-verified
-   from the owner-live shape) — the owner stated 2026-09-26 it happens
-   BEFORE the next long session. The v29 and v31 veto windows are
-   CLOSED (owner 全批, turn 3).
-2. **Next long session program (owner direction 2026-09-26, full text
-   in the v31 checkpoint)**: opening transaction records the MVP-4 H1
-   result (pass closes the exit gate's owner row; fail reopens the
-   corrective lane); then the proposed lanes — (a) devkit
-   template/tool pre-wave (router v4.3: path-prefix escape +
-   gate-configure wrap gap; operator.json configure-task template
-   mechanism, the v29 deferred debt) so ONE WR-6 re-pin ripple carries
-   everything; (b) WR-5 toolchain+third-party cutover (one owner
-   opening grant; per-platform CI presets ride it; admission nodes via
-   3-pass self-review under the confirmed routine-advance rule);
-   (c) WR-6 pin reconciliation (closes the standing BaselineConflict;
-   re-pin ripple to all sibling repos); (d) RR-0 mechanical batch →
-   CA-1 (both inside the open CA interval) → CA-2 if executable
-   in-session → MVP-5 unfreeze; (e) archival-wave preparation for the
-   remaining repositories (OBL-F0A1B2) with owner UI actions
-   consolidated into one moment.
-3. **RR-0 implementation batch** (still inside the open CA interval),
-   then **CA-1** (bounded batch, ceilings and stall trigger unchanged
-   by ADR-0052). MVP-5 stays FROZEN until CA-2.
-4. Standing: operator.json configure-task template consolidation
-   DEFERRED in v29 (now proposed as lane (a) of the next session);
-   managed template syncs need manual customs re-applied per bump;
-   git-network routing remains suspended at the router per owner
-   direction 2026-09-24; qiven-context's devkit pin remains d1d2a3a
-   (WR-6 reconciliation target; the standing typed BaselineConflict
-   against lock devkit node 945fdd2); the context lock node (8914cef)
-   rides the same WR-6 reconciliation.
+1. **NEXT SESSION, FIRST PROGRAM — Foundation typed-primitives wave +
+   simulated-loop H1 rig** (OBL-20260926T234500Z-B4C5D6, owner
+   directions 2026-09-26): opening transaction = draft the two ADRs
+   (typed-identity law; simulated-loop acceptance) for owner
+   acceptance; then (a) `qiven::fs::Path` in Foundation + property
+   tests, (b) runtime sweep (normalize_hook_path, image_allowed,
+   governed-scope checks → the type; Deadline/wire scalars typed with
+   ONE ceiling table — the hello-deadline fix rides here), (c) the
+   mechanical ban gate, (d) the rig: Layer 1 payload-level 100+
+   scenarios + Layer 2 real-ZCode (local clone `D:\JasonWork\ZCode`,
+   pinned) + mock LLM provider full loop; MVP-4 exit re-adjudicated on
+   the rig. Full program in the v31 checkpoint turn-5 section.
+2. **Workspace migration is NOT blocked** (WR-5/WR-6 are
+   infrastructure, disjoint from the defect class) but sequences after
+   the wave: devkit template/tool pre-wave (router v4.3 path-prefix +
+   gate-configure gaps; operator.json configure-task mechanism), then
+   WR-5 (one owner opening grant; per-platform CI presets; 3-pass
+   self-review admissions), then WR-6 pin reconciliation (closes the
+   standing BaselineConflict; the re-pin ripple carries everything).
+3. **RR-0 mechanical batch → CA-1** (inside the open CA interval) may
+   interleave after the Path wave reaches runtime; MVP-5 stays FROZEN
+   until CA-2 AND the rig-based MVP-4 exit.
+4. Standing: qiven-context's devkit pin remains d1d2a3a (WR-6 target;
+   standing typed BaselineConflict vs lock devkit node); git-network
+   routing suspended at the router; the archival wave (OBL-F0A1B2)
+   stays deferred behind the higher-priority lanes.

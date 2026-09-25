@@ -43,23 +43,21 @@ accepted_checkpoint:
       next-long-session program recorded.'
 current_candidate:
   subject: none-open
-  ref: 'no unaccepted engineering candidate; owner items = MVP-4 real H1 rerun BEFORE the next long session (owner direction 2026-09-26); v29+v31 veto windows CLOSED (owner 全批)'
+  ref: 'no unaccepted engineering candidate; the MVP-4 H1 trial-4 diagnosis is recorded (evidence audit); the owner-live H1 is RETIRED by owner direction pending ADR'
   state: none-open
 blockers: []
 paused_work:
 - qiven-runtime/process-execution
 - qiven-cad
 next_boundary: >-
-  Owner hands: MVP-4 real H1 rerun (kit 0.1.0-g7b3ce515), stated to
-  happen BEFORE the next long session. Next long session program
-  (owner direction 2026-09-26, full text in the v31 checkpoint):
-  record the H1 result; then lanes - (a) devkit template/tool pre-wave
-  (router v4.3 path-prefix + gate-configure gaps; operator.json
-  configure-task template mechanism) so one WR-6 ripple carries all;
-  (b) WR-5 toolchain+third-party cutover (one opening grant;
-  per-platform CI presets; 3-pass self-review admissions); (c) WR-6
-  pin reconciliation (closes the standing BaselineConflict; re-pin
-  ripple to all siblings); (d) RR-0 mechanical batch -> CA-1 -> CA-2
-  if in-session -> MVP-5 unfreeze; (e) archival-wave preparation
-  (OBL-F0A1B2) with owner UI actions consolidated.
-updated_at: '2026-09-26T23:30:00Z'
+  Next session FIRST program (OBL-20260926T234500Z-B4C5D6): draft +
+  owner-accept ADR-0054 (typed-identity law: qiven::fs::Path, wire
+  scalars, mechanical ban; land-first semantics revoked for qiven C++)
+  and ADR-0055 (simulated-loop acceptance replaces the owner-live H1);
+  then the Foundation typed-primitives wave + the simulated rig
+  (Layer 1 payload 100+ scenarios + Layer 2 real ZCode CLI with mock
+  LLM full loop; hello-deadline fix and preflight session_start
+  coverage fold in). Workspace WR-5/WR-6 NOT blocked, sequenced after;
+  RR-0 -> CA-1 after the Path wave reaches runtime; MVP-5 frozen until
+  CA-2 + the rig-based MVP-4 exit.
+updated_at: '2026-09-26T23:50:00Z'
