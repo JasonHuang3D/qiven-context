@@ -27,39 +27,39 @@ objective: >-
   MVP-4 H1 pass, RR-0, and CA-2 pass. Active batches: CA-0 + MVP-4
   corrective lane + RR-0 in one bounded interval (OBL-20260923T190500Z-D6E7F8).
 accepted_checkpoint:
-  subject: v31-f1a2b3-complete
-  ref: 'the v31 closeout transaction (live boundary experiments evidenced + delegation spec amended; ci watch runner landed devkit 90c675a with gate PASS + self-review; math CI replacement proof SUCCESS run 36185940592 at 0eb0aa0 + runtime CI proof receipt; v31 checkpoint)'
+  subject: v31-closeout-veto-windows-closed
+  ref: 'the v31 closeout transactions (OBL-F1A2B3 complete: experiments evidenced + spec amended; ci watch landed devkit 90c675a; math+runtime CI proofs SUCCESS; router v4.2 env-before-python fix devkit 58df1bd; write-bearing delegation default; v29+v31 veto windows CLOSED by owner 全批; v31 checkpoint)'
   evidence:
     - 'v31 (2026-09-26, designation jason-extended-cognition, long-running
-      mode turn 1, delegated per-batch H2; owner opening instruction =
-      OBL-F1A2B3 full landing): (1) experiments DONE - audit evidence/
-      audits/subagent-boundary-experiments-2026-09-26.md, scanner tools/
-      scan_subagent_transcripts.py, subagent-delegation.md amended
-      (transcript-provenance audit law; clean-input law-4 measured-moot;
-      verdict-drift evidence), MEM-20260926T210000Z-A3B4C5. (2) Runner
-      LANDED - devkit main 90c675a: qiven ci watch (observation-only,
-      identity-bound, 10s polling, receipts, inherently terminating,
-      explicit cross-repo identity); gate local PASS cc7e769 + bb98dd4;
-      122-check operator suite; fresh-review (1xP2+6xP3 fixed) +
-      fresh-verify rounds. (3) CI proofs EXECUTED - math run 36185940592
-      SUCCESS @0eb0aa0; runtime watched by the landed runner (receipt in
-      v31 checkpoint).'
+      mode turn 1, delegated per-batch H2): turn 1 = OBL-F1A2B3 complete
+      (experiments audit + scanner + subagent-delegation amendments +
+      MEM-20260926T210000Z-A3B4C5; devkit 90c675a ci watch with gates
+      cc7e769/bb98dd4 + review/verify rounds; math run 36185940592 and
+      runtime run 36185938457 both SUCCESS with receipts; context
+      b3e8d11). Turn 2 = router v4.2 (env-before-python escape fixed,
+      devkit 58df1bd) + write-bearing delegation default (context
+      670bc96). Turn 3 = owner 全批 closes the v29 and v31 veto windows
+      (trust-policy residuals note; MEM-C1D2E3 owner-accepted) + the
+      next-long-session program recorded.'
 current_candidate:
   subject: none-open
-  ref: 'no unaccepted engineering candidate; owner items = MVP-4 real H1 rerun (kit ready), veto window on v29 disclosed adjudications, v31 outputs review (experiments evidence + spec amendments + runner + proofs)'
+  ref: 'no unaccepted engineering candidate; owner items = MVP-4 real H1 rerun BEFORE the next long session (owner direction 2026-09-26); v29+v31 veto windows CLOSED (owner 全批)'
   state: none-open
 blockers: []
 paused_work:
 - qiven-runtime/process-execution
 - qiven-cad
 next_boundary: >-
-  Owner hands: MVP-4 real H1 rerun (kit 0.1.0-g7b3ce515) + veto window
-  (v29 adjudications; v31 disclosed residual: ci-watch stuck-run
-  preference trade-off). Then RR-0 -> CA-1 (MVP-5 frozen until CA-2);
-  WR-5 (per-platform CI presets) then WR-6 (pin reconciliation, the
-  standing BaselineConflict); router batch candidate standing;
-  operator.json template consolidation deferred standing debt; the
-  devkit ci-watch template re-pin ripple to sibling repos rides WR-6
-  or the next managed-sync wave (repos keep working v1 ci start; the
-  explicit-identity watch covers cross-repo use meanwhile).
-updated_at: '2026-09-26T21:30:00Z'
+  Owner hands: MVP-4 real H1 rerun (kit 0.1.0-g7b3ce515), stated to
+  happen BEFORE the next long session. Next long session program
+  (owner direction 2026-09-26, full text in the v31 checkpoint):
+  record the H1 result; then lanes - (a) devkit template/tool pre-wave
+  (router v4.3 path-prefix + gate-configure gaps; operator.json
+  configure-task template mechanism) so one WR-6 ripple carries all;
+  (b) WR-5 toolchain+third-party cutover (one opening grant;
+  per-platform CI presets; 3-pass self-review admissions); (c) WR-6
+  pin reconciliation (closes the standing BaselineConflict; re-pin
+  ripple to all siblings); (d) RR-0 mechanical batch -> CA-1 -> CA-2
+  if in-session -> MVP-5 unfreeze; (e) archival-wave preparation
+  (OBL-F0A1B2) with owner UI actions consolidated.
+updated_at: '2026-09-26T23:30:00Z'
