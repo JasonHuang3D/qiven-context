@@ -1,11 +1,11 @@
 # Human-in-the-Loop Wait (ZCode Desktop)
 
-> Status: operating pattern, recorded 2026-09-25 (v30 session, owner
-> direction after the sleep-polling incident). Scope: ZCode Desktop
-> harness only; other agent families are untested. Advisory workflow
-> material - it adapts how a session waits, and changes no authority
-> boundary (H1/H2 and typed handoffs are unaffected; a wait is not a
-> handoff).
+> Status: workflow pattern under its contract carrier (owner direction
+> 2026-09-26): the governing clause is `collaboration/operating-contract.md`
+> §"Waiting on humans or external events". Scope: ZCode Desktop harness
+> only; other agent families are untested. The contract clause changes no
+> authority boundary (H1/H2 and typed handoffs are unaffected; a wait is
+> not a handoff).
 
 ## The rule
 

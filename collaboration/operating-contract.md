@@ -91,6 +91,17 @@ Human-visible tasks that may remain silent long enough to be mistaken for a hang
 
 Progress output must report only observable state. Do not invent percentages, ETAs, completed stages, or progress merely to reassure the operator. Heartbeat cadence should scale with expected duration; for interactive local tasks that normally run for tens of seconds, roughly five seconds of otherwise silent execution is a useful default interval. See `MEM-20260913T194500Z-8F2C41`.
 
+## Waiting on humans or external events (owner direction 2026-09-26)
+
+When a step must wait for a human action or an external event before the session can continue, the wait is event-driven or blocking, never polled:
+
+1. **Waiting for a human inside a turn** uses `AskUserQuestion` (the blocking interactive question): the turn suspends until the owner answers; the question carries the paste-ready instruction and honest outcome options — a bare "ready?" is a defect.
+2. **Waiting for a machine-observable event** uses a `run_in_background` watcher command that exits exactly when the condition holds; the harness notifies the session once on completion (the ADR-0051 notification-once law). The watcher sleeps; the LLM does not.
+3. **LLM-side foreground sleep/poll loops are prohibited in every class.** This extends ADR-0051's anti-pattern scope from command supervision to human/event waiting. When both waiting and ending the turn are possible, ending the turn and resuming on the notification is preferred; `TaskOutput` with an explicit bounded budget is the in-turn blocking fallback, and repeated timeout re-waits must not degrade into polling.
+4. The heartbeat/progress duties of the previous section apply to invoked processes' output, never to the LLM's own waiting: a silent wait on the correct primitive is healthy, and periodic tick output from a hand-written wait loop is the defect, not the cure.
+
+The workflow pattern (decision table, watcher shapes, timeout guidance) lives in `views/workflows/human-in-the-loop-wait.md`; this section is the contract carrier. Governing incident: the 2026-09-26 v30 wait loop (`MEM-20260925T175000Z-F6A7B8`; the surrounding session incident `MEM-20260925T190500Z-C0A1B2`).
+
 ## Long-command routing (2026-09-23 owner direction; amended 2026-09-24 by ADR-0051, ACCEPTED — owner H2 2026-09-24 in v26)
 
 The canonical registry of long/measured/interactive command classes is
