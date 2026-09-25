@@ -1,10 +1,14 @@
 # Subagent Boundary Experiment Design (draft for the OBL-F1A2B3 execution session)
 
-> Status: DESIGN DRAFT, recorded 2026-09-26 (v30 session, owner-directed).
-> This document designs the live boundary experiments ordered by
-> OBL-20260925T090500Z-F1A2B3; it is not yet executed and not yet law.
-> The execution session runs the experiments, then amends
-> `views/workflows/subagent-delegation.md` on the measured evidence.
+> Status: **EXECUTED 2026-09-26** (v31 session, long-running mode). The
+> experiments ran as pre-registered; measured results, provenance and the
+> pass verdicts live in
+> `evidence/audits/subagent-boundary-experiments-2026-09-26.md`
+> (workspace copies under `.generated-temp/f1a2b3-experiments/`). The
+> delegation spec amendments they justified are in
+> `views/workflows/subagent-delegation.md` (transcript-provenance audit
+> section; clean-input boundary law 4 + drift evidence; platform facts).
+> Original design retained below unchanged for provenance.
 
 ## 0. Verified platform fact that reshapes the experiments (2026-09-26, source-pinned 29628c9)
 
