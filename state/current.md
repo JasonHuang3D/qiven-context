@@ -387,6 +387,47 @@ foreground-only; variant/reasoning not introspectable).
    and thinking-log capture questions; then the CI background runner
    per the owner design; then the LLM-executed CI replacement proof).
 
+## v30 session (2026-09-25/26)
+
+Owner-marked fresh session, designation jason-extended-cognition,
+normal mode initially (qiven-docs-only writes by owner boundary;
+other-repo writes authorized mid-session). Live-model report: GLM-5.3,
+account `bigmodel-individual-coding-plan` (variant/reasoning not
+introspectable). The session ran the qiven-docs PR #3 deliberation and
+the owner-approved harness-mediation feasibility PoC:
+
+1. **PR #3 rounds 7-9 (GLM-5.3)**: cross-program evidence binding to
+   OBL-F1A2B3; served-model identity census row; worker-input
+   composition rule; conjunctive adapter/router/harness action
+   denials with per-boundary provenance; session-level governed-set
+   admission. Full source review of pinned ZCode `29628c9` + live
+   installed-build observation (native `ModelRequestAdmission`
+   factory-bound port inherited by in-process subagents; five extra
+   call sites; no AI SDK imports outside adapters; `PreToolUse`
+   `updatedInput` implemented source-side; inert localhost update
+   feed; Coding Plan gateway = URL rewrite). Codex rounds 48356bd/
+   68549b8 added the two-phase same-ticket final permit and
+   last-await ordering (source-verified here).
+2. **Feasibility PoC (A/C'/B all green)**: portable Node+pnpm env;
+   seam-events patch; 64s build; smoke + inert negative control;
+   pre-send deny = zero wire traffic, 1-of-11 attempts,
+   retryable:false native; **dev-mode Desktop full chain**
+   (`dev:desktop:test` -> patched agent spawned -> owner GUI message
+   -> logical + final-permit + mock wire events; msgCount 6->4 on
+   Desktop). Evidence: PR #3 document 05 + four signed comments.
+3. **Fork**: `JasonHuang3D/ZCode` created; `poc/seam-events` pushed
+   (QIVEN-POC-NOTES with 13 pitfalls; hygiene-scanned).
+4. **Context capture (this transaction)**: MEM-20260925T174500Z-E5F6A7
+   (PoC scars), MEM-20260925T175000Z-F6A7B8 (wait-for-human is
+   event-driven or blocking, never foreground sleep-polling),
+   `views/workflows/human-in-the-loop-wait.md`, v30 checkpoint.
+   Owner-incident records: ZCode-Dev real-SMS login attempt errored
+   with no credential residue in scratch (deep-link capture by the
+   running official instance likely; isolated trials never log in);
+   Node toolchain ruling (ZCode-specific Node stays out of
+   qiven-toolchain-win; any future pin is a general-purpose entry on
+   concrete need).
+
 ## Accepted engineering checkpoints
 
 - ContextKernel K1-K4 (Python, sealed ADR-0040): K4 Canonical Artifact
