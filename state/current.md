@@ -532,6 +532,46 @@ end to end:
    ADRs land in qiven-context through its authority process and the
    v31 checkpoint program (Lanes A/B) executes.
 
+## v32 session (2026-09-26)
+
+Owner-marked fresh session, designation jason-extended-cognition,
+normal mode. Live-model report: GLM-5.3, account
+`bigmodel-individual-coding-plan` (variant/reasoning not
+introspectable, reported as such). The qiven-docs PR #4 review
+marathon participation + the root-cure governance stance:
+
+1. **My verification round** (commits `07f546c`, `45ae225`):
+   independently re-verified the prior rounds' load-bearing claims
+   (ADR-0024/0007 supersession; four-trial audits; the trial-4
+   deadline chain at runtime `7b3ce51` source lines; Foundation/
+   Devkit stale-doc claims; the locked-graph CI checkout splits
+   math `bfea3bd`/runtime `ba2a959` vs heads `0eb0aa0`/`7b3ce51`)
+   — all held. Observed live that `qiven-host`/`qiven-dcr-win` no
+   longer resolve under the authenticated owner account (deleted,
+   2026-09-25T23:33Z). Restructured ADR-0055 §3 into a three-tier
+   Desktop evidence ladder; restored deliberation requests + a
+   per-document canonical transaction map to the PR description;
+   repaired 12 section-marker corruption sites.
+2. **Owner adjudication recorded in PR #4** (governance stance,
+   MEM-20260926T002400Z-B7C8D9): evidence+memory are the iron proof
+   base; prior decisions are fallible records; Host/DCR history
+   forfeited (`DELETED_REMOTE + ARCHIVE_FORFEITED`); the
+   qiven-process seed claim is void old-era session writing; the
+   local-first principle is the declared root defect class;
+   Foundation/Math retained on actual value.
+3. **Autonomous fresh-context review rounds on PR #4** (owner-
+   directed program, clean-input briefs, no role labels):
+   `c280737` (six genuine factual corrections incl. the §12.3
+   MVP-architecture citation and a false context-draft README
+   claim replaced by the verified `QIVEN_RESOLUTION_FILE`
+   mismatch) and `412fc5b` (nine-node workspace-lock inventory;
+   dead repo links → historical source locators; contradictory
+   "archive manifest" rule removed). Both convergence-checked and
+   accepted by the main session. The 10-round program was CURTAILED
+   to 2 by the owner (token economy on the individual plan; the
+   owner will run one offpeak round next). PR title/body
+   restructured to the root-cure framing.
+
 ## Accepted engineering checkpoints
 
 - ContextKernel K1-K4 (Python, sealed ADR-0040): K4 Canonical Artifact
