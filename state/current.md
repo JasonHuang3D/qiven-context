@@ -569,8 +569,34 @@ marathon participation + the root-cure governance stance:
    "archive manifest" rule removed). Both convergence-checked and
    accepted by the main session. The 10-round program was CURTAILED
    to 2 by the owner (token economy on the individual plan; the
-   owner will run one offpeak round next). PR title/body
-   restructured to the root-cure framing.
+   owner ran the offpeak round separately — accepted at convergence
+   with all six of its new factual claims re-verified).
+4. **Turns 4-7: direction churn then owner correction.** The owner
+   issued four program rulings (qiven::fs as a full Foundation
+   module; complete infrastructure layer by wholesale mature-library
+   adoption; whole-repo refactor gated on it; ZCode clean-room
+   transplant with a conditional condemnation record) — landed as
+   ADR drafts (`5ca5b82`, `105fb33`). The owner then self-reflected
+   ("我做了自我反省"): those wholesale requirements were
+   intent/status drift (a candidate example of the compaction-loss
+   mechanism he diagnosed — ZCode compacts before model steps at
+   the pinned source). GPT-6 restructured PR #4 twice on that
+   reflection (`5ce77ab`, `b628807`): the ADR-0054/0056/0057
+   drafts were REMOVED (defects stay as evidence + discriminating
+   test cases; engineering fixes separately admitted at semantic
+   owners); ADR-0055 rewritten as a simulated hook/host lifecycle
+   gate (MVP4_SIMULATION_ACCEPTED + INSTALLED_DESKTOP_EXECUTION_
+   UNVERIFIED; no real-harness execution on the owner machine);
+   added the compaction-continuity proposal and the custom
+   read-only-reviewer qualification as a PR4 PRE-ACCEPTANCE GATE
+   (status CUSTOM_REVIEWER_NOT_QUALIFIED). This session reviewed
+   both rounds read-only and delivered two landing work lists.
+   Closeout directions: qualification + PR4 acceptance happen in
+   the NEXT owner session; the offline-semantics wording in PR4
+   was corrected this session (`ba6f85b`); OBL-B4C5D6 was amended
+   to carry the post-reflection program (this transaction) so the
+   new session boots clean without contradictory live
+   instructions.
 
 ## Accepted engineering checkpoints
 
@@ -737,17 +763,27 @@ repositories follow per
 
 ## Next boundary
 
-1. **OWNER REVIEW MARATHON (live): qiven-docs PR #4** — the ADR-0054/
-   0055 drafts with the evidence appendix await the owner's
-   multi-session cross-LLM review
-   (https://github.com/JasonHuang3D/qiven-docs/pull/4). No engineering
-   session starts the typed-identity wave or the simulated-rig wave
-   before that review concludes and the owner accepts; on acceptance,
-   the canonical ADRs land in qiven-context through its authority
-   process and the v31 checkpoint program (Lane 0 done; Lanes A/B:
-   Path primitive + sweep + ban gate; two-layer rig incl. the folded
-   hello-deadline fix and preflight session_start coverage) executes.
-   OBL-20260926T234500Z-B4C5D6 is the carrier.
+1. **NEXT OWNER SESSION: qualify the reviewer, then adjudicate PR #4.**
+   PR #4 (https://github.com/JasonHuang3D/qiven-docs/pull/4, head
+   `ba6f85b`, SEVEN documents) is the post-reflection specification
+   surface: simulated hook/host MVP-4 gate (ADR-0055 draft, label
+   `MVP4_SIMULATION_ACCEPTED` + `INSTALLED_DESKTOP_EXECUTION_UNVERIFIED`),
+   four-trial evidence audit, Foundation/Devkit museum+entry repairs,
+   Host/DCR retirement record, the compaction-continuity proposal
+   (testable hypothesis, not proven cause), and the custom read-only
+   ZCode reviewer qualification as a PRE-ACCEPTANCE GATE (status
+   `CUSTOM_REVIEWER_NOT_QUALIFIED`; the qualification run needs owner
+   hands — new-session launch — with a session-prepared paste-ready
+   kit). Sequence: qualification → per-document acceptance (README
+   transaction + accepted/ migration) → canonical amendments
+   (ADR-0047/0050 real-H1 wording; ADR-0043 forfeiture; ADR-0039/0018
+   scope notes) → the simulated-gate build and doc-repair batches per
+   the amended OBL-20260926T234500Z-B4C5D6 (the carrier; its original
+   typed-primitives/real-ZCode-rig wording is superseded and preserved
+   in history). Real-harness build/execution on the owner machine
+   stays banned; no Foundation wholesale-adoption prerequisite; no
+   ZCode transplant; lower-layer fixes are separately admitted when
+   the simulated tests detect concrete defects.
 2. **Workspace migration is NOT blocked** (WR-5/WR-6 are
    infrastructure, disjoint from the defect class) but sequences after
    the wave: devkit template/tool pre-wave (router v4.3 path-prefix +
@@ -756,8 +792,8 @@ repositories follow per
    self-review admissions), then WR-6 pin reconciliation (closes the
    standing BaselineConflict; the re-pin ripple carries everything).
 3. **RR-0 mechanical batch → CA-1** (inside the open CA interval) may
-   interleave after the Path wave reaches runtime; MVP-5 stays FROZEN
-   until CA-2 AND the rig-based MVP-4 exit.
+   interleave after the simulated gate lands; MVP-5 stays FROZEN
+   until CA-2 AND the simulated-gate MVP-4 exit.
 4. Standing: qiven-context's devkit pin remains d1d2a3a (WR-6 target;
    standing typed BaselineConflict vs lock devkit node); git-network
    routing suspended at the router; the archival wave (OBL-F0A1B2)
