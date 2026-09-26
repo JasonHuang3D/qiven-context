@@ -27,42 +27,45 @@ objective: >-
   MVP-4 H1 pass, RR-0, and CA-2 pass. Active batches: CA-0 + MVP-4
   corrective lane + RR-0 in one bounded interval (OBL-20260923T190500Z-D6E7F8).
 accepted_checkpoint:
-  subject: v33-pr4-preacceptance-gate-passed-and-pr4-accepted
-  ref: 'the v33 transactions (reviewer qualification kit + profile install; owner-hands qualification run ALL 7 gates PASS = CUSTOM_REVIEWER_QUALIFIED scoped; independent re-verification; qiven-docs PR #4 accepted db92c8b/3529cd6/52a8a32 with signed acceptance comment; v33 checkpoint)'
+  subject: v34-canonical-amendments-executed
+  ref: 'the v34 canonical amendments transaction (owner H2 + root principal, per the accepted qiven-docs PR4 transaction map): ADR-0047/0050 dated amendments (real-H1 wording -> simulated gate per ADR-0055), ADR-0043 forfeiture amendment (DELETED_REMOTE + ARCHIVE_FORFEITED, void seed), ADR-0039/0018 scope notes, ADR-0055 landed accepted (ADR-0054 intentionally unassigned), OBL-9A7B41/OBL-D6E7F8 riders, state riders, projects/process rewrite; gate PASS at exact head on branch jason-extended-cognition/v34-canonical-amendments before merge; v34 checkpoint'
   evidence:
-    - 'v33 (2026-09-26, designation jason-extended-cognition, normal
-      mode): rig prepared (fixture c7edcb8, seeded H1 deadline-split
-      chain proven 121->114, tests green = oracle gap, baits, 3 briefs,
-      pre-registered Q-GATE-1..7); profile installed sha256 b8bfa64a;
-      qualification run by owner-hands fresh session on build
-      3.14.3.7762 (orchestrator sess_57de39db, children
-      agent_3f81f373/agent_d2920ab9/agent_432e7e3a) - all gates PASS;
-      session-side re-verification reproduced both gate scans +
-      byte-stability; evidence = qiven-docs
-      accepted/2026-09-26/02-reviewer-qualification-evidence.md;
-      transcript-id mapping fact (agent_<uuid> vs
-      sess_subagent_agent_<uuid>) baked into rig prompt + delegation
-      workflow platform facts.'
+    - 'v34 (2026-09-26, designation jason-extended-cognition, normal
+      mode): session prepared the exact diffs from the accepted PR4
+      documents (qiven-docs accepted/2026-09-26/, merge 3529cd6);
+      owner accepted the enumerated wording (H2 + root principal);
+      one-transaction landing with publication gate (context-tools)
+      PASS at the exact branch head.'
 current_candidate:
   subject: none-open
-  ref: 'no unaccepted engineering candidate; the canonical amendments batch (ADR-0047/0050 wording, ADR-0043 forfeiture, ADR-0039/0018 scope notes, ADR-0055 landing) is the next owner-H2 decision point - session prepares exact diffs'
+  ref: 'no unaccepted engineering candidate; the canonical amendments are landed law; the next program is the simulated-gate build + doc-repair batches per OBL-20260926T234500Z-B4C5D6 items 4-6'
   state: none-open
 blockers: []
 paused_work:
 - qiven-runtime/process-execution
 - qiven-cad
 next_boundary: >-
-  Canonical amendments batch (owner H2 + root principal, the
-  non-delegable ADR-lifecycle class): land the accepted PR4
-  transaction map in qiven-context - ADR-0047/0050 real-H1 wording,
-  ADR-0043 forfeiture, ADR-0039/0018 scope notes, ADR-0055 as the
-  simulated MVP-4 gate (MVP4_SIMULATION_ACCEPTED +
-  INSTALLED_DESKTOP_EXECUTION_UNVERIFIED) plus its exit-matrix/
-  obligation/state riders; session prepares exact diffs, owner accepts
-  before landing. Then the simulated-gate build and doc-repair batches
-  per the amended OBL-20260926T234500Z-B4C5D6. Real-harness execution
-  on the owner machine banned; no Foundation wholesale-adoption
-  prerequisite; no ZCode transplant. WR-5/WR-6 not blocked, sequenced
-  after; RR-0 -> CA-1 after the simulated gate; MVP-5 frozen until
-  CA-2 + the simulated-gate MVP-4 exit.
-updated_at: '2026-09-26T13:30:00Z'
+  The simulated-gate build and doc-repair program per
+  OBL-20260926T234500Z-B4C5D6 items 4-6, under the just-landed
+  ADR-0055 (v34 canonical amendments transaction, owner H2 + root
+  principal): (4) build the simulated hook/host lifecycle gate in
+  qiven-runtime - real candidate hook exe + RuntimeHost over the real
+  pipe, independently sourced fixtures (pinned zai-org/ZCode@29628c9
+  hooks implementation + published payload contracts + historical H1
+  captures), the five incidents as distinct old-fail/new-pass cases,
+  skip -> NOT_VALIDATED with the h1_kit_test.py skip-success fix,
+  100-case breadth target with invariant coverage map, writable-child
+  bypass as a negative coverage case, exact-head receipt binding,
+  publication gate rejects absent/skipped/stale/failed receipts;
+  (5) documentation repair batches (docs-only) in
+  foundation/devkit/runtime/math/context-draft per the PR4 audits;
+  (6) continuity interim controls (manual R2/R3 checklist with
+  source-bound activation receipts, invariant->test map, coverage
+  observation incl. the two control experiments). Real-harness
+  execution on the owner machine banned; no Foundation
+  wholesale-adoption prerequisite; no ZCode transplant; lower-layer
+  fixes separately admitted when the simulated tests detect concrete
+  defects. WR-5/WR-6 not blocked, sequenced after; RR-0 -> CA-1 after
+  the simulated gate; MVP-5 frozen until CA-2 + the simulated-gate
+  MVP-4 exit.
+updated_at: '2026-09-26T14:30:00Z'

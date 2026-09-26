@@ -9,7 +9,12 @@ purpose: >-
   revision-pinned, expiry-dated. Evidence toward CA-0 activation metadata;
   NEVER a competing activation architecture and never a permanent substitute.
 expiry:
-  condition: the MVP-4 real-H1 exit gate passes (or the lane is re-scoped by owner direction)
+  condition: >-
+    AMENDED 2026-09-26 (canonical amendments transaction, ADR-0055): the
+    MVP-4 simulated hook/host lifecycle gate passes at the exact candidate
+    head (MVP4_SIMULATION_ACCEPTED, standing INSTALLED_DESKTOP_EXECUTION_
+    UNVERIFIED residual) — the former real-H1 exit wording is superseded;
+    or the lane is re-scoped by owner direction.
   on_expiry: >-
     close the corrective-lane obligation item, remove this pack from default
     delivery, retain as historical evidence.
@@ -64,5 +69,10 @@ independent_falsification_plan:
   - property: no regression in prior fixed defects (deny-118 class, payload ownership)
     class: mechanical (existing regressions kept green)
   - note: >-
-      The real H1 rerun (owner hands) is the authoritative boundary evidence
-      and remains H1 - it is NOT delegated by long-running mode.
+      AMENDED 2026-09-26 (ADR-0055): the authoritative boundary evidence is
+      the simulated hook/host lifecycle gate (owner H2 acceptance of its
+      receipts — the non-delegable ADR-lifecycle class governs the
+      acceptance wording, never the owner's live hands on a GUI trial). The
+      former "real H1 rerun (owner hands)" wording is superseded; the
+      owner-live trial instrument is retired and real-harness execution on
+      the owner machine is banned.
