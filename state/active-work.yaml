@@ -27,44 +27,34 @@ objective: >-
   MVP-4 H1 pass, RR-0, and CA-2 pass. Active batches: CA-0 + MVP-4
   corrective lane + RR-0 in one bounded interval (OBL-20260923T190500Z-D6E7F8).
 accepted_checkpoint:
-  subject: v34-canonical-amendments-executed
-  ref: 'the v34 canonical amendments transaction (owner H2 + root principal, per the accepted qiven-docs PR4 transaction map): ADR-0047/0050 dated amendments (real-H1 wording -> simulated gate per ADR-0055), ADR-0043 forfeiture amendment (DELETED_REMOTE + ARCHIVE_FORFEITED, void seed), ADR-0039/0018 scope notes, ADR-0055 landed accepted (ADR-0054 intentionally unassigned), OBL-9A7B41/OBL-D6E7F8 riders, state riders, projects/process rewrite; gate PASS at exact head on branch jason-extended-cognition/v34-canonical-amendments before merge; v34 checkpoint'
+  subject: v35-simulated-gate-delivered
+  ref: 'the v35 simulated-gate batch (long-running mode, delegated per-batch H2): OBL-B4C5D6 items (4)+(6) delivered - the simulated ZCode hook lifecycle gate in qiven-runtime (104 scenarios, five incidents old-fail/new-pass, invariant map INV-1..18, receipt-bound, h1-sim+h1-kit-test in gate:local), the folded trial-4 hello-deadline + preflight session_start fixes, the gate-detected governed exact-file defect fixed root-bounded, and the PR-6 continuity checklist + both control experiments; published qiven-runtime main b08bf99 -> aa2076e with gate:local PASS at both exact heads and gate-grade receipts (sim-d6f2cf066bdd, sim-aa2076e201d3, 104/104 non-skipped); workspace lock conformed (generation sha256:8c70aab4)'
   evidence:
-    - 'v34 (2026-09-26, designation jason-extended-cognition, normal
-      mode): session prepared the exact diffs from the accepted PR4
-      documents (qiven-docs accepted/2026-09-26/, merge 3529cd6);
-      owner accepted the enumerated wording (H2 + root principal);
-      one-transaction landing with publication gate (context-tools)
-      PASS at the exact branch head.'
+    - 'gate:local PASS at d6f2cf0 and aa2076e (12 tasks incl. h1-sim 25.8s
+      and h1-kit-test); C++ suite 41/41; I4 old-fail reproduced byte-exact
+      on the preserved pre-fix binaries (old-fail-i4 mode + the EXP-2
+      seeded-old-code FAIL receipts); the lossy-summary replay surfaced a
+      degraded brief as an invalid activation receipt (EXP-1)'
 current_candidate:
-  subject: none-open
-  ref: 'no unaccepted engineering candidate; the canonical amendments are landed law; the next program is the simulated-gate build + doc-repair batches per OBL-20260926T234500Z-B4C5D6 items 4-6'
-  state: none-open
+  subject: mvp4-simulation-acceptance-adjudication
+  ref: 'no unaccepted engineering candidate is open; the single remaining act is the OWNER adjudication of the MVP4_SIMULATION_ACCEPTED exit record per ADR-0055 (the v35 H1 stop) plus the next-boundary choice (RR-0->CA-1 interleave vs WR-5/WR-6 pre-wave)'
+  state: owner-decision-pending
 blockers: []
 paused_work:
 - qiven-runtime/process-execution
 - qiven-cad
 next_boundary: >-
-  v34 executed the full PR4 close-out program through item 5: the
-  canonical amendments (owner H2 + root principal), the four-repo
-  docs-only repairs, AND the adjudicated Devkit repair (owner verbatim
-  2026-09-26; standards v2 with PR-1..4/PR-6, operator-contract,
-  entry rewrites, six s6.2 fixtures PASS; devkit merged bfdb4c1; the
-  Context-side ADR-0044 dated scope note records the adjudication).
-  Every gate PASS at exact heads; the workspace lock is fully
-  conformed (generation sha256:7d576e59, all nodes at canonical main
-  HEADs). Next program: the simulated-gate build per
-  OBL-20260926T234500Z-B4C5D6 item 4 (simulated hook/host lifecycle
-  gate in qiven-runtime: real hook exe + RuntimeHost over the real
-  pipe, independently sourced fixtures, five incidents as distinct
-  old-fail/new-pass cases, skip -> NOT_VALIDATED incl. the
-  h1_kit_test.py skip-success fix, 100-case breadth target with
-  invariant coverage map, writable-child bypass negative case,
-  exact-head receipt binding, publication gate rejects
-  absent/skipped/stale/failed receipts), then item 6 continuity
-  interim controls under the just-landed Devkit standards v2. Real-
-  harness execution on the owner machine banned; no Foundation
-  wholesale-adoption prerequisite; no ZCode transplant. WR-5/WR-6 not
-  blocked, sequenced after; RR-0 -> CA-1 after the simulated gate;
-  MVP-5 frozen until CA-2 + the simulated-gate MVP-4 exit.
-updated_at: '2026-09-26T17:30:00Z'
+  Owner decision point (the v35 H1 stop): adjudicate the
+  MVP4_SIMULATION_ACCEPTED MVP-4 exit record per ADR-0055 - the
+  simulated gate is green at the published head (qiven-runtime aa2076e,
+  receipt sim-aa2076e201d3-20260926T161640Z.json, 104/104 non-skipped,
+  typed states SIMULATED_HOOK_HOST_PASS + PINNED_SOURCE_CONTRACT_REVIEWED
+  standing with the INSTALLED_DESKTOP_EXECUTION_UNVERIFIED residual) -
+  and choose the next program: RR-0 mechanical batch -> CA-1 (may
+  interleave now), or the WR-5/WR-6 pre-wave (devkit template/tool
+  pre-wave, WR-5 one owner opening grant, WR-6 pin reconciliation).
+  OBL-20260926T234500Z-B4C5D6 items (1)-(6) are all delivered. MVP-5
+  stays frozen until CA-2 AND the exit record; the PR-6 interim
+  continuity controls (views/workflows/r2r3-continuity-checklist.md)
+  bind every R2/R3 batch until the request-boundary program lands.
+updated_at: '2026-09-27T00:45:00Z'
