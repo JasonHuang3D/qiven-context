@@ -648,6 +648,28 @@ end-to-end:
    migration `52a8a32` (all EIGHT documents → `accepted/2026-09-26/`
    per the README flow), signed acceptance record
    `issuecomment-5846557271`.
+5. **Turn 4 — router v4.3 + gate-coverage fix (owner accepted the
+   discussed proposals verbatim).** (a) Sweeps split by inherent
+   boundedness: `collaboration/long-command-registry.md` amended
+   (three subclasses + owner-accepted orphan residual) and devkit
+   router v4.3 landed (`c83091e`, merge `224fb46`, gate local 14/14
+   PASS at exact head) — `git grep`/`git ls-files` raw (tracked
+   files only); repo-scoped recursive sweeps deny→background with
+   in-command bounding (P3); no-path/escaping/heavy-tree sweeps stay
+   exec-lease custody. (b) Publication-gate coverage fix:
+   `default_gate` → `context-tools` (merge-proof synced) — the tools
+   group (validator mutation tests) now rides every publication
+   gate; the turn-3 fixture-defect disclosure is CORRECTED to a
+   coverage gap (v25-v32 receipts were honest PASSes of the
+   configured gate); lesson recorded as MEM-20260926T221500Z-D7E8F9.
+   Gate slips this turn, honestly recorded: one invocation piped
+   through `tail` (exit-code masking class — caught, no false PASS
+   published) and one on the system interpreter (no yaml; the venv
+   is the configured environment). (c) The qualified reviewer
+   profile could not be exercised in-session (profiles load at
+   session start; this session predates the install) — exact-delta
+   self-review performed instead; first live use belongs to a
+   session started after install.
 
 ## Accepted engineering checkpoints
 
@@ -848,4 +870,6 @@ repositories follow per
    stays deferred behind the higher-priority lanes. The qualification
    rig is disposable (durable record = the accepted evidence
    document; the profile file stays installed as the qualified
-   reviewer surface).
+   reviewer surface). Router v4.3 is live workspace-wide (the hook
+   reads the working-copy script per call); the reviewer profile is
+   usable from any session started after its install.
