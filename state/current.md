@@ -682,8 +682,9 @@ DELIVERED end-to-end** (items 1/2/3/5 were already done in v33/v34):
 
 1. **The simulated ZCode hook lifecycle gate LANDED and is the MVP-4
    interim exit instrument** (ADR-0055; design qiven-runtime
-   `docs/design/mvp4-simulated-gate.md`; rig `tools/h1_sim_gate.py` +
-   fixture corpus `tests/fixtures/h1-sim/catalogue.json` + the pinned
+   `docs/design/mvp4-simulated-gate.md`; rig
+   `qiven-runtime tools/h1_sim_gate.py` + fixture corpus
+   `qiven-runtime tests/fixtures/h1-sim/catalogue.json` + the pinned
    `invocation-policy.yaml` copy): 104 named scenarios over the REAL
    hook exe + RuntimeHost behind the real pipe in isolated scratch
    roots (minimal git cognition fixtures; outside roots lexical-clean);

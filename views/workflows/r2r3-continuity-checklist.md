@@ -64,7 +64,7 @@ MEM-20260926T221500Z-D7E8F9 class).
 | Invariant class | Detector | Trigger |
 | --- | --- | --- |
 | MVP-4 hook/host lifecycle (ADR-0055: registration, classification, correlation, closure, packaging, the five incidents, writable-child negative) | `qiven-runtime tools/h1_sim_gate.py` (104 cases; per-case invariant bindings INV-1..18 in the receipt's `invariant_coverage`) | publication gate task `h1-sim` (every qiven-runtime gate:local run) |
-| H1 kit packaging / profile self-containment (ADR-0049) | `tools/h1_kit_test.py` | publication gate task `h1-kit-test` |
+| H1 kit packaging / profile self-containment (ADR-0049) | `qiven-runtime tools/h1_kit_test.py` | publication gate task `h1-kit-test` |
 | Wire contract / framing / admission units | C++ suite (`ipc_multiframe_contract`, `pipe_frame_security`, `hook_conformance`, `host_lifecycle`, 41 tests) | publication gate tasks `test-debug`/`test-release` |
 | File-authoring law (native tools, no heredocs) | workspace hook router (deny + teach) | every session tool call (main sessions; subagents carry no hook runner — MEM-20260926T195500Z-F1E2D3) |
 | Repository invariants (schemas, legacy bans, view integrity) | `qiven-context tools/qiven.py gate` (context-tools group incl. validator mutation tests) | qiven-context publication gate |
