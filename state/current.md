@@ -725,6 +725,28 @@ numbering note, the OBL-9A7B41 and OBL-D6E7F8 riders, the state
    WR-6). Context-side project entries repaired (projects/foundation,
    projects/devkit rewritten with legacy snapshots).
 
+   **Turn 3 (owner verbatim "Devkit 修复批次裁定全部通过"): the Devkit
+   repair batch adjudicated and EXECUTED.** The PR4 Devkit audit's §6.1
+   decision point (ADR-0044/0046/0050 delta, design-first timing, the
+   single current rule body) is adjudicated approved. Landed in
+   qiven-devkit at `e392d0a` (merged): standards v2 (implementation-
+   standard §16 PR-1 borrowed premises / §17 PR-2 stop-patch-to-green;
+   testing-standard §12 PR-3 discriminating proof; design-first-
+   workflow v2 — R2/R3 commit ordering, E4 boundary-semantics
+   revision, PR-6 continuity trigger; real tool commands throughout),
+   the current operator contract (`docs/operator-contract.md`;
+   Phase-1 design museumed at `docs/legacy/design/`), entry-point
+   rewrites (README authority-resolution procedure + workspace
+   reality; engineering-README precedence fix; agent-entry shape
+   matches the managed template; live-repository naming exemplars),
+   with the six §6.2 consistency fixtures verified PASS at the
+   candidate and the devkit gate PASS at the exact head. The
+   Context-side carrier: ADR-0044's dated scope note (§4 distribution
+   topology superseded by ADR-0046/0052; single-session duties +
+   R2/R3 independent falsification made explicit), plus the
+   projects/devkit entry update. PR4's full doc-repair program
+   (OBL-B4C5D6 item 5) is now COMPLETE across all five repositories.
+
 ## Accepted engineering checkpoints
 
 - ContextKernel K1-K4 (Python, sealed ADR-0040): K4 Canonical Artifact
@@ -909,30 +931,25 @@ repositories follow per
 
 ## Next boundary
 
-1. **Canonical amendments + the four-repo docs-only repair batch —
-   EXECUTED (v34).** PR #4's transaction map landed in qiven-context
-   (owner H2 + root principal) and the docs-only repairs landed in
-   foundation/math/context-draft/runtime (all gate PASS at exact
-   heads, merged, pushed; workspace lock conformed — all nodes at
-   canonical main HEADs, generation `sha256:c261efed…`). **Open owner
-   decision point: the Devkit repair adjudication** (the accepted PR4
-   Devkit audit §6.1 — the ADR-0044/0046/0050 delta, design-first
-   timing, the single current rule body — before the Devkit
-   standards-v2 rewrite and entry-point rewrites; also carries the
-   Context-side ADR-0044 dated scope note from that audit's repair
-   map). **Next program: the simulated-gate build per
-   OBL-20260926T234500Z-B4C5D6 item 4** — the simulated hook/host
-   lifecycle gate in qiven-runtime (real hook exe + RuntimeHost over
-   the real pipe, independently sourced fixtures, the five incidents
-   as distinct old-fail/new-pass cases, skip → NOT_VALIDATED with the
-   h1_kit_test.py skip-success fix, 100-case breadth target with
-   invariant coverage map, writable-child bypass as a negative case,
-   exact-head receipt binding, publication gate rejects
-   absent/skipped/stale/failed receipts), then item 6 continuity
-   interim controls. Real-harness build/execution on the owner
-   machine stays banned; no Foundation wholesale-adoption
-   prerequisite; no ZCode transplant; lower-layer fixes are separately
-   admitted when the simulated tests detect concrete defects.
+1. **PR4 close-out program through item 5 — COMPLETE (v34).** The
+   canonical amendments (owner H2 + root principal), the four-repo
+   docs-only repairs, AND the adjudicated Devkit repair all landed
+   (every gate PASS at exact heads; workspace lock conformed). **Next
+   program: the simulated-gate build per OBL-20260926T234500Z-B4C5D6
+   item 4** — the simulated hook/host lifecycle gate in qiven-runtime
+   (real hook exe + RuntimeHost over the real pipe, independently
+   sourced fixtures, the five incidents as distinct old-fail/new-pass
+   cases, skip → NOT_VALIDATED with the h1_kit_test.py skip-success
+   fix, 100-case breadth target with invariant coverage map,
+   writable-child bypass as a negative case, exact-head receipt
+   binding, publication gate rejects absent/skipped/stale/failed
+   receipts), then item 6 continuity interim controls (manual R2/R3
+   checklist per the just-landed Devkit standards v2, invariant→test
+   map, coverage observation + the two control experiments).
+   Real-harness build/execution on the owner machine stays banned; no
+   Foundation wholesale-adoption prerequisite; no ZCode transplant;
+   lower-layer fixes are separately admitted when the simulated tests
+   detect concrete defects.
 2. **Workspace migration is NOT blocked** (WR-5/WR-6 are
    infrastructure, disjoint from the defect class) but sequences after
    the wave: devkit template/tool pre-wave (router v4.3 path-prefix +
