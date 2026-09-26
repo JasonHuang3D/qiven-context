@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "repository_name": "qiven-context",
-  "default_gate": "context-local",
+  "default_gate": "context-tools",
   "tasks": {
     "exact-head": {
       "builtin": "exact_head"
@@ -52,7 +52,7 @@
     },
     "merge-proof": {
       "builtin": "gate_proof",
-      "gate": "context-local"
+      "gate": "context-tools"
     },
     "tools-tests": {
       "argv": [

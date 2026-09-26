@@ -47,12 +47,44 @@ watch (it never builds), and backgrounding is the designed shape — the
 watch is inherently terminating (internal budget) and observes a
 REMOTE run, so it needs neither the session shell nor exec custody.
 
+**v4.3 amendment (2026-09-26, owner direction — token economy): sweeps
+split by INHERENT BOUNDEDNESS.** A sweep-class denial that pushes the
+model into whole-file Reads pollutes the live context and compounds the
+compaction-loss problem; the harness's native output bounding
+(>~25-30KB auto-persists, ~2KB preview) means a backgrounded scan never
+floods context at all. Three subclasses (router v4.3, devkit `c83091e`):
+
+1. **git tracked-file walks — RAW.** `git grep`, `git ls-files` walk
+   tracked files only: structurally unable to enter .venv/
+   node_modules/third-party checkouts. Zero round-trips, zero context
+   cost. (Previously `git grep -rn` matched the sweep class through its
+   `-r` flag.)
+2. **Repo-scoped sweeps — deny→background.** Recursive `grep`/`find`/
+   `dir /s` whose explicit path arguments ALL stay strictly inside the
+   workspace root (the hook process cwd) and name no heavy directory
+   component ({`.venv`, `node_modules`, `.git`, `qiven-third-party-win`}
+   — membership here). Seconds-class by construction; the re-call
+   teaching carries the in-command bound (`--exclude-dir=…`) because
+   the Bash `timeout` parameter does NOT bind background tasks (P3).
+   Syntactic scope bounds the ENTRY POINT, not the subtree contents —
+   **owner-accepted residual:** a repo-scoped background sweep orphaned
+   by a pathological session death is possible and tolerable
+   (read-only, seconds-class; worst case a short-lived orphan process).
+3. **Unbounded sweeps — deny→exec (lease custody), unchanged.** No
+   explicit in-scope path (walks cwd wholesale), path arguments
+   escaping the workspace root, or naming a heavy tree. The
+   OBL-D5E6F7 reframing stands for this class: operational session end
+   kills nothing, so an unbounded background sweep can outlive the
+   session (the 2026-09-23 ghost class).
+
 ## Classes
 
-| Class | Verdict | Members (2026-09-24) | Evidence |
+| Class | Verdict | Members (2026-09-26) | Evidence |
 | --- | --- | --- | --- |
 | builds/toolchains | deny→background + node-reuse guard | `cmake -S/-B/--preset/--build/--install`, `ctest`, `msbuild`, `devenv`, `cl.exe`, `link.exe`, `dotnet build/test` | gate/build durations (minutes); MSBuild node fanout = the 2026-09-23 leak class (ADR-0048 §3 guard required on the background path) |
-| filesystem tree sweeps | deny→exec (lease custody; background NOT sufficient) | `find` with a path-argument form (`find /d/...`, `find D:\...`, options then path), `grep -r`/`--recursive`, `dir /s` — the Windows text-FILTER form (`find /i "text" file`) stays raw | the 2026-09-23 ghost find.exe incident (raw workspace scan survived the session at 20%+ CPU); background session-end lifetime uncharacterized (ADR-0051 R1) |
+| git tracked-file walks | raw allow (v4.3) | `git grep …`, `git ls-files …` | tracked files only — inherently bounded; the whole-file-Read fallback a sweep denial induced was the measured context-pollution path (owner 2026-09-26) |
+| filesystem sweeps, repo-scoped | deny→background (v4.3) | `grep -r`/`--recursive`, `find`, `dir /s` with explicit path args strictly inside the workspace root, naming no heavy component | seconds-class by construction; bound rides the command (P3); owner-accepted orphan residual above |
+| filesystem sweeps, unbounded | deny→exec (lease custody; background NOT sufficient) | the same commands with NO explicit in-scope path (cwd wholesale), paths escaping the workspace root, or naming a heavy tree ({`.venv`, `node_modules`, `.git`, third-party}); the Windows text-FILTER `find /i "text" file` stays raw | the 2026-09-23 ghost find.exe incident (raw workspace scan survived the session at 20%+ CPU); OBL-D5E6F7 reframing: session end kills nothing |
 | repo gate tools | deny→background | `format_sources.py`, format entrypoints, pinned formatter, `test_all.py`, `pytest`, deploy scripts | the 2026-09-23 vendored-amalgamation format hang |
 | network acquisition | deny→background | curl-class transfer tools + PowerShell equivalents, `pip install/download`, `npm install/ci/run build`, `git clone`, `git submodule update/sync`, `gh run watch` | the raw transfer slip during SQLite acquisition |
 | qiven gate/run/ci | deny→background + node-reuse guard | any `qiven gate|run|ci` at a command position (exec/info/status stay raw) | gate wall time blocks the session shell (owner 2026-09-23); gates may build C++ (node fanout); per-task timers refine this class from durations data |
@@ -104,7 +136,12 @@ Rules:
   the suspension stays until the owner explicitly reinstates the measured
   judgment. The probe implementation and its tests are unchanged
   underneath the flag.
-- Routed tree sweeps run under exec v2 bounded custody (devkit d1d2a3a,
-  PR #27; runtime row rolled 2026-09-24, runtime PR #58): the run's
-  lease bounds the sweep's lifetime mechanically — the ghost-process
-  class cannot recur through the sanctioned path.
+- Sweeps routed to exec (the unbounded subclass) run under exec v2
+  bounded custody (devkit d1d2a3a, PR #27; runtime row rolled
+  2026-09-24, runtime PR #58): the run's lease bounds the sweep's
+  lifetime mechanically — the ghost-process class cannot recur through
+  the sanctioned path. The v4.3 subclasses (git tracked-file walks raw;
+  repo-scoped background) are implemented in devkit `c83091e` with the
+  pinned self-test table; membership changes remain owner decisions
+  recorded here, with the devkit router + tests updated in the same
+  batch.
