@@ -671,6 +671,28 @@ end-to-end:
    self-review performed instead; first live use belongs to a
    session started after install.
 
+## v34 session (2026-09-26)
+
+Owner-marked fresh session, designation jason-extended-cognition,
+normal mode. Live-model report: GLM-5.3, account
+`bigmodel-individual-coding-plan` (variant/reasoning not
+introspectable, reported as such). The session executed the directed
+next boundary: **the canonical amendments batch (owner H2 + root
+principal — the non-delegable ADR-lifecycle class) per the accepted
+PR4 transaction map.** The session prepared the exact diffs on branch
+`jason-extended-cognition/v34-canonical-amendments`; the owner
+accepted the enumerated wording (H2 + root principal); the
+transaction landed with the publication gate PASS at the exact head:
+ADR-0047 decision-6 and ADR-0050 decision-8 dated amendments
+(real-H1 wording → the simulated gate per ADR-0055), the ADR-0043
+forfeiture amendment (`DELETED_REMOTE + ARCHIVE_FORFEITED`, void
+seed), ADR-0039/0018 dated scope notes, ADR-0055 landed as accepted
+(ADR-0054 intentionally unassigned), the decisions/index.yaml row +
+numbering note, the OBL-9A7B41 and OBL-D6E7F8 riders, the state
+riders (this file + active-work.yaml), and the projects/process
+rewrite (void seed, DCR spine removed, original preserved under
+legacy/projects/process/).
+
 ## Accepted engineering checkpoints
 
 - ContextKernel K1-K4 (Python, sealed ADR-0040): K4 Canonical Artifact
@@ -693,11 +715,15 @@ end-to-end:
   mutation kinds deny typed 61; timed-out child TREES reclaimed
   (Job Object); 1.7 MB flood vs 1 MiB cap fails typed 73. The live
   cross-user connect is the recorded MVP-7 H1 runbook remainder.
-- MVP-4 NOT ACCEPTED (reclassified 2026-09-23 per ADR-0050):
-  implementation exists and rows 2-5 are locally proven, but the real-H1
-  exit gate failed three owner trials; the bounded corrective lane
-  (incident pack, connection-model decision, denial taxonomy split, kit
-  pre-flight, real H1 rerun) owns closing it.
+- MVP-4 NOT ACCEPTED - exit gate AMENDED 2026-09-26 (ADR-0055):
+  implementation exists and rows 2-5 are locally proven; four owner-live
+  trials failed on four distinct infrastructure defects (trials 1-4,
+  evidence audits 2026-09-23..26). The interim exit is now the
+  simulated ZCode hook lifecycle gate (`MVP4_SIMULATION_ACCEPTED`,
+  standing `INSTALLED_DESKTOP_EXECUTION_UNVERIFIED` residual; the
+  owner-live trial instrument is RETIRED; real-harness build/execution
+  on the owner machine is banned). The gate build is the next program
+  batch (OBL-20260926T234500Z-B4C5D6 item 4).
 
 ## Corrected continuity model
 
@@ -780,6 +806,21 @@ Succession (operator replacement). A PASS names the profile tested.
   decisions/ADR-0053.md, views/bindings/zcode-jason.yaml (roles),
   views/bindings/extended-cognition-jason.yaml (recall pointer),
   views/workflows/subagent-delegation.md.
+- ADR-0055 (ACCEPTED 2026-09-26, owner H2 + root principal, the canonical
+  amendments transaction): the simulated ZCode hook lifecycle gate is the
+  interim MVP-4 exit (`MVP4_SIMULATION_ACCEPTED` + standing
+  `INSTALLED_DESKTOP_EXECUTION_UNVERIFIED` residual); ADR-0047 decision 6
+  and ADR-0050 decision 8 real-H1 wording superseded by dated amendments;
+  the real owner-live H1 trial is retired; real-harness build/execution on
+  the owner machine is banned. ADR-0054 is intentionally unassigned (the
+  typed-identity draft was withdrawn from PR #4 before acceptance).
+- ADR-0043 forfeiture amendment (2026-09-26, same transaction): the
+  qiven-host and qiven-dcr-win remotes were deleted by the owner and the
+  history is forfeited (`DELETED_REMOTE + ARCHIVE_FORFEITED`,
+  MEM-20260926T002400Z-B7C8D9); the qiven-process seed claim is void
+  old-era session writing; ADR-0039 (Host/DCR topology passages) and
+  ADR-0018 (workspace passage; local-first readings) carry dated scope
+  notes; projects/process rewritten accordingly.
 - Public-repo information hygiene is LAW (2026-09-24, owner direction,
   v26 turn 6; `collaboration/public-repo-information-hygiene.md`): all
   nine qiven repositories are public; canonical records carry
@@ -836,22 +877,27 @@ repositories follow per
 
 ## Next boundary
 
-1. **Canonical amendments batch (owner H2 + root principal — the
-   non-delegable ADR-lifecycle class).** PR #4 is ACCEPTED (merged
-   `352c9d6` family: `db92c8b`/`3529cd6`/`52a8a32`; documents under
-   qiven-docs `accepted/2026-09-26/`), and the reviewer qualification
-   gate is SATISFIED (`CUSTOM_REVIEWER_QUALIFIED`, scoped). The
-   accepted documents' transaction map now executes in qiven-context
-   through its authority process: ADR-0047/0050 real-H1 wording
-   amendments, ADR-0043 forfeiture record, ADR-0039/0018 scope notes,
-   ADR-0055 landing as the simulated MVP-4 gate (labels
-   `MVP4_SIMULATION_ACCEPTED` + `INSTALLED_DESKTOP_EXECUTION_UNVERIFIED`),
-   plus the Runtime exit-matrix/obligation/state riders the map
-   names. The session prepares the exact diffs; acceptance wording is
-   the owner's H2 before any lands. After the amendments: the
-   simulated-gate build and doc-repair batches per the amended
-   OBL-20260926T234500Z-B4C5D6. Real-harness build/execution on the
-   owner machine stays banned; no Foundation wholesale-adoption
+1. **Canonical amendments batch — EXECUTED (v34, owner H2 + root
+   principal).** PR #4's transaction map landed in qiven-context:
+   ADR-0047/0050 real-H1 wording amendments, ADR-0043 forfeiture
+   record, ADR-0039/0018 scope notes, ADR-0055 as the simulated MVP-4
+   gate (labels `MVP4_SIMULATION_ACCEPTED` +
+   `INSTALLED_DESKTOP_EXECUTION_UNVERIFIED`), the obligation/state
+   riders, and the projects/process rewrite. **Next program: the
+   simulated-gate build and doc-repair batches per
+   OBL-20260926T234500Z-B4C5D6 items 4-6** — (4) the simulated
+   hook/host lifecycle gate in qiven-runtime (real hook exe +
+   RuntimeHost over the real pipe, independently sourced fixtures,
+   the five incidents as distinct old-fail/new-pass cases, skip →
+   NOT_VALIDATED with the h1_kit_test.py skip-success fix, 100-case
+   breadth target with invariant coverage map, writable-child bypass
+   as a negative case, exact-head receipt binding, publication gate
+   rejects absent/skipped/stale/failed receipts); (5) documentation
+   repair batches (docs-only) in foundation/devkit/runtime/math/
+   context-draft per the PR4 audits; (6) continuity interim controls
+   (manual R2/R3 checklist, invariant→test map, coverage observation
+   + the two control experiments). Real-harness build/execution on
+   the owner machine stays banned; no Foundation wholesale-adoption
    prerequisite; no ZCode transplant; lower-layer fixes are separately
    admitted when the simulated tests detect concrete defects.
 2. **Workspace migration is NOT blocked** (WR-5/WR-6 are
