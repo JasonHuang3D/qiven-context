@@ -45,27 +45,26 @@ paused_work:
 - qiven-runtime/process-execution
 - qiven-cad
 next_boundary: >-
-  The simulated-gate build and doc-repair program per
-  OBL-20260926T234500Z-B4C5D6 items 4-6, under the just-landed
-  ADR-0055 (v34 canonical amendments transaction, owner H2 + root
-  principal): (4) build the simulated hook/host lifecycle gate in
-  qiven-runtime - real candidate hook exe + RuntimeHost over the real
-  pipe, independently sourced fixtures (pinned zai-org/ZCode@29628c9
-  hooks implementation + published payload contracts + historical H1
-  captures), the five incidents as distinct old-fail/new-pass cases,
-  skip -> NOT_VALIDATED with the h1_kit_test.py skip-success fix,
-  100-case breadth target with invariant coverage map, writable-child
-  bypass as a negative coverage case, exact-head receipt binding,
-  publication gate rejects absent/skipped/stale/failed receipts;
-  (5) documentation repair batches (docs-only) in
-  foundation/devkit/runtime/math/context-draft per the PR4 audits;
-  (6) continuity interim controls (manual R2/R3 checklist with
-  source-bound activation receipts, invariant->test map, coverage
-  observation incl. the two control experiments). Real-harness
-  execution on the owner machine banned; no Foundation
-  wholesale-adoption prerequisite; no ZCode transplant; lower-layer
-  fixes separately admitted when the simulated tests detect concrete
-  defects. WR-5/WR-6 not blocked, sequenced after; RR-0 -> CA-1 after
-  the simulated gate; MVP-5 frozen until CA-2 + the simulated-gate
-  MVP-4 exit.
-updated_at: '2026-09-26T14:30:00Z'
+  v34 executed the canonical amendments (owner H2 + root principal)
+  AND the four-repo docs-only repair batch (foundation dd10bff, math
+  b44eae7, context-draft d801c9a, runtime 8da3104 - all gate PASS at
+  exact heads; workspace lock conformed at generation
+  sha256:c261efed, all nodes at canonical main HEADs). Open owner
+  decision point: the Devkit repair adjudication (accepted PR4 Devkit
+  audit s6.1 - the ADR-0044/0046/0050 delta, design-first timing, the
+  single current rule body; also carries the Context-side ADR-0044
+  scope note). Next program: the simulated-gate build per
+  OBL-20260926T234500Z-B4C5D6 item 4 (simulated hook/host lifecycle
+  gate in qiven-runtime: real hook exe + RuntimeHost over the real
+  pipe, independently sourced fixtures, five incidents as distinct
+  old-fail/new-pass cases, skip -> NOT_VALIDATED incl. the
+  h1_kit_test.py skip-success fix, 100-case breadth target with
+  invariant coverage map, writable-child bypass negative case,
+  exact-head receipt binding, publication gate rejects
+  absent/skipped/stale/failed receipts), then item 6 continuity
+  interim controls. Real-harness execution on the owner machine
+  banned; no Foundation wholesale-adoption prerequisite; no ZCode
+  transplant. WR-5/WR-6 not blocked, sequenced after; RR-0 -> CA-1
+  after the simulated gate; MVP-5 frozen until CA-2 + the
+  simulated-gate MVP-4 exit.
+updated_at: '2026-09-26T16:30:00Z'

@@ -1,37 +1,42 @@
 # Foundation
 
-Genesis core import status: **COMPLETE** for the Foundation architecture/ownership/representation slice. The later cross-domain residue audit may still add or relate records discovered elsewhere.
+Qiven Foundation: the low-level C++ foundation layer (ADR-0017 layer law;
+explicit ownership/failure/allocation ADR-0008; separate representation
+boundaries ADR-0009).
 
-## Current verified state
+## Current state (2026-09-26)
 
-- Live main pin tracked by qiven-context: `6c09151e1a52830c66e6c7a97b5b68740154f475` (`merge: complete Foundation Devkit adoption`).
-- Qiven program state: Foundation Phase I complete and formally adopted into qiven-devkit managed lifecycle at template version `0.1.2`.
-- Devkit ownership metadata is present in `.qiven/repo.json` and `.qiven/generated-state.cmake`; the managed set contains sixteen shared paths under schema 2.
-- Build form: C++20 static library `qiven-foundation`, CMake alias `qiven::foundation`.
-- Public C++ namespace root: `qiven::`; there is intentionally no `qiven::foundation` namespace.
+- **Landed**: Phase I surface (platform/compiler/config/contracts
+  primitives; checked arithmetic/span helpers; bounded byte
+  cursor/writer + endian; the allocator/memory model incl.
+  `AllocatorRef`/`Layout`/`LinearArena`/`SystemAllocator`/
+  `OwnedAllocation`/`OwnedObject<T>`/`OwnedArray<T>`; `Result<T,Reason>`
+  incl. `Result<void>`; fnv1a64 + SHA-256). The machine-readable
+  inventory with per-row headers and contracts is the repository's
+  `docs/architecture/capability-surface.yaml` — that file, not this
+  entry, is the live surface record.
+- **Admitted, not yet landed**: `byte_builder` (owning growing bounded
+  byte accumulator; ADR-0024 admission 2026-09-24; lands with the RR-0
+  implementation batch in qiven-runtime).
+- **Admission law**: semantic owner + first real consumer (ADR-0024);
+  the current architecture contract is the repository's
+  `docs/architecture/foundation.md` (replaced 2026-09-26 per the
+  accepted PR4 audit; bootstrap original preserved under the
+  repository's `docs/legacy/architecture/`).
+- **Workspace role**: the dependency provider for qiven-math /
+  qiven-context-draft / qiven-runtime (WR-3 Profile E; workspace lock
+  resolution, zero consumer re-pins).
 
-## Durable architecture recovered by Genesis
+## Entry points and evidence
 
-- Foundation stays small, foundational, low-dependency, and downstream-demand-driven rather than becoming a general utilities repository (`ADR-0007`).
-- Ownership, allocator provenance, raw-storage/object-lifetime separation, checked bounds arithmetic, and failure behavior are explicit (`ADR-0008`).
-- Native C++ representation is local; ABI, IPC, shared-memory, wire, and persistent formats require deliberate transferable contracts (`ADR-0009`).
-- Portability is enforced through explicit platform boundaries and continuously exercised CI targets.
-
-## Phase I public vocabulary
-
-The public surface includes platform/compiler/config/contracts/types primitives; checked arithmetic/integer/span helpers; bounded byte cursor/writer and endian conversion; and memory primitives including `AllocatorRef`, `Layout`, `LinearArena`, `SystemAllocator`, `OwnedAllocation`, `OwnedObject<T>`, and `OwnedArray<T>`.
-
-## Devkit adoption outcome
-
-Foundation's historical managed drift was reconciled semantically before ownership was asserted. The thirteen conflicting managed paths were reviewed individually; stronger shared engineering protocol moved upstream into Devkit 0.1.2, Devkit CMD control-flow defects were fixed upstream, and representation-only drift converged Foundation to the accepted managed snapshot.
-
-A real adoption check then reached `16 EXACT / 0 MISSING / 0 CONFLICT`. Formal adoption created only `.qiven/repo.json` and `.qiven/generated-state.cmake`. Immediate post-adoption sync was byte-for-byte no-op for both ownership-state files, and the accepted merge preserved the exact locally validated candidate tree. See `../../evidence/audits/foundation-managed-drift-reconstruction.md` and `../../evidence/audits/foundation-devkit-adoption.md`.
-
-## Deferred Foundation cognition recovered
-
-- A common result/status abstraction is intentionally deferred until a real public API needs structured recoverable status; modules must not invent incompatible ad-hoc result vocabularies meanwhile.
-- A generic ScopeExit/defer primitive was explicitly left out of Phase I and should be reconsidered only if repeated real downstream cleanup patterns justify Foundation ownership.
-
-## Evidence
-
-Primary source: `JasonHuang3D/qiven-foundation` architecture, CMake, agent/worker protocol, CI, and current accepted main. See `../../evidence/audits/genesis-foundation-slice.md` for the original import audit and the adoption audits above for the later lifecycle transition.
+- Repository: `JasonHuang3D/qiven-foundation` (README, architecture,
+  capability inventory).
+- Placement decisions: `decisions/ADR-0024.md` (semantic ownership),
+  ADR-0008/0009/0017 here; ADR-0007 is superseded.
+- History: Phase I import/adoption audits live under `evidence/audits/`
+  (`genesis-foundation-slice.md`,
+  `foundation-managed-drift-reconstruction.md`,
+  `foundation-devkit-adoption.md`); the Phase-I-era project snapshot is
+  preserved at `legacy/projects/foundation/README-phase-i.md` (its
+  "current" pins are dated 2026-09-13 history — do not read them as
+  live state).
