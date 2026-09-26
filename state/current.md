@@ -1000,16 +1000,35 @@ repositories follow per
 
 ## Next boundary
 
-1. **OWNER DECISION POINT (the v35 H1 stop): adjudicate the
-   `MVP4_SIMULATION_ACCEPTED` MVP-4 exit record** per ADR-0055 — the
-   simulated gate is green at the published head
-   (qiven-runtime `aa2076e`, receipt `sim-aa2076e201d3-…`, 104/104
-   non-skipped, typed states standing) with the
-   `INSTALLED_DESKTOP_EXECUTION_UNVERIFIED` residual — and choose the
-   next program: RR-0 mechanical batch → CA-1 (may interleave now that
-   the simulated gate has landed), or the WR-5/WR-6 pre-wave
-   (devkit template/tool pre-wave, then WR-5 one owner opening grant,
-   then WR-6 pin reconciliation closing the standing BaselineConflict).
+1. **OWNER DECISION POINT (the v36 H1 stop): adjudicate the
+   `MVP4_SIMULATION_ACCEPTED` MVP-4 exit record** per ADR-0055, on the
+   post-self-review evidence — the v36 loop (owner-directed
+   fresh-review workers over the delivered gate) materially improved
+   the artifact across three published amendment batches
+   (qiven-runtime `367b44a` → `1ef9667` → `ffb31c2`: INV-10 and INV-15
+   now asserted at every binding site, case names/payloads/bindings
+   honest, one-connection observability with proven old-fail, the real
+   harness invocation form + per-event budgets exercised, receipt
+   machinery complete and internally consistency-checked, duplicates
+   merged 104 → 101 per the owner's directive, complete-mediation
+   scope naming both claim-blocking classes including caller-side
+   non-invocation) — but stopped at the standing three-consecutive-
+   reset ceiling WITHOUT reaching the owner-directed five consecutive
+   clean rounds, so the pre-committed acceptance did not fire. Final
+   published state: qiven-runtime `ffb31c2`, receipt
+   `sim-ffb31c221c0d-20260926T175930Z.json` (101/101 non-skipped),
+   typed states `SIMULATED_HOOK_HOST_PASS` +
+   `PINNED_SOURCE_CONTRACT_REVIEWED` standing with the
+   `INSTALLED_DESKTOP_EXECUTION_UNVERIFIED` residual; the H1 kit for
+   the owner's manual installed-desktop work is built at
+   `<workspace>/h1-kits/qiven-runtime/mvp4-h1/0.1.0-gffb31c22/`
+   (GUIDE.md entry point). Owner options: accept as-is, direct one
+   bounded further review pass, or open the process question the
+   ceiling raises — then choose the next program: RR-0 mechanical
+   batch → CA-1 (may interleave now that the simulated gate has
+   landed), or the WR-5/WR-6 pre-wave (devkit template/tool pre-wave,
+   then WR-5 one owner opening grant, then WR-6 pin reconciliation
+   closing the standing BaselineConflict).
    OBL-20260926T234500Z-B4C5D6 items (1)-(6) are all delivered; the
    acceptance record is the single remaining act.
 2. Standing residuals: MVP-5 stays FROZEN until CA-2 AND the
