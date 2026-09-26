@@ -30,6 +30,15 @@ DEFAULT_DB = Path.home() / ".zcode" / "cli" / "db" / "db.sqlite"
 # must not match "round"). Severity: high = loop-state or process-record
 # channel proven live in the v29 incident; info = weaker signal, reported
 # for triage without gating.
+#
+# Path-marker anchoring (2026-09-27 amendment): the qiven-runtime h1-sim
+# fixture corpus legitimately SPELLS the governed-path vocabulary
+# ({SIM_ROOT}/state/current.md, scratch-root gB/memory/records/...) because
+# those relative paths are the test subject itself. A bare path-shape
+# marker false-positives on that artifact vocabulary, so the two
+# governed-path markers are anchored to the qiven-context repository name
+# (absolute, relative and backslash forms all carry it); actual reads are
+# ground-truthed by the tool_calls list regardless of content markers.
 CURATED_MARKERS: list[tuple[str, str, re.Pattern[str]]] = [
     ("loop-state", "high", re.compile(r"\bpass count\b", re.I)),
     ("loop-state", "high", re.compile(r"\btally\b", re.I)),
@@ -43,8 +52,10 @@ CURATED_MARKERS: list[tuple[str, str, re.Pattern[str]]] = [
     ("round-position", "info", re.compile(r"\bnext round\b", re.I)),
     ("process-record", "high", re.compile(r"[/\\]sessions[/\\]2026-", re.I)),
     ("process-record", "high", re.compile(r"[/\\]evidence[/\\]audits[/\\]", re.I)),
-    ("process-record", "high", re.compile(r"[/\\]state[/\\]current\.md\b", re.I)),
-    ("process-record", "high", re.compile(r"[/\\]memory[/\\]records[/\\]", re.I)),
+    ("process-record", "high",
+     re.compile(r"qiven-context[/\\]state[/\\]current\.md\b", re.I)),
+    ("process-record", "high",
+     re.compile(r"qiven-context[/\\]memory[/\\]records[/\\]", re.I)),
     ("process-record", "high", re.compile(r"[/\\]obligations[/\\]OBL-", re.I)),
     ("process-record", "high", re.compile(r"[/\\]workflow-logs[/\\]", re.I)),
     ("process-record", "info", re.compile(r"\bqiven-v\d+\b", re.I)),

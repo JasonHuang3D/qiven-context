@@ -63,7 +63,7 @@ MEM-20260926T221500Z-D7E8F9 class).
 
 | Invariant class | Detector | Trigger |
 | --- | --- | --- |
-| MVP-4 hook/host lifecycle (ADR-0055: registration, classification, correlation, closure, packaging, the five incidents, writable-child negative) | `qiven-runtime tools/h1_sim_gate.py` (104 cases; per-case invariant bindings INV-1..18 in the receipt's `invariant_coverage`) | publication gate task `h1-sim` (every qiven-runtime gate:local run) |
+| MVP-4 hook/host lifecycle (ADR-0055: registration, classification, correlation, closure, packaging, the five incidents, writable-child negative) | `qiven-runtime tools/h1_sim_gate.py` (101 cases; per-case invariant bindings INV-1..19 in the receipt's `invariant_coverage`) | publication gate task `h1-sim` (every qiven-runtime gate:local run) |
 | H1 kit packaging / profile self-containment (ADR-0049) | `qiven-runtime tools/h1_kit_test.py` | publication gate task `h1-kit-test` |
 | Wire contract / framing / admission units | C++ suite (`ipc_multiframe_contract`, `pipe_frame_security`, `hook_conformance`, `host_lifecycle`, 41 tests) | publication gate tasks `test-debug`/`test-release` |
 | File-authoring law (native tools, no heredocs) | workspace hook router (deny + teach) | every session tool call (main sessions; subagents carry no hook runner — MEM-20260926T195500Z-F1E2D3) |
@@ -109,6 +109,17 @@ evidence, not law):
       receipt preserved. The experiment also found and fixed a rig defect
       (setup outside the guarded region → escaping traceback), landed as
       qiven-runtime aa2076e with gate PASS.
+[EXP] fresh-review amendment loop (2026-09-27, v36): THREE full
+      review+fix cycles, each finding real coverage/binding/receipt
+      defects the 104-green count could not see (INV-10 unasserted,
+      INV-15 bound-without-effect-asserts, name/payload divergence,
+      policy-fixture digest unbound, verify-receipt trusting counters
+      over rows, argv-form/budget parity gaps); every cycle landed
+      gate-PASS at its published head (367b44a → 1ef9667 → ffb31c2,
+      101 cases). The loop stopped at the three-consecutive-reset
+      ceiling and returned the acceptance node to the owner. Artifacts:
+      the v36 workflow log + session-transcript scans
+      (.generated-temp/v36-scan-r1/r2/r3.json).
 ```
 
 ## Relation to the request-boundary program

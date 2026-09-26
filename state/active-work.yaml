@@ -37,24 +37,34 @@ accepted_checkpoint:
       degraded brief as an invalid activation receipt (EXP-1)'
 current_candidate:
   subject: mvp4-simulation-acceptance-adjudication
-  ref: 'no unaccepted engineering candidate is open; the single remaining act is the OWNER adjudication of the MVP4_SIMULATION_ACCEPTED exit record per ADR-0055 (the v35 H1 stop) plus the next-boundary choice (RR-0->CA-1 interleave vs WR-5/WR-6 pre-wave)'
+  ref: 'the v36 self-review loop over the delivered simulated gate (owner-directed, qiven-fresh-review workers): three bounded review+fix cycles, each finding real coverage/binding/receipt defects and each landing gate-PASS at its published head (qiven-runtime 367b44a -> 1ef9667 -> ffb31c2, 101 cases, receipt sim-ffb31c221c0d-20260926T175930Z.json); per the standing reset ceiling the loop STOPPED after the third consecutive revision-warranting cycle - the directed k=5 consecutive-pass condition did NOT complete and the pre-committed acceptance did not fire'
   state: owner-decision-pending
 blockers: []
 paused_work:
 - qiven-runtime/process-execution
 - qiven-cad
 next_boundary: >-
-  Owner decision point (the v35 H1 stop): adjudicate the
-  MVP4_SIMULATION_ACCEPTED MVP-4 exit record per ADR-0055 - the
-  simulated gate is green at the published head (qiven-runtime aa2076e,
-  receipt sim-aa2076e201d3-20260926T161640Z.json, 104/104 non-skipped,
+  Owner decision point (the v36 H1 stop): adjudicate the
+  MVP4_SIMULATION_ACCEPTED MVP-4 exit record per ADR-0055 on the
+  post-self-review evidence - the v36 loop materially improved the
+  gate (three published amendment batches; INV-10/INV-15 now asserted,
+  names/bindings honest, receipt machinery complete, real harness
+  argv form + budgets exercised, duplicates merged 104->101) but
+  stopped at the standing three-consecutive-reset ceiling without
+  reaching the owner-directed five consecutive clean rounds, so the
+  pre-committed acceptance did not fire (qiven-runtime ffb31c2,
+  receipt sim-ffb31c221c0d-20260926T175930Z.json, 101/101 non-skipped,
   typed states SIMULATED_HOOK_HOST_PASS + PINNED_SOURCE_CONTRACT_REVIEWED
-  standing with the INSTALLED_DESKTOP_EXECUTION_UNVERIFIED residual) -
-  and choose the next program: RR-0 mechanical batch -> CA-1 (may
-  interleave now), or the WR-5/WR-6 pre-wave (devkit template/tool
-  pre-wave, WR-5 one owner opening grant, WR-6 pin reconciliation).
-  OBL-20260926T234500Z-B4C5D6 items (1)-(6) are all delivered. MVP-5
-  stays frozen until CA-2 AND the exit record; the PR-6 interim
-  continuity controls (views/workflows/r2r3-continuity-checklist.md)
-  bind every R2/R3 batch until the request-boundary program lands.
-updated_at: '2026-09-27T00:45:00Z'
+  standing with the INSTALLED_DESKTOP_EXECUTION_UNVERIFIED residual;
+  the H1 kit for manual installed-desktop work is built at
+  <workspace>/h1-kits/qiven-runtime/mvp4-h1/0.1.0-gffb31c22/GUIDE.md).
+  Accept as-is, direct one bounded further review pass, or open the
+  process question - then choose the next program: RR-0 mechanical
+  batch -> CA-1 (may interleave), or the WR-5/WR-6 pre-wave (devkit
+  template/tool pre-wave, WR-5 one owner opening grant, WR-6 pin
+  reconciliation). OBL-20260926T234500Z-B4C5D6 items (1)-(6) are all
+  delivered. MVP-5 stays frozen until CA-2 AND the exit record; the
+  PR-6 interim continuity controls (views/workflows/r2r3-continuity-
+  checklist.md) bind every R2/R3 batch until the request-boundary
+  program lands.
+updated_at: '2026-09-27T02:30:00Z'
