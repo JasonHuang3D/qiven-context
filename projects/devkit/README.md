@@ -24,13 +24,18 @@ Operator runtime, the workspace resolver, and the ZCode hook router.
   Python standard, third-party dependencies) and `docs/conventions/`
   are Devkit-canonical per ADR-0046; templates rolled past 0.1.9 (exec
   v2 custody pin).
-- **Pending (owner adjudication)**: the accepted PR4 Devkit audit
-  (qiven-docs `accepted/2026-09-26/04-devkit-standards-and-precedent-gate.md`)
-  prescribes the standards v2 rewrite (PR-1..PR-4 + the PR-6 trigger
-  after adjudication), entry-point rewrites, and the operator-design
-  museum — all gated on the owner adjudicating the ADR-0044/0046/0050
-  delta, design-first timing, and the single current rule body
-  (its §6.1). Not executed yet.
+- **Devkit repair (PR4 audit) — ADJUDICATED and EXECUTED 2026-09-26**
+  (owner verbatim "Devkit 修复批次裁定全部通过"): standards v2 landed
+  (implementation-standard §16-§17 PR-1/PR-2; testing-standard §12 PR-3
+  discriminating proof; design-first-workflow v2 — R2/R3 commit
+  ordering, E4 boundary-semantics revision, PR-6 continuity trigger);
+  the current operator contract published
+  (`docs/operator-contract.md`; Phase-1 design museumed); entry points
+  rewritten (README authority-resolution procedure, workspace reality,
+  agent-entry shape, live-repository naming exemplars); the six §6.2
+  consistency fixtures verified PASS at the candidate. The
+  corresponding Context-side ADR-0044 dated scope note records the
+  adjudication.
 
 ## Entry points and evidence
 
