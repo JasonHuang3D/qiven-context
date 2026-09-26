@@ -689,9 +689,41 @@ forfeiture amendment (`DELETED_REMOTE + ARCHIVE_FORFEITED`, void
 seed), ADR-0039/0018 dated scope notes, ADR-0055 landed as accepted
 (ADR-0054 intentionally unassigned), the decisions/index.yaml row +
 numbering note, the OBL-9A7B41 and OBL-D6E7F8 riders, the state
-riders (this file + active-work.yaml), and the projects/process
-rewrite (void seed, DCR spine removed, original preserved under
-legacy/projects/process/).
+   riders (this file + active-work.yaml), and the projects/process
+   rewrite (void seed, DCR spine removed, original preserved under
+   legacy/projects/process/).
+
+   **Turn 2 (owner verbatim "接受" + conditional doc-repair direction):
+   the docs-only repair batch EXECUTED for the four unblocked
+   repositories, all gate PASS at exact candidate heads, merged and
+   pushed.** Dependency ruling: foundation/runtime/math/context-draft
+   had no open dependency (their prerequisites — the Context authority
+   delta and ADR-0055 — landed in turn 1); **devkit is BLOCKED on an
+   owner adjudication** (the accepted PR4 Devkit audit's §6.1: the
+   ADR-0044/0046/0050 delta, design-first timing, and the single
+   current rule body, before its standards-v2 rewrite and entry-point
+   rewrites) — recorded as the next owner decision point. Landed:
+   qiven-math `b44eae7` (README truthful surface + CI claim scope),
+   qiven-context-draft `d801c9a` (completed plans + role-staged
+   originals museumed with banners; revised current subsets at the
+   live paths keeping the compiled §2/§3-§5 semantics; architecture
+   index as the final-accepted-contract map; workspace-bootstrap build
+   path in the README), qiven-foundation `dd10bff` (foundation.md
+   replaced with the semantic-owner admission contract; cpp-architecture
+   snapshot, error-handling, distillation, result-void museumed; README
+   truthful entry points; capability-surface laws/pointers repaired;
+   two header comments retargeted), qiven-runtime `8da3104` (README
+   RuntimeHost ownership + CI claim scope; component ADL dated
+   reconciliation amendments at §§3/5/85; production architecture
+   ACCEPTED label + ADR-0055 banners; TCA roadmap amendment + MVP-4
+   design dated amendment notes; process-execution architecture
+   museumed). Workspace lock: devkit routine advance `845a5e6`
+   (router-v4.3 head), batch-internal advance `c8397a8` + conform
+   `71649ca` + final routine advance `b5c59d2` (all six nodes at
+   canonical main HEADs; generation `sha256:c261efed…`; shadow receipts
+   PASS each step; the standing context→devkit pin conflict unchanged,
+   WR-6). Context-side project entries repaired (projects/foundation,
+   projects/devkit rewritten with legacy snapshots).
 
 ## Accepted engineering checkpoints
 
@@ -877,27 +909,28 @@ repositories follow per
 
 ## Next boundary
 
-1. **Canonical amendments batch — EXECUTED (v34, owner H2 + root
-   principal).** PR #4's transaction map landed in qiven-context:
-   ADR-0047/0050 real-H1 wording amendments, ADR-0043 forfeiture
-   record, ADR-0039/0018 scope notes, ADR-0055 as the simulated MVP-4
-   gate (labels `MVP4_SIMULATION_ACCEPTED` +
-   `INSTALLED_DESKTOP_EXECUTION_UNVERIFIED`), the obligation/state
-   riders, and the projects/process rewrite. **Next program: the
-   simulated-gate build and doc-repair batches per
-   OBL-20260926T234500Z-B4C5D6 items 4-6** — (4) the simulated
-   hook/host lifecycle gate in qiven-runtime (real hook exe +
-   RuntimeHost over the real pipe, independently sourced fixtures,
-   the five incidents as distinct old-fail/new-pass cases, skip →
-   NOT_VALIDATED with the h1_kit_test.py skip-success fix, 100-case
-   breadth target with invariant coverage map, writable-child bypass
-   as a negative case, exact-head receipt binding, publication gate
-   rejects absent/skipped/stale/failed receipts); (5) documentation
-   repair batches (docs-only) in foundation/devkit/runtime/math/
-   context-draft per the PR4 audits; (6) continuity interim controls
-   (manual R2/R3 checklist, invariant→test map, coverage observation
-   + the two control experiments). Real-harness build/execution on
-   the owner machine stays banned; no Foundation wholesale-adoption
+1. **Canonical amendments + the four-repo docs-only repair batch —
+   EXECUTED (v34).** PR #4's transaction map landed in qiven-context
+   (owner H2 + root principal) and the docs-only repairs landed in
+   foundation/math/context-draft/runtime (all gate PASS at exact
+   heads, merged, pushed; workspace lock conformed — all nodes at
+   canonical main HEADs, generation `sha256:c261efed…`). **Open owner
+   decision point: the Devkit repair adjudication** (the accepted PR4
+   Devkit audit §6.1 — the ADR-0044/0046/0050 delta, design-first
+   timing, the single current rule body — before the Devkit
+   standards-v2 rewrite and entry-point rewrites; also carries the
+   Context-side ADR-0044 dated scope note from that audit's repair
+   map). **Next program: the simulated-gate build per
+   OBL-20260926T234500Z-B4C5D6 item 4** — the simulated hook/host
+   lifecycle gate in qiven-runtime (real hook exe + RuntimeHost over
+   the real pipe, independently sourced fixtures, the five incidents
+   as distinct old-fail/new-pass cases, skip → NOT_VALIDATED with the
+   h1_kit_test.py skip-success fix, 100-case breadth target with
+   invariant coverage map, writable-child bypass as a negative case,
+   exact-head receipt binding, publication gate rejects
+   absent/skipped/stale/failed receipts), then item 6 continuity
+   interim controls. Real-harness build/execution on the owner
+   machine stays banned; no Foundation wholesale-adoption
    prerequisite; no ZCode transplant; lower-layer fixes are separately
    admitted when the simulated tests detect concrete defects.
 2. **Workspace migration is NOT blocked** (WR-5/WR-6 are
