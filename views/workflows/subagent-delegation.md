@@ -212,16 +212,17 @@ When so directed:
 2. **Pass condition**: a round PASSES when the worker review reports
    zero unresolved findings AND the orchestrator's own review concurs
    (nothing the worker missed that the orchestrator must fix).
-3. **Approval condition**: THREE CONSECUTIVE passing rounds approve the
-   target (owner equation 2026-09-25: three clean consecutive rounds =
-   the owner manually reviewing three times = pass).
+3. **Approval condition**: K CONSECUTIVE passing rounds approve the
+   target, where K is a loop parameter (see Loop parameters below;
+   default K=3 — owner equation 2026-09-25: three clean consecutive
+   rounds = the owner manually reviewing three times = pass).
 4. **Reset rule**: ANY revision to the approval target during the loop
    voids the pass count; counting restarts from zero. Honest tally only.
 5. **What this substitutes**: the owner's verification labor for the
    named decision, per explicit owner direction recorded verbatim in the
    session checkpoint. It never transfers governance authority — the
    decision remains the owner's (the direction itself is the decision;
-   the 3-pass record is the named evidence vehicle, same pattern as the
+   the K-pass record is the named evidence vehicle, same pattern as the
    ADR-0050 orchestrated-evidence amendment). Escalation duty unchanged:
    any material, semantic or unexpected-failure round returns to the
    owner as a stop, exactly as delegated H2 requires.
@@ -230,19 +231,59 @@ Each review round uses the mandatory brief template (§5a) unchanged and
 respects the process topology above (sequential rounds run foreground).
 The canary rule applies before R2-class rounds as usual.
 
-6. **Reset ceiling (owner direction 2026-09-25, turn 2)**: at most
-   THREE consecutive resets. A third consecutive reset proves three
-   full review+fix cycles each still warranting revision: fix the last
-   round's findings ONCE, STOP the loop, record everything, and report
-   the node as an owner-H1 adjudication point. Repeated resets are
-   evidence that the artifact or the process design itself is suspect —
-   that is a design question for the owner, never a fourth loop.
+6. **Reset ceiling**: at most StandingLaw consecutive resets (see Loop
+   parameters below; default StandingLaw=3). A default-ceiling third
+   consecutive reset proves three full review+fix cycles each still
+   warranting revision: fix the last round's findings ONCE, STOP the
+   loop, record everything, and report the node as an owner-H1
+   adjudication point. Repeated resets are evidence that the artifact
+   or the process design itself is suspect — that is a design question
+   for the owner, never a fourth loop. An owner assignment MAY replace
+   the default ceiling action (see Loop parameters) — when the assigned
+   ceiling action is standing acceptance, reaching the ceiling means:
+   fix the last round's findings once, record everything, and the node
+   is DEEMED OWNER-ACCEPTED per that standing direction; the loop then
+   proceeds without an interruption stop.
 7. **Positionless rounds (owner direction 2026-09-25, turn 2)**: no
    round is pre-labeled final/terminal/last/decisive; a reviewer's
    brief never carries its round's position, the streak state, or
    whether its round could complete an approval. Pre-labeling a round
    as decisive biases the verdict toward passing and is orchestrator
    self-pollution — nobody may declare a subagent task "final".
+
+### Loop parameters — K and StandingLaw (owner direction 2026-09-27)
+
+The two loop constants above are **owner-assignable variables**. Both
+defaults are 3, preserving the original owner equations (2026-09-25:
+three clean rounds = the owner reviewing three times = pass; a third
+consecutive reset = stop-and-escalate).
+
+- **K** — the number of consecutive passing rounds that approves the
+  target. Default 3.
+- **StandingLaw** — the maximum number of consecutive revision-warranting
+  rounds before the ceiling fires. Default 3, with the ceiling action
+  "fix once, stop, owner-H1 adjudication point".
+
+The owner may assign either value explicitly in any conversation, for
+all loops in scope or for a named loop. An assignment may also assign
+the ceiling action; when the owner directs that the worst case after
+the StandingLaw count "represents owner acceptance", the ceiling action
+is standing acceptance (deemed-owner-accepted after the final fix),
+exactly as written in rule 6 above.
+
+Binding and execution law:
+
+1. An assignment binds from its utterance and is recorded verbatim in
+   the session checkpoint/workflow log with its scope.
+2. A loop in flight adopts a changed assignment at its next round
+   boundary (rounds already run keep their honest tally).
+3. Once assigned, the loop executes STRICTLY to its terminal condition
+   — approval at K consecutive clean passes, or the assigned ceiling
+   action at StandingLaw consecutive resets — without interruption
+   stops inside the loop. The general escalation duty (material,
+   semantic, unexpected-failure rounds return to the owner) is NOT
+   waived by parameters: it governs what surrounds the loop, never the
+   pre-committed terminal conditions themselves.
 
 ## Transcript-provenance audit (mechanical, F1A2B3 law 2026-09-26)
 
