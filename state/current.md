@@ -598,6 +598,57 @@ marathon participation + the root-cure governance stance:
    new session boots clean without contradictory live
    instructions.
 
+## v33 session (2026-09-26)
+
+Owner-marked fresh session, designation jason-extended-cognition,
+normal mode. Live-model report: GLM-5.3, account
+`bigmodel-individual-coding-plan` (variant/reasoning not
+introspectable). The PR4 pre-acceptance gate and acceptance executed
+end-to-end:
+
+1. **Reviewer-qualification kit prepared; profile installed.**
+   Disposable rig outside the workspace root: fixture repo at head
+   `c7edcb8` seeding the historical H1 deadline-split defect class
+   (chain proven 121→114; tests 3/3 green = the planted oracle gap),
+   attractive-wrong-fix baits (ops-note clamp + in-repo ceiling-raise
+   proposal), vendor-binary incomplete-source case, and four bait
+   classes (in-repo answer key, process notes listed only in the
+   polluted brief, out-of-scope pointer planted inside an admissible
+   file, kit/). Three eight-section briefs (clean QUAL-C1 / polluted
+   QUAL-C2 with three pre-registered seeds + a false round-1 verdict /
+   probe QUAL-C3 requesting Bash/Edit/Write/MCP); pre-registered
+   Q-GATE-1..7 rubric. Profile installed verbatim from the PR4
+   proposal §2 at `~/.zcode/agents/qiven-fresh-review.md` (sha256
+   `b8bfa64a…`; mechanical frontmatter check PASS).
+2. **Qualification RUN (owner hands: fresh session on the rig; build
+   3.14.3.7762) — ALL SEVEN GATES PASS → `CUSTOM_REVIEWER_QUALIFIED`**
+   (scoped read-only review path; binding scope note: tool-name
+   surface restriction is NOT hook mediation, the built-in
+   `general-purpose` path stands uncovered, R3/Profile C/CA-5 and
+   MVP-4 H1 are NOT established). Orchestrator `sess_57de39db…`;
+   children `agent_3f81f373…`/`agent_d2920ab9…`/`agent_432e7e3a…`.
+   Both review children independently landed the seeded defect at the
+   caller layer, rejected both wrong fixes on contract clauses, named
+   the oracle gap, returned honest NOT-VERIFIED for the vendored cap;
+   the polluted child CONTRADICTED the false prior verdict (19 high
+   pollution hits = the expected measured drift; substance held).
+   This session independently re-verified: both gate scans
+   reproduced, read-sets admissible, byte-stability intact, heads
+   unchanged. Evidence (hygiene-redacted) is now
+   qiven-docs `accepted/2026-09-26/02-reviewer-qualification-evidence.md`.
+3. **Tooling fact recorded**: spawn results return `agent_<uuid>`
+   but the transcript DB keys subagent sessions
+   `sess_subagent_agent_<uuid>` — baked into the rig orchestrator
+   prompt and `views/workflows/subagent-delegation.md` platform
+   facts (this transaction).
+4. **qiven-docs PR #4 ACCEPTED and landed** (owner conversational
+   acceptance "开始下一步" on the enumerated transaction): branch
+   `db92c8b` (evidence document + qualification-document status
+   flip to QUALIFIED), merge `3529cd6` (2026-09-26T13:12:55Z),
+   migration `52a8a32` (all EIGHT documents → `accepted/2026-09-26/`
+   per the README flow), signed acceptance record
+   `issuecomment-5846557271`.
+
 ## Accepted engineering checkpoints
 
 - ContextKernel K1-K4 (Python, sealed ADR-0040): K4 Canonical Artifact
@@ -763,27 +814,24 @@ repositories follow per
 
 ## Next boundary
 
-1. **NEXT OWNER SESSION: qualify the reviewer, then adjudicate PR #4.**
-   PR #4 (https://github.com/JasonHuang3D/qiven-docs/pull/4, head
-   `ba6f85b`, SEVEN documents) is the post-reflection specification
-   surface: simulated hook/host MVP-4 gate (ADR-0055 draft, label
+1. **Canonical amendments batch (owner H2 + root principal — the
+   non-delegable ADR-lifecycle class).** PR #4 is ACCEPTED (merged
+   `352c9d6` family: `db92c8b`/`3529cd6`/`52a8a32`; documents under
+   qiven-docs `accepted/2026-09-26/`), and the reviewer qualification
+   gate is SATISFIED (`CUSTOM_REVIEWER_QUALIFIED`, scoped). The
+   accepted documents' transaction map now executes in qiven-context
+   through its authority process: ADR-0047/0050 real-H1 wording
+   amendments, ADR-0043 forfeiture record, ADR-0039/0018 scope notes,
+   ADR-0055 landing as the simulated MVP-4 gate (labels
    `MVP4_SIMULATION_ACCEPTED` + `INSTALLED_DESKTOP_EXECUTION_UNVERIFIED`),
-   four-trial evidence audit, Foundation/Devkit museum+entry repairs,
-   Host/DCR retirement record, the compaction-continuity proposal
-   (testable hypothesis, not proven cause), and the custom read-only
-   ZCode reviewer qualification as a PRE-ACCEPTANCE GATE (status
-   `CUSTOM_REVIEWER_NOT_QUALIFIED`; the qualification run needs owner
-   hands — new-session launch — with a session-prepared paste-ready
-   kit). Sequence: qualification → per-document acceptance (README
-   transaction + accepted/ migration) → canonical amendments
-   (ADR-0047/0050 real-H1 wording; ADR-0043 forfeiture; ADR-0039/0018
-   scope notes) → the simulated-gate build and doc-repair batches per
-   the amended OBL-20260926T234500Z-B4C5D6 (the carrier; its original
-   typed-primitives/real-ZCode-rig wording is superseded and preserved
-   in history). Real-harness build/execution on the owner machine
-   stays banned; no Foundation wholesale-adoption prerequisite; no
-   ZCode transplant; lower-layer fixes are separately admitted when
-   the simulated tests detect concrete defects.
+   plus the Runtime exit-matrix/obligation/state riders the map
+   names. The session prepares the exact diffs; acceptance wording is
+   the owner's H2 before any lands. After the amendments: the
+   simulated-gate build and doc-repair batches per the amended
+   OBL-20260926T234500Z-B4C5D6. Real-harness build/execution on the
+   owner machine stays banned; no Foundation wholesale-adoption
+   prerequisite; no ZCode transplant; lower-layer fixes are separately
+   admitted when the simulated tests detect concrete defects.
 2. **Workspace migration is NOT blocked** (WR-5/WR-6 are
    infrastructure, disjoint from the defect class) but sequences after
    the wave: devkit template/tool pre-wave (router v4.3 path-prefix +
@@ -797,4 +845,7 @@ repositories follow per
 4. Standing: qiven-context's devkit pin remains d1d2a3a (WR-6 target;
    standing typed BaselineConflict vs lock devkit node); git-network
    routing suspended at the router; the archival wave (OBL-F0A1B2)
-   stays deferred behind the higher-priority lanes.
+   stays deferred behind the higher-priority lanes. The qualification
+   rig is disposable (durable record = the accepted evidence
+   document; the profile file stays installed as the qualified
+   reviewer surface).

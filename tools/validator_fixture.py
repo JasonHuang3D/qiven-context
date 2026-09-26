@@ -25,6 +25,7 @@ COPY_FILES = (
     "MEMORY-CONSTITUTION.md",
     "governance/authority.yaml",
     "governance/context-constraints.yaml",
+    "runtime/invocation-policy.yaml",
     "state/repositories.yaml",
     "state/active-work.yaml",
     "state/roadmap.yaml",

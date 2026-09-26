@@ -379,3 +379,10 @@ reading-list entry; state the delta inline in the brief or not at all.
 - Transcript parts persist incrementally during subagent runs (session
   DB), so in-flight mechanical supervision via a bounded DB sampler is
   feasible when a round warrants it.
+- Subagent transcript ids in the session DB are keyed
+  `sess_subagent_agent_<uuid>`, while spawn results return
+  `agent_<uuid>`: scan with `--session sess_subagent_agent_<uuid>` or
+  resolve once via `--parent <orchestrator session id>` — the bare
+  spawn-result id matches nothing (measured live in the 2026-09-26
+  reviewer qualification on build 3.14.3.7762; the qualification
+  session worked around it and this line bakes the mapping in).
