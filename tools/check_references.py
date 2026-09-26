@@ -44,6 +44,12 @@ EXEMPT_TOKENS = {
     # cross-repository citations (devkit / math), not this repository's tree
     "tests/vector_core.cpp",
     "templates/cpp-library/managed-files.cmake",
+    # cross-repository citations (qiven-runtime, the simulated-gate batch
+    # OBL-20260926T234500Z-B4C5D6 item 4 / ADR-0055): the rig, its kit
+    # regressions and its fixture corpus live in qiven-runtime's tree
+    "tools/h1_sim_gate.py",
+    "tools/h1_kit_test.py",
+    "tests/fixtures/h1-sim/catalogue.json",
 }
 EXEMPT_FILES = {
     # describes the qiven-devkit repository's own tree, not this one

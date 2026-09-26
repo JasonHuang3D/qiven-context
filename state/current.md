@@ -671,6 +671,73 @@ end-to-end:
    self-review performed instead; first live use belongs to a
    session started after install.
 
+## v35 session (2026-09-26/27)
+
+Owner-marked fresh session, designation jason-extended-cognition,
+**long-running mode from turn 1** (opening instruction: cold boot; switch
+designation; "完整执行并落地OBL-B4C5D6，直到必须的H1再停"). Live-model
+report: GLM-5.3, account `bigmodel-offpeak-idle-plan` (variant/reasoning
+not introspectable, reported as such). **OBL-B4C5D6 items (4) and (6)
+DELIVERED end-to-end** (items 1/2/3/5 were already done in v33/v34):
+
+1. **The simulated ZCode hook lifecycle gate LANDED and is the MVP-4
+   interim exit instrument** (ADR-0055; design qiven-runtime
+   `docs/design/mvp4-simulated-gate.md`; rig
+   `qiven-runtime tools/h1_sim_gate.py` + fixture corpus
+   `qiven-runtime tests/fixtures/h1-sim/catalogue.json` + the pinned
+   `invocation-policy.yaml` copy): 104 named scenarios over the REAL
+   hook exe + RuntimeHost behind the real pipe in isolated scratch
+   roots (minimal git cognition fixtures; outside roots lexical-clean);
+   oracles from pinned zai-org/ZCode@29628c9 shapes, the trial-4 kit
+   captures (placeholderized per the hygiene law), contract-derived
+   parameters and the incident audits — never implementation output;
+   invariant map INV-1..18; the five incidents as distinct
+   old-fail/new-pass cases (I4's old-fail reproduced BYTE-EXACT on the
+   preserved pre-fix binaries via `old-fail-i4`); a wire-level fault
+   client (DPAPI + HMAC framing) for the trial-3/4 mechanisms and the
+   authenticated shutdown; the writable-child/delegation bypass as the
+   required negative control (INV-18; complete mediation stays scoped
+   to the mediated tuple); 6 detector-scope limits honestly recorded;
+   skip is acceptance-fatal; receipts bind the exact head (catalogue/
+   exe/profile/manifest digests, platform, command, typed states) and
+   verify-receipt rejects dev/stale/failed. Publication gate:
+   `h1-sim` + `h1-kit-test` tasks wired into gate:local.
+2. **Folded fixes (ADR-0055 Consequences):** the trial-4 hello-deadline
+   one-liner (hello is a handshake: ≤5000 ms via `hello_ceiling_ms`;
+   the event keeps its budget) and the h1_kit.py preflight
+   session_start registration coverage (the trial-4 preflight blind
+   spot); h1_kit_test.py skip-success semantics fixed (NOT_RUN fails
+   the suite — ADR-0055 decision 5).
+3. **Gate-detected defect fixed at its semantic owner (ADR-0055 d10,
+   with old-fail/new-pass receipts):** governed exact-FILE targets never
+   matched (the lexical match required a trailing separator — only DIR
+   children matched); fixed root-bounded (relative exact + absolute
+   suffix under the governed root prefix; containment-anywhere kept as
+   labeled over-approximation). Lesson: MEM-20260927T003000Z-E4F5A6.
+4. **Published** (delegated per-batch H2): qiven-runtime main `b08bf99`
+   (merge) then `aa2076e` (rig setup containment — found by control
+   experiment EXP-2); gate:local PASS at both exact heads; gate-grade
+   receipts `sim-d6f2cf066bdd-20260926T161241Z.json` and
+   `sim-aa2076e201d3-20260926T161640Z.json` (104/104, 0 skipped);
+   C++ suite 41/41 green; workspace lock conformed (generation
+   sha256:8c70aab4…; control pushed through a7d16d1; the standing
+   context→devkit pin [SPLIT] unchanged — WR-6).
+5. **Item 6 continuity interim controls LANDED:** the PR-6 manual R2/R3
+   checklist (`views/workflows/r2r3-continuity-checklist.md`: source-
+   bound activation/acceptance receipts, compact-boundary +
+   reviewer-brief observation rows, the invariant→test map binding each
+   standing invariant class to its detector and publication trigger);
+   both control experiments EXECUTED — lossy-summary replay SURFACED a
+   degraded task statement as an invalid activation receipt; seeded
+   old-code error REJECTED the pre-fix binaries through the publication
+   gate with the typed trial-4 mechanism text.
+6. **The necessary H1 reached (session stops here):** the owner
+   adjudicates the `MVP4_SIMULATION_ACCEPTED` exit record per ADR-0055
+   (gate green at the published head, non-skipped receipts, standing
+   `INSTALLED_DESKTOP_EXECUTION_UNVERIFIED` residual) and chooses the
+   next boundary (RR-0→CA-1 interleave vs the pre-wave WR-5/WR-6
+   sequence).
+
 ## v34 session (2026-09-26)
 
 Owner-marked fresh session, designation jason-extended-cognition,
@@ -769,15 +836,17 @@ numbering note, the OBL-9A7B41 and OBL-D6E7F8 riders, the state
   mutation kinds deny typed 61; timed-out child TREES reclaimed
   (Job Object); 1.7 MB flood vs 1 MiB cap fails typed 73. The live
   cross-user connect is the recorded MVP-7 H1 runbook remainder.
-- MVP-4 NOT ACCEPTED - exit gate AMENDED 2026-09-26 (ADR-0055):
-  implementation exists and rows 2-5 are locally proven; four owner-live
-  trials failed on four distinct infrastructure defects (trials 1-4,
-  evidence audits 2026-09-23..26). The interim exit is now the
-  simulated ZCode hook lifecycle gate (`MVP4_SIMULATION_ACCEPTED`,
-  standing `INSTALLED_DESKTOP_EXECUTION_UNVERIFIED` residual; the
-  owner-live trial instrument is RETIRED; real-harness build/execution
-  on the owner machine is banned). The gate build is the next program
-  batch (OBL-20260926T234500Z-B4C5D6 item 4).
+- MVP-4 exit: **the simulated ZCode hook lifecycle gate is GREEN at the
+  published head** (v35, ADR-0055): qiven-runtime `aa2076e`, gate:local
+  PASS (h1-sim 104/104, 0 skipped; receipt
+  `sim-aa2076e201d3-20260926T161640Z.json`, verify-receipt OK), typed
+  states `SIMULATED_HOOK_HOST_PASS` + `PINNED_SOURCE_CONTRACT_REVIEWED`
+  standing with the `INSTALLED_DESKTOP_EXECUTION_UNVERIFIED` residual;
+  the four owner-live trials remain incident evidence; the owner-live
+  instrument is RETIRED and real-harness build/execution on the owner
+  machine is banned. The `MVP4_SIMULATION_ACCEPTED` exit record awaits
+  the owner's adjudication (the v35 H1 stop); rows 2-5 provenance and
+  the hello-deadline/preflight fixes landed inside the gate batch.
 
 ## Corrected continuity model
 
@@ -931,41 +1000,28 @@ repositories follow per
 
 ## Next boundary
 
-1. **PR4 close-out program through item 5 — COMPLETE (v34).** The
-   canonical amendments (owner H2 + root principal), the four-repo
-   docs-only repairs, AND the adjudicated Devkit repair all landed
-   (every gate PASS at exact heads; workspace lock conformed). **Next
-   program: the simulated-gate build per OBL-20260926T234500Z-B4C5D6
-   item 4** — the simulated hook/host lifecycle gate in qiven-runtime
-   (real hook exe + RuntimeHost over the real pipe, independently
-   sourced fixtures, the five incidents as distinct old-fail/new-pass
-   cases, skip → NOT_VALIDATED with the h1_kit_test.py skip-success
-   fix, 100-case breadth target with invariant coverage map,
-   writable-child bypass as a negative case, exact-head receipt
-   binding, publication gate rejects absent/skipped/stale/failed
-   receipts), then item 6 continuity interim controls (manual R2/R3
-   checklist per the just-landed Devkit standards v2, invariant→test
-   map, coverage observation + the two control experiments).
-   Real-harness build/execution on the owner machine stays banned; no
-   Foundation wholesale-adoption prerequisite; no ZCode transplant;
-   lower-layer fixes are separately admitted when the simulated tests
-   detect concrete defects.
-2. **Workspace migration is NOT blocked** (WR-5/WR-6 are
-   infrastructure, disjoint from the defect class) but sequences after
-   the wave: devkit template/tool pre-wave (router v4.3 path-prefix +
-   gate-configure gaps; operator.json configure-task mechanism), then
-   WR-5 (one owner opening grant; per-platform CI presets; 3-pass
-   self-review admissions), then WR-6 pin reconciliation (closes the
-   standing BaselineConflict; the re-pin ripple carries everything).
-3. **RR-0 mechanical batch → CA-1** (inside the open CA interval) may
-   interleave after the simulated gate lands; MVP-5 stays FROZEN
-   until CA-2 AND the simulated-gate MVP-4 exit.
-4. Standing: qiven-context's devkit pin remains d1d2a3a (WR-6 target;
+1. **OWNER DECISION POINT (the v35 H1 stop): adjudicate the
+   `MVP4_SIMULATION_ACCEPTED` MVP-4 exit record** per ADR-0055 — the
+   simulated gate is green at the published head
+   (qiven-runtime `aa2076e`, receipt `sim-aa2076e201d3-…`, 104/104
+   non-skipped, typed states standing) with the
+   `INSTALLED_DESKTOP_EXECUTION_UNVERIFIED` residual — and choose the
+   next program: RR-0 mechanical batch → CA-1 (may interleave now that
+   the simulated gate has landed), or the WR-5/WR-6 pre-wave
+   (devkit template/tool pre-wave, then WR-5 one owner opening grant,
+   then WR-6 pin reconciliation closing the standing BaselineConflict).
+   OBL-20260926T234500Z-B4C5D6 items (1)-(6) are all delivered; the
+   acceptance record is the single remaining act.
+2. Standing residuals: MVP-5 stays FROZEN until CA-2 AND the
+   MVP4_SIMULATION_ACCEPTED exit record; the compaction-recurrence
+   hypothesis stays a standing TESTABLE hypothesis (the interim
+   controls are `views/workflows/r2r3-continuity-checklist.md` — every
+   R2/R3 batch pays the manual PR-6 receipt until the request-boundary
+   program lands); the qualification rig stays disposable pending owner
+   decision; the pre-fix reference binaries
+   (qiven-runtime `.generated-temp/h1-sim/prefix-reference/`) are the
+   old-fail evidence pair — regenerate from git history if needed.
+3. Standing: qiven-context's devkit pin remains d1d2a3a (WR-6 target;
    standing typed BaselineConflict vs lock devkit node); git-network
    routing suspended at the router; the archival wave (OBL-F0A1B2)
-   stays deferred behind the higher-priority lanes. The qualification
-   rig is disposable (durable record = the accepted evidence
-   document; the profile file stays installed as the qualified
-   reviewer surface). Router v4.3 is live workspace-wide (the hook
-   reads the working-copy script per call); the reviewer profile is
-   usable from any session started after its install.
+   stays deferred behind the higher-priority lanes.
