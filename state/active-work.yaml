@@ -27,43 +27,42 @@ objective: >-
   MVP-4 H1 pass, RR-0, and CA-2 pass. Active batches: CA-0 + MVP-4
   corrective lane + RR-0 in one bounded interval (OBL-20260923T190500Z-D6E7F8).
 accepted_checkpoint:
-  subject: v31-closeout-veto-windows-closed
-  ref: 'the v31 closeout transactions (OBL-F1A2B3 complete: experiments evidenced + spec amended; ci watch landed devkit 90c675a; math+runtime CI proofs SUCCESS; router v4.2 env-before-python fix devkit 58df1bd; write-bearing delegation default; v29+v31 veto windows CLOSED by owner 全批; v31 checkpoint)'
+  subject: v33-pr4-preacceptance-gate-passed-and-pr4-accepted
+  ref: 'the v33 transactions (reviewer qualification kit + profile install; owner-hands qualification run ALL 7 gates PASS = CUSTOM_REVIEWER_QUALIFIED scoped; independent re-verification; qiven-docs PR #4 accepted db92c8b/3529cd6/52a8a32 with signed acceptance comment; v33 checkpoint)'
   evidence:
-    - 'v31 (2026-09-26, designation jason-extended-cognition, long-running
-      mode turn 1, delegated per-batch H2): turn 1 = OBL-F1A2B3 complete
-      (experiments audit + scanner + subagent-delegation amendments +
-      MEM-20260926T210000Z-A3B4C5; devkit 90c675a ci watch with gates
-      cc7e769/bb98dd4 + review/verify rounds; math run 36185940592 and
-      runtime run 36185938457 both SUCCESS with receipts; context
-      b3e8d11). Turn 2 = router v4.2 (env-before-python escape fixed,
-      devkit 58df1bd) + write-bearing delegation default (context
-      670bc96). Turn 3 = owner 全批 closes the v29 and v31 veto windows
-      (trust-policy residuals note; MEM-C1D2E3 owner-accepted) + the
-      next-long-session program recorded.'
+    - 'v33 (2026-09-26, designation jason-extended-cognition, normal
+      mode): rig prepared (fixture c7edcb8, seeded H1 deadline-split
+      chain proven 121->114, tests green = oracle gap, baits, 3 briefs,
+      pre-registered Q-GATE-1..7); profile installed sha256 b8bfa64a;
+      qualification run by owner-hands fresh session on build
+      3.14.3.7762 (orchestrator sess_57de39db, children
+      agent_3f81f373/agent_d2920ab9/agent_432e7e3a) - all gates PASS;
+      session-side re-verification reproduced both gate scans +
+      byte-stability; evidence = qiven-docs
+      accepted/2026-09-26/02-reviewer-qualification-evidence.md;
+      transcript-id mapping fact (agent_<uuid> vs
+      sess_subagent_agent_<uuid>) baked into rig prompt + delegation
+      workflow platform facts.'
 current_candidate:
   subject: none-open
-  ref: 'no unaccepted engineering candidate; the MVP-4 H1 trial-4 diagnosis is recorded (evidence audit); the owner-live H1 is RETIRED by owner direction pending ADR'
+  ref: 'no unaccepted engineering candidate; the canonical amendments batch (ADR-0047/0050 wording, ADR-0043 forfeiture, ADR-0039/0018 scope notes, ADR-0055 landing) is the next owner-H2 decision point - session prepares exact diffs'
   state: none-open
 blockers: []
 paused_work:
 - qiven-runtime/process-execution
 - qiven-cad
 next_boundary: >-
-  NEXT OWNER SESSION: qualify the custom read-only ZCode reviewer on
-  the intended installation (PR4 pre-acceptance gate, status
-  CUSTOM_REVIEWER_NOT_QUALIFIED; owner hands + session-prepared kit),
-  then adjudicate qiven-docs PR #4 (head ba6f85b, seven documents:
-  simulated hook/host MVP-4 gate MVP4_SIMULATION_ACCEPTED +
-  INSTALLED_DESKTOP_EXECUTION_UNVERIFIED; evidence audit; Foundation/
-  Devkit museum repairs; Host/DCR retirement; compaction-continuity
-  proposal; reviewer qualification), then land the canonical
-  amendments (ADR-0047/0050 real-H1 wording, ADR-0043 forfeiture,
-  ADR-0039/0018 scope notes) and execute the amended
-  OBL-20260926T234500Z-B4C5D6 program (simulated gate build, doc
-  repairs, continuity controls). Real-harness execution on the owner
-  machine banned; no Foundation wholesale-adoption prerequisite; no
-  ZCode transplant. WR-5/WR-6 not blocked, sequenced after; RR-0 ->
-  CA-1 after the simulated gate; MVP-5 frozen until CA-2 + the
-  simulated-gate MVP-4 exit.
-updated_at: '2026-09-26T11:47:00Z'
+  Canonical amendments batch (owner H2 + root principal, the
+  non-delegable ADR-lifecycle class): land the accepted PR4
+  transaction map in qiven-context - ADR-0047/0050 real-H1 wording,
+  ADR-0043 forfeiture, ADR-0039/0018 scope notes, ADR-0055 as the
+  simulated MVP-4 gate (MVP4_SIMULATION_ACCEPTED +
+  INSTALLED_DESKTOP_EXECUTION_UNVERIFIED) plus its exit-matrix/
+  obligation/state riders; session prepares exact diffs, owner accepts
+  before landing. Then the simulated-gate build and doc-repair batches
+  per the amended OBL-20260926T234500Z-B4C5D6. Real-harness execution
+  on the owner machine banned; no Foundation wholesale-adoption
+  prerequisite; no ZCode transplant. WR-5/WR-6 not blocked, sequenced
+  after; RR-0 -> CA-1 after the simulated gate; MVP-5 frozen until
+  CA-2 + the simulated-gate MVP-4 exit.
+updated_at: '2026-09-26T13:30:00Z'
